@@ -1,0 +1,16 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="org.md2k.mcerebrum.api" >
+    <application
+        android:allowBackup="true"
+        android:supportsRtl="true">
+        <service
+            android:name=".pluginapi.MCServicePlugin"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="org.md2k.mcerebrum.PLUGIN" />
+            </intent-filter>
+        </service>
+    </application>
+</manifest>
