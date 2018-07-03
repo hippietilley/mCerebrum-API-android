@@ -98,11 +98,11 @@ public class ApplicationMetaData implements Parcelable{
         custom= builder.custom;
     }
 
-    void setVersionName(String versionName) {
+    protected void setVersionName(String versionName) {
         this.versionName = versionName;
     }
 
-    void setVersionNumber(int versionNumber) {
+    protected void setVersionNumber(int versionNumber) {
         this.versionNumber = versionNumber;
     }
 

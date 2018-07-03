@@ -30,6 +30,12 @@ import android.os.Parcelable;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public class DataSet implements Parcelable{
+    private Data[] data;
+    private int actualDataSize;
+    private int receivedDataSize;
+    private int samplingType;
+    private int status;
+
     protected DataSet(Parcel in) {
         readFromParcel(in);
     }
@@ -78,11 +84,6 @@ public class DataSet implements Parcelable{
             return id;
         }
     }
-    private Data[] data;
-    private int actualDataSize;
-    private int receivedDataSize;
-    private int samplingType;
-    private int status;
     public DataSet(){
 
     }

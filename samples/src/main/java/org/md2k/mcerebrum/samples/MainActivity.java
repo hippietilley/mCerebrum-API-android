@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         DataPointDouble data = new DataPointDouble(curTime, d);
         // insert the data point
         mCerebrumAPI.insert(r, data);
-
     }
 
     public void query() {

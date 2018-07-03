@@ -29,6 +29,9 @@ package org.md2k.mcerebrum.api.datakitapi.datasource;
 public final class APPLICATION {
     private APPLICATION(){}
     public static class TYPE {
+        public static final String SENSE="SENSE";
+        public static final String ANALYZE="ANALYZE";
+        public static final String ACT="ACT";
     }
     public static class ID {
     }
