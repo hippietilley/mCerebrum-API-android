@@ -31,11 +31,11 @@ package org.md2k.mcerebrum.api.datakitapi;
  * Container object class for data sources.
  */
 public class Registration {
-    private DataSource dataSourceRead;
+    private DataSource dataSource;
     private int status;
 
-    Registration(DataSourceReadWrite dataSourceRead, int status) {
-        this.dataSourceRead = dataSourceRead;
+    Registration(DataSource dataSource, int status) {
+        this.dataSource = dataSource;
         this.status = status;
     }
 
@@ -43,7 +43,7 @@ public class Registration {
         return status;
     }
 
-    public DataSource getDataSourceRead() {
-        return dataSourceRead;
+    public DataSource getDataSource() {
+        return dataSource;
     }
 }

@@ -31,8 +31,8 @@ public class DataSourceSet {
     private DataSource[] dataSource;
     private int status;
 
-    DataSourceSet(DataSource[] dataSourceReadWrites, int status) {
-        this.dataSource = dataSourceReadWrites;
+    DataSourceSet(DataSource[] dataSources, int status) {
+        this.dataSource = dataSources;
         this.status = status;
     }
 

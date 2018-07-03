@@ -151,7 +151,7 @@ public final class DataKitAPI {
     public int unregister(Registration registration) {
         if(registration==null) return MCerebrumStatus.INVALID_PARAMETER;
         if(registration.getStatus()!=MCerebrumStatus.SUCCESS) return registration.getStatus();
-        return mServiceConnection.unregister(registration.getDataSourceRead().toDataSourceReadWrite());
+        return mServiceConnection.unregister(registration.getDataSource().toDataSourceReadWrite());
     }
 
     public DataSourceSet find(DataSourceQuery dataSourceRequest) {
@@ -163,46 +163,46 @@ public final class DataKitAPI {
 
     public int insert(Registration registration, Data[] data) {
         if(registration==null) return MCerebrumStatus.INVALID_PARAMETER;
-        return mServiceConnection.insert(registration.getDataSourceRead(), data);
+        return mServiceConnection.insert(registration.getDataSource(), data);
     }
 
     public boolean isConnected() {
         return mServiceConnection.isConnected();
     }
 
-    public DataSet query(DataSource dataSourceRead, int lastNPoint) {
+    public DataSet query(DataSource dataSource, int lastNPoint) {
         DataSet dataSet=new DataSet();
-        int r = mServiceConnection.queryByNumber(dataSourceRead.toDataSourceReadWrite(), lastNPoint, dataSet);
+        int r = mServiceConnection.queryByNumber(dataSource.toDataSourceReadWrite(), lastNPoint, dataSet);
         dataSet.setStatus(r);
         return dataSet;
     }
 
-    public DataSet query(DataSource dataSourceRead, long startTimestamp, long endTimestamp) {
+    public DataSet query(DataSource dataSource, long startTimestamp, long endTimestamp) {
         DataSet dataSet=new DataSet();
-        int r = mServiceConnection.queryByTime(dataSourceRead.toDataSourceReadWrite(), startTimestamp,endTimestamp, dataSet);
+        int r = mServiceConnection.queryByTime(dataSource.toDataSourceReadWrite(), startTimestamp,endTimestamp, dataSet);
         dataSet.setStatus(r);
         return dataSet;
     }
 
-    public DataSet querySummary(DataSource dataSourceRead, long startTimestamp, long endTimestamp) {
+    public DataSet querySummary(DataSource dataSource, long startTimestamp, long endTimestamp) {
         DataSet dataSet=new DataSet();
-        int r = mServiceConnection.querySummary(dataSourceRead.toDataSourceReadWrite(), startTimestamp,endTimestamp, dataSet);
+        int r = mServiceConnection.querySummary(dataSource.toDataSourceReadWrite(), startTimestamp,endTimestamp, dataSet);
         dataSet.setStatus(r);
         return dataSet;
     }
 
-    public int queryCount(DataSource dataSourceRead, long startTimestamp, long endTimestamp) {
+    public int queryCount(DataSource dataSource, long startTimestamp, long endTimestamp) {
         DataSet dataSet=new DataSet();
-        int r = mServiceConnection.queryCount(dataSourceRead.toDataSourceReadWrite(), startTimestamp,endTimestamp, dataSet);
+        int r = mServiceConnection.queryCount(dataSource.toDataSourceReadWrite(), startTimestamp,endTimestamp, dataSet);
         if(r!=MCerebrumStatus.SUCCESS) return -1;
         return dataSet.getActualDataSize();
     }
 
-    public int subscribe(DataSource dataSourceRead, DataCallback callback) {
-        return mServiceConnection.subscribe(dataSourceRead.toDataSourceReadWrite(), callback);
+    public int subscribe(DataSource dataSource, DataCallback callback) {
+        return mServiceConnection.subscribe(dataSource.toDataSourceReadWrite(), callback);
     }
 
-    public int unsubscribe(DataSource dataSourceRead, DataCallback callback) {
-        return mServiceConnection.unsubscribe(dataSourceRead.toDataSourceReadWrite(), callback);
+    public int unsubscribe(DataSource dataSource, DataCallback callback) {
+        return mServiceConnection.unsubscribe(dataSource.toDataSourceReadWrite(), callback);
     }
 }

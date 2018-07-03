@@ -98,15 +98,15 @@ class MyServiceConnection implements ServiceConnection {
         }
     }
 
-    int insert(DataSource dataSourceRead, Data[] data){
-        if(dataSourceRead==null) return MCerebrumStatus.INVALID_PARAMETER;
-        if(dataSourceRead.getDsId()<0) return MCerebrumStatus.DATA_SOURCE_NOT_REGISTERED;
+    int insert(DataSource dataSource, Data[] data){
+        if(dataSource==null) return MCerebrumStatus.INVALID_PARAMETER;
+        if(dataSource.getDsId()<0) return MCerebrumStatus.DATA_SOURCE_NOT_REGISTERED;
         if(data==null || data.length==0) return MCerebrumStatus.INVALID_PARAMETER;
-        DataType dataType=DataType.valueOf(dataSourceRead.getDataType());
+        DataType dataType=DataType.valueOf(dataSource.getDataType());
         for (Data aData : data) {
             if (aData.getType() != dataType) return MCerebrumStatus.INCONSISTENT_DATA_TYPE;
         }
-        return insertionManager.insert(dataSourceRead.getDsId(), data);
+        return insertionManager.insert(dataSource.getDsId(), data);
     }
 
     int queryCount(DataSourceReadWrite dataSourceAIDL, long startTimestamp, long endTimestamp, DataSet dataSet){
