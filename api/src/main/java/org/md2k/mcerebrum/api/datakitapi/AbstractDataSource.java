@@ -83,119 +83,119 @@ public abstract class AbstractDataSource implements Parcelable {
         appId = in.readString();
     }
 
-    int getDsId() {
+    protected int getDsId() {
         return dsId;
     }
 
-    void setDsId(int dsId) {
+    protected void setDsId(int dsId) {
         this.dsId = dsId;
     }
 
-    long getCreationTime() {
+    protected long getCreationTime() {
         return creationTime;
     }
 
-    void setCreationTime(long creationTime) {
+    protected void setCreationTime(long creationTime) {
         this.creationTime = creationTime;
     }
 
-    long getModifiedTime() {
+    protected long getModifiedTime() {
         return modifiedTime;
     }
 
-    void setModifiedTime(long modifiedTime) {
+    protected void setModifiedTime(long modifiedTime) {
         this.modifiedTime = modifiedTime;
     }
 
-    int getStatus() {
+    protected int getStatus() {
         return status;
     }
 
-    void setStatus(int status) {
+    protected void setStatus(int status) {
         this.status = status;
     }
 
-    String getDataSourceType() {
+    protected String getDataSourceType() {
         return dataSourceType;
     }
 
-    void setDataSourceType(String dataSourceType) {
+    protected void setDataSourceType(String dataSourceType) {
         this.dataSourceType = dataSourceType;
     }
 
-    String getDataSourceId() {
+    protected String getDataSourceId() {
         return dataSourceId;
     }
 
-    void setDataSourceId(String dataSourceId) {
+    protected void setDataSourceId(String dataSourceId) {
         this.dataSourceId = dataSourceId;
     }
 
-    String getPlatformType() {
+    protected String getPlatformType() {
         return platformType;
     }
 
-    void setPlatformType(String platformType) {
+    protected void setPlatformType(String platformType) {
         this.platformType = platformType;
     }
 
-    String getPlatformId() {
+    protected String getPlatformId() {
         return platformId;
     }
 
-    void setPlatformId(String platformId) {
+    protected void setPlatformId(String platformId) {
         this.platformId = platformId;
     }
 
-    String getPlatformAppType() {
+    protected String getPlatformAppType() {
         return platformAppType;
     }
 
-    void setPlatformAppType(String platformAppType) {
+    protected void setPlatformAppType(String platformAppType) {
         this.platformAppType = platformAppType;
     }
 
-    String getPlatformAppId() {
+    protected String getPlatformAppId() {
         return platformAppId;
     }
 
-    void setPlatformAppId(String platformAppId) {
+    protected void setPlatformAppId(String platformAppId) {
         this.platformAppId = platformAppId;
     }
 
-    String getApplicationType() {
+    protected String getApplicationType() {
         return applicationType;
     }
 
-    void setApplicationType(String applicationType) {
+    protected void setApplicationType(String applicationType) {
         this.applicationType = applicationType;
     }
 
-    String getApplicationId() {
+    protected String getApplicationId() {
         return applicationId;
     }
 
-    void setApplicationId(String applicationId) {
+    protected void setApplicationId(String applicationId) {
         this.applicationId = applicationId;
     }
 
-    DataSourceMetaData getDataSourceMetaData() {
+    protected DataSourceMetaData getDataSourceMetaData() {
         return dataSourceMetaData;
     }
 
-    void setDataSourceMetaData(DataSourceMetaData dataSourceMetaData) {
+    protected void setDataSourceMetaData(DataSourceMetaData dataSourceMetaData) {
         this.dataSourceMetaData = dataSourceMetaData;
     }
 
-    PlatformMetaData getPlatformMetaData() {
+    protected PlatformMetaData getPlatformMetaData() {
         return platformMetaData;
     }
 
-    void setPlatformMetaData(PlatformMetaData platformMetaData) {
+    protected void setPlatformMetaData(PlatformMetaData platformMetaData) {
         this.platformMetaData = platformMetaData;
     }
 
-    PlatformAppMetaData getPlatformAppMetaData() {
+    protected PlatformAppMetaData getPlatformAppMetaData() {
         return platformAppMetaData;
     }
 
@@ -203,43 +203,43 @@ public abstract class AbstractDataSource implements Parcelable {
         this.platformAppMetaData = platformAppMetaData;
     }
 
-    ApplicationMetaData getApplicationMetaData() {
+    protected ApplicationMetaData getApplicationMetaData() {
         return applicationMetaData;
     }
 
-    void setApplicationMetaData(ApplicationMetaData applicationMetaData) {
+    protected void setApplicationMetaData(ApplicationMetaData applicationMetaData) {
         this.applicationMetaData = applicationMetaData;
     }
 
-    ArrayList<DataDescriptor> getDataDescriptors() {
+    protected ArrayList<DataDescriptor> getDataDescriptors() {
         return dataDescriptors;
     }
 
-    void setDataDescriptors(ArrayList<DataDescriptor> dataDescriptors) {
+    protected void setDataDescriptors(ArrayList<DataDescriptor> dataDescriptors) {
         this.dataDescriptors = dataDescriptors;
     }
 
-    String getDataType() {
+    protected String getDataType() {
         return dataType;
     }
 
-    void setDataType(String dataType) {
+    protected void setDataType(String dataType) {
         this.dataType = dataType;
     }
 
-    String getDataRate() {
+    protected String getDataRate() {
         return dataRate;
     }
 
-    void setDataRate(String dataRate) {
+    protected void setDataRate(String dataRate) {
         this.dataRate = dataRate;
     }
 
-    String getAppId() {
+    protected String getAppId() {
         return appId;
     }
 
-    void setAppId(String appId) {
+    protected void setAppId(String appId) {
         this.appId = appId;
     }
 
