@@ -6,7 +6,7 @@ import android.content.Context;
 import org.md2k.mcerebrum.api.datakitapi.DataKitAPI;
 import org.md2k.mcerebrum.api.datakitapi.DataSource;
 import org.md2k.mcerebrum.api.datakitapi.DataSourceCreator;
-import org.md2k.mcerebrum.api.datakitapi.DataSourceQuery;
+import org.md2k.mcerebrum.api.datakitapi.DataSourceRequest;
 import org.md2k.mcerebrum.api.datakitapi.DataSourceSet;
 import org.md2k.mcerebrum.api.datakitapi.Registration;
 import org.md2k.mcerebrum.api.datakitapi.callback.ConnectionCallback;
@@ -100,7 +100,7 @@ public final class mCerebrumAPI {
 
 
     }
-    public static DataSourceSet find(DataSourceQuery dataSourceRequest){
+    public static DataSourceSet find(DataSourceRequest dataSourceRequest){
         if(instance==null) return null;
         return instance.dataKitAPI.find(dataSourceRequest);
     }

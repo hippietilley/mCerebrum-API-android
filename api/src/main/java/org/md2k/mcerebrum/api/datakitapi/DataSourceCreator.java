@@ -106,10 +106,10 @@ public class DataSourceCreator extends DataSource implements Parcelable{
         }
     };
 
-    public static Builder builder(String dataSourceType, String dataType){
+    public static Builder builder(String dataSourceType, DataType dataType){
         Builder b =  new Builder();
         b.dataSourceType=dataSourceType;
-        b.dataType = dataType;
+        b.dataType = dataType.name();
         return b;
     }
 

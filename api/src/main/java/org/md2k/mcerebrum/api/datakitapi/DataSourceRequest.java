@@ -29,15 +29,15 @@ package org.md2k.mcerebrum.api.datakitapi;
 
 import android.os.Parcel;
 
-public class DataSourceQuery extends AbstractDataSource {
-    private DataSourceQuery() {
+public class DataSourceRequest extends AbstractDataSource {
+    private DataSourceRequest() {
         super();
     }
-    private DataSourceQuery(Parcel in){
+    private DataSourceRequest(Parcel in){
         super(in);
     }
 
-    private DataSourceQuery(Builder dataSourceBuilder) {
+    private DataSourceRequest(Builder dataSourceBuilder) {
         dataSourceType = dataSourceBuilder.dataSourceType;
         dataSourceId=dataSourceBuilder.dataSourceId;
         platformType=dataSourceBuilder.platformType;
@@ -121,23 +121,23 @@ public class DataSourceQuery extends AbstractDataSource {
             this.applicationId = applicationId;
             return this;
         }
-        public DataSourceQuery build() {
-            return new DataSourceQuery(this);
+        public DataSourceRequest build() {
+            return new DataSourceRequest(this);
         }
     }
     @Override
     public int describeContents() {
         return 0;
     }
-    public static final Creator<DataSourceQuery> CREATOR = new Creator<DataSourceQuery>() {
+    public static final Creator<DataSourceRequest> CREATOR = new Creator<DataSourceRequest>() {
         @Override
-        public DataSourceQuery createFromParcel(Parcel in) {
-            return new DataSourceQuery(in);
+        public DataSourceRequest createFromParcel(Parcel in) {
+            return new DataSourceRequest(in);
         }
 
         @Override
-        public DataSourceQuery[] newArray(int size) {
-            return new DataSourceQuery[size];
+        public DataSourceRequest[] newArray(int size) {
+            return new DataSourceRequest[size];
         }
     };
 

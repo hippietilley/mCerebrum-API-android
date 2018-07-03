@@ -75,7 +75,7 @@ class InsertionManager {
     };
     int insert(int dsId, Data[] data){
         lock.lock();
-        ArrayList<Long> a = bufferTime.get(dsId, new ArrayList<>());
+        ArrayList<Long> a = bufferTime.get(dsId, new ArrayList<Long>());
         List<Data> list=this.data.get(dsId);
         if(list==null) list=new ArrayList<Data>();
         for (Data aData : data) {

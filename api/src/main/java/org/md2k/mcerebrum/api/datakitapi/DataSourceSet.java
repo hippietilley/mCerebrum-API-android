@@ -33,10 +33,12 @@ public class DataSourceSet {
 
     DataSourceSet(DataSource[] dataSources, int status) {
         this.dataSource = dataSources;
+        if(this.dataSource==null) this.dataSource=new DataSource[0];
         this.status = status;
     }
 
-    public DataSource[] getDataSource() {
+    public DataSource[] getDataSources() {
+        if(this.dataSource==null) this.dataSource=new DataSource[0];
         return dataSource;
     }
 

@@ -154,7 +154,7 @@ public final class DataKitAPI {
         return mServiceConnection.unregister(registration.getDataSource().toDataSourceReadWrite());
     }
 
-    public DataSourceSet find(DataSourceQuery dataSourceRequest) {
+    public DataSourceSet find(DataSourceRequest dataSourceRequest) {
         if(dataSourceRequest==null) return new DataSourceSet(null, MCerebrumStatus.INVALID_PARAMETER);
         DataSourceReadWrite[] dataSources=new DataSourceReadWrite[0];
         int r= mServiceConnection.find(dataSourceRequest.toDataSourceReadWrite(), dataSources);

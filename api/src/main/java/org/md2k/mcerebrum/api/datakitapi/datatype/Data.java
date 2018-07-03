@@ -30,8 +30,6 @@ package org.md2k.mcerebrum.api.datakitapi.datatype;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.bluelinelabs.logansquare.annotation.JsonObject;
-
 import org.md2k.mcerebrum.api.datakitapi.datatype.dataannotation.DataAnnotationEnum;
 import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointBoolean;
 import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointByte;
@@ -45,7 +43,6 @@ import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointString;
 /**
  * This class provides the methods that all <code>DataType</code> objects use.
  */
-@JsonObject(fieldDetectionPolicy = JsonObject.FieldDetectionPolicy.NONPRIVATE_FIELDS)
 public class Data implements Parcelable{
 
     /** The timestamp for when the data was collected */

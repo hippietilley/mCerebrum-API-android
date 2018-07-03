@@ -52,7 +52,7 @@ class SubscriptionManager {
     }
 
     private void addToReceiveCallback(int dsId, DataCallback dataCallback) {
-        HashSet<DataCallback> hs = receiveCallbacks.get(dsId, new HashSet<>());
+        HashSet<DataCallback> hs = receiveCallbacks.get(dsId, new HashSet<DataCallback>());
         if (!hs.contains(dataCallback))
             hs.add(dataCallback);
         receiveCallbacks.put(dsId, hs);
@@ -66,14 +66,14 @@ class SubscriptionManager {
     }
 
     private void sendReceiveCallback(int dsId, Data data) {
-        HashSet<DataCallback> hs = receiveCallbacks.get(dsId, new HashSet<>());
+        HashSet<DataCallback> hs = receiveCallbacks.get(dsId, new HashSet<DataCallback>());
         for (DataCallback h : hs)
             h.onReceived(data);
     }
 
     int subscribe(int dsId, DataCallback dataCallback) {
         try {
-            boolean isEmpty = receiveCallbacks.get(dsId, new HashSet<>()).isEmpty();
+            boolean isEmpty = receiveCallbacks.get(dsId, new HashSet<DataCallback>()).isEmpty();
             addToReceiveCallback(dsId, dataCallback);
             if (isEmpty) {
                 IDataKitRemoteCallback rc = createIDataKitRemoteCallback(dsId);
