@@ -34,13 +34,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.Settings;
 
-import org.md2k.mcerebrum.api.datakitapi.datasource.DATASOURCE;
 import org.md2k.mcerebrum.api.datakitapi.datasource.PLATFORM;
 import org.md2k.mcerebrum.api.datakitapi.datatype.DataType;
 import org.md2k.mcerebrum.api.mCerebrumAPI;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class DataSourceCreator extends DataSource implements Parcelable{
@@ -114,22 +112,22 @@ public class DataSourceCreator extends DataSource implements Parcelable{
     }
 
     public static class Builder {
-        String dataSourceType = null;
-        String dataSourceId = null;
-        String platformType=null;
-        String platformId = null;
-        String platformAppType=null;
-        String platformAppId = null;
-        String applicationType=null;
-        String applicationId = null;
-        DataSourceMetaData dataSourceMetaData;
-        PlatformMetaData platformMetaData;
-        PlatformAppMetaData platformAppMetaData;
-        ApplicationMetaData applicationMetaData;
+        private String dataSourceType = null;
+        private String dataSourceId = null;
+        private String platformType=null;
+        private String platformId = null;
+        private String platformAppType=null;
+        private String platformAppId = null;
+        private String applicationType=null;
+        private String applicationId = null;
+        private DataSourceMetaData dataSourceMetaData;
+        private PlatformMetaData platformMetaData;
+        private PlatformAppMetaData platformAppMetaData;
+        private ApplicationMetaData applicationMetaData;
 
-        ArrayList<DataDescriptor> dataDescriptors = new ArrayList<>();
-        String dataType = null;
-        String dataRate =null;
+        private ArrayList<DataDescriptor> dataDescriptors = new ArrayList<>();
+        private String dataType = null;
+        private String dataRate =null;
 
         Builder() {
         }

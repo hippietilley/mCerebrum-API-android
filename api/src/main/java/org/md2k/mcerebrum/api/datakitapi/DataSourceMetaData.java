@@ -30,10 +30,7 @@ package org.md2k.mcerebrum.api.datakitapi;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.md2k.mcerebrum.api.datakitapi.datasource.DATASOURCE;
-
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Builder class for <code>DataSource</code> objects

@@ -77,14 +77,14 @@ public class DataSourceRequest extends AbstractDataSource {
     }
 
     public static class Builder {
-        String dataSourceType = null;
-        String dataSourceId = null;
-        String platformType = null;
-        String platformId = null;
-        String platformAppType = null;
-        String platformAppId = null;
-        String applicationType = null;
-        String applicationId = null;
+        private String dataSourceType = null;
+        private String dataSourceId = null;
+        private String platformType = null;
+        private String platformId = null;
+        private String platformAppType = null;
+        private String platformAppId = null;
+        private String applicationType = null;
+        private String applicationId = null;
         Builder() {
         }
         public Builder setDataSourceType(String dataSourceType) {

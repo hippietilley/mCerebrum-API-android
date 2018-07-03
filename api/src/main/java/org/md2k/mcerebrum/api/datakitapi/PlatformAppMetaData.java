@@ -91,8 +91,8 @@ public class PlatformAppMetaData implements Parcelable{
     public String getDescription(){
         return description;
     }
-    private String getOperationSystem(){ return operationSystem;}
-    private String getManufacturer(){return manufacturer;}
+    public String getOperationSystem(){ return operationSystem;}
+    public String getManufacturer(){return manufacturer;}
 
     public String getModel() {
         return model;
@@ -115,41 +115,6 @@ public class PlatformAppMetaData implements Parcelable{
         return custom.get(key);
     }
 
-    void setTitle(String title) {
-        this.title = title;
-    }
-
-    void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    void setDescription(String description) {
-        this.description = description;
-    }
-
-    void setOperationSystem(String operationSystem) {
-        this.operationSystem = operationSystem;
-    }
-
-    void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
-    }
-
-    void setModel(String model) {
-        this.model = model;
-    }
-
-    void setVersionFirmware(String versionFirmware) {
-        this.versionFirmware = versionFirmware;
-    }
-
-    void setVersionHardware(String versionHardware) {
-        this.versionHardware = versionHardware;
-    }
-
-    void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
-    }
 
     private PlatformAppMetaData(Builder builder) {
         title = builder.title;

@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -55,7 +54,7 @@ class InsertionManager {
     private static final double HIGH_FREQUENCY_LIMIT=2.0;
     private boolean isSyncScheduled;
     private ConnectionCallback connectionCallback;
-    Lock lock;
+    private Lock lock;
 
     InsertionManager(IDataKitRemoteService mService, ConnectionCallback connectionCallback){
         this.mService = mService;

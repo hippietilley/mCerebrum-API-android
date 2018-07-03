@@ -31,7 +31,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Creates <code>DataSource</code> objects containing information about the platform and application
