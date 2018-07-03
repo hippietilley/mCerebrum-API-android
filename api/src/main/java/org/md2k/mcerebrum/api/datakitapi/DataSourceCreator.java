@@ -41,9 +41,10 @@ import org.md2k.mcerebrum.api.mCerebrumAPI;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-public class DataSourceCreator extends DataSource implements Parcelable{
+public class DataSourceCreator extends DataSource implements Parcelable {
     private DataSourceCreator() {
     }
+
     private DataSourceCreator(Builder dataSourceBuilder) {
         super.setDataSourceType(dataSourceBuilder.dataSourceType);
         super.setDataSourceId(dataSourceBuilder.dataSourceId);
@@ -62,18 +63,18 @@ public class DataSourceCreator extends DataSource implements Parcelable{
         super.setDataRate(dataSourceBuilder.dataRate);
         try {
             Context context = mCerebrumAPI.getContext();
-            if(context!=null) {
+            if (context != null) {
                 super.setAppId(context.getPackageName());
                 String versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
                 int versionNumber = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
-                if(super.getApplicationMetaData()==null)
+                if (super.getApplicationMetaData() == null)
                     super.setApplicationMetaData(ApplicationMetaData.builder().setVersionNumber(versionNumber).setVersionName(versionName).build());
                 else {
                     super.getApplicationMetaData().setVersionName(versionName);
                     super.getApplicationMetaData().setVersionNumber(versionNumber);
                 }
             }
-        }catch (Exception ignored){
+        } catch (Exception ignored) {
 
         }
     }
@@ -104,9 +105,9 @@ public class DataSourceCreator extends DataSource implements Parcelable{
         }
     };
 
-    public static Builder builder(String dataSourceType, DataType dataType){
-        Builder b =  new Builder();
-        b.dataSourceType=dataSourceType;
+    public static Builder builder(String dataSourceType, DataType dataType) {
+        Builder b = new Builder();
+        b.dataSourceType = dataSourceType;
         b.dataType = dataType.name();
         return b;
     }
@@ -114,11 +115,11 @@ public class DataSourceCreator extends DataSource implements Parcelable{
     public static class Builder {
         private String dataSourceType = null;
         private String dataSourceId = null;
-        private String platformType=null;
+        private String platformType = null;
         private String platformId = null;
-        private String platformAppType=null;
+        private String platformAppType = null;
         private String platformAppId = null;
-        private String applicationType=null;
+        private String applicationType = null;
         private String applicationId = null;
         private DataSourceMetaData dataSourceMetaData;
         private PlatformMetaData platformMetaData;
@@ -127,10 +128,11 @@ public class DataSourceCreator extends DataSource implements Parcelable{
 
         private ArrayList<DataDescriptor> dataDescriptors = new ArrayList<>();
         private String dataType = null;
-        private String dataRate =null;
+        private String dataRate = null;
 
         Builder() {
         }
+
         private Builder setDataSourceType(String dataSourceType) {
             this.dataSourceType = dataSourceType;
             return this;
@@ -140,18 +142,22 @@ public class DataSourceCreator extends DataSource implements Parcelable{
             this.dataSourceId = datasourceId;
             return this;
         }
+
         public Builder setPlatformType(String platformType) {
             this.platformType = platformType;
             return this;
         }
+
         public Builder setPlatformId(String platformId) {
             this.platformId = platformId;
             return this;
         }
+
         public Builder setPlatformAppType(String platformApp) {
             this.platformAppType = platformApp;
             return this;
         }
+
         public Builder setPlatformAppId(String platformAppId) {
             this.platformAppId = platformAppId;
             return this;
@@ -161,30 +167,37 @@ public class DataSourceCreator extends DataSource implements Parcelable{
             this.applicationType = applicationType;
             return this;
         }
+
         public Builder setApplicationId(String applicationId) {
             this.applicationId = applicationId;
             return this;
         }
+
         public Builder setDataSourceMetadata(DataSourceMetaData dataSourceMetaData) {
-            this.dataSourceMetaData=dataSourceMetaData;
+            this.dataSourceMetaData = dataSourceMetaData;
             return this;
         }
+
         public Builder setPlatformMetadata(PlatformMetaData platformMetaData) {
-            this.platformMetaData=platformMetaData;
+            this.platformMetaData = platformMetaData;
             return this;
         }
+
         public Builder setPlatformAppMetadata(PlatformAppMetaData platformAppMetaData) {
-            this.platformAppMetaData=platformAppMetaData;
+            this.platformAppMetaData = platformAppMetaData;
             return this;
         }
+
         public Builder setApplicationMetaData(ApplicationMetaData applicationMetaData) {
             this.applicationMetaData = applicationMetaData;
             return this;
         }
-        private Builder setDataType(DataType dataType){
+
+        private Builder setDataType(DataType dataType) {
             this.dataType = dataType.name();
             return this;
         }
+
         public Builder setDataRate(int sampleNo, TimeUnit timeUnit) {
             switch (timeUnit) {
                 case DAYS:
@@ -199,17 +212,21 @@ public class DataSourceCreator extends DataSource implements Parcelable{
                 case SECONDS:
                     dataRate = Double.toString((double) (sampleNo));
                     break;
+                default:
+                    dataRate = Double.toString((double) (sampleNo));
+
             }
             return this;
         }
+
         @SuppressLint("HardwareIds")
         public Builder setPlatformAsPhone() {
             Context context = mCerebrumAPI.getContext();
             this.platformType = PLATFORM.TYPE.PHONE;
             this.platformId = Settings.Secure.getString(context.getContentResolver(),
                     Settings.Secure.ANDROID_ID);
-            if(this.platformMetaData==null)
-                this.platformMetaData=new PlatformMetaData();
+            if (this.platformMetaData == null)
+                this.platformMetaData = new PlatformMetaData();
             this.platformMetaData.setTitle("Android Phone");
 //        this.metadata.put(PlatformMetaData.SUMMARY,"Android Phone");
             this.platformMetaData.setOperationSystem("Android " + Build.VERSION.RELEASE);
@@ -218,10 +235,11 @@ public class DataSourceCreator extends DataSource implements Parcelable{
             return this;
         }
 
-        public Builder setDataDescriptor(int index, DataDescriptor dataDescriptor){
+        public Builder setDataDescriptor(int index, DataDescriptor dataDescriptor) {
             this.dataDescriptors.add(index, dataDescriptor);
             return this;
         }
+
         public DataSourceCreator build() {
             return new DataSourceCreator(this);
         }

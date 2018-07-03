@@ -60,7 +60,7 @@ public abstract class AbstractDataSource implements Parcelable {
 
     }
 
-    void readFromParcel(Parcel in) {
+    protected void readFromParcel(Parcel in) {
         dsId = in.readInt();
         creationTime = in.readLong();
         modifiedTime = in.readLong();
@@ -199,7 +199,7 @@ public abstract class AbstractDataSource implements Parcelable {
         return platformAppMetaData;
     }
 
-    void setPlatformAppMetaData(PlatformAppMetaData platformAppMetaData) {
+    protected void setPlatformAppMetaData(PlatformAppMetaData platformAppMetaData) {
         this.platformAppMetaData = platformAppMetaData;
     }
 
@@ -248,7 +248,7 @@ public abstract class AbstractDataSource implements Parcelable {
     }
 
 
-    DataSourceReadWrite toDataSourceReadWrite() {
+    protected DataSourceReadWrite toDataSourceReadWrite() {
         DataSourceReadWrite d = new DataSourceReadWrite();
         d.setDsId(this.dsId);
         d.setCreationTime(this.creationTime);

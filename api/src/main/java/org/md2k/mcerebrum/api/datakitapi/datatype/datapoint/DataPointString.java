@@ -32,8 +32,6 @@ import android.os.Parcelable;
 
 import org.md2k.mcerebrum.api.datakitapi.datatype.Data;
 
-import java.util.Arrays;
-
 /**
  * This class creates <code>DataType</code> objects for samples that have string data types in an array.
  */

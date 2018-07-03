@@ -6,6 +6,7 @@ import android.util.SparseArray;
 import org.md2k.mcerebrum.api.datakitapi.callback.ConnectionCallback;
 import org.md2k.mcerebrum.api.datakitapi.callback.DataCallback;
 import org.md2k.mcerebrum.api.datakitapi.datatype.Data;
+import org.md2k.mcerebrum.api.datakitapi.exception.MCerebrumException;
 import org.md2k.mcerebrum.api.datakitapi.status.MCerebrumStatus;
 
 import java.util.HashSet;
@@ -71,7 +72,7 @@ class SubscriptionManager {
             h.onReceived(data);
     }
 
-    int subscribe(int dsId, DataCallback dataCallback) {
+    protected int subscribe(int dsId, DataCallback dataCallback) {
         try {
             boolean isEmpty = receiveCallbacks.get(dsId, new HashSet<DataCallback>()).isEmpty();
             addToReceiveCallback(dsId, dataCallback);
@@ -81,6 +82,7 @@ class SubscriptionManager {
                 return mService.subscribe(dsId, rc);
             } else return MCerebrumStatus.SUCCESS;
         } catch (RemoteException e) {
+            connectionCallback.onError(new MCerebrumException(MCerebrumStatus.CONNECTION_ERROR));
             return MCerebrumStatus.CONNECTION_ERROR;
         }
     }
@@ -97,7 +99,7 @@ class SubscriptionManager {
 
     }
 
-    int unsubscribe(int dsId, DataCallback dataCallback) {
+    protected int unsubscribe(int dsId, DataCallback dataCallback) {
         try {
             removeFromReceiveCallback(dsId, dataCallback);
             if (receiveCallbacks.get(dsId, null) == null) {
@@ -113,7 +115,7 @@ class SubscriptionManager {
         }
     }
 
-    int unsubscribeAll() {
+    protected int unsubscribeAll() {
         int returnValue = MCerebrumStatus.SUCCESS;
         for (int i = 0; i < remoteCallbacks.size(); i++) {
             try {

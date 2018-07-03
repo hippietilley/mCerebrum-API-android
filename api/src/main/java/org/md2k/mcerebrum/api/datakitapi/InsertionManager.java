@@ -72,7 +72,7 @@ class InsertionManager {
             isSyncScheduled=false;
         }
     };
-    int insert(int dsId, Data[] data){
+    protected int insert(int dsId, Data[] data){
         lock.lock();
         ArrayList<Long> a = bufferTime.get(dsId, new ArrayList<Long>());
         List<Data> list=this.data.get(dsId);

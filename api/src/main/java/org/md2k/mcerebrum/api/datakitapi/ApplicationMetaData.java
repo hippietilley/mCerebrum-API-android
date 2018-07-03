@@ -83,8 +83,8 @@ public class ApplicationMetaData implements Parcelable{
     public String getDescription(){
         return description;
     }
-    private String getVersionName(){ return versionName;}
-    private int getVersionNumber(){return versionNumber;}
+    public String getVersionName(){ return versionName;}
+    public int getVersionNumber(){return versionNumber;}
     public String getValue(String key){
         if(custom==null) return null;
         return custom.get(key);
