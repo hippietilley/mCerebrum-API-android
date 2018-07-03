@@ -63,63 +63,63 @@ public class DataSourceReadWrite extends DataSource implements Parcelable{
     };
 
     public void setDsId(int dsId) {
-        this.dsId = dsId;
+        super.setDsId(dsId);
     }
     public void setCreationTime(long creationTime) {
-        this.creationTime = creationTime;
+        super.setCreationTime(creationTime);
     }
     public void setModifiedTime(long modifiedTime) {
-        this.modifiedTime = modifiedTime;
+        super.setModifiedTime(modifiedTime);
     }
     public void setStatus(int status) {
-        this.status = status;
+        super.setStatus(status);
     }
 
     public void setDataSourceType(String dataSourceType) {
-        this.dataSourceType = dataSourceType;
+        super.setDataSourceType(dataSourceType);
     }
     public void setDataSourceId(String dataSourceId) {
-        this.dataSourceId = dataSourceId;
+        super.setDataSourceId(dataSourceId);
     }
     public void setPlatformType(String platformType) {
-        this.platformType = platformType;
+        super.setPlatformType(platformType);
     }
     public void setPlatformId(String platformId) {
-        this.platformId = platformId;
+        super.setPlatformId(platformId);
     }
     public void setPlatformAppType(String platformAppType) {
-        this.platformAppType = platformAppType;
+        super.setPlatformAppType(platformAppType);
     }
     public void setPlatformAppId(String platformAppId) {
-        this.platformAppId = platformAppId;
+        super.setPlatformAppId(platformAppId);
     }
     public void setApplicationType(String applicationType) {
-        this.applicationType = applicationType;
+        super.setApplicationType(applicationType);
     }
     public void setApplicationId(String applicationId) {
-        this.applicationId = applicationId;
+        super.setApplicationId(applicationId);
     }
 
     public void setDataSourceMetadata(DataSourceMetaData dataSourceMetadata) {
-        this.dataSourceMetaData = dataSourceMetadata;
+        super.setDataSourceMetaData(dataSourceMetadata);
     }
     public void setPlatformMetadata(PlatformMetaData platformMetadata) {
-        this.platformMetaData = platformMetadata;
+        super.setPlatformMetaData(platformMetadata);
     }
     public void setPlatformAppMetadata(PlatformAppMetaData platformAppMetadata) {
-        this.platformAppMetaData = platformAppMetadata;
+        super.setPlatformAppMetaData(platformAppMetadata);
     }
     public void setApplicationMetadata(ApplicationMetaData applicationMetadata) {
-        this.applicationMetaData = applicationMetadata;
+        super.setApplicationMetaData(applicationMetadata);
     }
     public void setDataDescriptors(ArrayList<DataDescriptor> dataDescriptors) {
-        this.dataDescriptors = dataDescriptors;
+        super.setDataDescriptors(dataDescriptors);
     }
     public void setDataType(String dataType) {
-        this.dataType = dataType;
+        super.setDataType(dataType);
     }
     public void setAppId(String appId) {
-        this.appId = appId;
+        setAppId(appId);
     }
 
     @Override

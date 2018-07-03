@@ -32,29 +32,29 @@ import java.util.ArrayList;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public abstract class AbstractDataSource implements Parcelable {
-    int dsId = -1;
-    long creationTime = -1;
-    long modifiedTime = -1;
-    int status;
+    private int dsId = -1;
+    private long creationTime = -1;
+    private long modifiedTime = -1;
+    private int status;
 
-    String dataSourceType = null;
-    String dataSourceId = null;
-    String platformType = null;
-    String platformId = null;
-    String platformAppType = null;
-    String platformAppId = null;
-    String applicationType = null;
-    String applicationId = null;
+    private String dataSourceType = null;
+    private String dataSourceId = null;
+    private String platformType = null;
+    private String platformId = null;
+    private String platformAppType = null;
+    private String platformAppId = null;
+    private String applicationType = null;
+    private String applicationId = null;
 
-    DataSourceMetaData dataSourceMetaData = null;
-    PlatformMetaData platformMetaData = null;
-    PlatformAppMetaData platformAppMetaData = null;
-    ApplicationMetaData applicationMetaData = null;
+    private DataSourceMetaData dataSourceMetaData = null;
+    private PlatformMetaData platformMetaData = null;
+    private PlatformAppMetaData platformAppMetaData = null;
+    private ApplicationMetaData applicationMetaData = null;
 
-    ArrayList<DataDescriptor> dataDescriptors = null;
-    String dataType = null;
-    String dataRate = null;
-    String appId = null;
+    private ArrayList<DataDescriptor> dataDescriptors = null;
+    private String dataType = null;
+    private String dataRate = null;
+    private String appId = null;
 
     AbstractDataSource() {
 
@@ -83,48 +83,195 @@ public abstract class AbstractDataSource implements Parcelable {
         appId = in.readString();
     }
 
+    int getDsId() {
+        return dsId;
+    }
+
+    void setDsId(int dsId) {
+        this.dsId = dsId;
+    }
+
+    long getCreationTime() {
+        return creationTime;
+    }
+
+    void setCreationTime(long creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    long getModifiedTime() {
+        return modifiedTime;
+    }
+
+    void setModifiedTime(long modifiedTime) {
+        this.modifiedTime = modifiedTime;
+    }
+
+    int getStatus() {
+        return status;
+    }
+
+    void setStatus(int status) {
+        this.status = status;
+    }
+
+    String getDataSourceType() {
+        return dataSourceType;
+    }
+
+    void setDataSourceType(String dataSourceType) {
+        this.dataSourceType = dataSourceType;
+    }
+
+    String getDataSourceId() {
+        return dataSourceId;
+    }
+
+    void setDataSourceId(String dataSourceId) {
+        this.dataSourceId = dataSourceId;
+    }
+
+    String getPlatformType() {
+        return platformType;
+    }
+
+    void setPlatformType(String platformType) {
+        this.platformType = platformType;
+    }
+
+    String getPlatformId() {
+        return platformId;
+    }
+
+    void setPlatformId(String platformId) {
+        this.platformId = platformId;
+    }
+
+    String getPlatformAppType() {
+        return platformAppType;
+    }
+
+    void setPlatformAppType(String platformAppType) {
+        this.platformAppType = platformAppType;
+    }
+
+    String getPlatformAppId() {
+        return platformAppId;
+    }
+
+    void setPlatformAppId(String platformAppId) {
+        this.platformAppId = platformAppId;
+    }
+
+    String getApplicationType() {
+        return applicationType;
+    }
+
+    void setApplicationType(String applicationType) {
+        this.applicationType = applicationType;
+    }
+
+    String getApplicationId() {
+        return applicationId;
+    }
+
+    void setApplicationId(String applicationId) {
+        this.applicationId = applicationId;
+    }
+
+    DataSourceMetaData getDataSourceMetaData() {
+        return dataSourceMetaData;
+    }
+
+    void setDataSourceMetaData(DataSourceMetaData dataSourceMetaData) {
+        this.dataSourceMetaData = dataSourceMetaData;
+    }
+
+    PlatformMetaData getPlatformMetaData() {
+        return platformMetaData;
+    }
+
+    void setPlatformMetaData(PlatformMetaData platformMetaData) {
+        this.platformMetaData = platformMetaData;
+    }
+
+    PlatformAppMetaData getPlatformAppMetaData() {
+        return platformAppMetaData;
+    }
+
+    void setPlatformAppMetaData(PlatformAppMetaData platformAppMetaData) {
+        this.platformAppMetaData = platformAppMetaData;
+    }
+
+    ApplicationMetaData getApplicationMetaData() {
+        return applicationMetaData;
+    }
+
+    void setApplicationMetaData(ApplicationMetaData applicationMetaData) {
+        this.applicationMetaData = applicationMetaData;
+    }
+
+    ArrayList<DataDescriptor> getDataDescriptors() {
+        return dataDescriptors;
+    }
+
+    void setDataDescriptors(ArrayList<DataDescriptor> dataDescriptors) {
+        this.dataDescriptors = dataDescriptors;
+    }
+
+    String getDataType() {
+        return dataType;
+    }
+
+    void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
+
+    String getDataRate() {
+        return dataRate;
+    }
+
+    void setDataRate(String dataRate) {
+        this.dataRate = dataRate;
+    }
+
+    String getAppId() {
+        return appId;
+    }
+
+    void setAppId(String appId) {
+        this.appId = appId;
+    }
+
     AbstractDataSource(Parcel in) {
         readFromParcel(in);
     }
 
-/*
-    public static final Creator<AbstractDataSource> CREATOR = new Creator<AbstractDataSource>() {
-        @Override
-        public AbstractDataSource createFromParcel(Parcel in) {
-            return new AbstractDataSource(in);
-        }
-
-        @Override
-        public AbstractDataSource[] newArray(int size) {
-            return new AbstractDataSource[size];
-        }
-    };
-*/
 
     DataSourceReadWrite toDataSourceReadWrite() {
         DataSourceReadWrite d = new DataSourceReadWrite();
-        d.dsId = this.dsId;
-        d.creationTime = this.creationTime;
-        d.modifiedTime = this.modifiedTime;
-        d.status = this.status;
+        d.setDsId(this.dsId);
+        d.setCreationTime(this.creationTime);
+        d.setModifiedTime(this.modifiedTime);
+        d.setStatus(this.status);
 
-        d.dataSourceType = this.dataSourceType;
-        d.dataSourceId = this.dataSourceId;
-        d.platformType = this.platformType;
-        d.platformId = this.platformId;
-        d.platformAppType = this.platformAppType;
-        d.platformAppId = this.platformAppId;
-        d.applicationType = this.applicationType;
-        d.applicationId = this.applicationId;
-        d.dataSourceMetaData = this.dataSourceMetaData;
-        d.platformMetaData = this.platformMetaData;
-        d.platformAppMetaData = this.platformAppMetaData;
-        d.applicationMetaData = this.applicationMetaData;
+        d.setDataSourceType(this.dataSourceType);
+        d.setDataSourceId(this.dataSourceId);
+        d.setPlatformType(this.platformType);
+        d.setPlatformId(this.platformId);
+        d.setPlatformAppType(this.platformAppType);
+        d.setPlatformAppId(this.platformAppId);
+        d.setApplicationType(this.applicationType);
+        d.setApplicationId(this.applicationId);
+        d.setDataSourceMetadata(this.dataSourceMetaData);
+        d.setPlatformMetadata(this.platformMetaData);
+        d.setPlatformAppMetadata(this.platformAppMetaData);
+        d.setApplicationMetadata(this.applicationMetaData);
 
-        d.dataDescriptors = this.dataDescriptors;
-        d.dataType = this.dataType;
-        d.dataRate = this.dataRate;
-        d.appId = this.appId;
+        d.setDataDescriptors(this.dataDescriptors);
+        d.setDataType(this.dataType);
+        d.setDataRate(this.dataRate);
+        d.setAppId(this.appId);
         return d;
     }
 

@@ -47,32 +47,32 @@ public class DataSourceCreator extends DataSource implements Parcelable{
     private DataSourceCreator() {
     }
     private DataSourceCreator(Builder dataSourceBuilder) {
-        dataSourceType = dataSourceBuilder.dataSourceType;
-        dataSourceId=dataSourceBuilder.dataSourceId;
-        platformType=dataSourceBuilder.platformType;
-        platformId=dataSourceBuilder.platformId;
-        platformAppType=dataSourceBuilder.platformAppType;
-        platformAppId=dataSourceBuilder.platformAppId;
-        applicationType=dataSourceBuilder.applicationType;
-        applicationId=dataSourceBuilder.applicationId;
-        dataSourceMetaData =dataSourceBuilder.dataSourceMetaData;
-        platformMetaData =dataSourceBuilder.platformMetaData;
-        platformAppMetaData =dataSourceBuilder.platformAppMetaData;
-        applicationMetaData =dataSourceBuilder.applicationMetaData;
-        dataDescriptors=dataSourceBuilder.dataDescriptors;
-        dataType=dataSourceBuilder.dataType;
-        dataRate = dataSourceBuilder.dataRate;
+        super.setDataSourceType(dataSourceBuilder.dataSourceType);
+        super.setDataSourceId(dataSourceBuilder.dataSourceId);
+        super.setPlatformType(dataSourceBuilder.platformType);
+        super.setPlatformId(dataSourceBuilder.platformId);
+        super.setPlatformAppType(dataSourceBuilder.platformAppType);
+        super.setPlatformAppId(dataSourceBuilder.platformAppId);
+        super.setApplicationType(dataSourceBuilder.applicationType);
+        super.setApplicationId(dataSourceBuilder.applicationId);
+        super.setDataSourceMetaData(dataSourceBuilder.dataSourceMetaData);
+        super.setPlatformMetaData(dataSourceBuilder.platformMetaData);
+        super.setPlatformAppMetaData(dataSourceBuilder.platformAppMetaData);
+        super.setApplicationMetaData(dataSourceBuilder.applicationMetaData);
+        super.setDataDescriptors(dataSourceBuilder.dataDescriptors);
+        super.setDataType(dataSourceBuilder.dataType);
+        super.setDataRate(dataSourceBuilder.dataRate);
         try {
             Context context = mCerebrumAPI.getContext();
             if(context!=null) {
-                appId =context.getPackageName();
+                super.setAppId(context.getPackageName());
                 String versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
                 int versionNumber = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
-                if(applicationMetaData ==null)
-                    applicationMetaData =ApplicationMetaData.builder().setVersionNumber(versionNumber).setVersionName(versionName).build();
+                if(super.getApplicationMetaData()==null)
+                    super.setApplicationMetaData(ApplicationMetaData.builder().setVersionNumber(versionNumber).setVersionName(versionName).build());
                 else {
-                    applicationMetaData.setVersionName(versionName);
-                    applicationMetaData.setVersionNumber(versionNumber);
+                    super.getApplicationMetaData().setVersionName(versionName);
+                    super.getApplicationMetaData().setVersionNumber(versionNumber);
                 }
             }
         }catch (Exception ignored){

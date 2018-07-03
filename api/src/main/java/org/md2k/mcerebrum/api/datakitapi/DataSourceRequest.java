@@ -38,38 +38,38 @@ public class DataSourceRequest extends AbstractDataSource {
     }
 
     private DataSourceRequest(Builder dataSourceBuilder) {
-        dataSourceType = dataSourceBuilder.dataSourceType;
-        dataSourceId=dataSourceBuilder.dataSourceId;
-        platformType=dataSourceBuilder.platformType;
-        platformId=dataSourceBuilder.platformId;
-        platformAppType=dataSourceBuilder.platformAppType;
-        platformAppId=dataSourceBuilder.platformAppId;
-        applicationType=dataSourceBuilder.applicationType;
-        applicationId=dataSourceBuilder.applicationId;
+        super.setDataSourceType(dataSourceBuilder.dataSourceType);
+        super.setDataSourceId(dataSourceBuilder.dataSourceId);
+        super.setPlatformType(dataSourceBuilder.platformType);
+        super.setPlatformId(dataSourceBuilder.platformId);
+        super.setPlatformAppType(dataSourceBuilder.platformAppType);
+        super.setPlatformAppId(dataSourceBuilder.platformAppId);
+        super.setApplicationType(dataSourceBuilder.applicationType);
+        super.setApplicationId(dataSourceBuilder.applicationId);
     }
     public String getDataSourceType(){
-        return dataSourceType;
+        return super.getDataSourceType();
     }
     public String getDataSourceId(){
-        return dataSourceId;
+        return super.getDataSourceId();
     }
     public String getPlatformType(){
-        return platformType;
+        return super.getPlatformType();
     }
     public String getPlatformId(){
-        return platformId;
+        return super.getPlatformId();
     }
     public String getPlatformAppType(){
-        return platformAppType;
+        return super.getPlatformAppType();
     }
     public String getPlatformAppId(){
-        return platformAppId;
+        return super.getPlatformAppId();
     }
     public String getApplicationType(){
-        return applicationType;
+        return super.getApplicationType();
     }
     public String getApplicationId(){
-        return applicationId;
+        return super.getApplicationId();
     }
 
     public static Builder builder(){

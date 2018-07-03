@@ -45,84 +45,84 @@ public abstract class DataSource extends AbstractDataSource implements Parcelabl
     }
 
     public String getDataSourceType() {
-        return dataSourceType;
+        return super.getDataSourceType();
     }
 
     public String getDataSourceId() {
-        return dataSourceId;
+        return super.getDataSourceId();
     }
 
     public String getPlatformType() {
-        return platformType;
+        return super.getPlatformType();
     }
 
     public String getPlatformId() {
-        return platformId;
+        return super.getPlatformId();
     }
 
     public String getPlatformAppType() {
-        return platformAppType;
+        return super.getPlatformAppType();
     }
 
     public String getPlatformAppId() {
-        return platformAppId;
+        return super.getPlatformAppId();
     }
 
     public String getApplicationType() {
-        return applicationType;
+        return super.getApplicationType();
     }
 
     public String getApplicationId() {
-        return applicationId;
+        return super.getApplicationId();
     }
 
 
     public DataSourceMetaData getDataSourceMetaData() {
-        return dataSourceMetaData;
+        return super.getDataSourceMetaData();
     }
 
     public PlatformMetaData getPlatformMetaData() {
-        return platformMetaData;
+        return super.getPlatformMetaData();
     }
 
     public PlatformAppMetaData getPlatformAppMetaData() {
-        return platformAppMetaData;
+        return super.getPlatformAppMetaData();
     }
 
     public ApplicationMetaData getApplicationMetaData() {
-        return applicationMetaData;
+        return super.getApplicationMetaData();
     }
 
 
     public ArrayList<DataDescriptor> getDataDescriptors() {
-        return dataDescriptors;
+        return super.getDataDescriptors();
     }
 
     public String getDataType() {
-        return dataType;
+        return super.getDataType();
     }
     public String getDataRate(){
-        return dataRate;
+        return super.getDataRate();
     }
 
     public String getAppId() {
-        return appId;
+        return super.getAppId();
     }
 
     public int getDsId() {
-        return dsId;
+        return super.getDsId();
     }
 
     public long getCreationTime() {
-        return creationTime;
+        return super.getCreationTime();
     }
 
     public long getModifiedTime() {
-        return modifiedTime;
+        return super.getModifiedTime();
     }
 
     public int getStatus() {
-        return status;
+        return super.getStatus();
     }
 
 
