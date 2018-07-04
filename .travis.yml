@@ -1,6 +1,13 @@
 language: android
+sudo: required
 jdk: oraclejdk8
-
+before_cache:
+ -rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+ -rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+ directories:
+ -$HOME/.gradle/caches/
+ -$HOME/.gradle/wrapper/
 android:
   components:
     - tools
@@ -9,11 +16,6 @@ android:
     - android-26
     - extra-android-support
     - extra-android-m2repository
-    - extra-google-m2repository
-
-    # Specify at least one system image,
-    # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-22
 
 script:
 - "./gradlew assembleRelease"
