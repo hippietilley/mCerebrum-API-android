@@ -1,7 +1,5 @@
 package org.md2k.mcerebrum.api.datakitapi.datatype;
 
-import android.util.SparseArray;
-
 import org.md2k.mcerebrum.api.datakitapi.datatype.dataannotation.DataAnnotationEnum;
 import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointBoolean;
 import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointByte;

@@ -29,20 +29,6 @@ package org.md2k.mcerebrum.api.datakitapi.datatype;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.SparseArray;
-
-import org.md2k.mcerebrum.api.datakitapi.datatype.dataannotation.DataAnnotationEnum;
-import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointBoolean;
-import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointByte;
-import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointDouble;
-import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointEnum;
-import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointInt;
-import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointLong;
-import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointObject;
-import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointString;
-
-import java.util.HashMap;
-import java.util.HashSet;
 
 /**
  * This class provides the methods that all <code>DataType</code> objects use.
