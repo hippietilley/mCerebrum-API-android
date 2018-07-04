@@ -43,9 +43,9 @@ import org.md2k.mcerebrum.api.pluginapi.MCPlugin;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public final class mCerebrumAPI {
+public final class MCerebrumAPI {
     @SuppressLint("StaticFieldLeak")
-    private static mCerebrumAPI instance = null;
+    private static MCerebrumAPI instance = null;
     private MCPlugin plugin;
     private Context context;
     private DataKitAPI dataKitAPI;
@@ -56,7 +56,7 @@ public final class mCerebrumAPI {
     public static void init(Context context, MCPlugin mcPlugin) {
         if (context == null) return;
         if (instance == null) {
-            instance = new mCerebrumAPI(context.getApplicationContext());
+            instance = new MCerebrumAPI(context.getApplicationContext());
         }
         instance.plugin = mcPlugin;
     }
@@ -67,7 +67,7 @@ public final class mCerebrumAPI {
         else return null;
     }
 
-    private mCerebrumAPI(Context context) {
+    private MCerebrumAPI(Context context) {
         this.context = context;
         dataKitAPI = new DataKitAPI(instance);
     }

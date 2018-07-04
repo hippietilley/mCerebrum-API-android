@@ -10,7 +10,7 @@ import org.md2k.mcerebrum.api.datakitapi.datatype.Data;
 import org.md2k.mcerebrum.api.datakitapi.datatype.DataSet;
 import org.md2k.mcerebrum.api.datakitapi.exception.MCerebrumException;
 import org.md2k.mcerebrum.api.datakitapi.status.MCerebrumStatus;
-import org.md2k.mcerebrum.api.mCerebrumAPI;
+import org.md2k.mcerebrum.api.MCerebrumAPI;
 
 import java.util.ArrayList;
 
@@ -61,9 +61,9 @@ public final class DataKitAPI {
     private ArrayList<ConnectionCallback> connectionCallbacks;
     private MyServiceConnection mServiceConnection;
 
-    public DataKitAPI(mCerebrumAPI m) {
-        if (m == null || mCerebrumAPI.getContext() == null)
-            throw new NullPointerException(MCerebrumStatus.getStatusCodeString(MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED));
+    public DataKitAPI(MCerebrumAPI m) {
+        if (m == null || MCerebrumAPI.getContext() == null)
+            return;
         connectionCallbacks = new ArrayList<>();
         mServiceConnection = new MyServiceConnection(new ConnectionCallback() {
             @Override
@@ -93,7 +93,7 @@ public final class DataKitAPI {
             } else {
                 Intent intent = new Intent();
                 intent.setComponent(new ComponentName(PACKAGE_NAME, SERVICE_NAME));
-                boolean r = mCerebrumAPI.getContext().bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
+                boolean r = MCerebrumAPI.getContext().bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
                 if (!r) {
                     connectionCallback.onError(new MCerebrumException(MCerebrumStatus.MCEREBRUM_APP_NOT_INSTALLED));
                     return MCerebrumStatus.MCEREBRUM_APP_NOT_INSTALLED;
@@ -134,7 +134,7 @@ public final class DataKitAPI {
             }
         }
         if (mServiceConnection.isConnected() && connectionCallbacks.size() == 0) {
-            mCerebrumAPI.getContext().unbindService(mServiceConnection);
+            MCerebrumAPI.getContext().unbindService(mServiceConnection);
         }
         connectionCallback.onDisconnected();
         return MCerebrumStatus.SUCCESS;

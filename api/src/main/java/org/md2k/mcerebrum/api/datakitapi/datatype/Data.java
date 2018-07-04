@@ -29,6 +29,7 @@ package org.md2k.mcerebrum.api.datakitapi.datatype;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.SparseArray;
 
 import org.md2k.mcerebrum.api.datakitapi.datatype.dataannotation.DataAnnotationEnum;
 import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointBoolean;
@@ -39,6 +40,9 @@ import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointInt;
 import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointLong;
 import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointObject;
 import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointString;
+
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * This class provides the methods that all <code>DataType</code> objects use.
@@ -110,17 +114,5 @@ public class Data implements Parcelable{
 
     public Data clone(){
         return new Data(timestamp);
-    }
-    public DataType getType(){
-        if(this instanceof DataPointBoolean) return DataType.DATAPOINT_BOOLEAN;
-        if(this instanceof DataPointByte) return DataType.DATAPOINT_BYTE;
-        if(this instanceof DataPointInt) return DataType.DATAPOINT_INT;
-        if(this instanceof DataPointLong) return DataType.DATAPOINT_LONG;
-        if(this instanceof DataPointDouble) return DataType.DATAPOINT_DOUBLE;
-        if(this instanceof DataPointString) return DataType.DATAPOINT_STRING;
-        if(this instanceof DataPointObject) return DataType.DATAPOINT_OBJECT;
-        if(this instanceof DataPointEnum) return DataType.DATAPOINT_ENUM;
-        if(this instanceof DataAnnotationEnum) return DataType.DATAANNOTATION_ENUM;
-        return DataType.UNKNOWN;
     }
 }

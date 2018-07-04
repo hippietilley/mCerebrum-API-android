@@ -4,7 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import org.md2k.mcerebrum.api.mCerebrumAPI;
+import org.md2k.mcerebrum.api.MCerebrumAPI;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
@@ -48,67 +48,67 @@ public class MCServicePlugin extends Service {
 
         @Override
         public boolean clear() {
-            return mCerebrumAPI.getPlugin() != null && mCerebrumAPI.getPlugin().clear();
+            return MCerebrumAPI.getPlugin() != null && MCerebrumAPI.getPlugin().clear();
         }
         @Override
         public boolean reset() {
-            return mCerebrumAPI.getPlugin() != null && mCerebrumAPI.getPlugin().reset();
+            return MCerebrumAPI.getPlugin() != null && MCerebrumAPI.getPlugin().reset();
         }
         @Override
         public MCPluginParam[] getUserInterfaces() {
-            if(mCerebrumAPI.getPlugin()==null) return new MCPluginParam[0];
-            return mCerebrumAPI.getPlugin().getUserInterfaces();
+            if(MCerebrumAPI.getPlugin()==null) return new MCPluginParam[0];
+            return MCerebrumAPI.getPlugin().getUserInterfaces();
         }
 
         @Override
         public boolean openUserInterface(MCPluginParam mcPluginParam) {
-            return mCerebrumAPI.getPlugin() != null && mCerebrumAPI.getPlugin().openUserInterface(mcPluginParam);
+            return MCerebrumAPI.getPlugin() != null && MCerebrumAPI.getPlugin().openUserInterface(mcPluginParam);
         }
         @Override
         public boolean configure(MCPluginParam mcPluginParam) {
-            return mCerebrumAPI.getPlugin() != null && mCerebrumAPI.getPlugin().configure(mcPluginParam);
+            return MCerebrumAPI.getPlugin() != null && MCerebrumAPI.getPlugin().configure(mcPluginParam);
         }
 
         @Override
         public MCPluginParam[] getConfigurationOptions() {
-            if(mCerebrumAPI.getPlugin()==null) return new MCPluginParam[0];
-            return mCerebrumAPI.getPlugin().getConfigurationOptions();
+            if(MCerebrumAPI.getPlugin()==null) return new MCPluginParam[0];
+            return MCerebrumAPI.getPlugin().getConfigurationOptions();
         }
 
         @Override
         public int getConfigurationState() {
-            if(mCerebrumAPI.getPlugin()==null) return ConfigState.NOT_CONFIGURABLE.getValue();
-            return mCerebrumAPI.getPlugin().getConfigurationState().getValue();
+            if(MCerebrumAPI.getPlugin()==null) return ConfigState.NOT_CONFIGURABLE.getValue();
+            return MCerebrumAPI.getPlugin().getConfigurationState().getValue();
         }
 
         @Override
         public boolean startBackgroundProcess() {
-            return mCerebrumAPI.getPlugin() != null && mCerebrumAPI.getPlugin().startBackgroundProcess();
+            return MCerebrumAPI.getPlugin() != null && MCerebrumAPI.getPlugin().startBackgroundProcess();
         }
 
         @Override
         public boolean stopBackgroundProcess() {
-            return mCerebrumAPI.getPlugin() != null && mCerebrumAPI.getPlugin().stopBackgroundProcess();
+            return MCerebrumAPI.getPlugin() != null && MCerebrumAPI.getPlugin().stopBackgroundProcess();
         }
 
         @Override
         public boolean getUserPermissions() {
-            return mCerebrumAPI.getPlugin() != null && mCerebrumAPI.getPlugin().getUserPermissions();
+            return MCerebrumAPI.getPlugin() != null && MCerebrumAPI.getPlugin().getUserPermissions();
         }
 
         @Override
         public boolean hasUserPermissions() {
-            return mCerebrumAPI.getPlugin() != null && mCerebrumAPI.getPlugin().hasUserPermissions();
+            return MCerebrumAPI.getPlugin() != null && MCerebrumAPI.getPlugin().hasUserPermissions();
         }
 
         @Override
         public boolean isBackgroundProcessRunning() {
-            return mCerebrumAPI.getPlugin() != null && mCerebrumAPI.getPlugin().isBackgroundProcessRunning();
+            return MCerebrumAPI.getPlugin() != null && MCerebrumAPI.getPlugin().isBackgroundProcessRunning();
         }
         @Override
         public String[] getDeclaredFunctions() {
-            if(mCerebrumAPI.getPlugin()==null) return new String[0];
-            return mCerebrumAPI.getPlugin().getDeclaredFunctions();
+            if(MCerebrumAPI.getPlugin()==null) return new String[0];
+            return MCerebrumAPI.getPlugin().getDeclaredFunctions();
         }
     };
 }

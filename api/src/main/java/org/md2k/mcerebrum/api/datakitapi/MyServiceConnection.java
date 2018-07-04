@@ -12,7 +12,7 @@ import org.md2k.mcerebrum.api.datakitapi.datatype.Data;
 import org.md2k.mcerebrum.api.datakitapi.datatype.DataSet;
 import org.md2k.mcerebrum.api.datakitapi.datatype.DataType;
 import org.md2k.mcerebrum.api.datakitapi.status.MCerebrumStatus;
-import org.md2k.mcerebrum.api.mCerebrumAPI;
+import org.md2k.mcerebrum.api.MCerebrumAPI;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
@@ -69,11 +69,11 @@ class MyServiceConnection implements ServiceConnection {
 
     protected int register(DataSourceReadWrite dataSourceAIDL){
         try {
-            if(mCerebrumAPI.getContext()==null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
+            if(MCerebrumAPI.getContext()==null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
             if(dataSourceAIDL==null) return MCerebrumStatus.INVALID_DATA_SOURCE;
             if(dataSourceAIDL.getDataSourceType()==null) return MCerebrumStatus.MISSING_DATA_SOURCE_TYPE;
             if(dataSourceAIDL.getDataType()==null || dataSourceAIDL.getDataType().length()==0) return MCerebrumStatus.MISSING_DATA_TYPE;
-            dataSourceAIDL.setAppId(mCerebrumAPI.getContext().getPackageName());
+            dataSourceAIDL.setAppId(MCerebrumAPI.getContext().getPackageName());
             return mService.register(dataSourceAIDL);
 
         } catch (RemoteException e) {
@@ -104,7 +104,7 @@ class MyServiceConnection implements ServiceConnection {
         if(data==null || data.length==0) return MCerebrumStatus.INVALID_PARAMETER;
         DataType dataType=DataType.valueOf(dataSource.getDataType());
         for (Data aData : data) {
-            if (aData.getType() != dataType) return MCerebrumStatus.INCONSISTENT_DATA_TYPE;
+            if(aData.getClass().hashCode()!=dataType.getHashCode()) return MCerebrumStatus.INCONSISTENT_DATA_TYPE;
         }
         return insertionManager.insert(dataSource.getDsId(), data);
     }

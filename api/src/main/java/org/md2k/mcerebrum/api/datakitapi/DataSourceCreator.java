@@ -36,7 +36,7 @@ import android.provider.Settings;
 
 import org.md2k.mcerebrum.api.datakitapi.datasource.PLATFORM;
 import org.md2k.mcerebrum.api.datakitapi.datatype.DataType;
-import org.md2k.mcerebrum.api.mCerebrumAPI;
+import org.md2k.mcerebrum.api.MCerebrumAPI;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -62,7 +62,7 @@ public class DataSourceCreator extends DataSource implements Parcelable {
         super.setDataType(dataSourceBuilder.dataType);
         super.setDataRate(dataSourceBuilder.dataRate);
         try {
-            Context context = mCerebrumAPI.getContext();
+            Context context = MCerebrumAPI.getContext();
             if (context != null) {
                 super.setAppId(context.getPackageName());
                 String versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
@@ -214,6 +214,7 @@ public class DataSourceCreator extends DataSource implements Parcelable {
                     break;
                 default:
                     dataRate = Double.toString((double) (sampleNo));
+                    break;
 
             }
             return this;
@@ -221,7 +222,7 @@ public class DataSourceCreator extends DataSource implements Parcelable {
 
         @SuppressLint("HardwareIds")
         public Builder setPlatformAsPhone() {
-            Context context = mCerebrumAPI.getContext();
+            Context context = MCerebrumAPI.getContext();
             this.platformType = PLATFORM.TYPE.PHONE;
             this.platformId = Settings.Secure.getString(context.getContentResolver(),
                     Settings.Secure.ANDROID_ID);

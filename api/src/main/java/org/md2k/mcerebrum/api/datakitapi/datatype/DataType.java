@@ -1,5 +1,17 @@
 package org.md2k.mcerebrum.api.datakitapi.datatype;
 
+import android.util.SparseArray;
+
+import org.md2k.mcerebrum.api.datakitapi.datatype.dataannotation.DataAnnotationEnum;
+import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointBoolean;
+import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointByte;
+import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointDouble;
+import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointEnum;
+import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointInt;
+import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointLong;
+import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointObject;
+import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointString;
+
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -27,14 +39,22 @@ package org.md2k.mcerebrum.api.datakitapi.datatype;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public enum DataType {
-    DATAPOINT_BOOLEAN,
-    DATAPOINT_BYTE,
-    DATAPOINT_INT,
-    DATAPOINT_LONG,
-    DATAPOINT_DOUBLE,
-    DATAPOINT_STRING,
-    DATAPOINT_ENUM,
-    DATAPOINT_OBJECT,
-    DATAANNOTATION_ENUM,
-    UNKNOWN
+    DATAPOINT_BOOLEAN(DataPointBoolean.class.hashCode()),
+    DATAPOINT_BYTE(DataPointByte.class.hashCode()),
+    DATAPOINT_INT(DataPointInt.class.hashCode()),
+    DATAPOINT_LONG(DataPointLong.class.hashCode()),
+    DATAPOINT_DOUBLE(DataPointDouble.class.hashCode()),
+    DATAPOINT_STRING(DataPointString.class.hashCode()),
+    DATAPOINT_ENUM(DataPointEnum.class.hashCode()),
+    DATAPOINT_OBJECT(DataPointObject.class.hashCode()),
+    DATAANNOTATION_ENUM(DataAnnotationEnum.class.hashCode()),
+    UNKNOWN(-1);
+
+    int hashCode;
+    DataType(int hashCode){
+        this.hashCode = hashCode;
+    }
+    public int getHashCode() {
+        return hashCode;
+    }
 }
