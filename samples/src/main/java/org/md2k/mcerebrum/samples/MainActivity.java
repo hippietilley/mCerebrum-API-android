@@ -4,18 +4,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import org.md2k.mcerebrum.api.datakitapi.DataSourceCreator;
-import org.md2k.mcerebrum.api.datakitapi.DataSourceRequest;
-import org.md2k.mcerebrum.api.datakitapi.DataSourceSet;
-import org.md2k.mcerebrum.api.datakitapi.Registration;
-import org.md2k.mcerebrum.api.datakitapi.callback.ConnectionCallback;
-import org.md2k.mcerebrum.api.datakitapi.datasource.DATASOURCE;
-import org.md2k.mcerebrum.api.datakitapi.datasource.PLATFORM;
-import org.md2k.mcerebrum.api.datakitapi.datatype.DataSet;
-import org.md2k.mcerebrum.api.datakitapi.datatype.DataType;
-import org.md2k.mcerebrum.api.datakitapi.datatype.datapoint.DataPointDouble;
-import org.md2k.mcerebrum.api.datakitapi.exception.MCerebrumException;
-import org.md2k.mcerebrum.api.MCerebrumAPI;
+import org.md2k.mcerebrum.api.core.datakitapi.DataSourceCreator;
+import org.md2k.mcerebrum.api.core.datakitapi.DataSourceRequest;
+import org.md2k.mcerebrum.api.core.datakitapi.DataSourceSet;
+import org.md2k.mcerebrum.api.core.datakitapi.Registration;
+import org.md2k.mcerebrum.api.core.datakitapi.callback.ConnectionCallback;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.DATASOURCE;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataSet;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataType;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointDouble;
+import org.md2k.mcerebrum.api.core.datakitapi.exception.MCerebrumException;
+import org.md2k.mcerebrum.api.core.MCerebrumAPI;
 
 public class MainActivity extends AppCompatActivity {
 
