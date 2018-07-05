@@ -10,8 +10,11 @@ This android library is the communication API for mCerebrum and is utilized by a
 ### Setting up the dependency
 The first step is to include mCerebrumAPI into your project for example, as a gradle compile dependancy:
 ```groovy
-implementation "org.md2k.mcerebrum.api:core:3.0.0"
+implementation "org.md2k.mcerebrum.api:core:<latest_version>"
 ```
+(Please replace `<latest_version>` with this: [ ![Download](https://api.bintray.com/packages/md2korg/mCerebrum/core/images/download.svg) ](https://bintray.com/md2korg/mCerebrum/core/_latestVersion)
+)
+
 ### Initialize mCerebrumAPI
 The second is to initialize mCerebrumAPI once in `Application.onCreate():`
 ```java
