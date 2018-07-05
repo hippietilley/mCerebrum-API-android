@@ -1,21 +1,21 @@
-package org.md2k.mcerebrum.api;
+package org.md2k.mcerebrum.api.core;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 
-import org.md2k.mcerebrum.api.datakitapi.DataKitAPI;
-import org.md2k.mcerebrum.api.datakitapi.DataSource;
-import org.md2k.mcerebrum.api.datakitapi.DataSourceCreator;
-import org.md2k.mcerebrum.api.datakitapi.DataSourceRequest;
-import org.md2k.mcerebrum.api.datakitapi.DataSourceSet;
-import org.md2k.mcerebrum.api.datakitapi.Registration;
-import org.md2k.mcerebrum.api.datakitapi.callback.ConnectionCallback;
-import org.md2k.mcerebrum.api.datakitapi.callback.DataCallback;
-import org.md2k.mcerebrum.api.datakitapi.datatype.Data;
-import org.md2k.mcerebrum.api.datakitapi.datatype.DataSet;
-import org.md2k.mcerebrum.api.datakitapi.exception.MCerebrumException;
-import org.md2k.mcerebrum.api.datakitapi.status.MCerebrumStatus;
-import org.md2k.mcerebrum.api.pluginapi.MCPlugin;
+import org.md2k.mcerebrum.api.core.datakitapi.DataKitAPI;
+import org.md2k.mcerebrum.api.core.datakitapi.DataSource;
+import org.md2k.mcerebrum.api.core.datakitapi.DataSourceCreator;
+import org.md2k.mcerebrum.api.core.datakitapi.DataSourceRequest;
+import org.md2k.mcerebrum.api.core.datakitapi.DataSourceSet;
+import org.md2k.mcerebrum.api.core.datakitapi.Registration;
+import org.md2k.mcerebrum.api.core.datakitapi.callback.ConnectionCallback;
+import org.md2k.mcerebrum.api.core.datakitapi.callback.DataCallback;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.Data;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataSet;
+import org.md2k.mcerebrum.api.core.datakitapi.exception.MCerebrumException;
+import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
+import org.md2k.mcerebrum.api.core.pluginapi.MCPlugin;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
