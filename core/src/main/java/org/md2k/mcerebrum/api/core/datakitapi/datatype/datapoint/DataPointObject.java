@@ -44,12 +44,6 @@ public class DataPointObject extends Data implements Parcelable {
      */
     private String[] sample;
 
-    /**
-     * Constructor
-     *
-     * @param timestamp The timestamp for when the data was collected.
-     * @param sample The data point sampled from the data source.
-     */
     public <R> DataPointObject(long timestamp, R[] sample) {
         super(timestamp);
         Gson gson = new Gson();

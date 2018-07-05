@@ -45,6 +45,8 @@ public class DataAnnotationEnum extends Data implements Parcelable{
      * Constructs a <code>DataType</code> object with a <code>dataTime</code>.
      *
      * @param startTimestamp The timestamp for when the data was collected.
+     * @param endTimestamp The timestamp for when the data was collected.
+     * @param sample sample.
      */
     public DataAnnotationEnum(long startTimestamp, long endTimestamp, byte sample) {
         super(startTimestamp);

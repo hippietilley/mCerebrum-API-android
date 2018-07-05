@@ -1,6 +1,7 @@
 # mCerebrum API
 [![Build Status](https://travis-ci.org/MD2Korg/mCerebrum-API-android.svg?branch=master)](https://travis-ci.org/MD2Korg/mCerebrum-API-android)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5fab788b36a84deca5d13f18da9e3607)](https://www.codacy.com/app/monowar-hossain/mCerebrum-API-android?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MD2Korg/mCerebrum-API-android&amp;utm_campaign=Badge_Grade)
+[ ![Download](https://api.bintray.com/packages/md2korg/mCerebrum/core/images/download.svg) ](https://bintray.com/md2korg/mCerebrum/core/_latestVersion)
 
 # Overview
 This android library is the communication API for mCerebrum and is utilized by all applications that wish to communicate with mCerebrum.
