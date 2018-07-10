@@ -89,22 +89,13 @@ public class DataSetAndroidUnitTest {
     }
 
     @Test
-    public void dataSet_ParcelableWriteRead() {
+    public void dataSetSamplingAll_ParcelableWriteRead() {
         // Write data to parcel.
         Parcel parcelAll = Parcel.obtain();
         testDataSetSamplingAll.writeToParcel(parcelAll, testDataSetSamplingAll.describeContents());
 
-        Parcel parcelFirstN = Parcel.obtain();
-        testDataSetSamplingFirstN.writeToParcel(parcelFirstN, testDataSetSamplingFirstN.describeContents());
-
-        Parcel parcelDistributedN = Parcel.obtain();
-        testDataSetSamplingDistributedN.writeToParcel(parcelDistributedN,
-                testDataSetSamplingDistributedN.describeContents());
-
         // After writing, reset the parcel for reading
         parcelAll.setDataPosition(0);
-        parcelFirstN.setDataPosition(0);
-        parcelDistributedN.setDataPosition(0);
 
         // Read the data.
         DataSet createdFromParcelAll = DataSet.CREATOR.createFromParcel(parcelAll);
@@ -112,45 +103,73 @@ public class DataSetAndroidUnitTest {
         DataSet readFromParcelAll = new DataSet();
         readFromParcelAll.readFromParcel(parcelAll);
 
+        // Verify results.
+        assertThat(createdFromParcelArrayAll.length, is(not(0)));
+        assertEquals(testDataSetSamplingAll.getActualDataSize(), createdFromParcelAll.getActualDataSize());
+        assertEquals(testDataSetSamplingAll.getReceivedDataSize(), createdFromParcelAll.getReceivedDataSize());
+        assertArrayEquals(testDataSetSamplingAll.getData(), createdFromParcelAll.getData());
+        assertEquals(DataSet.SAMPLING_TYPE.ALL.getCode(), createdFromParcelAll.getSamplingType());
+
+        assertEquals(testDataSetSamplingAll.getActualDataSize(), readFromParcelAll.getActualDataSize());
+        assertEquals(testDataSetSamplingAll.getReceivedDataSize(), readFromParcelAll.getReceivedDataSize());
+        assertArrayEquals(testDataSetSamplingAll.getData(), readFromParcelAll.getData());
+        assertEquals(DataSet.SAMPLING_TYPE.ALL.getCode(), readFromParcelAll.getSamplingType());
+    }
+
+    @Test
+    public void dataSetSamplingFirstN_ParcelableWriteRead() {
+        // Write data to parcel.
+        Parcel parcelFirstN = Parcel.obtain();
+        testDataSetSamplingFirstN.writeToParcel(parcelFirstN, testDataSetSamplingFirstN.describeContents());
+
+        // After writing, reset the parcel for reading
+        parcelFirstN.setDataPosition(0);
+
+        // Read the data.
         DataSet createdFromParcelFirstN = DataSet.CREATOR.createFromParcel(parcelFirstN);
         DataSet[] createdFromParcelArrayFirstN = DataSet.CREATOR.newArray(1);
         DataSet readFromParcelFirstN = new DataSet();
         readFromParcelFirstN.readFromParcel(parcelFirstN);
 
+        // Verify results.
+        assertThat(createdFromParcelArrayFirstN.length, is(not(0)));
+        assertEquals(testDataSetSamplingFirstN.getActualDataSize(), createdFromParcelFirstN.getActualDataSize());
+        assertEquals(testDataSetSamplingFirstN.getReceivedDataSize(), createdFromParcelFirstN.getReceivedDataSize());
+        assertArrayEquals(testDataSetSamplingFirstN.getData(), createdFromParcelFirstN.getData());
+        assertEquals(DataSet.SAMPLING_TYPE.FIRST_N_SAMPLE.getCode(), createdFromParcelFirstN.getSamplingType());
+
+        assertEquals(testDataSetSamplingFirstN.getActualDataSize(), readFromParcelFirstN.getActualDataSize());
+        assertEquals(testDataSetSamplingFirstN.getReceivedDataSize(), readFromParcelFirstN.getReceivedDataSize());
+        assertArrayEquals(readFromParcelFirstN.getData(), testDataSetSamplingFirstN.getData());
+        assertEquals(DataSet.SAMPLING_TYPE.FIRST_N_SAMPLE.getCode(), readFromParcelFirstN.getSamplingType());
+    }
+
+    @Test
+    public void dataSetSamplingDistributedN_ParcelableWriteRead() {
+        // Write data to parcel.
+        Parcel parcelDistributedN = Parcel.obtain();
+        testDataSetSamplingDistributedN.writeToParcel(parcelDistributedN,
+                testDataSetSamplingDistributedN.describeContents());
+
+        // After writing, reset the parcel for reading
+        parcelDistributedN.setDataPosition(0);
+
+        // Read the data.
         DataSet createdFromParcelDistributedN = DataSet.CREATOR.createFromParcel(parcelDistributedN);
         DataSet[] createdFromParcelArrayDistributedN = DataSet.CREATOR.newArray(1);
         DataSet readFromParcelDistributedN = new DataSet();
         readFromParcelDistributedN.readFromParcel(parcelDistributedN);
 
         // Verify results.
-        assertThat(createdFromParcelArrayAll.length, is(not(0)));
-        assertEquals(createdFromParcelAll.getActualDataSize(), testDataSetSamplingAll.getActualDataSize());
-        assertEquals(createdFromParcelAll.getReceivedDataSize(), testDataSetSamplingAll.getReceivedDataSize());
-        assertArrayEquals(createdFromParcelAll.getData(), testDataSetSamplingAll.getData());
-        assertEquals(createdFromParcelAll.getSamplingType(), DataSet.SAMPLING_TYPE.ALL.getCode());
-        assertEquals(readFromParcelAll.getActualDataSize(), testDataSetSamplingAll.getActualDataSize());
-        assertEquals(readFromParcelAll.getReceivedDataSize(), testDataSetSamplingAll.getReceivedDataSize());
-        assertArrayEquals(readFromParcelAll.getData(), testDataSetSamplingAll.getData());
-        assertEquals(readFromParcelAll.getSamplingType(), DataSet.SAMPLING_TYPE.ALL.getCode());
-
-        assertThat(createdFromParcelArrayFirstN.length, is(not(0)));
-        assertEquals(createdFromParcelFirstN.getActualDataSize(), testDataSetSamplingFirstN.getActualDataSize());
-        assertEquals(createdFromParcelFirstN.getReceivedDataSize(), testDataSetSamplingFirstN.getReceivedDataSize());
-        assertArrayEquals(createdFromParcelFirstN.getData(), testDataSetSamplingFirstN.getData());
-        assertEquals(createdFromParcelFirstN.getSamplingType(), DataSet.SAMPLING_TYPE.FIRST_N_SAMPLE.getCode());
-        assertEquals(readFromParcelFirstN.getActualDataSize(), testDataSetSamplingFirstN.getActualDataSize());
-        assertEquals(readFromParcelFirstN.getReceivedDataSize(), testDataSetSamplingFirstN.getReceivedDataSize());
-        assertArrayEquals(readFromParcelFirstN.getData(), testDataSetSamplingFirstN.getData());
-        assertEquals(readFromParcelFirstN.getSamplingType(), DataSet.SAMPLING_TYPE.FIRST_N_SAMPLE.getCode());
-
         assertThat(createdFromParcelArrayDistributedN.length, is(not(0)));
-        assertEquals(createdFromParcelDistributedN.getActualDataSize(), testDataSetSamplingDistributedN.getActualDataSize());
-        assertEquals(createdFromParcelDistributedN.getReceivedDataSize(), testDataSetSamplingDistributedN.getReceivedDataSize());
-        assertArrayEquals(createdFromParcelDistributedN.getData(), testDataSetSamplingDistributedN.getData());
-        assertEquals(createdFromParcelDistributedN.getSamplingType(), DataSet.SAMPLING_TYPE.DISTRIBUTED_N_SAMPLE.getCode());
-        assertEquals(readFromParcelDistributedN.getActualDataSize(), testDataSetSamplingDistributedN.getActualDataSize());
-        assertEquals(readFromParcelDistributedN.getReceivedDataSize(), testDataSetSamplingDistributedN.getReceivedDataSize());
-        assertArrayEquals(readFromParcelDistributedN.getData(), testDataSetSamplingDistributedN.getData());
-        assertEquals(readFromParcelDistributedN.getSamplingType(), DataSet.SAMPLING_TYPE.DISTRIBUTED_N_SAMPLE.getCode());
+        assertEquals(testDataSetSamplingDistributedN.getActualDataSize(), createdFromParcelDistributedN.getActualDataSize());
+        assertEquals(testDataSetSamplingDistributedN.getReceivedDataSize(), createdFromParcelDistributedN.getReceivedDataSize());
+        assertArrayEquals(testDataSetSamplingDistributedN.getData(), createdFromParcelDistributedN.getData());
+        assertEquals(DataSet.SAMPLING_TYPE.DISTRIBUTED_N_SAMPLE.getCode(), createdFromParcelDistributedN.getSamplingType());
+
+        assertEquals(testDataSetSamplingDistributedN.getActualDataSize(), readFromParcelDistributedN.getActualDataSize());
+        assertEquals(testDataSetSamplingDistributedN.getReceivedDataSize(), readFromParcelDistributedN.getReceivedDataSize());
+        assertArrayEquals(testDataSetSamplingDistributedN.getData(), readFromParcelDistributedN.getData());
+        assertEquals(DataSet.SAMPLING_TYPE.DISTRIBUTED_N_SAMPLE.getCode(), readFromParcelDistributedN.getSamplingType());
     }
 }
