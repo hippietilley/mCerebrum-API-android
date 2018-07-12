@@ -1,0 +1,98 @@
+package org.md2k.mcerebrum.api.core.datakitapi;
+
+import android.os.Parcel;
+import android.support.test.filters.SmallTest;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
+
+import java.util.ArrayList;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsNot.not;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+
+@SmallTest
+public class DataSourceRequestAndroidUnitTest {
+    private final int testDsId = -1;
+    private final long testCreationTime = -1;
+    private final long testModifiedTime = -1;
+    private final int[] testStatus = {MCerebrumStatus.UNKNOWN_ERROR, MCerebrumStatus.SUCCESS,
+            MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED,
+            MCerebrumStatus.MCEREBRUM_APP_NOT_INSTALLED,
+            MCerebrumStatus.CONNECTION_ERROR, MCerebrumStatus.INVALID_PARAMETER,
+            MCerebrumStatus.INVALID_DATA_SOURCE,
+            MCerebrumStatus.MISSING_DATA_SOURCE_TYPE, MCerebrumStatus.MISSING_DATA_TYPE,
+            MCerebrumStatus.DATA_SOURCE_NOT_REGISTERED, MCerebrumStatus.INVALID_DATA,
+            MCerebrumStatus.INCONSISTENT_DATA_TYPE, MCerebrumStatus.INVALID_TIMESTAMP,
+            MCerebrumStatus.DATA_SIZE_TOO_LARGE};
+
+    private DataSourceMetaData testDataSourceMetaData;
+    private PlatformMetaData testPlatformMetaData;
+    private PlatformAppMetaData testPlatformAppMetaData;
+    private ApplicationMetaData testApplicationMetaData;
+
+    private ArrayList<DataDescriptor> testDataDescriptors;
+    private final String testDataType = "Test Data Type";
+    private final String testDataRate = "Test Data Rate";
+    private final String testAppId = "Test App Id";
+
+
+    private final String testDataSourceType = "Test Data Source Type";
+    private final String testDataSourceId = "Test Data Source Id";
+    private final String testPlatformType = "Test Platform Type";
+    private final String testPlatformId = "Test Platform Id";
+    private final String testPlatformAppType = "Test Platform App Type";
+    private final String testPlatformAppId = "Test Platform App Id";
+    private final String testApplicationType = "Test Application Type";
+    private final String testApplicationId = "Test Application Id";
+    private DataSourceRequest testDataSourceRequest;
+
+    @Before
+    public void CreateDataSourceRequest() {
+        testDataSourceRequest = new DataSourceRequest.Builder().setDataSourceType(testDataSourceType)
+                .setDataSourceId(testDataSourceId).setPlatformType(testPlatformType)
+                .setPlatformId(testPlatformId).setPlatformAppType(testPlatformAppType)
+                .setPlatformAppId(testPlatformAppId).setApplicationType(testApplicationType)
+                .setApplicationId(testApplicationId).build();
+    }
+
+    @Test
+    public void DataSourceRequestBuilderTest() {
+        assertEquals(testDataSourceType, testDataSourceRequest.getDataSourceType());
+        assertEquals(testDataSourceId, testDataSourceRequest.getDataSourceId());
+        assertEquals(testPlatformType, testDataSourceRequest.getPlatformType());
+        assertEquals(testPlatformId, testDataSourceRequest.getPlatformId());
+        assertEquals(testPlatformAppType, testDataSourceRequest.getPlatformAppType());
+        assertEquals(testPlatformAppId, testDataSourceRequest.getPlatformAppId());
+        assertEquals(testApplicationType, testDataSourceRequest.getApplicationType());
+        assertEquals(testApplicationId, testDataSourceRequest.getApplicationId());
+    }
+
+    @Test
+    public void DataSourceRequest_ParcelableWriteReadTest() {
+        // Write to parcel.
+        Parcel parcel = Parcel.obtain();
+        testDataSourceRequest.writeToParcel(parcel, testDataSourceRequest.describeContents());
+
+        // After writing, reset the parcel for reading.
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataSourceRequest createdFromParcel = DataSourceRequest.CREATOR.createFromParcel(parcel);
+        DataSourceRequest[] createdFromParcelArray = DataSourceRequest.CREATOR.newArray(1);
+
+        // Verify results.
+        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertEquals(testDataSourceType, createdFromParcel.getDataSourceType());
+        assertEquals(testDataSourceId, createdFromParcel.getDataSourceId());
+        assertEquals(testPlatformType, createdFromParcel.getPlatformType());
+        assertEquals(testPlatformId, createdFromParcel.getPlatformId());
+        assertEquals(testPlatformAppType, createdFromParcel.getPlatformAppType());
+        assertEquals(testPlatformAppId, createdFromParcel.getPlatformAppId());
+        assertEquals(testApplicationType, createdFromParcel.getApplicationType());
+        assertEquals(testApplicationId, createdFromParcel.getApplicationId());
+    }
+}
