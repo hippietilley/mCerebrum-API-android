@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.test.suitebuilder.annotation.SmallTest;
 
 import org.junit.Test;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.Data;
 
 import java.util.HashMap;
 
@@ -17,7 +16,7 @@ import static org.junit.Assert.assertThat;
 public class DataSourceMetaDataAndroidUnitTest {
     private final String testTitle = "Test Title";
     private final String testSummary = "Test Summary";
-    private final String testDesciption = "Test Description";
+    private final String testDescription = "Test Description";
     private final String testKey = "key";
     private final String testValue = "value";
     private HashMap<String, String> testCustom = new HashMap<>();
@@ -29,17 +28,17 @@ public class DataSourceMetaDataAndroidUnitTest {
         assertEquals(testValue, testDataSourceMetaData.getValue(testKey));
 
         testDataSourceMetaData = new DataSourceMetaData.Builder().setTitle(testTitle)
-                .setSummary(testSummary).setDescription(testDesciption).build();
+                .setSummary(testSummary).setDescription(testDescription).build();
         assertEquals(testTitle, testDataSourceMetaData.getTitle());
         assertEquals(testSummary, testDataSourceMetaData.getSummary());
-        assertEquals(testDesciption, testDataSourceMetaData.getDescription());
+        assertEquals(testDescription, testDataSourceMetaData.getDescription());
         assertEquals(null, testDataSourceMetaData.getValue(testKey));
     }
 
     @Test
     public void DataSourceMetaData_ParcelableWriteReadTest() {
         testDataSourceMetaData = new DataSourceMetaData.Builder().setTitle(testTitle)
-                .setSummary(testSummary).setDescription(testDesciption).setValue(testKey, testValue).build();
+                .setSummary(testSummary).setDescription(testDescription).setValue(testKey, testValue).build();
 
         // Write to parcel
         Parcel parcel = Parcel.obtain();
