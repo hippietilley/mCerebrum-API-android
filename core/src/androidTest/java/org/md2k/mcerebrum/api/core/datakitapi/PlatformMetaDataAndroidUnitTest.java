@@ -10,6 +10,7 @@ import java.util.HashMap;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 @SmallTest
@@ -46,7 +47,7 @@ public class PlatformMetaDataAndroidUnitTest {
         assertEquals(testVersionFirmware, testPlatformMetaData.getVersionFirmware());
         assertEquals(testVersionHardware, testPlatformMetaData.getVersionHardware());
         assertEquals(testDeviceId, testPlatformMetaData.getDeviceId());
-        assertEquals(null, testPlatformMetaData.getValue(testKey));
+        assertNull(testPlatformMetaData.getValue(testKey));
     }
 
     @Test

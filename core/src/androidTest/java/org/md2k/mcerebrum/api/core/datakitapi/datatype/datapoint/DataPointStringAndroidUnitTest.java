@@ -7,11 +7,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isEmptyString;
 import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.IsSame.sameInstance;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertThat;
 
 @SmallTest
@@ -21,7 +23,10 @@ public class DataPointStringAndroidUnitTest {
     private final String testSample = "Hello world";
     private DataPointString mDataPointString;
 
-    private final String[] testSampleArray = {"Test 1", "Test 2"};
+    private final String testEmptyString = "";
+    private DataPointString mDataPointEmptyString;
+
+    private final String[] testSampleArray = {"Test 1", "Test 2", ""};
     private DataPointString mDataPointStringArray;
 
     // Create the object.
@@ -29,6 +34,19 @@ public class DataPointStringAndroidUnitTest {
     public void createDataPointString() {
         mDataPointString = new DataPointString(testTimestamp, testSample);
         mDataPointStringArray = new DataPointString(testTimestamp, testSampleArray);
+
+    }
+
+    @Test
+    public void fieldAccuracyTest() {
+        assertEquals(testTimestamp, mDataPointString.getTimestamp());
+        assertEquals(testSample, mDataPointString.getSample()[0]);
+
+        assertEquals(testTimestamp, mDataPointEmptyString.getTimestamp());
+        assertThat(mDataPointEmptyString.getSample()[0], isEmptyString());
+
+        assertEquals(testTimestamp, mDataPointStringArray.getTimestamp());
+        assertArrayEquals(testSampleArray, mDataPointStringArray.getSample());
     }
 
     @Test
@@ -36,7 +54,7 @@ public class DataPointStringAndroidUnitTest {
         DataPointString dataPointClone = mDataPointString.clone();
         assertEquals(mDataPointString.getTimestamp(), dataPointClone.getTimestamp());
         assertArrayEquals(mDataPointString.getSample(), dataPointClone.getSample());
-        assertNotEquals(mDataPointString, dataPointClone);
+        assertNotSame(mDataPointString, dataPointClone);
     }
 
     @Test
@@ -54,9 +72,9 @@ public class DataPointStringAndroidUnitTest {
 
         // Verify results.
         assertThat(createdFromParcelArray.length, is(not(0)));
-        assertEquals(createdFromParcel.getTimestamp(), mDataPointString.getTimestamp());
+        assertEquals(mDataPointString.getTimestamp(), createdFromParcel.getTimestamp());
         for (int i = 0; i < createdFromParcel.getSample().length; i++)
-            assertEquals(createdFromParcel.getSample()[i], mDataPointString.getSample()[i]);
+            assertEquals(mDataPointString.getSample()[i], createdFromParcel.getSample()[i]);
     }
 
     @Test
@@ -74,7 +92,7 @@ public class DataPointStringAndroidUnitTest {
 
         // Verify results.
         assertThat(createdFromParcelArray.length, is(not(0)));
-        assertEquals(createdFromParcel.getTimestamp(), mDataPointStringArray.getTimestamp());
-        assertArrayEquals(createdFromParcel.getSample(), mDataPointStringArray.getSample());
+        assertEquals(mDataPointStringArray.getTimestamp(), createdFromParcel.getTimestamp());
+        assertArrayEquals(mDataPointStringArray.getSample(), createdFromParcel.getSample());
     }
 }

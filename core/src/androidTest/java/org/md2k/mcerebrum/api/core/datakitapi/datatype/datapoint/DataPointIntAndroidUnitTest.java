@@ -32,6 +32,14 @@ public class DataPointIntAndroidUnitTest {
     }
 
     @Test
+    public void fieldAccuracyTest() {
+        assertEquals(testTimestamp, mDataPointInt.getTimestamp());
+        assertEquals(testSample, mDataPointInt.getSample()[0]);
+        assertEquals(testTimestamp, mDataPointIntArray.getTimestamp());
+        assertArrayEquals(testSampleArray, mDataPointIntArray.getSample());
+    }
+
+    @Test
     public void dataPointIntCloneTest() {
         DataPointInt dataPointClone = mDataPointInt.clone();
         assertEquals(mDataPointInt.getTimestamp(), dataPointClone.getTimestamp());
@@ -54,8 +62,8 @@ public class DataPointIntAndroidUnitTest {
 
         // Verify results.
         assertThat(createdFromParcelArray.length, is(not(0)));
-        assertEquals(createdFromParcel.getTimestamp(), mDataPointInt.getTimestamp());
-        assertArrayEquals(createdFromParcel.getSample(), mDataPointInt.getSample());
+        assertEquals(mDataPointInt.getTimestamp(), createdFromParcel.getTimestamp());
+        assertArrayEquals(mDataPointInt.getSample(), createdFromParcel.getSample());
     }
 
     @Test
@@ -73,7 +81,7 @@ public class DataPointIntAndroidUnitTest {
 
         // Verify results.
         assertThat(createdFromParcelArray.length, is(not(0)));
-        assertEquals(createdFromParcel.getTimestamp(), mDataPointIntArray.getTimestamp());
-        assertArrayEquals(createdFromParcel.getSample(), mDataPointIntArray.getSample());
+        assertEquals(mDataPointIntArray.getTimestamp(), createdFromParcel.getTimestamp());
+        assertArrayEquals(mDataPointIntArray.getSample(), createdFromParcel.getSample());
     }
 }

@@ -12,6 +12,7 @@ import static org.hamcrest.core.IsSame.sameInstance;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertThat;
 
 @SmallTest
@@ -32,11 +33,19 @@ public class DataPointLongAndroidUnitTest {
     }
 
     @Test
+    public void fieldAccuracyTest() {
+        assertEquals(testTimestamp, mDataPointLong.getTimestamp());
+        assertEquals(testSample, mDataPointLong.getSample()[0], 0.1);
+        assertEquals(testTimestamp, mDataPointLongArray.getTimestamp());
+        assertArrayEquals(testSampleArray, mDataPointLongArray.getSample());
+    }
+
+    @Test
     public void dataPointLongCloneTest() {
         DataPointLong dataPointClone = mDataPointLong.clone();
         assertEquals(mDataPointLong.getTimestamp(), dataPointClone.getTimestamp());
         assertArrayEquals(mDataPointLong.getSample(), dataPointClone.getSample());
-        assertNotEquals(mDataPointLong, dataPointClone);
+        assertNotSame(mDataPointLong, dataPointClone);
     }
 
     @Test
@@ -54,8 +63,8 @@ public class DataPointLongAndroidUnitTest {
 
         // Verify results.
         assertThat(createdFromParcelArray.length, is(not(0)));
-        assertEquals(createdFromParcel.getTimestamp(), mDataPointLong.getTimestamp());
-        assertArrayEquals(createdFromParcel.getSample(), mDataPointLong.getSample());
+        assertEquals(mDataPointLong.getTimestamp(), createdFromParcel.getTimestamp());
+        assertArrayEquals(mDataPointLong.getSample(), createdFromParcel.getSample());
     }
 
     @Test
@@ -73,7 +82,7 @@ public class DataPointLongAndroidUnitTest {
 
         // Verify results.
         assertThat(createdFromParcelArray.length, is(not(0)));
-        assertEquals(createdFromParcel.getTimestamp(), mDataPointLongArray.getTimestamp());
-        assertArrayEquals(createdFromParcel.getSample(), mDataPointLongArray.getSample());
+        assertEquals(mDataPointLongArray.getTimestamp(), createdFromParcel.getTimestamp());
+        assertArrayEquals(mDataPointLongArray.getSample(), createdFromParcel.getSample());
     }
 }

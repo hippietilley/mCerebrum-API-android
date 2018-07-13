@@ -5,11 +5,10 @@ import android.support.test.filters.SmallTest;
 
 import org.junit.Test;
 
-import java.util.HashMap;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 @SmallTest
@@ -25,7 +24,6 @@ public class PlatformAppMetaDataAndroidUnitTest {
     private final String testDeviceId = "Test Device ID";
     private final String testKey = "Test Key";
     private final String testValue = "Test Value";
-    private HashMap<String, String> testCustom = new HashMap<>();
     private PlatformAppMetaData testPlatformAppMetaData;
 
     @Test
@@ -46,7 +44,7 @@ public class PlatformAppMetaDataAndroidUnitTest {
         assertEquals(testVersionFirmware, testPlatformAppMetaData.getVersionFirmware());
         assertEquals(testVersionHardware, testPlatformAppMetaData.getVersionHardware());
         assertEquals(testDeviceId, testPlatformAppMetaData.getDeviceId());
-        assertEquals(null, testPlatformAppMetaData.getValue(testKey));
+        assertNull(testPlatformAppMetaData.getValue(testKey));
     }
 
     @Test

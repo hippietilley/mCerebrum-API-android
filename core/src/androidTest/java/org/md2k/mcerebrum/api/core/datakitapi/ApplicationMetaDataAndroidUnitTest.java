@@ -5,11 +5,10 @@ import android.support.test.filters.SmallTest;
 
 import org.junit.Test;
 
-import java.util.HashMap;
-
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 @SmallTest
@@ -21,7 +20,6 @@ public class ApplicationMetaDataAndroidUnitTest {
     private int testVersionNumber = 1;
     private String testKey = "Key";
     private String testValue = "Value";
-    private HashMap<String, String> testCustom = new HashMap<>();
     private ApplicationMetaData testAppMetaData;
 
     @Test
@@ -37,7 +35,7 @@ public class ApplicationMetaDataAndroidUnitTest {
         assertEquals(testDescription, testAppMetaData.getDescription());
         assertEquals(testVersionName, testAppMetaData.getVersionName());
         assertEquals(testVersionNumber, testAppMetaData.getVersionNumber());
-        assertEquals(null, testAppMetaData.getValue(testKey));
+        assertNull(testAppMetaData.getValue(testKey));
     }
 
     @Test

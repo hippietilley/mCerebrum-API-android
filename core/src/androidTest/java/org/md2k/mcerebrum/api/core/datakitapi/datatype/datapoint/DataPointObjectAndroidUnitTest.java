@@ -12,6 +12,7 @@ import static org.hamcrest.core.IsSame.sameInstance;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertThat;
 
 @SmallTest
@@ -32,11 +33,19 @@ public class DataPointObjectAndroidUnitTest {
     }
 
     @Test
+    public void fieldAccuracyTest() {
+        assertEquals(testTimestamp, mDataPointObject.getTimestamp());
+        assertEquals(testSample, mDataPointObject.getSample()[0]);
+        assertEquals(testTimestamp, mDataPointObjectArray.getTimestamp());
+        assertArrayEquals(testSampleArray, mDataPointObjectArray.getSample());
+    }
+
+    @Test
     public void dataPointObjectCloneTest() {
         DataPointObject dataPointClone = mDataPointObject.clone();
         assertEquals(mDataPointObject.getTimestamp(), dataPointClone.getTimestamp());
         assertArrayEquals(mDataPointObject.getSample(), dataPointClone.getSample());
-        assertNotEquals(mDataPointObject, dataPointClone);
+        assertNotSame(mDataPointObject, dataPointClone);
     }
 
     @Test
@@ -54,9 +63,9 @@ public class DataPointObjectAndroidUnitTest {
 
         // Verify results.
         assertThat(createdFromParcelArray.length, is(not(0)));
-        assertEquals(createdFromParcel.getTimestamp(), mDataPointObject.getTimestamp());
+        assertEquals(mDataPointObject.getTimestamp(), createdFromParcel.getTimestamp());
         for (int i = 0; i < createdFromParcel.getSample().length; i++)
-            assertEquals(createdFromParcel.getSample()[i], mDataPointObject.getSample()[i]);
+            assertEquals(mDataPointObject.getSample()[i], createdFromParcel.getSample()[i]);
     }
 
     @Test
@@ -74,7 +83,7 @@ public class DataPointObjectAndroidUnitTest {
 
         // Verify results.
         assertThat(createdFromParcelArray.length, is(not(0)));
-        assertEquals(createdFromParcel.getTimestamp(), mDataPointObjectArray.getTimestamp());
-        assertArrayEquals(createdFromParcel.getSample(), mDataPointObjectArray.getSample());
+        assertEquals(mDataPointObjectArray.getTimestamp(), createdFromParcel.getTimestamp());
+        assertArrayEquals(mDataPointObjectArray.getSample(), createdFromParcel.getSample());
     }
 }

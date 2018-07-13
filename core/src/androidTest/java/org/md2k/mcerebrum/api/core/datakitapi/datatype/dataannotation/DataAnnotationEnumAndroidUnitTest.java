@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertThat;
 
 @SmallTest
@@ -26,11 +26,18 @@ public class DataAnnotationEnumAndroidUnitTest {
     }
 
     @Test
+    public void fieldAccuracyTest() {
+        assertEquals(testStartTimestamp, mDataAnnotationEnum.getTimestamp());
+        assertEquals(testEndTimestamp, mDataAnnotationEnum.getEndTimestamp());
+        assertEquals(testSample, mDataAnnotationEnum.getSample()[0]);
+    }
+
+    @Test
     public void cloneTest() {
         DataAnnotationEnum dataAnnotationEnumClone = mDataAnnotationEnum.clone();
         assertEquals(mDataAnnotationEnum.getTimestamp(), dataAnnotationEnumClone.getTimestamp());
         assertArrayEquals(mDataAnnotationEnum.getSample(), dataAnnotationEnumClone.getSample());
-        assertNotEquals(mDataAnnotationEnum, dataAnnotationEnumClone);
+        assertNotSame(mDataAnnotationEnum, dataAnnotationEnumClone);
     }
 
     @Test
@@ -48,7 +55,7 @@ public class DataAnnotationEnumAndroidUnitTest {
 
         // Verify results.
         assertThat(createdFromParcelArray.length, is(not(0)));
-        assertEquals(createdFromParcel.getTimestamp(), mDataAnnotationEnum.getTimestamp());
-        assertArrayEquals(createdFromParcel.getSample(), mDataAnnotationEnum.getSample());
+        assertEquals(mDataAnnotationEnum.getTimestamp(), createdFromParcel.getTimestamp());
+        assertArrayEquals(mDataAnnotationEnum.getSample(), createdFromParcel.getSample());
     }
 }

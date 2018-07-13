@@ -5,8 +5,6 @@ import android.support.test.filters.SmallTest;
 
 import org.junit.Test;
 
-import java.util.HashMap;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertArrayEquals;
@@ -25,7 +23,6 @@ public class DataDescriptorAndroidUnitTest {
     private final String testUnit = "Test Unit";
     private final String testKey = "Test Key";
     private final String testValue = "Test Value";
-    private HashMap<String, String> testCustom = new HashMap<>();
     private DataDescriptor testDataDescriptor;
 
     @Test

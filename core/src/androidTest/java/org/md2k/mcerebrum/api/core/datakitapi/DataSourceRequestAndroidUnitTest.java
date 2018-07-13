@@ -16,30 +16,6 @@ import static org.junit.Assert.assertThat;
 
 @SmallTest
 public class DataSourceRequestAndroidUnitTest {
-    private final int testDsId = -1;
-    private final long testCreationTime = -1;
-    private final long testModifiedTime = -1;
-    private final int[] testStatus = {MCerebrumStatus.UNKNOWN_ERROR, MCerebrumStatus.SUCCESS,
-            MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED,
-            MCerebrumStatus.MCEREBRUM_APP_NOT_INSTALLED,
-            MCerebrumStatus.CONNECTION_ERROR, MCerebrumStatus.INVALID_PARAMETER,
-            MCerebrumStatus.INVALID_DATA_SOURCE,
-            MCerebrumStatus.MISSING_DATA_SOURCE_TYPE, MCerebrumStatus.MISSING_DATA_TYPE,
-            MCerebrumStatus.DATA_SOURCE_NOT_REGISTERED, MCerebrumStatus.INVALID_DATA,
-            MCerebrumStatus.INCONSISTENT_DATA_TYPE, MCerebrumStatus.INVALID_TIMESTAMP,
-            MCerebrumStatus.DATA_SIZE_TOO_LARGE};
-
-    private DataSourceMetaData testDataSourceMetaData;
-    private PlatformMetaData testPlatformMetaData;
-    private PlatformAppMetaData testPlatformAppMetaData;
-    private ApplicationMetaData testApplicationMetaData;
-
-    private ArrayList<DataDescriptor> testDataDescriptors;
-    private final String testDataType = "Test Data Type";
-    private final String testDataRate = "Test Data Rate";
-    private final String testAppId = "Test App Id";
-
-
     private final String testDataSourceType = "Test Data Source Type";
     private final String testDataSourceId = "Test Data Source Id";
     private final String testPlatformType = "Test Platform Type";

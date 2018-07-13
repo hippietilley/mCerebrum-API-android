@@ -5,8 +5,6 @@ import android.test.suitebuilder.annotation.SmallTest;
 
 import org.junit.Test;
 
-import java.util.HashMap;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
@@ -19,7 +17,6 @@ public class DataSourceMetaDataAndroidUnitTest {
     private final String testDescription = "Test Description";
     private final String testKey = "key";
     private final String testValue = "value";
-    private HashMap<String, String> testCustom = new HashMap<>();
     private DataSourceMetaData testDataSourceMetaData;
 
     @Test

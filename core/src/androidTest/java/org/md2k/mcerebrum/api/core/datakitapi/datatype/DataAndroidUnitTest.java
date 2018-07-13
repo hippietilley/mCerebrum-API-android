@@ -12,6 +12,7 @@ import static org.hamcrest.core.IsSame.sameInstance;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertThat;
 
 @SmallTest
@@ -26,10 +27,15 @@ public class DataAndroidUnitTest {
     }
 
     @Test
+    public void fieldAccuracyTest() {
+        assertEquals(testTimestamp, mData.getTimestamp());
+    }
+
+    @Test
     public void dataCloneTest() {
         Data dataClone = mData.clone();
         assertEquals(mData.getTimestamp(), dataClone.getTimestamp());
-        assertNotEquals(mData, dataClone);
+        assertNotSame(mData, dataClone);
     }
 
     @Test
@@ -47,6 +53,6 @@ public class DataAndroidUnitTest {
 
         // Verify results.
         assertThat(createdFromParcelArray.length, is(not(0)));
-        assertEquals(createdFromParcel.getTimestamp(), mData.getTimestamp());
+        assertEquals(mData.getTimestamp(), createdFromParcel.getTimestamp());
     }
 }
