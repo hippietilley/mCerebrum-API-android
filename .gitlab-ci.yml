@@ -11,7 +11,7 @@ variables:
 
 before_script:
   - apt-get --quiet update --yes
-  - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1
+  - apt-get --quiet install --ye-img-x86-google_apis-${ANDROID_COMPILE_SDK}"s wget tar unzip lib32stdc++6 lib32z1
   
   - wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip
   - unzip -q android-sdk.zip -d android-sdk-linux
@@ -46,12 +46,13 @@ unitTests:
 functionalTests:
   stage: test
   script:
-    - wget --quiet --output-document=android-wait-for-emulator https://raw.githubusercontent.com/travis-ci/travis-cookbooks/0f497eb71291b52a703143c5cd63a217c8766dc9/community-cookbooks/android-sdk/files/default/android-wait-for-emulator
+   - wget --quiet --output-document=android-wait-for-emulator https://raw.githubusercontent.com/travis-ci/travis-cookbooks/0f497eb71291b52a703143c5cd63a217c8766dc9/community-cookbooks/android-sdk/files/default/android-wait-for-emulator
     - chmod +x android-wait-for-emulator
-    - echo y | android-sdk-linux/tools/bin/sdkmanager update sdk "system-images;android-${ANDROID_COMPILE_SDK};google_apis_playstore;x86"
-    - echo no | android-sdk-linux/tools/avdmanager create avd -n test -t android-${ANDROID_COMPILE_SDK} --abi google_apis/x86
+    - echo y | android-sdk-linux/tools/bin/sdkmanager --update "sys-img-x86-google_apis-${ANDROID_COMPILE_SDK}"
+    - echo no | android-sdk-linux/tools/bin/avdmanager create avd -n test -k "system-images;android-${ANDROID_COMPILE_SDK};google_apis;x86" -f
     - android-sdk-linux/tools/emulator64-x86 -avd test -no-window -no-audio &
     - ./android-wait-for-emulator
     - adb shell input keyevent 82
-    - ./gradlew --debug --stacktrace core:cAT
+    - ./gradlew core:cAT
+
     
