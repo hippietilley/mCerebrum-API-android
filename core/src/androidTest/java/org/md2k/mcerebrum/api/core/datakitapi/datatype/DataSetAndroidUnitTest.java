@@ -89,7 +89,7 @@ public class DataSetAndroidUnitTest {
         }
     }
 
-    @Ignore
+    //@Ignore
     @Test
     public void dataSetSamplingAll_ParcelableWriteRead() {
         // Write data to parcel.
