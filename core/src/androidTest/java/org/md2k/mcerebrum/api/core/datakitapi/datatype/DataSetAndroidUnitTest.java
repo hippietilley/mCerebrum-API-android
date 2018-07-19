@@ -89,7 +89,7 @@ public class DataSetAndroidUnitTest {
         }
     }
 
-    @Ignore
+    //@Ignore
     @Test
     public void dataSetSamplingAll_ParcelableWriteRead() {
         // Write data to parcel.
@@ -109,12 +109,62 @@ public class DataSetAndroidUnitTest {
         assertThat(createdFromParcelArrayAll.length, is(not(0)));
         assertEquals(actualDataSize, createdFromParcelAll.getActualDataSize());
         assertEquals(receivedDataSize, createdFromParcelAll.getReceivedDataSize());
-        assertArrayEquals(testDataSetSamplingAll.getData(), createdFromParcelAll.getData());
+        for (int i = 0; i < testDataSetSamplingAll.getData().length; i++) {
+            if (createdFromParcelAll.getData()[i] instanceof DataPointBoolean)
+                assertArrayEquals(((DataPointBoolean)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointBoolean)createdFromParcelAll.getData()[i]).getSample());
+            if (createdFromParcelAll.getData()[i] instanceof DataPointByte)
+                assertArrayEquals(((DataPointByte)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointByte)createdFromParcelAll.getData()[i]).getSample());
+            if (createdFromParcelAll.getData()[i] instanceof DataPointDouble)
+                assertArrayEquals(((DataPointDouble)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointDouble)createdFromParcelAll.getData()[i]).getSample(), 0.1);
+            if (createdFromParcelAll.getData()[i] instanceof DataPointEnum)
+                assertArrayEquals(((DataPointEnum)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointEnum)createdFromParcelAll.getData()[i]).getSample());
+            if (createdFromParcelAll.getData()[i] instanceof DataPointInt)
+                assertArrayEquals(((DataPointInt)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointInt)createdFromParcelAll.getData()[i]).getSample());
+            if (createdFromParcelAll.getData()[i] instanceof DataPointLong)
+                assertArrayEquals(((DataPointLong)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointLong)createdFromParcelAll.getData()[i]).getSample());
+            if (createdFromParcelAll.getData()[i] instanceof DataPointObject)
+                assertArrayEquals(((DataPointObject)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointObject)createdFromParcelAll.getData()[i]).getSample());
+            if (createdFromParcelAll.getData()[i] instanceof DataPointString)
+                assertArrayEquals(((DataPointString)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointString)createdFromParcelAll.getData()[i]).getSample());
+        }
         assertEquals(DataSet.SAMPLING_TYPE.ALL.getCode(), createdFromParcelAll.getSamplingType());
 
         assertEquals(actualDataSize, readFromParcelAll.getActualDataSize());
         assertEquals(receivedDataSize, readFromParcelAll.getReceivedDataSize());
-        assertArrayEquals(testDataSetSamplingAll.getData(), readFromParcelAll.getData());
+        for (int i = 0; i < testDataSetSamplingAll.getData().length; i++) {
+            if (readFromParcelAll.getData()[i] instanceof DataPointBoolean)
+                assertArrayEquals(((DataPointBoolean)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointBoolean)readFromParcelAll.getData()[i]).getSample());
+            if (readFromParcelAll.getData()[i] instanceof DataPointByte)
+                assertArrayEquals(((DataPointByte)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointByte)readFromParcelAll.getData()[i]).getSample());
+            if (readFromParcelAll.getData()[i] instanceof DataPointDouble)
+                assertArrayEquals(((DataPointDouble)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointDouble)readFromParcelAll.getData()[i]).getSample(), 0.1);
+            if (readFromParcelAll.getData()[i] instanceof DataPointEnum)
+                assertArrayEquals(((DataPointEnum)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointEnum)readFromParcelAll.getData()[i]).getSample());
+            if (readFromParcelAll.getData()[i] instanceof DataPointInt)
+                assertArrayEquals(((DataPointInt)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointInt)readFromParcelAll.getData()[i]).getSample());
+            if (readFromParcelAll.getData()[i] instanceof DataPointLong)
+                assertArrayEquals(((DataPointLong)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointLong)readFromParcelAll.getData()[i]).getSample());
+            if (readFromParcelAll.getData()[i] instanceof DataPointObject)
+                assertArrayEquals(((DataPointObject)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointObject)readFromParcelAll.getData()[i]).getSample());
+            if (readFromParcelAll.getData()[i] instanceof DataPointString)
+                assertArrayEquals(((DataPointString)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointString)readFromParcelAll.getData()[i]).getSample());
+        }
         assertEquals(DataSet.SAMPLING_TYPE.ALL.getCode(), readFromParcelAll.getSamplingType());
     }
 
@@ -138,16 +188,66 @@ public class DataSetAndroidUnitTest {
         assertThat(createdFromParcelArrayFirstN.length, is(not(0)));
         assertEquals(actualDataSize, createdFromParcelFirstN.getActualDataSize());
         assertEquals(receivedDataSize, createdFromParcelFirstN.getReceivedDataSize());
-        assertArrayEquals(testDataSetSamplingFirstN.getData(), createdFromParcelFirstN.getData());
+        for (int i = 0; i < testDataSetSamplingFirstN.getData().length; i++) {
+            if (createdFromParcelFirstN.getData()[i] instanceof DataPointBoolean)
+                assertArrayEquals(((DataPointBoolean)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointBoolean)createdFromParcelFirstN.getData()[i]).getSample());
+            if (createdFromParcelFirstN.getData()[i] instanceof DataPointByte)
+                assertArrayEquals(((DataPointByte)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointByte)createdFromParcelFirstN.getData()[i]).getSample());
+            if (createdFromParcelFirstN.getData()[i] instanceof DataPointDouble)
+                assertArrayEquals(((DataPointDouble)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointDouble)createdFromParcelFirstN.getData()[i]).getSample(), 0.1);
+            if (createdFromParcelFirstN.getData()[i] instanceof DataPointEnum)
+                assertArrayEquals(((DataPointEnum)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointEnum)createdFromParcelFirstN.getData()[i]).getSample());
+            if (createdFromParcelFirstN.getData()[i] instanceof DataPointInt)
+                assertArrayEquals(((DataPointInt)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointInt)createdFromParcelFirstN.getData()[i]).getSample());
+            if (createdFromParcelFirstN.getData()[i] instanceof DataPointLong)
+                assertArrayEquals(((DataPointLong)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointLong)createdFromParcelFirstN.getData()[i]).getSample());
+            if (createdFromParcelFirstN.getData()[i] instanceof DataPointObject)
+                assertArrayEquals(((DataPointObject)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointObject)createdFromParcelFirstN.getData()[i]).getSample());
+            if (createdFromParcelFirstN.getData()[i] instanceof DataPointString)
+                assertArrayEquals(((DataPointString)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointString)createdFromParcelFirstN.getData()[i]).getSample());
+        }
         assertEquals(DataSet.SAMPLING_TYPE.FIRST_N_SAMPLE.getCode(), createdFromParcelFirstN.getSamplingType());
 
         assertEquals(actualDataSize, readFromParcelFirstN.getActualDataSize());
         assertEquals(testDataSetSamplingFirstN.getReceivedDataSize(), readFromParcelFirstN.getReceivedDataSize());
-        assertArrayEquals(readFromParcelFirstN.getData(), testDataSetSamplingFirstN.getData());
+        for (int i = 0; i < testDataSetSamplingFirstN.getData().length; i++) {
+            if (readFromParcelFirstN.getData()[i] instanceof DataPointBoolean)
+                assertArrayEquals(((DataPointBoolean)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointBoolean)readFromParcelFirstN.getData()[i]).getSample());
+            if (readFromParcelFirstN.getData()[i] instanceof DataPointByte)
+                assertArrayEquals(((DataPointByte)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointByte)readFromParcelFirstN.getData()[i]).getSample());
+            if (readFromParcelFirstN.getData()[i] instanceof DataPointDouble)
+                assertArrayEquals(((DataPointDouble)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointDouble)readFromParcelFirstN.getData()[i]).getSample(), 0.1);
+            if (readFromParcelFirstN.getData()[i] instanceof DataPointEnum)
+                assertArrayEquals(((DataPointEnum)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointEnum)readFromParcelFirstN.getData()[i]).getSample());
+            if (readFromParcelFirstN.getData()[i] instanceof DataPointInt)
+                assertArrayEquals(((DataPointInt)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointInt)readFromParcelFirstN.getData()[i]).getSample());
+            if (readFromParcelFirstN.getData()[i] instanceof DataPointLong)
+                assertArrayEquals(((DataPointLong)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointLong)readFromParcelFirstN.getData()[i]).getSample());
+            if (readFromParcelFirstN.getData()[i] instanceof DataPointObject)
+                assertArrayEquals(((DataPointObject)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointObject)readFromParcelFirstN.getData()[i]).getSample());
+            if (readFromParcelFirstN.getData()[i] instanceof DataPointString)
+                assertArrayEquals(((DataPointString)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointString)readFromParcelFirstN.getData()[i]).getSample());
+        }
         assertEquals(DataSet.SAMPLING_TYPE.FIRST_N_SAMPLE.getCode(), readFromParcelFirstN.getSamplingType());
     }
 
-    @Ignore
+    //@Ignore
     @Test
     public void dataSetSamplingDistributedN_ParcelableWriteRead() {
         // Write data to parcel.
@@ -169,15 +269,62 @@ public class DataSetAndroidUnitTest {
         assertEquals(actualDataSize, createdFromParcelDistributedN.getActualDataSize());
         assertEquals(receivedDataSize, createdFromParcelDistributedN.getReceivedDataSize());
         for (int i = 0; i < testDataSetSamplingDistributedN.getData().length; i++) {
-            assertEquals(testDataSetSamplingDistributedN.getData()[i],
-                    createdFromParcelDistributedN.getData()[i]);
+            if (createdFromParcelDistributedN.getData()[i] instanceof DataPointBoolean)
+                assertArrayEquals(((DataPointBoolean)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointBoolean)createdFromParcelDistributedN.getData()[i]).getSample());
+            if (createdFromParcelDistributedN.getData()[i] instanceof DataPointByte)
+                assertArrayEquals(((DataPointByte)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointByte)createdFromParcelDistributedN.getData()[i]).getSample());
+            if (createdFromParcelDistributedN.getData()[i] instanceof DataPointDouble)
+                assertArrayEquals(((DataPointDouble)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointDouble)createdFromParcelDistributedN.getData()[i]).getSample(), 0.1);
+            if (createdFromParcelDistributedN.getData()[i] instanceof DataPointEnum)
+                assertArrayEquals(((DataPointEnum)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointEnum)createdFromParcelDistributedN.getData()[i]).getSample());
+            if (createdFromParcelDistributedN.getData()[i] instanceof DataPointInt)
+                assertArrayEquals(((DataPointInt)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointInt)createdFromParcelDistributedN.getData()[i]).getSample());
+            if (createdFromParcelDistributedN.getData()[i] instanceof DataPointLong)
+                assertArrayEquals(((DataPointLong)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointLong)createdFromParcelDistributedN.getData()[i]).getSample());
+            if (createdFromParcelDistributedN.getData()[i] instanceof DataPointObject)
+                assertArrayEquals(((DataPointObject)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointObject)createdFromParcelDistributedN.getData()[i]).getSample());
+            if (createdFromParcelDistributedN.getData()[i] instanceof DataPointString)
+                assertArrayEquals(((DataPointString)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointString)createdFromParcelDistributedN.getData()[i]).getSample());
         }
         assertArrayEquals(testDataSetSamplingDistributedN.getData(), createdFromParcelDistributedN.getData());
         assertEquals(DataSet.SAMPLING_TYPE.DISTRIBUTED_N_SAMPLE.getCode(), createdFromParcelDistributedN.getSamplingType());
 
         assertEquals(actualDataSize, readFromParcelDistributedN.getActualDataSize());
         assertEquals(receivedDataSize, readFromParcelDistributedN.getReceivedDataSize());
-        assertArrayEquals(testDataSetSamplingDistributedN.getData(), readFromParcelDistributedN.getData());
+        for (int i = 0; i < testDataSetSamplingDistributedN.getData().length; i++) {
+            if (readFromParcelDistributedN.getData()[i] instanceof DataPointBoolean)
+                assertArrayEquals(((DataPointBoolean)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointBoolean)readFromParcelDistributedN.getData()[i]).getSample());
+            if (readFromParcelDistributedN.getData()[i] instanceof DataPointByte)
+                assertArrayEquals(((DataPointByte)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointByte)readFromParcelDistributedN.getData()[i]).getSample());
+            if (readFromParcelDistributedN.getData()[i] instanceof DataPointDouble)
+                assertArrayEquals(((DataPointDouble)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointDouble)readFromParcelDistributedN.getData()[i]).getSample(), 0.1);
+            if (readFromParcelDistributedN.getData()[i] instanceof DataPointEnum)
+                assertArrayEquals(((DataPointEnum)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointEnum)readFromParcelDistributedN.getData()[i]).getSample());
+            if (readFromParcelDistributedN.getData()[i] instanceof DataPointInt)
+                assertArrayEquals(((DataPointInt)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointInt)readFromParcelDistributedN.getData()[i]).getSample());
+            if (readFromParcelDistributedN.getData()[i] instanceof DataPointLong)
+                assertArrayEquals(((DataPointLong)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointLong)readFromParcelDistributedN.getData()[i]).getSample());
+            if (readFromParcelDistributedN.getData()[i] instanceof DataPointObject)
+                assertArrayEquals(((DataPointObject)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointObject)readFromParcelDistributedN.getData()[i]).getSample());
+            if (readFromParcelDistributedN.getData()[i] instanceof DataPointString)
+                assertArrayEquals(((DataPointString)testDataSetSamplingAll.getData()[i]).getSample(),
+                        ((DataPointString)readFromParcelDistributedN.getData()[i]).getSample());
+        }
         assertEquals(DataSet.SAMPLING_TYPE.DISTRIBUTED_N_SAMPLE.getCode(), readFromParcelDistributedN.getSamplingType());
     }
 }
