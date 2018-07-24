@@ -115,7 +115,7 @@ int unsubscribe(dataSource dataSource, DataCallback callback);
 ```
 
 ## Contributing
-Please read our [Contributing Guidelines]() for details on the process for submitting pull requests to us.
+Please read our [Contributing Guidelines](https://md2k.org/software/under-the-hood/contributing) for details on the process for submitting pull requests to us.
 
 We use the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html).
 
