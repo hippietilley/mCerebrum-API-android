@@ -1,17 +1,23 @@
 package org.md2k.mcerebrum.api.core.datakitapi;
 
+import android.content.Context;
+import android.os.Build;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.md2k.mcerebrum.api.core.MCerebrumAPI;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.APPLICATION;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DATASOURCE;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM_APP;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataType;
 import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
 
-import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class DataSourceCreatorAndroidUnitTest {
     final String[] dataSourceTypeArray = {DATASOURCE.TYPE.ACCELEROMETER, DATASOURCE.TYPE.GYROSCOPE,
@@ -104,14 +110,18 @@ public class DataSourceCreatorAndroidUnitTest {
             MCerebrumStatus.getStatusCodeString(MCerebrumStatus.INCONSISTENT_DATA_TYPE),
             MCerebrumStatus.getStatusCodeString(MCerebrumStatus.INVALID_TIMESTAMP),
             MCerebrumStatus.getStatusCodeString(MCerebrumStatus.DATA_SIZE_TOO_LARGE)};
+    final DataType[] dataTypeArray = {DataType.DATAPOINT_BOOLEAN, DataType.DATAPOINT_BYTE,
+            DataType.DATAPOINT_INT, DataType.DATAPOINT_LONG, DataType.DATAPOINT_DOUBLE,
+            DataType.DATAPOINT_STRING, DataType.DATAPOINT_ENUM, DataType.DATAPOINT_OBJECT,
+            DataType.DATAANNOTATION_ENUM, DataType.UNKNOWN};
 
     // Variable for Platform and Application metadata objects
-    private final String testTitle = "Test Title";
-    private final String testSummary = "Test Summary";
+    private final String testTitle = "Android Phone";
+    private final String testSummary = "Android Phone";
     private final String testDescription = "Test Description";
-    private final String testOperationSystem = "Test Operating System";
-    private final String testManufacturer = "Test Manufacturer";
-    private final String testModel = "Test Model";
+    private final String testOperationSystem = "Android " + Build.VERSION.RELEASE;
+    private final String testManufacturer = Build.MANUFACTURER;
+    private final String testModel = Build.MODEL;
     private final String testVersionFirmware = "Test Version Firmware";
     private final String testVersionHardware = "Test Version Hardware";
     private String testVersionName = "Test version";
@@ -124,8 +134,12 @@ public class DataSourceCreatorAndroidUnitTest {
     private final String testDeviceId = "Test Device ID";
     private final String testKey = "Test Key";
     private final String testValue = "Test Value";
-    private HashMap<String, String> testCustom = new HashMap<>();
     private DataSourceCreator testDataSourceCreator;
+    private final TimeUnit[] timeUnitArray = {TimeUnit.DAYS, TimeUnit.HOURS, TimeUnit.MINUTES,
+            TimeUnit.SECONDS, TimeUnit.MILLISECONDS};
+    private final int testSampleNo = 10;
+    MCerebrumAPI testmCerebrumAPI;
+    Context testContext;
 
     @Before
     public void objectCreation(){
@@ -140,29 +154,39 @@ public class DataSourceCreatorAndroidUnitTest {
         testPlatformMetaData.setVersionFirmware(testVersionFirmware);
         testPlatformMetaData.setVersionHardware(testVersionHardware);
         testPlatformMetaData.setDeviceId(testDeviceId);
-
         // Create testPlatformAppMetaData
         testPlatformAppMetaData = new PlatformAppMetaData.Builder().setTitle(testTitle).setSummary(testSummary)
                 .setDescription(testDescription).setOperationSystem(testOperationSystem)
                 .setManufacturer(testManufacturer).setModel(testModel).setVersionFirmware(testVersionFirmware)
                 .setVersionHardware(testVersionHardware).setDeviceId(testDeviceId).setValue(testKey, testValue)
                 .build();
-
         // Create testApplicationMetaData
         testAppMetaData = new ApplicationMetaData.Builder().setTitle(testTitle).setSummary(testSummary)
                 .setDescription(testDescription).setVersionName(testVersionName)
                 .setVersionNumber(testVersionNumber).setValue(testKey, testValue).build();
-
         // Create testDataDescriptor
         testDataDescriptor = new DataDescriptor.Builder().setTitle(testTitle)
                 .setSummary(testSummary).setDescription(testDescription).setMinValue(testMinValue)
                 .setMaxValue(testMaxValue).setPossibleValues(testPossibleValuesAsString)
                 .setPossibleValues(testPossibleValuesAsInt).setUnit(testUnit).setValue(testKey, testValue)
                 .build();
-
         // Create testDataSourceMetaData
         testDataSourceMetaData = new DataSourceMetaData.Builder().setTitle(testTitle)
                 .setSummary(testSummary).setDescription(testDescription).setValue(testKey, testValue).build();
+        // Initialize mCerebrumAPI
+        //testContext = InstrumentationRegistry.getContext();
+        //testmCerebrumAPI = testmCerebrumAPI.init(testContext);
+    }
+
+    @Test
+    public void dataSourceTypeTest() {
+        for (int i = 0; i < dataSourceTypeArray.length; i++) {
+            for (int j = 0; j < dataTypeArray.length; j++) {
+                testDataSourceCreator = DataSourceCreator.builder(dataSourceTypeArray[i], dataTypeArray[j]).build();
+                assertEquals(dataTypeArray[j].name(), testDataSourceCreator.getDataType());
+            }
+            assertEquals(dataSourceTypeArray[i], testDataSourceCreator.getDataSourceType());
+        }
     }
 
     @Test
@@ -263,6 +287,41 @@ public class DataSourceCreatorAndroidUnitTest {
     }
 
     @Test
+    public void dataRateTest() {
+        double hoursInDay = 24.0;
+        double minInHour = 60.0;
+        double secInMin = 60.0;
+        // Test days
+        testDataSourceCreator = new DataSourceCreator.Builder().setDataRate(testSampleNo, timeUnitArray[0]).build();
+        assertEquals(Double.toString((testSampleNo) / (hoursInDay * minInHour * secInMin)),
+                testDataSourceCreator.getDataRate());
+        // Test hours
+        testDataSourceCreator = new DataSourceCreator.Builder().setDataRate(testSampleNo, timeUnitArray[1]).build();
+        assertEquals(Double.toString((testSampleNo) / (minInHour * secInMin)), testDataSourceCreator.getDataRate());
+        // Test minutes
+        testDataSourceCreator = new DataSourceCreator.Builder().setDataRate(testSampleNo, timeUnitArray[2]).build();
+        assertEquals(Double.toString((testSampleNo) / (secInMin)), testDataSourceCreator.getDataRate());
+        // Test seconds
+        testDataSourceCreator = new DataSourceCreator.Builder().setDataRate(testSampleNo, timeUnitArray[3]).build();
+        assertEquals(Double.toString(testSampleNo), testDataSourceCreator.getDataRate());
+        // Test default (TimeUnit.MILLISECONDS)
+        testDataSourceCreator = new DataSourceCreator.Builder().setDataRate(testSampleNo, timeUnitArray[4]).build();
+        assertEquals(Double.toString(testSampleNo), testDataSourceCreator.getDataRate());
+    }
+
+    @Test
+    public void platformAsPhoneTest() {
+        testDataSourceCreator = new DataSourceCreator.Builder().setPlatformAsPhone().build();
+        assertEquals(PLATFORM.TYPE.PHONE, testDataSourceCreator.getPlatformType());
+        assertNotNull(testDataSourceCreator.getPlatformId());
+        assertEquals(testTitle, testDataSourceCreator.getPlatformMetaData().getTitle());
+        //assertEquals(, testDataSourceCreator.getPlatformMetaData().getSummary());
+        assertEquals(testOperationSystem, testDataSourceCreator.getPlatformMetaData().getOperationSystem());
+        assertEquals(testManufacturer, testDataSourceCreator.getPlatformMetaData().getManufacturer());
+        assertEquals(testModel, testDataSourceCreator.getPlatformMetaData().getModel());
+    }
+
+    @Test
     public void dataDescriptorTest() {
         testDataSourceCreator = new DataSourceCreator.Builder().setDataDescriptor(0, testDataDescriptor).build();
         assertEquals(testDataDescriptor.getTitle(), testDataSourceCreator.getDataDescriptors().get(0).getTitle());
@@ -277,7 +336,7 @@ public class DataSourceCreatorAndroidUnitTest {
         assertArrayEquals(testDataDescriptor.getPossibleValuesAsInt(),
                 testDataSourceCreator.getDataDescriptors().get(0).getPossibleValuesAsInt());
         assertEquals(testDataDescriptor.getUnit(), testDataSourceCreator.getDataDescriptors().get(0).getUnit());
-        assertEquals(testDataDescriptor.getValue(), testDataSourceCreator.getDataDescriptors().get(0).getValue(testKey));
+        assertEquals(testDataDescriptor.getValue(testKey), testDataSourceCreator.getDataDescriptors().get(0).getValue(testKey));
     }
 
     @Test
