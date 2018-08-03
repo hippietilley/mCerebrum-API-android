@@ -168,7 +168,7 @@ public class DataSetAndroidUnitTest {
         assertEquals(DataSet.SAMPLING_TYPE.ALL.getCode(), readFromParcelAll.getSamplingType());
     }
 
-    //@Ignore
+    @Ignore
     @Test
     public void dataSetSamplingFirstN_ParcelableWriteRead() {
         // Write data to parcel.

@@ -35,6 +35,7 @@ public class DataPointStringAndroidUnitTest {
         mDataPointString = new DataPointString(testTimestamp, testSample);
         mDataPointStringArray = new DataPointString(testTimestamp, testSampleArray);
 
+        mDataPointEmptyString = new DataPointString(testTimestamp, testEmptyString);
     }
 
     @Test

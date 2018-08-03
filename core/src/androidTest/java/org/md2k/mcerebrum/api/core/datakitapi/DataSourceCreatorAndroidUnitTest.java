@@ -2,6 +2,7 @@ package org.md2k.mcerebrum.api.core.datakitapi;
 
 import android.content.Context;
 import android.os.Build;
+import android.support.test.InstrumentationRegistry;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -174,8 +175,8 @@ public class DataSourceCreatorAndroidUnitTest {
         testDataSourceMetaData = new DataSourceMetaData.Builder().setTitle(testTitle)
                 .setSummary(testSummary).setDescription(testDescription).setValue(testKey, testValue).build();
         // Initialize mCerebrumAPI
-        //testContext = InstrumentationRegistry.getContext();
-        //testmCerebrumAPI = testmCerebrumAPI.init(testContext);
+        testContext = InstrumentationRegistry.getContext();
+        testmCerebrumAPI.init(testContext);
     }
 
     @Test
