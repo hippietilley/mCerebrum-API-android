@@ -55,5 +55,3 @@ functionalTests:
    - adb shell input keyevent 82
    - ./gradlew --info core:cAT
    - ./gradlew --info commons:cAT
-
-    
