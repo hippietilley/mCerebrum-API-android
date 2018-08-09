@@ -37,7 +37,9 @@ public class DataPointObjectAndroidUnitTest {
         assertEquals(testTimestamp, mDataPointObject.getTimestamp());
         //assertEquals(testSample, mDataPointObject.getSample()[0]); TODO: fix expects Hello World, gets "Hello World"
         assertEquals(testTimestamp, mDataPointObjectArray.getTimestamp());
-        assertArrayEquals(testSampleArray, mDataPointObjectArray.getSample());
+        for (int i = 0; i < testSampleArray.length; i++) {
+            assertEquals(testSampleArray[i], mDataPointObjectArray.getSample()[i]);
+        }
     }
 
     @Test
