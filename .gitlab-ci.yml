@@ -5,8 +5,8 @@ cache:
     - .gradle/
 
 variables:
-  ANDROID_COMPILE_SDK: "27"
-  ANDROID_BUILD_TOOLS: "27.0.3"
+  ANDROID_COMPILE_SDK: "25"
+  ANDROID_BUILD_TOOLS: "25.0.3"
   ANDROID_SDK_TOOLS: "27.0.1"
 
 before_script:
@@ -50,7 +50,7 @@ functionalTests:
    - chmod +x android-wait-for-emulator
    - echo y | android-sdk-linux/tools/bin/sdkmanager --update
    - echo no | android-sdk-linux/tools/bin/avdmanager create avd -n test -k "system-images;android-${ANDROID_COMPILE_SDK};google_apis;x86" -f
-   - android-sdk-linux/tools/emulator -verbose -show-kernel -avd test -no-accel -no-audio -no-window -gpu swiftshader_indirect -skin 480x800 &
+   - android-sdk-linux/tools/emulator -verbose -avd test -no-accel -no-audio -no-window -gpu swiftshader_indirect -skin 480x800 &
    - ./android-wait-for-emulator
    - adb shell input keyevent 82
    - ./gradlew --info core:cAT
