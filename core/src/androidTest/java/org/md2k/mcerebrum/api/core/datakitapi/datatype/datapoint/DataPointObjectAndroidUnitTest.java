@@ -35,7 +35,7 @@ public class DataPointObjectAndroidUnitTest {
     @Test
     public void fieldAccuracyTest() {
         assertEquals(testTimestamp, mDataPointObject.getTimestamp());
-        //assertEquals(testSample, mDataPointObject.getSample()[0]); TODO: fix expects Hello World, gets "Hello World"
+        assertEquals("Hello world", mDataPointObject.getSample()[0]); //TODO: fix expects Hello World, gets "Hello World"
         assertEquals(testTimestamp, mDataPointObjectArray.getTimestamp());
         for (int i = 0; i < testSampleArray.length; i++) {
             assertEquals(testSampleArray[i], mDataPointObjectArray.getSample()[i]);
