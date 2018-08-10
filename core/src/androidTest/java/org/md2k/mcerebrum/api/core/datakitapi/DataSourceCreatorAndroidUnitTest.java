@@ -378,11 +378,10 @@ public class DataSourceCreatorAndroidUnitTest {
         testDataSourceCreator = new DataSourceCreator.Builder().setDataSourceId(dataSourceIdArray[0])
                 .setPlatformType(platformTypeArray[0]).setPlatformId(platformIdArray[0])
                 .setPlatformAppType(platformAppTypeArray[0]).setPlatformAppId(platformAppIdArray[0])
-                .setApplicationId(applicationIdArray[0]).setApplicationType(applicationTypeArray[0])
-                .setDataSourceMetadata(testDataSourceMetaData).setPlatformMetadata(testPlatformMetaData)
-                .setPlatformAppMetadata(testPlatformAppMetaData).setApplicationMetaData(testAppMetaData)
-                .setDataRate(testSampleNo, timeUnitArray[0]).setDataDescriptor(0, testDataDescriptor)
-                .build();
+                .setApplicationType(applicationTypeArray[0]).setDataSourceMetadata(testDataSourceMetaData)
+                .setPlatformMetadata(testPlatformMetaData).setPlatformAppMetadata(testPlatformAppMetaData)
+                .setApplicationMetaData(testAppMetaData).setDataRate(testSampleNo, timeUnitArray[0])
+                .setDataDescriptor(0, testDataDescriptor).build();
 
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
