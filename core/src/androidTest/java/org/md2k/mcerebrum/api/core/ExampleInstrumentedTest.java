@@ -1,4 +1,4 @@
-package org.md2k.mcerebrum.api;
+package org.md2k.mcerebrum.api.core;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
