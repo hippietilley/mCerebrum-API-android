@@ -401,13 +401,96 @@ public class DataSourceCreatorAndroidUnitTest {
         assertEquals(testDataSourceCreator.getPlatformId(), createdFromParcel.getPlatformId());
         assertEquals(testDataSourceCreator.getPlatformAppType(), createdFromParcel.getPlatformAppType());
         assertEquals(testDataSourceCreator.getPlatformAppId(), createdFromParcel.getPlatformAppId());
-        assertEquals(testDataSourceCreator.getApplicationId(), createdFromParcel.getApplicationId());
-        assertEquals(testDataSourceCreator.getApplicationType(), createdFromParcel.getApplicationId());
-        assertEquals(testDataSourceCreator.getDataSourceMetaData(), createdFromParcel.getDataSourceMetaData());
-        assertEquals(testDataSourceCreator.getPlatformMetaData(), createdFromParcel.getPlatformMetaData());
-        assertEquals(testDataSourceCreator.getPlatformAppMetaData(), createdFromParcel.getPlatformAppMetaData());
-        assertEquals(testDataSourceCreator.getApplicationMetaData(), createdFromParcel.getApplicationMetaData());
+        assertEquals(testDataSourceCreator.getApplicationType(), createdFromParcel.getApplicationType());
+
+        // Test the DataSourceMetaData for equality
+        assertEquals(testDataSourceCreator.getDataSourceMetaData().getTitle(),
+                createdFromParcel.getDataSourceMetaData().getTitle());
+        assertEquals(testDataSourceCreator.getDataSourceMetaData().getSummary(),
+                createdFromParcel.getDataSourceMetaData().getSummary());
+        assertEquals(testDataSourceCreator.getDataSourceMetaData().getDescription(),
+                createdFromParcel.getDataSourceMetaData().getDescription());
+        assertEquals(testDataSourceCreator.getDataSourceMetaData().getValue(testKey),
+                createdFromParcel.getDataSourceMetaData().getValue(testKey));
+
+        // Test the PlatformMetaData for equality
+        assertEquals(testDataSourceCreator.getPlatformMetaData().getTitle(),
+                createdFromParcel.getPlatformMetaData().getTitle());
+        assertEquals(testDataSourceCreator.getPlatformMetaData().getSummary(),
+                createdFromParcel.getPlatformMetaData().getSummary());
+        assertEquals(testDataSourceCreator.getPlatformMetaData().getDescription(),
+                createdFromParcel.getPlatformMetaData().getDescription());
+        assertEquals(testDataSourceCreator.getPlatformMetaData().getOperationSystem(),
+                createdFromParcel.getPlatformMetaData().getOperationSystem());
+        assertEquals(testDataSourceCreator.getPlatformMetaData().getManufacturer(),
+                createdFromParcel.getPlatformMetaData().getManufacturer());
+        assertEquals(testDataSourceCreator.getPlatformMetaData().getModel(),
+                createdFromParcel.getPlatformMetaData().getModel());
+        assertEquals(testDataSourceCreator.getPlatformMetaData().getVersionFirmware(),
+                createdFromParcel.getPlatformMetaData().getVersionFirmware());
+        assertEquals(testDataSourceCreator.getPlatformMetaData().getVersionHardware(),
+                createdFromParcel.getPlatformMetaData().getVersionHardware());
+        assertEquals(testDataSourceCreator.getPlatformMetaData().getDeviceId(),
+                createdFromParcel.getPlatformMetaData().getDeviceId());
+        assertEquals(testDataSourceCreator.getPlatformMetaData().getValue(testKey),
+                createdFromParcel.getPlatformMetaData().getValue(testKey));
+
+        // Test PlatformAppMetaData for equality
+        assertEquals(testDataSourceCreator.getPlatformAppMetaData().getTitle(),
+                createdFromParcel.getPlatformAppMetaData().getTitle());
+        assertEquals(testDataSourceCreator.getPlatformAppMetaData().getSummary(),
+                createdFromParcel.getPlatformAppMetaData().getSummary());
+        assertEquals(testDataSourceCreator.getPlatformAppMetaData().getDescription(),
+                createdFromParcel.getPlatformAppMetaData().getDescription());
+        assertEquals(testDataSourceCreator.getPlatformAppMetaData().getOperationSystem(),
+                createdFromParcel.getPlatformAppMetaData().getOperationSystem());
+        assertEquals(testDataSourceCreator.getPlatformAppMetaData().getManufacturer(),
+                createdFromParcel.getPlatformAppMetaData().getManufacturer());
+        assertEquals(testDataSourceCreator.getPlatformAppMetaData().getModel(),
+                createdFromParcel.getPlatformAppMetaData().getModel());
+        assertEquals(testDataSourceCreator.getPlatformAppMetaData().getVersionFirmware(),
+                createdFromParcel.getPlatformAppMetaData().getVersionFirmware());
+        assertEquals(testDataSourceCreator.getPlatformAppMetaData().getVersionHardware(),
+                createdFromParcel.getPlatformAppMetaData().getVersionHardware());
+        assertEquals(testDataSourceCreator.getPlatformAppMetaData().getDeviceId(),
+                createdFromParcel.getPlatformAppMetaData().getDeviceId());
+        assertEquals(testDataSourceCreator.getPlatformAppMetaData().getValue(testKey),
+                createdFromParcel.getPlatformAppMetaData().getValue(testKey));
+
+        // Test ApplicationMetaData for equality
+        assertEquals(testDataSourceCreator.getApplicationMetaData().getTitle(),
+                createdFromParcel.getApplicationMetaData().getTitle());
+        assertEquals(testDataSourceCreator.getApplicationMetaData().getSummary(),
+                createdFromParcel.getApplicationMetaData().getSummary());
+        assertEquals(testDataSourceCreator.getApplicationMetaData().getDescription(),
+                createdFromParcel.getApplicationMetaData().getDescription());
+        assertEquals(testDataSourceCreator.getApplicationMetaData().getVersionName(),
+                createdFromParcel.getApplicationMetaData().getVersionName());
+        assertEquals(testDataSourceCreator.getApplicationMetaData().getVersionNumber(),
+                createdFromParcel.getApplicationMetaData().getVersionNumber());
+        assertEquals(testDataSourceCreator.getApplicationMetaData().getValue(testKey),
+                createdFromParcel.getApplicationMetaData().getValue(testKey));
+
         assertEquals(testDataSourceCreator.getDataRate(), createdFromParcel.getDataRate());
-        assertEquals(testDataSourceCreator.getDataDescriptors(), createdFromParcel.getDataDescriptors());
+
+        // Test DataDescriptors for equality
+        assertEquals(testDataSourceCreator.getDataDescriptors().get(0).getTitle(),
+                createdFromParcel.getDataDescriptors().get(0).getTitle());
+        assertEquals(testDataSourceCreator.getDataDescriptors().get(0).getSummary(),
+                createdFromParcel.getDataDescriptors().get(0).getSummary());
+        assertEquals(testDataSourceCreator.getDataDescriptors().get(0).getDescription(),
+                createdFromParcel.getDataDescriptors().get(0).getDescription());
+        assertEquals(testDataSourceCreator.getDataDescriptors().get(0).getMinValue(),
+                createdFromParcel.getDataDescriptors().get(0).getMinValue(), 0.1);
+        assertEquals(testDataSourceCreator.getDataDescriptors().get(0).getMaxValue(),
+                createdFromParcel.getDataDescriptors().get(0).getMaxValue(), 0.1);
+        assertArrayEquals(testDataSourceCreator.getDataDescriptors().get(0).getPossibleValuesAsString(),
+                createdFromParcel.getDataDescriptors().get(0).getPossibleValuesAsString());
+        assertArrayEquals(testDataSourceCreator.getDataDescriptors().get(0).getPossibleValuesAsInt(),
+                createdFromParcel.getDataDescriptors().get(0).getPossibleValuesAsInt());
+        assertEquals(testDataSourceCreator.getDataDescriptors().get(0).getUnit(),
+                createdFromParcel.getDataDescriptors().get(0).getUnit());
+        assertEquals(testDataSourceCreator.getDataDescriptors().get(0).getValue(testKey),
+                createdFromParcel.getDataDescriptors().get(0).getValue(testKey));
     }
 }
