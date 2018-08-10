@@ -2,6 +2,7 @@ package org.md2k.mcerebrum.api.core.datakitapi;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.Parcel;
 import android.support.test.InstrumentationRegistry;
 
 import org.junit.Before;
@@ -16,9 +17,12 @@ import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
 
 import java.util.concurrent.TimeUnit;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 public class DataSourceCreatorAndroidUnitTest {
     final String[] dataSourceTypeArray = {DATASOURCE.TYPE.ACCELEROMETER, DATASOURCE.TYPE.GYROSCOPE,
@@ -142,8 +146,7 @@ public class DataSourceCreatorAndroidUnitTest {
     MCerebrumAPI testmCerebrumAPI;
     Context testContext;
 
-    @Before
-    public void objectCreation(){
+    public void createPlatformMetaData() {
         // Create testPlatformMetaData
         testPlatformMetaData = new PlatformMetaData.Builder().setValue(testKey, testValue).build();
         testPlatformMetaData.setTitle(testTitle);
@@ -155,25 +158,46 @@ public class DataSourceCreatorAndroidUnitTest {
         testPlatformMetaData.setVersionFirmware(testVersionFirmware);
         testPlatformMetaData.setVersionHardware(testVersionHardware);
         testPlatformMetaData.setDeviceId(testDeviceId);
+    }
+
+    public void createPlatformAppMetaData() {
         // Create testPlatformAppMetaData
         testPlatformAppMetaData = new PlatformAppMetaData.Builder().setTitle(testTitle).setSummary(testSummary)
                 .setDescription(testDescription).setOperationSystem(testOperationSystem)
                 .setManufacturer(testManufacturer).setModel(testModel).setVersionFirmware(testVersionFirmware)
                 .setVersionHardware(testVersionHardware).setDeviceId(testDeviceId).setValue(testKey, testValue)
                 .build();
+    }
+
+    public void createApplicationMetaData() {
         // Create testApplicationMetaData
         testAppMetaData = new ApplicationMetaData.Builder().setTitle(testTitle).setSummary(testSummary)
                 .setDescription(testDescription).setVersionName(testVersionName)
                 .setVersionNumber(testVersionNumber).setValue(testKey, testValue).build();
+    }
+
+    public void createDataDescriptor() {
         // Create testDataDescriptor
         testDataDescriptor = new DataDescriptor.Builder().setTitle(testTitle)
                 .setSummary(testSummary).setDescription(testDescription).setMinValue(testMinValue)
                 .setMaxValue(testMaxValue).setPossibleValues(testPossibleValuesAsString)
                 .setPossibleValues(testPossibleValuesAsInt).setUnit(testUnit).setValue(testKey, testValue)
                 .build();
+    }
+
+    public void createDataSourceMetaData() {
         // Create testDataSourceMetaData
         testDataSourceMetaData = new DataSourceMetaData.Builder().setTitle(testTitle)
                 .setSummary(testSummary).setDescription(testDescription).setValue(testKey, testValue).build();
+    }
+    @Before
+    public void objectCreation(){
+        createPlatformMetaData();
+        createPlatformAppMetaData();
+        createApplicationMetaData();
+        createDataDescriptor();
+        createDataSourceMetaData();
+
         // Initialize mCerebrumAPI
         testContext = InstrumentationRegistry.getContext();
         testmCerebrumAPI.init(testContext);
@@ -347,5 +371,44 @@ public class DataSourceCreatorAndroidUnitTest {
         assertEquals(testDataSourceMetaData.getSummary(), testDataSourceCreator.getDataSourceMetaData().getSummary());
         assertEquals(testDataSourceMetaData.getDescription(), testDataSourceCreator.getDataSourceMetaData().getDescription());
         assertEquals(testDataSourceMetaData.getValue(testKey), testDataSourceCreator.getDataSourceMetaData().getValue(testKey));
+    }
+
+    @Test
+    public void dataSourceCreator_ParcelableWriteReadTest() {
+        testDataSourceCreator = new DataSourceCreator.Builder().setDataSourceId(dataSourceIdArray[0])
+                .setPlatformType(platformTypeArray[0]).setPlatformId(platformIdArray[0])
+                .setPlatformAppType(platformAppTypeArray[0]).setPlatformAppId(platformAppIdArray[0])
+                .setApplicationId(applicationIdArray[0]).setApplicationType(applicationTypeArray[0])
+                .setDataSourceMetadata(testDataSourceMetaData).setPlatformMetadata(testPlatformMetaData)
+                .setPlatformAppMetadata(testPlatformAppMetaData).setApplicationMetaData(testAppMetaData)
+                .setDataRate(testSampleNo, timeUnitArray[0]).setDataDescriptor(0, testDataDescriptor)
+                .build();
+
+        // Write data to parcel.
+        Parcel parcel = Parcel.obtain();
+        testDataSourceCreator.writeToParcel(parcel , testDataSourceCreator.describeContents());
+
+        // After writing, reset the parcel for reading.
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataSourceCreator createdFromParcel = DataSourceCreator.CREATOR.createFromParcel(parcel);
+        DataSourceCreator[] createdFromParcelArray = DataSourceCreator.CREATOR.newArray(1);
+
+        // Verify the results.
+        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertEquals(testDataSourceCreator.getDataSourceId(), createdFromParcel.getDataSourceId());
+        assertEquals(testDataSourceCreator.getPlatformType(), createdFromParcel.getPlatformType());
+        assertEquals(testDataSourceCreator.getPlatformId(), createdFromParcel.getPlatformId());
+        assertEquals(testDataSourceCreator.getPlatformAppType(), createdFromParcel.getPlatformAppType());
+        assertEquals(testDataSourceCreator.getPlatformAppId(), createdFromParcel.getPlatformAppId());
+        assertEquals(testDataSourceCreator.getApplicationId(), createdFromParcel.getApplicationId());
+        assertEquals(testDataSourceCreator.getApplicationType(), createdFromParcel.getApplicationId());
+        assertEquals(testDataSourceCreator.getDataSourceMetaData(), createdFromParcel.getDataSourceMetaData());
+        assertEquals(testDataSourceCreator.getPlatformMetaData(), createdFromParcel.getPlatformMetaData());
+        assertEquals(testDataSourceCreator.getPlatformAppMetaData(), createdFromParcel.getPlatformAppMetaData());
+        assertEquals(testDataSourceCreator.getApplicationMetaData(), createdFromParcel.getApplicationMetaData());
+        assertEquals(testDataSourceCreator.getDataRate(), createdFromParcel.getDataRate());
+        assertEquals(testDataSourceCreator.getDataDescriptors(), createdFromParcel.getDataDescriptors());
     }
 }
