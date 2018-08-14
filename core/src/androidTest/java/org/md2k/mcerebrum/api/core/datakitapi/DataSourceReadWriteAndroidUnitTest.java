@@ -21,16 +21,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 public class DataSourceReadWriteAndroidUnitTest {
-    final int testDsId = 1;
-    final long creationTime = 1268669453;
-    final long modifiedTime = 1268660460;
-    final int[] statusIntArray = {MCerebrumStatus.UNKNOWN_ERROR, MCerebrumStatus.SUCCESS,
-            MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED, MCerebrumStatus.MCEREBRUM_APP_NOT_INSTALLED,
-            MCerebrumStatus.CONNECTION_ERROR, MCerebrumStatus.INVALID_PARAMETER,
-            MCerebrumStatus.INVALID_DATA_SOURCE, MCerebrumStatus.MISSING_DATA_SOURCE_TYPE,
-            MCerebrumStatus.MISSING_DATA_TYPE, MCerebrumStatus.DATA_SOURCE_NOT_REGISTERED,
-            MCerebrumStatus.INVALID_DATA, MCerebrumStatus.INCONSISTENT_DATA_TYPE,
-            MCerebrumStatus.INVALID_TIMESTAMP, MCerebrumStatus.DATA_SIZE_TOO_LARGE};
     final String[] dataSourceTypeArray = {DATASOURCE.TYPE.ACCELEROMETER, DATASOURCE.TYPE.GYROSCOPE,
             DATASOURCE.TYPE.COMPASS, DATASOURCE.TYPE.AMBIENT_LIGHT, DATASOURCE.TYPE.PRESSURE,
             DATASOURCE.TYPE.PROXIMITY, DATASOURCE.TYPE.LOCATION, DATASOURCE.TYPE.GEOFENCE,
