@@ -64,7 +64,7 @@ public class RegistrationAndroidUnitTest {
     Registration testReg;
     private final TimeUnit testTimeUnit = TimeUnit.DAYS;
     private final int testSampleNo = 10;
-    ArrayList testDataDescriptors = new ArrayList();
+    ArrayList<DataDescriptor> testDataDescriptors = new ArrayList<>();
     MCerebrumAPI testmCerebrumAPI;
     Context testContext;
 
