@@ -46,10 +46,12 @@ class MyServiceConnection implements ServiceConnection {
     private InsertionManager insertionManager;
     private SubscriptionManager subscriptionManager;
     private ConnectionCallback connectionCallback;
-    MyServiceConnection(ConnectionCallback connectionCallback){
+
+    MyServiceConnection(ConnectionCallback connectionCallback) {
         this.connectionCallback = connectionCallback;
 
     }
+
     @Override
     public void onServiceDisconnected(ComponentName name) {
         Log.d("abc", "onServiceDisconnected");
@@ -67,12 +69,15 @@ class MyServiceConnection implements ServiceConnection {
         connectionCallback.onConnected();
     }
 
-    protected int register(DataSourceReadWrite dataSourceAIDL){
+    protected int register(DataSourceReadWrite dataSourceAIDL) {
         try {
-            if(MCerebrumAPI.getContext()==null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
-            if(dataSourceAIDL==null) return MCerebrumStatus.INVALID_DATA_SOURCE;
-            if(dataSourceAIDL.getDataSourceType()==null) return MCerebrumStatus.MISSING_DATA_SOURCE_TYPE;
-            if(dataSourceAIDL.getDataType()==null || dataSourceAIDL.getDataType().length()==0) return MCerebrumStatus.MISSING_DATA_TYPE;
+            if (MCerebrumAPI.getContext() == null)
+                return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
+            if (dataSourceAIDL == null) return MCerebrumStatus.INVALID_DATA_SOURCE;
+            if (dataSourceAIDL.getDataSourceType() == null)
+                return MCerebrumStatus.MISSING_DATA_SOURCE_TYPE;
+            if (dataSourceAIDL.getDataType() == null || dataSourceAIDL.getDataType().length() == 0)
+                return MCerebrumStatus.MISSING_DATA_TYPE;
             dataSourceAIDL.setAppId(MCerebrumAPI.getContext().getPackageName());
             return mService.register(dataSourceAIDL);
 
@@ -80,16 +85,18 @@ class MyServiceConnection implements ServiceConnection {
             return MCerebrumStatus.CONNECTION_ERROR;
         }
     }
-    protected int unregister(DataSourceReadWrite dataSourceAIDL){
+
+    protected int unregister(DataSourceReadWrite dataSourceAIDL) {
         try {
-            if(dataSourceAIDL==null) return MCerebrumStatus.INVALID_PARAMETER;
-            if(dataSourceAIDL.getDsId()<0) return MCerebrumStatus.DATA_SOURCE_NOT_REGISTERED;
+            if (dataSourceAIDL == null) return MCerebrumStatus.INVALID_PARAMETER;
+            if (dataSourceAIDL.getDsId() < 0) return MCerebrumStatus.DATA_SOURCE_NOT_REGISTERED;
             return mService.unregister(dataSourceAIDL.getDsId());
         } catch (RemoteException e) {
             return MCerebrumStatus.CONNECTION_ERROR;
         }
     }
-    protected int find(DataSourceReadWrite dataSource, DataSourceReadWrite[] dataSources){
+
+    protected int find(DataSourceReadWrite dataSource, DataSourceReadWrite[] dataSources) {
         try {
             if (dataSource == null) return MCerebrumStatus.INVALID_PARAMETER;
             return mService.find(dataSource, dataSources);
@@ -98,55 +105,59 @@ class MyServiceConnection implements ServiceConnection {
         }
     }
 
-    protected int insert(DataSource dataSource, Data[] data){
-        if(dataSource==null) return MCerebrumStatus.INVALID_PARAMETER;
-        if(dataSource.getDsId()<0) return MCerebrumStatus.DATA_SOURCE_NOT_REGISTERED;
-        if(data==null || data.length==0) return MCerebrumStatus.INVALID_PARAMETER;
-        DataType dataType=DataType.valueOf(dataSource.getDataType());
+    protected int insert(DataSource dataSource, Data[] data) {
+        if (dataSource == null) return MCerebrumStatus.INVALID_PARAMETER;
+        if (dataSource.getDsId() < 0) return MCerebrumStatus.DATA_SOURCE_NOT_REGISTERED;
+        if (data == null || data.length == 0) return MCerebrumStatus.INVALID_PARAMETER;
+        DataType dataType = DataType.valueOf(dataSource.getDataType());
         for (Data aData : data) {
-            if(aData.getClass().hashCode()!=dataType.getHashCode()) return MCerebrumStatus.INCONSISTENT_DATA_TYPE;
+            if (aData.getClass().hashCode() != dataType.getHashCode())
+                return MCerebrumStatus.INCONSISTENT_DATA_TYPE;
         }
         return insertionManager.insert(dataSource.getDsId(), data);
     }
 
-    protected int queryCount(DataSourceReadWrite dataSourceAIDL, long startTimestamp, long endTimestamp, DataSet dataSet){
+    protected int queryCount(DataSourceReadWrite dataSourceAIDL, long startTimestamp, long endTimestamp, DataSet dataSet) {
         try {
-            if(dataSourceAIDL==null) return MCerebrumStatus.INVALID_PARAMETER;
-            if(dataSourceAIDL.getDsId()<0) return MCerebrumStatus.INVALID_DATA_SOURCE;
-            if(startTimestamp>endTimestamp || endTimestamp==-1)
+            if (dataSourceAIDL == null) return MCerebrumStatus.INVALID_PARAMETER;
+            if (dataSourceAIDL.getDsId() < 0) return MCerebrumStatus.INVALID_DATA_SOURCE;
+            if (startTimestamp > endTimestamp || endTimestamp == -1)
                 return MCerebrumStatus.INVALID_TIMESTAMP;
             return mService.queryCount(dataSourceAIDL.getDsId(), startTimestamp, endTimestamp, dataSet);
         } catch (RemoteException e) {
             return MCerebrumStatus.CONNECTION_ERROR;
         }
     }
-    protected int queryByNumber(DataSourceReadWrite dataSourceReadWrite, int lastNSample, DataSet dataSet){
+
+    protected int queryByNumber(DataSourceReadWrite dataSourceReadWrite, int lastNSample, DataSet dataSet) {
         try {
-            if(dataSourceReadWrite==null) return MCerebrumStatus.INVALID_PARAMETER;
-            if(dataSourceReadWrite.getDsId()<0) return MCerebrumStatus.INVALID_DATA_SOURCE;
-            if(lastNSample<=0) return MCerebrumStatus.INVALID_PARAMETER;
-            if(lastNSample>10000) return MCerebrumStatus.DATA_SIZE_TOO_LARGE;
+            if (dataSourceReadWrite == null) return MCerebrumStatus.INVALID_PARAMETER;
+            if (dataSourceReadWrite.getDsId() < 0) return MCerebrumStatus.INVALID_DATA_SOURCE;
+            if (lastNSample <= 0) return MCerebrumStatus.INVALID_PARAMETER;
+            if (lastNSample > 10000) return MCerebrumStatus.DATA_SIZE_TOO_LARGE;
             return mService.queryByNumber(dataSourceReadWrite.getDsId(), lastNSample, dataSet);
         } catch (RemoteException e) {
             return MCerebrumStatus.CONNECTION_ERROR;
         }
     }
-    protected int queryByTime(DataSourceReadWrite dataSourceAIDL, long startTimestamp, long endTimestamp, DataSet dataSet){
+
+    protected int queryByTime(DataSourceReadWrite dataSourceAIDL, long startTimestamp, long endTimestamp, DataSet dataSet) {
         try {
-            if(dataSourceAIDL==null) return MCerebrumStatus.INVALID_PARAMETER;
-            if(dataSourceAIDL.getDsId()<0) return MCerebrumStatus.INVALID_DATA_SOURCE;
-            if(startTimestamp>endTimestamp || endTimestamp==-1)
+            if (dataSourceAIDL == null) return MCerebrumStatus.INVALID_PARAMETER;
+            if (dataSourceAIDL.getDsId() < 0) return MCerebrumStatus.INVALID_DATA_SOURCE;
+            if (startTimestamp > endTimestamp || endTimestamp == -1)
                 return MCerebrumStatus.INVALID_TIMESTAMP;
             return mService.queryByTime(dataSourceAIDL.getDsId(), startTimestamp, endTimestamp, dataSet);
         } catch (RemoteException e) {
             return MCerebrumStatus.CONNECTION_ERROR;
         }
     }
-    protected int querySummary(DataSourceReadWrite dataSourceAIDL, long startTimestamp, long endTimestamp, DataSet dataSet){
+
+    protected int querySummary(DataSourceReadWrite dataSourceAIDL, long startTimestamp, long endTimestamp, DataSet dataSet) {
         try {
-            if(dataSourceAIDL==null) return MCerebrumStatus.INVALID_PARAMETER;
-            if(dataSourceAIDL.getDsId()<0) return MCerebrumStatus.INVALID_DATA_SOURCE;
-            if(startTimestamp>endTimestamp || endTimestamp==-1)
+            if (dataSourceAIDL == null) return MCerebrumStatus.INVALID_PARAMETER;
+            if (dataSourceAIDL.getDsId() < 0) return MCerebrumStatus.INVALID_DATA_SOURCE;
+            if (startTimestamp > endTimestamp || endTimestamp == -1)
                 return MCerebrumStatus.INVALID_TIMESTAMP;
             return mService.querySummary(dataSourceAIDL.getDsId(), startTimestamp, endTimestamp, dataSet);
         } catch (RemoteException e) {
@@ -154,17 +165,18 @@ class MyServiceConnection implements ServiceConnection {
         }
     }
 
-    protected int subscribe(DataSourceReadWrite dataSourceAIDL, DataCallback callback){
-        if(dataSourceAIDL==null) return MCerebrumStatus.INVALID_PARAMETER;
-        if(dataSourceAIDL.getDsId()<0) return MCerebrumStatus.INVALID_DATA_SOURCE;
-        if(callback==null) return MCerebrumStatus.INVALID_PARAMETER;
-     return subscriptionManager.subscribe(dataSourceAIDL.getDsId(), callback);
+    protected int subscribe(DataSourceReadWrite dataSourceAIDL, DataCallback callback) {
+        if (dataSourceAIDL == null) return MCerebrumStatus.INVALID_PARAMETER;
+        if (dataSourceAIDL.getDsId() < 0) return MCerebrumStatus.INVALID_DATA_SOURCE;
+        if (callback == null) return MCerebrumStatus.INVALID_PARAMETER;
+        return subscriptionManager.subscribe(dataSourceAIDL.getDsId(), callback);
     }
-    protected int unsubscribe(DataSourceReadWrite dataSourceAIDL, DataCallback callback){
-        if(dataSourceAIDL==null) return MCerebrumStatus.INVALID_PARAMETER;
-        if(dataSourceAIDL.getDsId()<0) return MCerebrumStatus.INVALID_DATA_SOURCE;
 
-        if(callback==null) return MCerebrumStatus.INVALID_PARAMETER;
+    protected int unsubscribe(DataSourceReadWrite dataSourceAIDL, DataCallback callback) {
+        if (dataSourceAIDL == null) return MCerebrumStatus.INVALID_PARAMETER;
+        if (dataSourceAIDL.getDsId() < 0) return MCerebrumStatus.INVALID_DATA_SOURCE;
+
+        if (callback == null) return MCerebrumStatus.INVALID_PARAMETER;
         return subscriptionManager.unsubscribe(dataSourceAIDL.getDsId(), callback);
     }
 
