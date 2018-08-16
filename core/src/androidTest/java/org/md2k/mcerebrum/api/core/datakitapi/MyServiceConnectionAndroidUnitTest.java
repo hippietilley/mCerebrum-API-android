@@ -14,6 +14,7 @@ import org.md2k.mcerebrum.api.core.datakitapi.datasource.DATASOURCE;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM_APP;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataType;
+import org.md2k.mcerebrum.api.core.datakitapi.exception.MCerebrumException;
 import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
 
 import java.util.ArrayList;
@@ -140,7 +141,22 @@ public class MyServiceConnectionAndroidUnitTest {
         createDataDescriptor();
         createDataSourceMetaData();
         testDataDescriptors.add(testDataDescriptor);
+        testConnectionCallback = new ConnectionCallback() {
+            @Override
+            public void onConnected() {
 
+            }
+
+            @Override
+            public void onError(MCerebrumException e) {
+
+            }
+
+            @Override
+            public void onDisconnected() {
+
+            }
+        };
         testServiceConnection = new MyServiceConnection(testConnectionCallback);
     }
 
