@@ -52,6 +52,7 @@ public class DataKitAPIAndroidUnitTest {
         testDataKitAPI = new DataKitAPI(testmCerebrumAPI);
     }
 
+    @Ignore
     @Test
     public void nullmCerebrumAPITest() {
         testDataKitAPIwithNullmCerebrumAPI = new DataKitAPI(testmCerebrumAPINullInstance);
