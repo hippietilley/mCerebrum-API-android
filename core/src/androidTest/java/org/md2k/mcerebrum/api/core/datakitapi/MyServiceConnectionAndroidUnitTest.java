@@ -150,5 +150,8 @@ public class MyServiceConnectionAndroidUnitTest {
         testDataSourceReadWrite.setDataDescriptors(testDataDescriptors);
         testDataSourceReadWrite.setDataSourceMetadata(testDataSourceMetaData);
         assertEquals(MCerebrumStatus.SUCCESS, testServiceConnection.register(testDataSourceReadWrite));
+
+        // TODO: figure out why setting the DataType makes the object null
+        // TODO: check exception is thrown properly
     }
 }
