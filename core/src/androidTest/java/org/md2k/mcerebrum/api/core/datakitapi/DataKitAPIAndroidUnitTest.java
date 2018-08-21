@@ -47,7 +47,6 @@ public class DataKitAPIAndroidUnitTest {
         testContext = InstrumentationRegistry.getContext();
         testmCerebrumAPI.init(testContext);
 
-
         // Create DataKitAPI instance.
         testDataKitAPI = new DataKitAPI(testmCerebrumAPI);
     }
