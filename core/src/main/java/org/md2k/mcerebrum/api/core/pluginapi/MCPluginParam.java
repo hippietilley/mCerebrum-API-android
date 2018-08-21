@@ -32,22 +32,22 @@ import org.json.JSONObject;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public class MCPluginParam implements Parcelable{
+public class MCPluginParam implements Parcelable {
     private String title;
     private String id;
     private JSONObject params;
 
     public MCPluginParam(String title, String id, JSONObject params) {
-        if(title==null) this.title="";
+        if (title == null) this.title = "";
         else
-        this.title = title;
-        if(id==null) this.id="";
+            this.title = title;
+        if (id == null) this.id = "";
         else
-        this.id = id;
-        if(params==null)
+            this.id = id;
+        if (params == null)
             this.params = new JSONObject();
         else
-        this.params = params;
+            this.params = params;
     }
 
     public String getTitle() {
@@ -66,7 +66,7 @@ public class MCPluginParam implements Parcelable{
         title = in.readString();
         id = in.readString();
         try {
-            params=new JSONObject(in.readString());
+            params = new JSONObject(in.readString());
         } catch (JSONException e) {
             params = new JSONObject();
         }
