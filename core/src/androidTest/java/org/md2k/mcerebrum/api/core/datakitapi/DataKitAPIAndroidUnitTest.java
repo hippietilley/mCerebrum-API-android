@@ -47,7 +47,6 @@ public class DataKitAPIAndroidUnitTest {
         testContext = InstrumentationRegistry.getContext();
         testmCerebrumAPI.init(testContext);
 
-
         // Create DataKitAPI instance.
         testDataKitAPI = new DataKitAPI(testmCerebrumAPI);
     }
@@ -68,5 +67,9 @@ public class DataKitAPIAndroidUnitTest {
     @Test
     public void successfulConnectionTest() {
         assertEquals(MCerebrumStatus.SUCCESS, testDataKitAPI.connect(testConnectionCallback));
+        /*
+        This test is currently failing (returns MCEREBRUM_APP_NOT_INSTALLED (2)) because an exception
+        is thrown when the connectionCallback is supposed to be added to an arraylist that is not initialized.
+         */
     }
 }
