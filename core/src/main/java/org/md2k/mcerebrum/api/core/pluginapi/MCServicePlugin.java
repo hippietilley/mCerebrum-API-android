@@ -50,13 +50,15 @@ public class MCServicePlugin extends Service {
         public boolean clear() {
             return MCerebrumAPI.getPlugin() != null && MCerebrumAPI.getPlugin().clear();
         }
+
         @Override
         public boolean reset() {
             return MCerebrumAPI.getPlugin() != null && MCerebrumAPI.getPlugin().reset();
         }
+
         @Override
         public MCPluginParam[] getUserInterfaces() {
-            if(MCerebrumAPI.getPlugin()==null) return new MCPluginParam[0];
+            if (MCerebrumAPI.getPlugin() == null) return new MCPluginParam[0];
             return MCerebrumAPI.getPlugin().getUserInterfaces();
         }
 
@@ -64,6 +66,7 @@ public class MCServicePlugin extends Service {
         public boolean openUserInterface(MCPluginParam mcPluginParam) {
             return MCerebrumAPI.getPlugin() != null && MCerebrumAPI.getPlugin().openUserInterface(mcPluginParam);
         }
+
         @Override
         public boolean configure(MCPluginParam mcPluginParam) {
             return MCerebrumAPI.getPlugin() != null && MCerebrumAPI.getPlugin().configure(mcPluginParam);
@@ -71,13 +74,13 @@ public class MCServicePlugin extends Service {
 
         @Override
         public MCPluginParam[] getConfigurationOptions() {
-            if(MCerebrumAPI.getPlugin()==null) return new MCPluginParam[0];
+            if (MCerebrumAPI.getPlugin() == null) return new MCPluginParam[0];
             return MCerebrumAPI.getPlugin().getConfigurationOptions();
         }
 
         @Override
         public int getConfigurationState() {
-            if(MCerebrumAPI.getPlugin()==null) return ConfigState.NOT_CONFIGURABLE.getValue();
+            if (MCerebrumAPI.getPlugin() == null) return ConfigState.NOT_CONFIGURABLE.getValue();
             return MCerebrumAPI.getPlugin().getConfigurationState().getValue();
         }
 
@@ -105,9 +108,10 @@ public class MCServicePlugin extends Service {
         public boolean isBackgroundProcessRunning() {
             return MCerebrumAPI.getPlugin() != null && MCerebrumAPI.getPlugin().isBackgroundProcessRunning();
         }
+
         @Override
         public String[] getDeclaredFunctions() {
-            if(MCerebrumAPI.getPlugin()==null) return new String[0];
+            if (MCerebrumAPI.getPlugin() == null) return new String[0];
             return MCerebrumAPI.getPlugin().getDeclaredFunctions();
         }
     };
