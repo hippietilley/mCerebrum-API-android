@@ -87,7 +87,7 @@ public class DataSetAndroidUnitTest {
             assertEquals(status, testDataSetSamplingDistributedN.getStatus());
         }
     }
-    
+
     @Test
     public void dataSetSamplingAll_ParcelableWriteRead() {
         // Write data to parcel.
@@ -165,7 +165,7 @@ public class DataSetAndroidUnitTest {
         }
         assertEquals(DataSet.SAMPLING_TYPE.ALL.getCode(), readFromParcelAll.getSamplingType());
     }
-    
+
     @Test
     public void dataSetSamplingFirstN_ParcelableWriteRead() {
         // Write data to parcel.
@@ -233,7 +233,7 @@ public class DataSetAndroidUnitTest {
         }
         assertEquals(DataSet.SAMPLING_TYPE.FIRST_N_SAMPLE.getCode(), readFromParcelFirstN.getSamplingType());
     }
-    
+
     @Test
     public void dataSetSamplingDistributedN_ParcelableWriteRead() {
         // Write data to parcel.
