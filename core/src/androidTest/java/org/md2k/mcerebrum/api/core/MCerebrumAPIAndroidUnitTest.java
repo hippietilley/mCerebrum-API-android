@@ -5,7 +5,6 @@ import android.os.Build;
 import android.support.test.InstrumentationRegistry;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import org.md2k.mcerebrum.api.core.datakitapi.ApplicationMetaData;
@@ -184,7 +183,6 @@ public class MCerebrumAPIAndroidUnitTest {
         testDataArray[0] = testData;
     }
 
-    @Ignore
     @Test
     public void connectionTest() {
         assertEquals(MCerebrumStatus.INVALID_PARAMETER, testmCerebrumAPI.connect(testConnectionCallbackNull));
@@ -194,7 +192,6 @@ public class MCerebrumAPIAndroidUnitTest {
 
     // Test after this point will always fail until connectionTest() is passing.
 
-    @Ignore
     @Test
     public void registerTest() {
         assertNull(testmCerebrumAPINotInit.register(testDataSourceCreator));
@@ -202,7 +199,6 @@ public class MCerebrumAPIAndroidUnitTest {
         assertEquals(MCerebrumStatus.SUCCESS, testmCerebrumAPI.register(testDataSourceCreator).getStatus());
     }
 
-    @Ignore
     @Test
     public void insertTest() {
         createRegistration();
@@ -218,7 +214,6 @@ public class MCerebrumAPIAndroidUnitTest {
         assertEquals(MCerebrumStatus.SUCCESS, testmCerebrumAPI.insert(testRegistration, testData));
     }
 
-    @Ignore
     @Test
     public void findTest() {
         createDataSourceRequest();
@@ -227,7 +222,6 @@ public class MCerebrumAPIAndroidUnitTest {
     }
 
     // This test requires registerTest() to be passing.
-    @Ignore
     @Test
     public void unregisterTest() {
         createRegistration();
@@ -235,7 +229,6 @@ public class MCerebrumAPIAndroidUnitTest {
                 testmCerebrumAPINotInit.unregister(testRegistration));
     }
 
-    @Ignore
     @Test
     public void disconnectTest() {
         assertEquals(MCerebrumStatus.INVALID_PARAMETER, testmCerebrumAPI.disconnect(testConnectionCallbackNull));

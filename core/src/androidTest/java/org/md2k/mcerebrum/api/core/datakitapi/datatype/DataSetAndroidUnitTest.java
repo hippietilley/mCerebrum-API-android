@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.support.test.filters.SmallTest;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.dataannotation.DataAnnotationEnum;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointBoolean;
@@ -88,8 +87,7 @@ public class DataSetAndroidUnitTest {
             assertEquals(status, testDataSetSamplingDistributedN.getStatus());
         }
     }
-
-    @Ignore
+    
     @Test
     public void dataSetSamplingAll_ParcelableWriteRead() {
         // Write data to parcel.
@@ -167,8 +165,7 @@ public class DataSetAndroidUnitTest {
         }
         assertEquals(DataSet.SAMPLING_TYPE.ALL.getCode(), readFromParcelAll.getSamplingType());
     }
-
-    @Ignore
+    
     @Test
     public void dataSetSamplingFirstN_ParcelableWriteRead() {
         // Write data to parcel.
@@ -236,8 +233,7 @@ public class DataSetAndroidUnitTest {
         }
         assertEquals(DataSet.SAMPLING_TYPE.FIRST_N_SAMPLE.getCode(), readFromParcelFirstN.getSamplingType());
     }
-
-    @Ignore
+    
     @Test
     public void dataSetSamplingDistributedN_ParcelableWriteRead() {
         // Write data to parcel.
