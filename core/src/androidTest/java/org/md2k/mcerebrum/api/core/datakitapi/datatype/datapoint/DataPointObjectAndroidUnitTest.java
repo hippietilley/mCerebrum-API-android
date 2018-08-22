@@ -22,6 +22,9 @@ public class DataPointObjectAndroidUnitTest {
     private final String testSample = "Hello world";
     private DataPointObject mDataPointObject;
 
+    private final Object testObjectSample = (Object)(testSample);
+    // TODO: add Object[] test make array have different types of objects
+
     private final String[] testSampleArray = {"Test 1", "Test 2"};
     private DataPointObject mDataPointObjectArray;
 
@@ -32,14 +35,15 @@ public class DataPointObjectAndroidUnitTest {
         mDataPointObjectArray = new DataPointObject(testTimestamp, testSampleArray);
     }
 
+
     @Test
     public void fieldAccuracyTest() {
         assertEquals(testTimestamp, mDataPointObject.getTimestamp());
-        //assertEquals("Hello world", mDataPointObject.getSample()[0]); //TODO: fix expects Hello World, gets "Hello World"
+        assertEquals("Hello world", mDataPointObject.getSample()[0]);
         assertEquals(testTimestamp, mDataPointObjectArray.getTimestamp());
-        //for (int i = 0; i < testSampleArray.length; i++) {
-          //  assertEquals(testSampleArray[i], mDataPointObjectArray.getSample()[i]);
-        //}
+        for (int i = 0; i < testSampleArray.length; i++) {
+            assertEquals(testSampleArray[i], mDataPointObjectArray.getSample()[i]);
+        }
     }
 
     @Test
@@ -84,7 +88,7 @@ public class DataPointObjectAndroidUnitTest {
         DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(mDataPointObjectArray.getTimestamp(), createdFromParcel.getTimestamp());
         assertArrayEquals(mDataPointObjectArray.getSample(), createdFromParcel.getSample());
     }

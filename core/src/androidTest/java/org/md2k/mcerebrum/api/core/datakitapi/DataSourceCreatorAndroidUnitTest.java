@@ -13,7 +13,6 @@ import org.md2k.mcerebrum.api.core.datakitapi.datasource.DATASOURCE;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM_APP;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataType;
-import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
 
 import java.util.concurrent.TimeUnit;
 
@@ -119,7 +118,7 @@ public class DataSourceCreatorAndroidUnitTest {
     MCerebrumAPI testmCerebrumAPI;
     Context testContext;
 
-    public void createPlatformMetaData() {
+    public PlatformMetaData createPlatformMetaData() {
         // Create testPlatformMetaData
         testPlatformMetaData = new PlatformMetaData.Builder().setValue(testKey, testValue).build();
         testPlatformMetaData.setTitle(testTitle);
@@ -131,6 +130,7 @@ public class DataSourceCreatorAndroidUnitTest {
         testPlatformMetaData.setVersionFirmware(testVersionFirmware);
         testPlatformMetaData.setVersionHardware(testVersionHardware);
         testPlatformMetaData.setDeviceId(testDeviceId);
+        return testPlatformMetaData;
     }
 
     public void createPlatformAppMetaData() {
@@ -163,6 +163,7 @@ public class DataSourceCreatorAndroidUnitTest {
         testDataSourceMetaData = new DataSourceMetaData.Builder().setTitle(testTitle)
                 .setSummary(testSummary).setDescription(testDescription).setValue(testKey, testValue).build();
     }
+
     @Before
     public void objectCreation(){
         createPlatformMetaData();
