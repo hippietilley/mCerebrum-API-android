@@ -88,33 +88,6 @@ public class DataSourceCreatorAndroidUnitTest {
     PlatformAppMetaData testPlatformAppMetaData;
     ApplicationMetaData testAppMetaData;
     DataDescriptor testDataDescriptor;
-    final String testDataType = "Test Data Type";
-    final String testDataRate = "Test Data Rate";
-    final String testAppId = "Test App Id";
-    final int testDsId = 1;
-    final long creationTime = 1268669453;
-    final long modifiedTime = 1268660460;
-    final int[] statusIntArray = {MCerebrumStatus.UNKNOWN_ERROR, MCerebrumStatus.SUCCESS,
-            MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED, MCerebrumStatus.MCEREBRUM_APP_NOT_INSTALLED,
-            MCerebrumStatus.CONNECTION_ERROR, MCerebrumStatus.INVALID_PARAMETER,
-            MCerebrumStatus.INVALID_DATA_SOURCE, MCerebrumStatus.MISSING_DATA_SOURCE_TYPE,
-            MCerebrumStatus.MISSING_DATA_TYPE, MCerebrumStatus.DATA_SOURCE_NOT_REGISTERED,
-            MCerebrumStatus.INVALID_DATA, MCerebrumStatus.INCONSISTENT_DATA_TYPE,
-            MCerebrumStatus.INVALID_TIMESTAMP, MCerebrumStatus.DATA_SIZE_TOO_LARGE};
-    final String[] statusStringArray = {MCerebrumStatus.getStatusCodeString(MCerebrumStatus.UNKNOWN_ERROR),
-            MCerebrumStatus.getStatusCodeString(MCerebrumStatus.SUCCESS),
-            MCerebrumStatus.getStatusCodeString(MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED),
-            MCerebrumStatus.getStatusCodeString(MCerebrumStatus.MCEREBRUM_APP_NOT_INSTALLED),
-            MCerebrumStatus.getStatusCodeString(MCerebrumStatus.CONNECTION_ERROR),
-            MCerebrumStatus.getStatusCodeString(MCerebrumStatus.INVALID_PARAMETER),
-            MCerebrumStatus.getStatusCodeString(MCerebrumStatus.INVALID_DATA_SOURCE),
-            MCerebrumStatus.getStatusCodeString(MCerebrumStatus.MISSING_DATA_SOURCE_TYPE),
-            MCerebrumStatus.getStatusCodeString(MCerebrumStatus.MISSING_DATA_TYPE),
-            MCerebrumStatus.getStatusCodeString(MCerebrumStatus.DATA_SOURCE_NOT_REGISTERED),
-            MCerebrumStatus.getStatusCodeString(MCerebrumStatus.INVALID_DATA),
-            MCerebrumStatus.getStatusCodeString(MCerebrumStatus.INCONSISTENT_DATA_TYPE),
-            MCerebrumStatus.getStatusCodeString(MCerebrumStatus.INVALID_TIMESTAMP),
-            MCerebrumStatus.getStatusCodeString(MCerebrumStatus.DATA_SIZE_TOO_LARGE)};
     final DataType[] dataTypeArray = {DataType.DATAPOINT_BOOLEAN, DataType.DATAPOINT_BYTE,
             DataType.DATAPOINT_INT, DataType.DATAPOINT_LONG, DataType.DATAPOINT_DOUBLE,
             DataType.DATAPOINT_STRING, DataType.DATAPOINT_ENUM, DataType.DATAPOINT_OBJECT,

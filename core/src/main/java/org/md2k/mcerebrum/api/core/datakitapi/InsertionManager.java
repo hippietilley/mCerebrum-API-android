@@ -45,38 +45,41 @@ import java.util.concurrent.locks.ReentrantLock;
 class InsertionManager {
     private IDataKitRemoteService mService;
 
-//    private SparseArray<List<Data>> data;
+    //    private SparseArray<List<Data>> data;
     private SparseArray<ArrayList<Long>> bufferTime;
     private Map<Integer, List<Data>> data;
     private Handler handler;
-    private static final long SYNC_TIME=1000; //1 second
+    private static final long SYNC_TIME = 1000; //1 second
     private static final int BUFFER_SIZE = 10;
-    private static final double HIGH_FREQUENCY_LIMIT=2.0;
+    private static final double HIGH_FREQUENCY_LIMIT = 2.0;
     private boolean isSyncScheduled;
+
     private ConnectionCallback connectionCallback;
     private Lock lock;
 
-    InsertionManager(IDataKitRemoteService mService, ConnectionCallback connectionCallback){
+    InsertionManager(IDataKitRemoteService mService, ConnectionCallback connectionCallback) {
         this.mService = mService;
         handler = new Handler();
         data = new HashMap<>();
-        bufferTime=new SparseArray<>();
+        bufferTime = new SparseArray<>();
         isSyncScheduled = false;
         this.connectionCallback = connectionCallback;
-        lock=new ReentrantLock();
+        lock = new ReentrantLock();
     }
+
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
             sync();
-            isSyncScheduled=false;
+            isSyncScheduled = false;
         }
     };
-    protected int insert(int dsId, Data[] data){
+
+    protected int insert(int dsId, Data[] data) {
         lock.lock();
         ArrayList<Long> a = bufferTime.get(dsId, new ArrayList<Long>());
-        List<Data> list=this.data.get(dsId);
-        if(list==null) list=new ArrayList<Data>();
+        List<Data> list = this.data.get(dsId);
+        if (list == null) list = new ArrayList<Data>();
         for (Data aData : data) {
             list.add(aData.clone());
             a.add(aData.getTimestamp());
@@ -84,14 +87,14 @@ class InsertionManager {
         }
         this.data.put(dsId, list);
         bufferTime.put(dsId, a);
-        if(a.size()==1 || (a.size()*1000.0)/(a.get(a.size()-1)-a.get(0))<HIGH_FREQUENCY_LIMIT){
-            if(isSyncScheduled) {
+        if (a.size() == 1 || (a.size() * 1000.0) / (a.get(a.size() - 1) - a.get(0)) < HIGH_FREQUENCY_LIMIT) {
+            if (isSyncScheduled) {
                 handler.removeCallbacks(runnable);
-                isSyncScheduled=false;
+                isSyncScheduled = false;
             }
             handler.post(runnable);
-        }else{
-            if(!isSyncScheduled) {
+        } else {
+            if (!isSyncScheduled) {
                 isSyncScheduled = true;
                 handler.postDelayed(runnable, SYNC_TIME);
             }
@@ -99,11 +102,12 @@ class InsertionManager {
         lock.unlock();
         return MCerebrumStatus.SUCCESS;
     }
-    private void sync(){
+
+    private void sync() {
         lock.lock();
         try {
             int r = mService.insert(data);
-            if(r!= MCerebrumStatus.SUCCESS)
+            if (r != MCerebrumStatus.SUCCESS)
                 connectionCallback.onError(new MCerebrumException(MCerebrumStatus.getStatusCodeString(r)));
             data.clear();
         } catch (RemoteException e) {

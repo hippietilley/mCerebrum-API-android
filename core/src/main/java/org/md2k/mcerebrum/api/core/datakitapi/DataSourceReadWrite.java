@@ -119,7 +119,7 @@ public class DataSourceReadWrite extends DataSource implements Parcelable{
         super.setDataType(dataType);
     }
     public void setAppId(String appId) {
-        setAppId(appId);
+        super.setAppId(appId);
     }
 
     @Override

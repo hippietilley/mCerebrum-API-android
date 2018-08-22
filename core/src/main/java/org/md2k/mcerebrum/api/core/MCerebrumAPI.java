@@ -49,6 +49,7 @@ public final class MCerebrumAPI {
     private MCPlugin plugin;
     private Context context;
     private DataKitAPI dataKitAPI;
+
     public static void init(Context context) {
         init(context, null);
     }
@@ -62,8 +63,8 @@ public final class MCerebrumAPI {
     }
 
     public static MCPlugin getPlugin() {
-        if(instance!=null)
-        return instance.plugin;
+        if (instance != null)
+            return instance.plugin;
         else return null;
     }
 
@@ -71,73 +72,83 @@ public final class MCerebrumAPI {
         this.context = context;
         dataKitAPI = new DataKitAPI(instance);
     }
+
     public static Context getContext() {
         if (instance == null) return null;
         return instance.context;
     }
+
     public static int connect(ConnectionCallback connectionCallback) {
-        if(connectionCallback==null) return MCerebrumStatus.INVALID_PARAMETER;
+        if (connectionCallback == null) return MCerebrumStatus.INVALID_PARAMETER;
         if (instance == null) {
             connectionCallback.onError(new MCerebrumException(MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED));
             return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
-        }
-        else return instance.dataKitAPI.connect(connectionCallback);
+        } else return instance.dataKitAPI.connect(connectionCallback);
     }
 
-    public static int disconnect(ConnectionCallback connectionCallback){
-        if(connectionCallback==null) return MCerebrumStatus.INVALID_PARAMETER;
-        if(instance==null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
+    public static int disconnect(ConnectionCallback connectionCallback) {
+        if (connectionCallback == null) return MCerebrumStatus.INVALID_PARAMETER;
+        if (instance == null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
         return instance.dataKitAPI.disconnect(connectionCallback);
     }
-    public static Registration register(DataSourceCreator dataSourceCreator){
-        if(instance==null) return null;
+
+    public static Registration register(DataSourceCreator dataSourceCreator) {
+        if (instance == null) return null;
         return instance.dataKitAPI.register(dataSourceCreator);
     }
 
-    public static int unregister(Registration registration){
-        if(instance==null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
+    public static int unregister(Registration registration) {
+        if (instance == null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
         return instance.dataKitAPI.unregister(registration);
 
 
     }
-    public static DataSourceSet find(DataSourceRequest dataSourceRequest){
-        if(instance==null) return null;
+
+    public static DataSourceSet find(DataSourceRequest dataSourceRequest) {
+        if (instance == null) return null;
         return instance.dataKitAPI.find(dataSourceRequest);
     }
-    public static int insert(Registration registration, Data[] data){
-        if(instance==null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
+
+    public static int insert(Registration registration, Data[] data) {
+        if (instance == null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
         return instance.dataKitAPI.insert(registration, data);
     }
-    public static int insert(Registration registration, Data data){
-        if(instance==null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
+
+    public static int insert(Registration registration, Data data) {
+        if (instance == null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
         return insert(registration, new Data[]{data});
     }
 
-    public static DataSet query(DataSource dataSource, int lastNPoint){
-        if(instance==null) return null;
+    public static DataSet query(DataSource dataSource, int lastNPoint) {
+        if (instance == null) return null;
         return instance.dataKitAPI.query(dataSource, lastNPoint);
 
     }
-    public static DataSet query(DataSource dataSource, long startTimestamp, long endTimestamp){
-        if(instance==null) return null;
+
+    public static DataSet query(DataSource dataSource, long startTimestamp, long endTimestamp) {
+        if (instance == null) return null;
         return instance.dataKitAPI.query(dataSource, startTimestamp, endTimestamp);
     }
-    public static DataSet querySummary(DataSource dataSource, long startTimestamp, long endTimestamp){
-        if(instance==null) return null;
+
+    public static DataSet querySummary(DataSource dataSource, long startTimestamp, long endTimestamp) {
+        if (instance == null) return null;
         return instance.dataKitAPI.querySummary(dataSource, startTimestamp, endTimestamp);
 
     }
-    public static int queryCount(DataSource dataSource, long startTimestamp, long endTimestamp){
-        if(instance==null) return -1;
+
+    public static int queryCount(DataSource dataSource, long startTimestamp, long endTimestamp) {
+        if (instance == null) return -1;
         return instance.dataKitAPI.queryCount(dataSource, startTimestamp, endTimestamp);
 
     }
-    public static int subscribe(DataSource dataSource, DataCallback callback){
-        if(instance==null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
+
+    public static int subscribe(DataSource dataSource, DataCallback callback) {
+        if (instance == null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
         return instance.dataKitAPI.subscribe(dataSource, callback);
     }
-    public static int unsubscribe(DataSource dataSource, DataCallback callback){
-        if(instance==null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
+
+    public static int unsubscribe(DataSource dataSource, DataCallback callback) {
+        if (instance == null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
         return instance.dataKitAPI.unsubscribe(dataSource, callback);
     }
 }
