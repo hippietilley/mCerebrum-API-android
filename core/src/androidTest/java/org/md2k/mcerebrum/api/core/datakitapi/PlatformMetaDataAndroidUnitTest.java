@@ -74,4 +74,33 @@ public class PlatformMetaDataAndroidUnitTest {
         assertEquals(testDeviceId, createdFromParcel.getDeviceId());
         assertEquals(testValue, createdFromParcel.getMetaData(testKey));
     }
+
+    @Test
+    public void PlatformMetaData_ParcelableWriteReadComparableTest() {
+        testPlatformMetaData = new PlatformMetaData.Builder().setValue(testKey, testValue).build();
+        testPlatformMetaData.setTitle(testTitle);
+        testPlatformMetaData.setSummary(testSummary);
+        testPlatformMetaData.setDescription(testDescription);
+        testPlatformMetaData.setOperationSystem(testOperationSystem);
+        testPlatformMetaData.setManufacturer(testManufacturer);
+        testPlatformMetaData.setModel(testModel);
+        testPlatformMetaData.setVersionFirmware(testVersionFirmware);
+        testPlatformMetaData.setVersionHardware(testVersionHardware);
+        testPlatformMetaData.setDeviceId(testDeviceId);
+
+        // Write to parcel.
+        Parcel parcel = Parcel.obtain();
+        testPlatformMetaData.writeToParcel(parcel, testPlatformMetaData.describeContents());
+
+        // After writing, reset the parcel for reading.
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        PlatformMetaData createdFromParcel = PlatformMetaData.CREATOR.createFromParcel(parcel);
+        PlatformMetaData[] createdFromParcelArray = PlatformMetaData.CREATOR.newArray(1);
+
+        // Verify results.
+        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertEquals(testPlatformMetaData, createdFromParcel);
+    }
 }

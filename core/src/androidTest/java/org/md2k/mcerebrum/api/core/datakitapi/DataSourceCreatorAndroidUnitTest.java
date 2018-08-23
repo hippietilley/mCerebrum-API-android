@@ -244,4 +244,30 @@ public class DataSourceCreatorAndroidUnitTest {
         testDataSourceCreator = new DataSourceCreator.Builder().setDataSourceMetadata(testDataSourceMetaData).build();
         assertEquals(testDataSourceMetaData, testDataSourceCreator.getDataSourceMetaData());
     }
+
+    @Test
+    public void dataSourceCreator_ParcelableWriteReadComparableTest() {
+        testDataSourceCreator = new DataSourceCreator.Builder().setDataSourceId(dataSourceIdArray[0])
+                .setPlatformType(platformTypeArray[0]).setPlatformId(platformIdArray[0])
+                .setPlatformAppType(platformAppTypeArray[0]).setPlatformAppId(platformAppIdArray[0])
+                .setApplicationType(applicationTypeArray[0]).setDataSourceMetadata(testDataSourceMetaData)
+                .setPlatformMetadata(testPlatformMetaData).setPlatformAppMetadata(testPlatformAppMetaData)
+                .setApplicationMetaData(testAppMetaData).setDataRate(testSampleNo, timeUnitArray[0])
+                .setDataDescriptor(0, testDataDescriptor).build();
+
+        // Write data to parcel.
+        Parcel parcel = Parcel.obtain();
+        testDataSourceCreator.writeToParcel(parcel, testDataSourceCreator.describeContents());
+
+        // After writing, reset the parcel for reading.
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataSourceCreator createdFromParcel = DataSourceCreator.CREATOR.createFromParcel(parcel);
+        DataSourceCreator[] createdFromParcelArray = DataSourceCreator.CREATOR.newArray(1);
+
+        // Verify the results.
+        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertEquals(testDataSourceCreator, createdFromParcel);
+    }
 }

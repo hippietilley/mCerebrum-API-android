@@ -82,4 +82,26 @@ public class ApplicationMetaDataAndroidUnitTest {
         assertEquals(createdFromParcel.getKeys().length,testAppMetaData.getKeys().length);
 //        assertEquals(testAppMetaData, createdFromParcel);
     }
+
+    @Test
+    public void ApplicationMetaData_ParcelableWriteReadComparableTest() {
+        testAppMetaData = new ApplicationMetaData.Builder().setTitle(testTitle).setSummary(testSummary)
+                .setDescription(testDescription).setVersionName(testVersionName)
+                .setVersionNumber(testVersionNumber).setValue(testKey, testValue).build();
+
+        // Write to parcel.
+        Parcel parcel = Parcel.obtain();
+        testAppMetaData.writeToParcel(parcel, testAppMetaData.describeContents());
+
+        // After writing, reset the parcel for reading.
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        ApplicationMetaData createdFromParcel = ApplicationMetaData.CREATOR.createFromParcel(parcel);
+        ApplicationMetaData[] createdFromParcelArray = ApplicationMetaData.CREATOR.newArray(1);
+
+        // Verify results.
+        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertEquals(testAppMetaData, createdFromParcel);
+    }
 }
