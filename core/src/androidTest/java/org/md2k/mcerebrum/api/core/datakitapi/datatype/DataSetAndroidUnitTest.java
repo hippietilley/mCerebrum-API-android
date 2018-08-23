@@ -18,9 +18,12 @@ import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 
 @SmallTest
 public class DataSetAndroidUnitTest {
+    public static final double DELTA = 0.1;
     private final int actualDataSize = 100;
     private final int receivedDataSize = 101;
     private int[] samplingTypes = {DataSet.SAMPLING_TYPE.ALL.getCode(),
@@ -113,7 +116,7 @@ public class DataSetAndroidUnitTest {
                         ((DataPointByte)createdFromParcelAll.getData()[i]).getSample());
             if (createdFromParcelAll.getData()[i] instanceof DataPointDouble)
                 assertArrayEquals(((DataPointDouble)testDataSetSamplingAll.getData()[i]).getSample(),
-                        ((DataPointDouble)createdFromParcelAll.getData()[i]).getSample(), 0.1);
+                        ((DataPointDouble)createdFromParcelAll.getData()[i]).getSample(), DELTA);
             if (createdFromParcelAll.getData()[i] instanceof DataPointEnum)
                 assertArrayEquals(((DataPointEnum)testDataSetSamplingAll.getData()[i]).getSample(),
                         ((DataPointEnum)createdFromParcelAll.getData()[i]).getSample());
@@ -143,7 +146,7 @@ public class DataSetAndroidUnitTest {
                         ((DataPointByte)readFromParcelAll.getData()[i]).getSample());
             if (readFromParcelAll.getData()[i] instanceof DataPointDouble)
                 assertArrayEquals(((DataPointDouble)testDataSetSamplingAll.getData()[i]).getSample(),
-                        ((DataPointDouble)readFromParcelAll.getData()[i]).getSample(), 0.1);
+                        ((DataPointDouble)readFromParcelAll.getData()[i]).getSample(), DELTA);
             if (readFromParcelAll.getData()[i] instanceof DataPointEnum)
                 assertArrayEquals(((DataPointEnum)testDataSetSamplingAll.getData()[i]).getSample(),
                         ((DataPointEnum)readFromParcelAll.getData()[i]).getSample());
@@ -211,7 +214,7 @@ public class DataSetAndroidUnitTest {
                         ((DataPointByte)readFromParcelFirstN.getData()[i]).getSample());
             if (readFromParcelFirstN.getData()[i] instanceof DataPointDouble)
                 assertArrayEquals(((DataPointDouble)testDataSetSamplingAll.getData()[i]).getSample(),
-                        ((DataPointDouble)readFromParcelFirstN.getData()[i]).getSample(), 0.1);
+                        ((DataPointDouble)readFromParcelFirstN.getData()[i]).getSample(), DELTA);
             if (readFromParcelFirstN.getData()[i] instanceof DataPointEnum)
                 assertArrayEquals(((DataPointEnum)testDataSetSamplingAll.getData()[i]).getSample(),
                         ((DataPointEnum)readFromParcelFirstN.getData()[i]).getSample());
@@ -260,7 +263,7 @@ public class DataSetAndroidUnitTest {
                         ((DataPointByte)createdFromParcelDistributedN.getData()[i]).getSample());
             if (createdFromParcelDistributedN.getData()[i] instanceof DataPointDouble)
                 assertArrayEquals(((DataPointDouble)testDataSetSamplingAll.getData()[i]).getSample(),
-                        ((DataPointDouble)createdFromParcelDistributedN.getData()[i]).getSample(), 0.1);
+                        ((DataPointDouble)createdFromParcelDistributedN.getData()[i]).getSample(), DELTA);
             if (createdFromParcelDistributedN.getData()[i] instanceof DataPointEnum)
                 assertArrayEquals(((DataPointEnum)testDataSetSamplingAll.getData()[i]).getSample(),
                         ((DataPointEnum)createdFromParcelDistributedN.getData()[i]).getSample());
@@ -291,7 +294,7 @@ public class DataSetAndroidUnitTest {
                         ((DataPointByte)readFromParcelDistributedN.getData()[i]).getSample());
             if (readFromParcelDistributedN.getData()[i] instanceof DataPointDouble)
                 assertArrayEquals(((DataPointDouble)testDataSetSamplingAll.getData()[i]).getSample(),
-                        ((DataPointDouble)readFromParcelDistributedN.getData()[i]).getSample(), 0.1);
+                        ((DataPointDouble)readFromParcelDistributedN.getData()[i]).getSample(), DELTA);
             if (readFromParcelDistributedN.getData()[i] instanceof DataPointEnum)
                 assertArrayEquals(((DataPointEnum)testDataSetSamplingAll.getData()[i]).getSample(),
                         ((DataPointEnum)readFromParcelDistributedN.getData()[i]).getSample());

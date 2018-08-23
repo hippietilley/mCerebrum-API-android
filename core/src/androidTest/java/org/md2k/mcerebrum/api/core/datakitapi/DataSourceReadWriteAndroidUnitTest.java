@@ -17,6 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 public class DataSourceReadWriteAndroidUnitTest {
+    public static final double DELTA = 0.1;
     final String[] dataSourceTypeArray = {DATASOURCE.TYPE.ACCELEROMETER, DATASOURCE.TYPE.GYROSCOPE,
             DATASOURCE.TYPE.COMPASS, DATASOURCE.TYPE.AMBIENT_LIGHT, DATASOURCE.TYPE.PRESSURE,
             DATASOURCE.TYPE.PROXIMITY, DATASOURCE.TYPE.LOCATION, DATASOURCE.TYPE.GEOFENCE,
@@ -304,9 +305,9 @@ public class DataSourceReadWriteAndroidUnitTest {
         assertEquals(testDataDescriptor.getSummary(), testDataSourceReadWrite.getDataDescriptors().get(0).getSummary());
         assertEquals(testDataDescriptor.getDescription(), testDataSourceReadWrite.getDataDescriptors().get(0).getDescription());
         assertEquals(testDataDescriptor.getMinValue(),
-                testDataSourceReadWrite.getDataDescriptors().get(0).getMinValue(), 0.1);
+                testDataSourceReadWrite.getDataDescriptors().get(0).getMinValue(), DELTA);
         assertEquals(testDataDescriptor.getMaxValue(),
-                testDataSourceReadWrite.getDataDescriptors().get(0).getMaxValue(), 0.1);
+                testDataSourceReadWrite.getDataDescriptors().get(0).getMaxValue(), DELTA);
         assertArrayEquals(testDataDescriptor.getPossibleValuesAsString(),
                 testDataSourceReadWrite.getDataDescriptors().get(0).getPossibleValuesAsString());
         assertArrayEquals(testDataDescriptor.getPossibleValuesAsInt(),
@@ -454,9 +455,9 @@ public class DataSourceReadWriteAndroidUnitTest {
         assertEquals(testDataSourceReadWrite.getDataDescriptors().get(0).getDescription(),
                 createdFromParcel.getDataDescriptors().get(0).getDescription());
         assertEquals(testDataSourceReadWrite.getDataDescriptors().get(0).getMinValue(),
-                createdFromParcel.getDataDescriptors().get(0).getMinValue(), 0.1);
+                createdFromParcel.getDataDescriptors().get(0).getMinValue(), DELTA);
         assertEquals(testDataSourceReadWrite.getDataDescriptors().get(0).getMaxValue(),
-                createdFromParcel.getDataDescriptors().get(0).getMaxValue(), 0.1);
+                createdFromParcel.getDataDescriptors().get(0).getMaxValue(), DELTA);
         assertArrayEquals(testDataSourceReadWrite.getDataDescriptors().get(0).getPossibleValuesAsString(),
                 createdFromParcel.getDataDescriptors().get(0).getPossibleValuesAsString());
         assertArrayEquals(testDataSourceReadWrite.getDataDescriptors().get(0).getPossibleValuesAsInt(),

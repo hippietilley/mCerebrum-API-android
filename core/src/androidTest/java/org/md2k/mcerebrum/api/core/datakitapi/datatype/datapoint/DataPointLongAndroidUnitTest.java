@@ -13,6 +13,7 @@ import static org.junit.Assert.assertNotSame;
 
 @SmallTest
 public class DataPointLongAndroidUnitTest {
+    public static final double DELTA = 0.1;
     private final long testTimestamp = 1268660460;
 
     private final long testSample = 1;
@@ -31,7 +32,7 @@ public class DataPointLongAndroidUnitTest {
     @Test
     public void fieldAccuracyTest() {
         assertEquals(testTimestamp, mDataPointLong.getTimestamp());
-        assertEquals(testSample, mDataPointLong.getSample()[0], 0.1);
+        assertEquals(testSample, mDataPointLong.getSample()[0], DELTA);
         assertEquals(testTimestamp, mDataPointLongArray.getTimestamp());
         assertArrayEquals(testSampleArray, mDataPointLongArray.getSample());
     }

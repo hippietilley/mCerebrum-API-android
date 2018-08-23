@@ -11,6 +11,7 @@ import static org.junit.Assert.assertNotEquals;
 
 @SmallTest
 public class DataDescriptorAndroidUnitTest {
+    public static final double DELTA = 0.1;
     private final String testTitle = "Test Title";
     private final String testSummary = "Test Summary";
     private final String testDescription = "Test Description";
@@ -35,8 +36,8 @@ public class DataDescriptorAndroidUnitTest {
         assertEquals(testTitle, testDataDescriptor.getTitle());
         assertEquals(testSummary, testDataDescriptor.getSummary());
         assertEquals(testDescription, testDataDescriptor.getDescription());
-        assertEquals(testMinValue, testDataDescriptor.getMinValue(), 0.1);
-        assertEquals(testMaxValue, testDataDescriptor.getMaxValue(), 0.1);
+        assertEquals(testMinValue, testDataDescriptor.getMinValue(), DELTA);
+        assertEquals(testMaxValue, testDataDescriptor.getMaxValue(), DELTA);
         assertArrayEquals(testPossibleValuesAsString, testDataDescriptor.getPossibleValuesAsString());
         assertArrayEquals(testPossibleValuesAsInt, testDataDescriptor.getPossibleValuesAsInt());
         assertEquals(testUnit, testDataDescriptor.getUnit());
@@ -67,8 +68,8 @@ public class DataDescriptorAndroidUnitTest {
         assertEquals(testTitle, createdFromParcel.getTitle());
         assertEquals(testSummary, createdFromParcel.getSummary());
         assertEquals(testDescription, createdFromParcel.getDescription());
-        assertEquals(testMinValue, createdFromParcel.getMinValue(), 0.1);
-        assertEquals(testMaxValue, createdFromParcel.getMaxValue(), 0.1);
+        assertEquals(testMinValue, createdFromParcel.getMinValue(), DELTA);
+        assertEquals(testMaxValue, createdFromParcel.getMaxValue(), DELTA);
         assertArrayEquals(testPossibleValuesAsString, createdFromParcel.getPossibleValuesAsString());
         assertArrayEquals(testPossibleValuesAsInt, createdFromParcel.getPossibleValuesAsInt());
         assertEquals(testUnit, createdFromParcel.getUnit());

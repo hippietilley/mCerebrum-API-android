@@ -20,6 +20,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class RegistrationAndroidUnitTest {
+    public static final double DELTA = 0.1;
     final String testDataSourceType = DATASOURCE.TYPE.ACCELEROMETER;
     final String testDataSourceId = DATASOURCE.ID.SMOKING;
     DataSourceMetaData testDataSourceMetaData;
@@ -240,9 +241,9 @@ public class RegistrationAndroidUnitTest {
         assertEquals(testDataSourceCreator.getDataDescriptors().get(0).getDescription(),
                 testReg.getDataSource().getDataDescriptors().get(0).getDescription());
         assertEquals(testDataSourceCreator.getDataDescriptors().get(0).getMinValue(),
-                testReg.getDataSource().getDataDescriptors().get(0).getMinValue(), 0.1);
+                testReg.getDataSource().getDataDescriptors().get(0).getMinValue(), DELTA);
         assertEquals(testDataSourceCreator.getDataDescriptors().get(0).getMaxValue(),
-                testReg.getDataSource().getDataDescriptors().get(0).getMaxValue(), 0.1);
+                testReg.getDataSource().getDataDescriptors().get(0).getMaxValue(), DELTA);
         assertArrayEquals(testDataSourceCreator.getDataDescriptors().get(0).getPossibleValuesAsString(),
                 testReg.getDataSource().getDataDescriptors().get(0).getPossibleValuesAsString());
         assertArrayEquals(testDataSourceCreator.getDataDescriptors().get(0).getPossibleValuesAsInt(),
@@ -353,9 +354,9 @@ public class RegistrationAndroidUnitTest {
         assertEquals(testDataSourceReadWrite.getDataDescriptors().get(0).getDescription(),
                 testReg.getDataSource().getDataDescriptors().get(0).getDescription());
         assertEquals(testDataSourceReadWrite.getDataDescriptors().get(0).getMinValue(),
-                testReg.getDataSource().getDataDescriptors().get(0).getMinValue(), 0.1);
+                testReg.getDataSource().getDataDescriptors().get(0).getMinValue(), DELTA);
         assertEquals(testDataSourceReadWrite.getDataDescriptors().get(0).getMaxValue(),
-                testReg.getDataSource().getDataDescriptors().get(0).getMaxValue(), 0.1);
+                testReg.getDataSource().getDataDescriptors().get(0).getMaxValue(), DELTA);
         assertArrayEquals(testDataSourceReadWrite.getDataDescriptors().get(0).getPossibleValuesAsString(),
                 testReg.getDataSource().getDataDescriptors().get(0).getPossibleValuesAsString());
         assertArrayEquals(testDataSourceReadWrite.getDataDescriptors().get(0).getPossibleValuesAsInt(),

@@ -13,6 +13,7 @@ import static org.junit.Assert.assertNotSame;
 
 @SmallTest
 public class DataPointDoubleAndroidUnitTest {
+    public static final double DELTA = 0.1;
     private final long testTimestamp = 1268660460;
 
     private final double testSample = 6.2831853071;
@@ -31,16 +32,16 @@ public class DataPointDoubleAndroidUnitTest {
     @Test
     public void fieldAccuracyTest() {
         assertEquals(testTimestamp, mDataPointDouble.getTimestamp());
-        assertEquals(testSample, mDataPointDouble.getSample()[0], 0.1);
+        assertEquals(testSample, mDataPointDouble.getSample()[0], DELTA);
         assertEquals(testTimestamp, mDataPointDoubleArray.getTimestamp());
-        assertArrayEquals(testSampleArray, mDataPointDoubleArray.getSample(), 0.1);
+        assertArrayEquals(testSampleArray, mDataPointDoubleArray.getSample(), DELTA);
     }
 
     @Test
     public void dataPointDoubleCloneTest() {
         DataPointDouble dataPointClone = mDataPointDouble.clone();
         assertEquals(mDataPointDouble.getTimestamp(), dataPointClone.getTimestamp());
-        assertArrayEquals(mDataPointDouble.getSample(), dataPointClone.getSample(), 0.1);
+        assertArrayEquals(mDataPointDouble.getSample(), dataPointClone.getSample(), DELTA);
         assertNotSame(mDataPointDouble, dataPointClone);
     }
 
@@ -67,7 +68,7 @@ public class DataPointDoubleAndroidUnitTest {
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(mDataPointDouble.getTimestamp(), createdFromParcel.getTimestamp());
-        assertArrayEquals(mDataPointDouble.getSample(), createdFromParcel.getSample(), 0.1);
+        assertArrayEquals(mDataPointDouble.getSample(), createdFromParcel.getSample(), DELTA);
     }
 
     @Test
@@ -104,7 +105,7 @@ public class DataPointDoubleAndroidUnitTest {
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(mDataPointDoubleArray.getTimestamp(), createdFromParcel.getTimestamp());
-        assertArrayEquals(mDataPointDoubleArray.getSample(), createdFromParcel.getSample(), 0.1);
+        assertArrayEquals(mDataPointDoubleArray.getSample(), createdFromParcel.getSample(), DELTA);
     }
 
     @Test
