@@ -101,7 +101,7 @@ public class ApplicationMetaDataAndroidUnitTest {
         ApplicationMetaData[] createdFromParcelArray = ApplicationMetaData.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(testAppMetaData, createdFromParcel);
     }
 }

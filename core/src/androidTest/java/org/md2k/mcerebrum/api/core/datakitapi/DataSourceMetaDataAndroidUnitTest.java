@@ -94,7 +94,7 @@ public class DataSourceMetaDataAndroidUnitTest {
         DataSourceMetaData[] createdFromParcelArray = DataSourceMetaData.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(testDataSourceMetaData, createdFromParcel);
     }
 }

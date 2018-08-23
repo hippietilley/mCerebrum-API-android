@@ -267,7 +267,7 @@ public class DataSourceCreatorAndroidUnitTest {
         DataSourceCreator[] createdFromParcelArray = DataSourceCreator.CREATOR.newArray(1);
 
         // Verify the results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(testDataSourceCreator, createdFromParcel);
     }
 }

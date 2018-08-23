@@ -71,22 +71,4 @@ public class DataSourceRequestAndroidUnitTest {
         assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(testDataSourceRequest, createdFromParcel);
     }
-
-    @Test
-    public void DataSourceRequest_ParcelableWriteReadComparableTest() {
-        // Write to parcel.
-        Parcel parcel = Parcel.obtain();
-        testDataSourceRequest.writeToParcel(parcel, testDataSourceRequest.describeContents());
-
-        // After writing, reset the parcel for reading.
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataSourceRequest createdFromParcel = DataSourceRequest.CREATOR.createFromParcel(parcel);
-        DataSourceRequest[] createdFromParcelArray = DataSourceRequest.CREATOR.newArray(1);
-
-        // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
-        assertEquals(testDataSourceRequest, createdFromParcel);
-    }
 }
