@@ -260,6 +260,12 @@ public class DataSourceCreatorAndroidUnitTest {
     }
 
     @Test
+    public void platformMetaDataComparableTest() {
+        testDataSourceCreator = new DataSourceCreator.Builder().setPlatformMetadata(testPlatformMetaData).build();
+        assertEquals(testPlatformMetaData, testDataSourceCreator.getPlatformMetaData());
+    }
+
+    @Test
     public void platformAppMetaDataTest() {
         testDataSourceCreator = new DataSourceCreator.Builder().setPlatformAppMetadata(testPlatformAppMetaData).build();
         assertEquals(testPlatformAppMetaData.getTitle(), testDataSourceCreator.getPlatformAppMetaData().getTitle());
@@ -275,6 +281,12 @@ public class DataSourceCreatorAndroidUnitTest {
     }
 
     @Test
+    public void platformAppMetaDataComparableTest() {
+        testDataSourceCreator = new DataSourceCreator.Builder().setPlatformAppMetadata(testPlatformAppMetaData).build();
+        assertEquals(testPlatformAppMetaData, testDataSourceCreator.getPlatformAppMetaData());
+    }
+
+    @Test
     public void applicationMetaDataTest() {
         testDataSourceCreator = new DataSourceCreator.Builder().setApplicationMetaData(testAppMetaData).build();
         assertEquals(testAppMetaData.getTitle(), testDataSourceCreator.getApplicationMetaData().getTitle());
@@ -283,6 +295,12 @@ public class DataSourceCreatorAndroidUnitTest {
         assertEquals(testAppMetaData.getVersionName(), testDataSourceCreator.getApplicationMetaData().getVersionName());
         assertEquals(testAppMetaData.getVersionNumber(), testDataSourceCreator.getApplicationMetaData().getVersionNumber());
         assertEquals(testAppMetaData.getValue(testKey), testDataSourceCreator.getApplicationMetaData().getValue(testKey));
+    }
+
+    @Test
+    public void applicationMetaDataComparableTest() {
+        testDataSourceCreator = new DataSourceCreator.Builder().setApplicationMetaData(testAppMetaData).build();
+        assertEquals(testAppMetaData, testDataSourceCreator.getApplicationMetaData());
     }
 
     @Test
@@ -339,12 +357,25 @@ public class DataSourceCreatorAndroidUnitTest {
     }
 
     @Test
+    public void dataDescriptorComparableTest() {
+        testDataSourceCreator = new DataSourceCreator.Builder().setDataDescriptor(0, testDataDescriptor).build();
+        for (DataDescriptor dataDescriptorToCheck : testDataSourceCreator.getDataDescriptors())
+            assertEquals(testDataDescriptor, dataDescriptorToCheck);
+    }
+
+    @Test
     public void dataSourceMetaDataTest() {
         testDataSourceCreator = new DataSourceCreator.Builder().setDataSourceMetadata(testDataSourceMetaData).build();
         assertEquals(testDataSourceMetaData.getTitle(), testDataSourceCreator.getDataSourceMetaData().getTitle());
         assertEquals(testDataSourceMetaData.getSummary(), testDataSourceCreator.getDataSourceMetaData().getSummary());
         assertEquals(testDataSourceMetaData.getDescription(), testDataSourceCreator.getDataSourceMetaData().getDescription());
         assertEquals(testDataSourceMetaData.getValue(testKey), testDataSourceCreator.getDataSourceMetaData().getValue(testKey));
+    }
+
+    @Test
+    public void dataSourceMetaDataComparableTest() {
+        testDataSourceCreator = new DataSourceCreator.Builder().setDataSourceMetadata(testDataSourceMetaData).build();
+        assertEquals(testDataSourceMetaData, testDataSourceCreator.getDataSourceMetaData());
     }
 
     @Test
@@ -466,5 +497,31 @@ public class DataSourceCreatorAndroidUnitTest {
                 createdFromParcel.getDataDescriptors().get(0).getUnit());
         assertEquals(testDataSourceCreator.getDataDescriptors().get(0).getValue(testKey),
                 createdFromParcel.getDataDescriptors().get(0).getValue(testKey));
+    }
+
+    @Test
+    public void dataSourceCreator_ParcelableWriteReadComparableTest() {
+        testDataSourceCreator = new DataSourceCreator.Builder().setDataSourceId(dataSourceIdArray[0])
+                .setPlatformType(platformTypeArray[0]).setPlatformId(platformIdArray[0])
+                .setPlatformAppType(platformAppTypeArray[0]).setPlatformAppId(platformAppIdArray[0])
+                .setApplicationType(applicationTypeArray[0]).setDataSourceMetadata(testDataSourceMetaData)
+                .setPlatformMetadata(testPlatformMetaData).setPlatformAppMetadata(testPlatformAppMetaData)
+                .setApplicationMetaData(testAppMetaData).setDataRate(testSampleNo, timeUnitArray[0])
+                .setDataDescriptor(0, testDataDescriptor).build();
+
+        // Write data to parcel.
+        Parcel parcel = Parcel.obtain();
+        testDataSourceCreator.writeToParcel(parcel, testDataSourceCreator.describeContents());
+
+        // After writing, reset the parcel for reading.
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataSourceCreator createdFromParcel = DataSourceCreator.CREATOR.createFromParcel(parcel);
+        DataSourceCreator[] createdFromParcelArray = DataSourceCreator.CREATOR.newArray(1);
+
+        // Verify the results.
+        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertEquals(testDataSourceCreator, createdFromParcel);
     }
 }

@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNot.not;
-import static org.hamcrest.core.IsSame.sameInstance;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -55,6 +54,13 @@ public class DataPointObjectAndroidUnitTest {
     }
 
     @Test
+    public void dataPointObjectCloneComparableTest() {
+        DataPointObject dataPointClone = mDataPointObject.clone();
+        assertEquals(mDataPointObject, dataPointClone);
+        assertNotSame(mDataPointObject, dataPointClone);
+    }
+
+    @Test
     public void dataPointObject_ParcelableWriteRead() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
@@ -75,6 +81,24 @@ public class DataPointObjectAndroidUnitTest {
     }
 
     @Test
+    public void dataPointObject_ParcelableWriteReadComparable() {
+        // Write data to parcel.
+        Parcel parcel = Parcel.obtain();
+        mDataPointObject.writeToParcel(parcel, mDataPointObject.describeContents());
+
+        // After writing, reset the parcel for reading
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataPointObject createdFromParcel = DataPointObject.CREATOR.createFromParcel(parcel);
+        DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
+
+        // Verify results.
+        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertEquals(mDataPointObject, createdFromParcel);
+    }
+
+    @Test
     public void dataPointObjectArray_ParcelableWriteRead() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
@@ -91,5 +115,23 @@ public class DataPointObjectAndroidUnitTest {
         assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(mDataPointObjectArray.getTimestamp(), createdFromParcel.getTimestamp());
         assertArrayEquals(mDataPointObjectArray.getSample(), createdFromParcel.getSample());
+    }
+
+    @Test
+    public void dataPointObjectArray_ParcelableWriteReadComparable() {
+        // Write data to parcel.
+        Parcel parcel = Parcel.obtain();
+        mDataPointObjectArray.writeToParcel(parcel, mDataPointObjectArray.describeContents());
+
+        // After writing, reset the parcel for reading
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataPointObject createdFromParcel = DataPointObject.CREATOR.createFromParcel(parcel);
+        DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
+
+        // Verify results.
+        assertNotEquals(0, createdFromParcelArray.length);
+        assertEquals(mDataPointObjectArray, createdFromParcel);
     }
 }

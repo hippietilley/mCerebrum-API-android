@@ -152,6 +152,7 @@ public class DataSourceReadWriteAndroidUnitTest {
         testDataSourceMetaData = new DataSourceMetaData.Builder().setTitle(testTitle)
                 .setSummary(testSummary).setDescription(testDescription).setValue(testKey, testValue).build();
     }
+
     @Before
     public void objectCreation(){
         createPlatformMetaData();
@@ -251,6 +252,13 @@ public class DataSourceReadWriteAndroidUnitTest {
     }
 
     @Test
+    public void platformMetaDataComparableTest() {
+        testDataSourceReadWrite = new DataSourceReadWrite();
+        testDataSourceReadWrite.setPlatformMetadata(testPlatformMetaData);
+        assertEquals(testPlatformMetaData, testDataSourceReadWrite.getPlatformMetaData());
+    }
+
+    @Test
     public void platformAppMetaDataTest() {
         testDataSourceReadWrite = new DataSourceReadWrite();
         testDataSourceReadWrite.setPlatformAppMetadata(testPlatformAppMetaData);
@@ -267,6 +275,13 @@ public class DataSourceReadWriteAndroidUnitTest {
     }
 
     @Test
+    public void platformAppMetaDataComparableTest() {
+        testDataSourceReadWrite = new DataSourceReadWrite();
+        testDataSourceReadWrite.setPlatformAppMetadata(testPlatformAppMetaData);
+        assertEquals(testPlatformAppMetaData, testDataSourceReadWrite.getPlatformAppMetaData());
+    }
+
+    @Test
     public void applicationMetaDataTest() {
         testDataSourceReadWrite = new DataSourceReadWrite();
         testDataSourceReadWrite.setApplicationMetadata(testAppMetaData);
@@ -276,6 +291,13 @@ public class DataSourceReadWriteAndroidUnitTest {
         assertEquals(testAppMetaData.getVersionName(), testDataSourceReadWrite.getApplicationMetaData().getVersionName());
         assertEquals(testAppMetaData.getVersionNumber(), testDataSourceReadWrite.getApplicationMetaData().getVersionNumber());
         assertEquals(testAppMetaData.getValue(testKey), testDataSourceReadWrite.getApplicationMetaData().getValue(testKey));
+    }
+
+    @Test
+    public void applicationMetaDataComparableTest() {
+        testDataSourceReadWrite = new DataSourceReadWrite();
+        testDataSourceReadWrite.setApplicationMetadata(testAppMetaData);
+        assertEquals(testAppMetaData, testDataSourceReadWrite.getApplicationMetaData());
     }
 
     @Test
@@ -298,6 +320,14 @@ public class DataSourceReadWriteAndroidUnitTest {
     }
 
     @Test
+    public void dataDescriptorComparableTest() {
+        testDataSourceReadWrite = new DataSourceReadWrite();
+        testDataSourceReadWrite.setDataDescriptors(testDataDescriptors);
+        for (DataDescriptor dataDescriptorToCheck : testDataSourceReadWrite.getDataDescriptors())
+            assertEquals(testDataDescriptor, dataDescriptorToCheck);
+    }
+
+    @Test
     public void dataSourceMetaDataTest() {
         testDataSourceReadWrite = new DataSourceReadWrite();
         testDataSourceReadWrite.setDataSourceMetadata(testDataSourceMetaData);
@@ -305,6 +335,13 @@ public class DataSourceReadWriteAndroidUnitTest {
         assertEquals(testDataSourceMetaData.getSummary(), testDataSourceReadWrite.getDataSourceMetaData().getSummary());
         assertEquals(testDataSourceMetaData.getDescription(), testDataSourceReadWrite.getDataSourceMetaData().getDescription());
         assertEquals(testDataSourceMetaData.getValue(testKey), testDataSourceReadWrite.getDataSourceMetaData().getValue(testKey));
+    }
+
+    @Test
+    public void dataSourceMetaDatacomparableTest() {
+        testDataSourceReadWrite = new DataSourceReadWrite();
+        testDataSourceReadWrite.setDataSourceMetadata(testDataSourceMetaData);
+        assertEquals(testDataSourceMetaData, testDataSourceReadWrite.getDataSourceMetaData());
     }
 
     @Test
@@ -432,5 +469,37 @@ public class DataSourceReadWriteAndroidUnitTest {
                 createdFromParcel.getDataDescriptors().get(0).getUnit());
         assertEquals(testDataSourceReadWrite.getDataDescriptors().get(0).getValue(testKey),
                 createdFromParcel.getDataDescriptors().get(0).getValue(testKey));
+    }
+
+    @Test
+    public void dataSourceReadWrite_ParcelableWriteReadComparableTest() {
+        testDataSourceReadWrite = new DataSourceReadWrite();
+        testDataSourceReadWrite.setDataSourceType(dataSourceTypeArray[0]);
+        testDataSourceReadWrite.setDataSourceId(dataSourceIdArray[0]);
+        testDataSourceReadWrite.setPlatformType(platformTypeArray[0]);
+        testDataSourceReadWrite.setPlatformId(platformIdArray[0]);
+        testDataSourceReadWrite.setPlatformAppType(platformAppTypeArray[0]);
+        testDataSourceReadWrite.setPlatformAppId(platformAppIdArray[0]);
+        testDataSourceReadWrite.setApplicationType(applicationTypeArray[0]);
+        testDataSourceReadWrite.setPlatformMetadata(testPlatformMetaData);
+        testDataSourceReadWrite.setPlatformAppMetadata(testPlatformAppMetaData);
+        testDataSourceReadWrite.setApplicationMetadata(testAppMetaData);
+        testDataSourceReadWrite.setDataDescriptors(testDataDescriptors);
+        testDataSourceReadWrite.setDataSourceMetadata(testDataSourceMetaData);
+
+        // Write data to parcel.
+        Parcel parcel = Parcel.obtain();
+        testDataSourceReadWrite.writeToParcel(parcel, testDataSourceReadWrite.describeContents());
+
+        // After writing, reset the parcel for reading.
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataSourceReadWrite createdFromParcel = DataSourceReadWrite.CREATOR.createFromParcel(parcel);
+        DataSourceReadWrite[] createdFromParcelArray = DataSourceReadWrite.CREATOR.newArray(1);
+
+        // Verify the results.
+        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertEquals(testDataSourceReadWrite, createdFromParcel);
     }
 }

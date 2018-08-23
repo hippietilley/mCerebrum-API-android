@@ -12,6 +12,7 @@ import static org.hamcrest.core.IsSame.sameInstance;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertThat;
 
 @SmallTest
@@ -44,7 +45,14 @@ public class DataPointEnumAndroidUnitTest {
         DataPointEnum dataPointClone = mDataPointEnum.clone();
         assertEquals(mDataPointEnum.getTimestamp(), dataPointClone.getTimestamp());
         assertArrayEquals(mDataPointEnum.getSample(), dataPointClone.getSample());
-        assertNotEquals(mDataPointEnum, dataPointClone);
+        assertNotSame(mDataPointEnum, dataPointClone);
+    }
+
+    @Test
+    public void dataPointEnumCloneComparableTest() {
+        DataPointEnum dataPointClone = mDataPointEnum.clone();
+        assertEquals(mDataPointEnum, dataPointClone);
+        assertNotSame(mDataPointEnum, dataPointClone);
     }
 
     @Test
@@ -67,6 +75,24 @@ public class DataPointEnumAndroidUnitTest {
     }
 
     @Test
+    public void dataPointEnum_ParcelableWriteReadComparable() {
+        // Write data to parcel.
+        Parcel parcel = Parcel.obtain();
+        mDataPointEnum.writeToParcel(parcel, mDataPointEnum.describeContents());
+
+        // After writing, reset the parcel for reading
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataPointEnum createdFromParcel = DataPointEnum.CREATOR.createFromParcel(parcel);
+        DataPointEnum[] createdFromParcelArray = DataPointEnum.CREATOR.newArray(1);
+
+        // Verify results.
+        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertEquals(mDataPointEnum, createdFromParcel);
+    }
+
+    @Test
     public void dataPointEnumArray_ParcelableWriteRead() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
@@ -83,5 +109,23 @@ public class DataPointEnumAndroidUnitTest {
         assertThat(createdFromParcelArray.length, is(not(0)));
         assertEquals(mDataPointEnumArray.getTimestamp(), createdFromParcel.getTimestamp());
         assertArrayEquals(mDataPointEnumArray.getSample(), createdFromParcel.getSample());
+    }
+
+    @Test
+    public void dataPointEnumArray_ParcelableWriteReadComparable() {
+        // Write data to parcel.
+        Parcel parcel = Parcel.obtain();
+        mDataPointEnumArray.writeToParcel(parcel, mDataPointEnumArray.describeContents());
+
+        // After writing, reset the parcel for reading
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataPointEnum createdFromParcel = DataPointEnum.CREATOR.createFromParcel(parcel);
+        DataPointEnum[] createdFromParcelArray = DataPointEnum.CREATOR.newArray(1);
+
+        // Verify results.
+        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertEquals(mDataPointEnumArray, createdFromParcel);
     }
 }

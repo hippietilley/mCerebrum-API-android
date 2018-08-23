@@ -51,5 +51,24 @@ public class MCPluginParamAndroidUnitTest {
         assertEquals(testMCPluginParam.getId(), createdFromParcel.getId());
         assertEquals(testMCPluginParam.getParams().toString(), createdFromParcel.getParams().toString());
     }
+
+    @Test
+    public void MCPluginParam_ParcelableWriteReadComparable() {
+        // Write data to parcel.
+        Parcel parcel = Parcel.obtain();
+        testMCPluginParam.writeToParcel(parcel, testMCPluginParam.describeContents());
+
+
+        // After writing, reset the parcel for reading
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        MCPluginParam createdFromParcel = MCPluginParam.CREATOR.createFromParcel(parcel);
+        MCPluginParam[] createdFromParcelArray = MCPluginParam.CREATOR.newArray(1);
+
+        // Verify results.
+        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertEquals(testMCPluginParam, createdFromParcel);
+    }
 }
 

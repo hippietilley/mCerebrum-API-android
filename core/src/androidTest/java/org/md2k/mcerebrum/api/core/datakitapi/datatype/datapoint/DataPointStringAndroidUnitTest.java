@@ -59,6 +59,13 @@ public class DataPointStringAndroidUnitTest {
     }
 
     @Test
+    public void dataPointStringCloneComparableTest() {
+        DataPointString dataPointClone = mDataPointString.clone();
+        assertEquals(mDataPointString, dataPointClone);
+        assertNotSame(mDataPointString, dataPointClone);
+    }
+
+    @Test
     public void dataPointString_ParcelableWriteRead() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
@@ -79,6 +86,24 @@ public class DataPointStringAndroidUnitTest {
     }
 
     @Test
+    public void dataPointString_ParcelableWriteReadComparable() {
+        // Write data to parcel.
+        Parcel parcel = Parcel.obtain();
+        mDataPointString.writeToParcel(parcel, mDataPointString.describeContents());
+
+        // After writing, reset the parcel for reading
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataPointString createdFromParcel = DataPointString.CREATOR.createFromParcel(parcel);
+        DataPointString[] createdFromParcelArray = DataPointString.CREATOR.newArray(1);
+
+        // Verify results.
+        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertEquals(mDataPointString, createdFromParcel);
+    }
+
+    @Test
     public void dataPointStringArray_ParcelableWriteRead() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
@@ -95,5 +120,23 @@ public class DataPointStringAndroidUnitTest {
         assertThat(createdFromParcelArray.length, is(not(0)));
         assertEquals(mDataPointStringArray.getTimestamp(), createdFromParcel.getTimestamp());
         assertArrayEquals(mDataPointStringArray.getSample(), createdFromParcel.getSample());
+    }
+
+    @Test
+    public void dataPointStringArray_ParcelableWriteReadComparable() {
+        // Write data to parcel.
+        Parcel parcel = Parcel.obtain();
+        mDataPointStringArray.writeToParcel(parcel, mDataPointStringArray.describeContents());
+
+        // After writing, reset the parcel for reading
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataPointString createdFromParcel = DataPointString.CREATOR.createFromParcel(parcel);
+        DataPointString[] createdFromParcelArray = DataPointString.CREATOR.newArray(1);
+
+        // Verify results.
+        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertEquals(mDataPointStringArray, createdFromParcel);
     }
 }

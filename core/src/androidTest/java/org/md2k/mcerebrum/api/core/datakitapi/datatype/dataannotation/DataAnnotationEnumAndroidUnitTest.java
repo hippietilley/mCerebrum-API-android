@@ -41,6 +41,13 @@ public class DataAnnotationEnumAndroidUnitTest {
     }
 
     @Test
+    public void cloneComparableTest() {
+        DataAnnotationEnum dataAnnotationEnumClone = mDataAnnotationEnum.clone();
+        assertEquals(mDataAnnotationEnum, dataAnnotationEnumClone);
+        assertNotSame(mDataAnnotationEnum, dataAnnotationEnumClone);
+    }
+
+    @Test
     public void DataAnnotationEnum_ParcelableWriteRead() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
@@ -57,5 +64,23 @@ public class DataAnnotationEnumAndroidUnitTest {
         assertThat(createdFromParcelArray.length, is(not(0)));
         assertEquals(mDataAnnotationEnum.getTimestamp(), createdFromParcel.getTimestamp());
         assertArrayEquals(mDataAnnotationEnum.getSample(), createdFromParcel.getSample());
+    }
+
+    @Test
+    public void DataAnnotationEnum_ParcelableWriteReadComparable() {
+        // Write data to parcel.
+        Parcel parcel = Parcel.obtain();
+        mDataAnnotationEnum.writeToParcel(parcel, mDataAnnotationEnum.describeContents());
+
+        // After writing, reset the parcel for reading
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataAnnotationEnum createdFromParcel = DataAnnotationEnum.CREATOR.createFromParcel(parcel);
+        DataAnnotationEnum[] createdFromParcelArray = DataAnnotationEnum.CREATOR.newArray(1);
+
+        // Verify results.
+        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertEquals(mDataAnnotationEnum, createdFromParcel);
     }
 }

@@ -76,4 +76,28 @@ public class DataDescriptorAndroidUnitTest {
         assertEquals(testUnit, createdFromParcel.getUnit());
         assertEquals(testValue, createdFromParcel.getValue(testKey));
     }
+
+    @Test
+    public void DataDescriptor_ParcelableWriteReadComparableTest() {
+        testDataDescriptor = new DataDescriptor.Builder().setTitle(testTitle)
+                .setSummary(testSummary).setDescription(testDescription).setMinValue(testMinValue)
+                .setMaxValue(testMaxValue).setPossibleValues(testPossibleValuesAsString)
+                .setPossibleValues(testPossibleValuesAsInt).setUnit(testUnit).setValue(testKey, testValue)
+                .build();
+
+        // Write to parcel
+        Parcel parcel = Parcel.obtain();
+        testDataDescriptor.writeToParcel(parcel, testDataDescriptor.describeContents());
+
+        // After writing, reset the parcel for reading
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataDescriptor createdFromParcel = DataDescriptor.CREATOR.createFromParcel(parcel);
+        DataDescriptor[] createdFromParcelArray = DataDescriptor.CREATOR.newArray(1);
+
+        // Verify results.
+        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertEquals(testDataDescriptor, createdFromParcel);
+    }
 }

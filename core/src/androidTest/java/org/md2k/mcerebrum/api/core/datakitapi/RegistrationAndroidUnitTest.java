@@ -254,6 +254,15 @@ public class RegistrationAndroidUnitTest {
     }
 
     @Test
+    public void registrationCreatorComparableTest() {
+        for (int i = 0; i < statusIntArray.length; i++) {
+            testReg = new Registration(testDataSourceCreator, statusIntArray[i]);
+            assertEquals(statusIntArray[i], testReg.getStatus());
+        }
+        assertEquals(testDataSourceCreator, testReg.getDataSource());
+    }
+
+    @Test
     public void registrationReadWriteTest() {
         for (int i = 0; i < statusIntArray.length; i++) {
             testReg = new Registration(testDataSourceReadWrite, statusIntArray[i]);
@@ -355,5 +364,14 @@ public class RegistrationAndroidUnitTest {
                 testReg.getDataSource().getDataDescriptors().get(0).getUnit());
         assertEquals(testDataSourceReadWrite.getDataDescriptors().get(0).getValue(testKey),
                 testReg.getDataSource().getDataDescriptors().get(0).getValue(testKey));
+    }
+
+    @Test
+    public void registrationReadWriteComparableTest() {
+        for (int i = 0; i < statusIntArray.length; i++) {
+            testReg = new Registration(testDataSourceReadWrite, statusIntArray[i]);
+            assertEquals(statusIntArray[i], testReg.getStatus());
+        }
+        assertEquals(testDataSourceReadWrite, testReg.getDataSource());
     }
 }

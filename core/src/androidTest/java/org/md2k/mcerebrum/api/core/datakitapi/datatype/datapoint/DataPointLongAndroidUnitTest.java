@@ -49,6 +49,13 @@ public class DataPointLongAndroidUnitTest {
     }
 
     @Test
+    public void dataPointLongCloneComparableTest() {
+        DataPointLong dataPointClone = mDataPointLong.clone();
+        assertEquals(mDataPointLong, dataPointClone);
+        assertNotSame(mDataPointLong, dataPointClone);
+    }
+
+    @Test
     public void dataPointLong_ParcelableWriteRead() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
@@ -65,6 +72,24 @@ public class DataPointLongAndroidUnitTest {
         assertThat(createdFromParcelArray.length, is(not(0)));
         assertEquals(mDataPointLong.getTimestamp(), createdFromParcel.getTimestamp());
         assertArrayEquals(mDataPointLong.getSample(), createdFromParcel.getSample());
+    }
+
+    @Test
+    public void dataPointLong_ParcelableWriteReadComparable() {
+        // Write data to parcel.
+        Parcel parcel = Parcel.obtain();
+        mDataPointLong.writeToParcel(parcel, mDataPointLong.describeContents());
+
+        // After writing, reset the parcel for reading
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataPointLong createdFromParcel = DataPointLong.CREATOR.createFromParcel(parcel);
+        DataPointLong[] createdFromParcelArray = DataPointLong.CREATOR.newArray(1);
+
+        // Verify results.
+        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertEquals(mDataPointLong, createdFromParcel);
     }
 
     @Test
@@ -85,4 +110,22 @@ public class DataPointLongAndroidUnitTest {
         assertEquals(mDataPointLongArray.getTimestamp(), createdFromParcel.getTimestamp());
         assertArrayEquals(mDataPointLongArray.getSample(), createdFromParcel.getSample());
     }
-}
+
+    @Test
+    public void dataPointLongArray_ParcelableWriteReadComparable() {
+        // Write data to parcel.
+        Parcel parcel = Parcel.obtain();
+        mDataPointLongArray.writeToParcel(parcel, mDataPointLongArray.describeContents());
+
+        // After writing, reset the parcel for reading
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataPointLong createdFromParcel = DataPointLong.CREATOR.createFromParcel(parcel);
+        DataPointLong[] createdFromParcelArray = DataPointLong.CREATOR.newArray(1);
+
+        // Verify results.
+        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertEquals(mDataPointLongArray, createdFromParcel);
+        }
+    }
