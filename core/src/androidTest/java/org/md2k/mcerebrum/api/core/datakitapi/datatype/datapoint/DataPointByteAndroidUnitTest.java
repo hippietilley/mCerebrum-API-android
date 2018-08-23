@@ -6,14 +6,10 @@ import android.support.test.filters.SmallTest;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.core.IsNot.not;
-import static org.hamcrest.core.IsSame.sameInstance;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertThat;
 
 @SmallTest
 public class DataPointByteAndroidUnitTest {
@@ -69,7 +65,7 @@ public class DataPointByteAndroidUnitTest {
         DataPointByte[] createdFromParcelArray = DataPointByte.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(mDataPointByte.getTimestamp(), createdFromParcel.getTimestamp());
         assertArrayEquals(mDataPointByte.getSample(), createdFromParcel.getSample());
     }
@@ -88,7 +84,7 @@ public class DataPointByteAndroidUnitTest {
         DataPointByte[] createdFromParcelArray = DataPointByte.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(mDataPointByte, createdFromParcel);
     }
 
@@ -106,7 +102,7 @@ public class DataPointByteAndroidUnitTest {
         DataPointByte[] createdFromParcelArray = DataPointByte.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(mDataPointByteArray.getTimestamp(), createdFromParcel.getTimestamp());
         assertArrayEquals(mDataPointByteArray.getSample(), createdFromParcel.getSample());
     }
@@ -126,7 +122,7 @@ public class DataPointByteAndroidUnitTest {
         DataPointByte[] createdFromParcelArray = DataPointByte.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(mDataPointByteArray, createdFromParcel);
     }
 }

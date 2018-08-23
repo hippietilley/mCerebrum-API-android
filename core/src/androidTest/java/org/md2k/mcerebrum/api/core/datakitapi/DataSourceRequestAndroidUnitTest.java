@@ -5,14 +5,9 @@ import android.support.test.filters.SmallTest;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
 
-import java.util.ArrayList;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertNotEquals;
 
 @SmallTest
 public class DataSourceRequestAndroidUnitTest {
@@ -61,7 +56,7 @@ public class DataSourceRequestAndroidUnitTest {
         DataSourceRequest[] createdFromParcelArray = DataSourceRequest.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(testDataSourceType, createdFromParcel.getDataSourceType());
         assertEquals(testDataSourceId, createdFromParcel.getDataSourceId());
         assertEquals(testPlatformType, createdFromParcel.getPlatformType());
@@ -86,7 +81,7 @@ public class DataSourceRequestAndroidUnitTest {
         DataSourceRequest[] createdFromParcelArray = DataSourceRequest.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(testDataSourceRequest, createdFromParcel);
     }
 }

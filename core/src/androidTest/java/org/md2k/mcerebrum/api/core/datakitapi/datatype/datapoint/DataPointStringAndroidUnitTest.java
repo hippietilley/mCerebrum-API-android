@@ -6,15 +6,12 @@ import android.support.test.filters.SmallTest;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.isEmptyString;
-import static org.hamcrest.core.IsNot.not;
-import static org.hamcrest.core.IsSame.sameInstance;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertThat;
 
 @SmallTest
 public class DataPointStringAndroidUnitTest {
@@ -79,7 +76,7 @@ public class DataPointStringAndroidUnitTest {
         DataPointString[] createdFromParcelArray = DataPointString.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(mDataPointString.getTimestamp(), createdFromParcel.getTimestamp());
         for (int i = 0; i < createdFromParcel.getSample().length; i++)
             assertEquals(mDataPointString.getSample()[i], createdFromParcel.getSample()[i]);
@@ -99,7 +96,7 @@ public class DataPointStringAndroidUnitTest {
         DataPointString[] createdFromParcelArray = DataPointString.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(mDataPointString, createdFromParcel);
     }
 
@@ -117,7 +114,7 @@ public class DataPointStringAndroidUnitTest {
         DataPointString[] createdFromParcelArray = DataPointString.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(mDataPointStringArray.getTimestamp(), createdFromParcel.getTimestamp());
         assertArrayEquals(mDataPointStringArray.getSample(), createdFromParcel.getSample());
     }
@@ -136,7 +133,7 @@ public class DataPointStringAndroidUnitTest {
         DataPointString[] createdFromParcelArray = DataPointString.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(mDataPointStringArray, createdFromParcel);
     }
 }

@@ -5,11 +5,9 @@ import android.support.test.filters.SmallTest;
 
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertNotEquals;
 
 @SmallTest
 public class DataDescriptorAndroidUnitTest {
@@ -65,7 +63,7 @@ public class DataDescriptorAndroidUnitTest {
         DataDescriptor[] createdFromParcelArray = DataDescriptor.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(testTitle, createdFromParcel.getTitle());
         assertEquals(testSummary, createdFromParcel.getSummary());
         assertEquals(testDescription, createdFromParcel.getDescription());
@@ -97,7 +95,7 @@ public class DataDescriptorAndroidUnitTest {
         DataDescriptor[] createdFromParcelArray = DataDescriptor.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(testDataDescriptor, createdFromParcel);
     }
 }

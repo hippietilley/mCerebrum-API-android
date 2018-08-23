@@ -9,16 +9,12 @@ import org.md2k.mcerebrum.api.core.datakitapi.datasource.APPLICATION;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DATASOURCE;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM_APP;
-import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertNotEquals;
 
 public class DataSourceReadWriteAndroidUnitTest {
     final String[] dataSourceTypeArray = {DATASOURCE.TYPE.ACCELEROMETER, DATASOURCE.TYPE.GYROSCOPE,
@@ -372,7 +368,7 @@ public class DataSourceReadWriteAndroidUnitTest {
         DataSourceReadWrite[] createdFromParcelArray = DataSourceReadWrite.CREATOR.newArray(1);
 
         // Verify the results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(testDataSourceReadWrite.getDataSourceId(), createdFromParcel.getDataSourceId());
         assertEquals(testDataSourceReadWrite.getPlatformType(), createdFromParcel.getPlatformType());
         assertEquals(testDataSourceReadWrite.getPlatformId(), createdFromParcel.getPlatformId());
@@ -499,7 +495,7 @@ public class DataSourceReadWriteAndroidUnitTest {
         DataSourceReadWrite[] createdFromParcelArray = DataSourceReadWrite.CREATOR.newArray(1);
 
         // Verify the results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(testDataSourceReadWrite, createdFromParcel);
     }
 }

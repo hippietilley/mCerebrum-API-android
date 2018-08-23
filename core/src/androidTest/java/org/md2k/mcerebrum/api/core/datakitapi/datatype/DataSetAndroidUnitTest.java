@@ -16,11 +16,8 @@ import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointObject
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointString;
 import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
 @SmallTest
 public class DataSetAndroidUnitTest {
@@ -104,7 +101,7 @@ public class DataSetAndroidUnitTest {
         readFromParcelAll.readFromParcel(parcelAll);
 
         // Verify results.
-        assertThat(createdFromParcelArrayAll.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArrayAll.length);
         assertEquals(actualDataSize, createdFromParcelAll.getActualDataSize());
         assertEquals(receivedDataSize, createdFromParcelAll.getReceivedDataSize());
         for (int i = 0; i < testDataSetSamplingAll.getData().length; i++) {
@@ -182,7 +179,7 @@ public class DataSetAndroidUnitTest {
         readFromParcelFirstN.readFromParcel(parcelFirstN);
 
         // Verify results.
-        assertThat(createdFromParcelArrayFirstN.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArrayFirstN.length);
         assertEquals(actualDataSize, createdFromParcelFirstN.getActualDataSize());
         assertEquals(receivedDataSize, createdFromParcelFirstN.getReceivedDataSize());
         for (int i = 0; i < testDataSetSamplingFirstN.getData().length; i++) {
@@ -251,7 +248,7 @@ public class DataSetAndroidUnitTest {
         readFromParcelDistributedN.readFromParcel(parcelDistributedN);
 
         // Verify results.
-        assertThat(createdFromParcelArrayDistributedN.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArrayDistributedN.length);
         assertEquals(actualDataSize, createdFromParcelDistributedN.getActualDataSize());
         assertEquals(receivedDataSize, createdFromParcelDistributedN.getReceivedDataSize());
         for (int i = 0; i < testDataSetSamplingDistributedN.getData().length; i++) {

@@ -16,12 +16,10 @@ import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataType;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 
 public class DataSourceCreatorAndroidUnitTest {
     final String[] dataSourceTypeArray = {DATASOURCE.TYPE.ACCELEROMETER, DATASOURCE.TYPE.GYROSCOPE,
@@ -400,7 +398,7 @@ public class DataSourceCreatorAndroidUnitTest {
         DataSourceCreator[] createdFromParcelArray = DataSourceCreator.CREATOR.newArray(1);
 
         // Verify the results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(testDataSourceCreator.getDataSourceId(), createdFromParcel.getDataSourceId());
         assertEquals(testDataSourceCreator.getPlatformType(), createdFromParcel.getPlatformType());
         assertEquals(testDataSourceCreator.getPlatformId(), createdFromParcel.getPlatformId());
@@ -521,7 +519,7 @@ public class DataSourceCreatorAndroidUnitTest {
         DataSourceCreator[] createdFromParcelArray = DataSourceCreator.CREATOR.newArray(1);
 
         // Verify the results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(testDataSourceCreator, createdFromParcel);
     }
 }

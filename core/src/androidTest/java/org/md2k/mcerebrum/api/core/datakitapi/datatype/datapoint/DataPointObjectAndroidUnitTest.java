@@ -6,13 +6,10 @@ import android.support.test.filters.SmallTest;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertThat;
 
 @SmallTest
 public class DataPointObjectAndroidUnitTest {
@@ -74,7 +71,7 @@ public class DataPointObjectAndroidUnitTest {
         DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(mDataPointObject.getTimestamp(), createdFromParcel.getTimestamp());
         for (int i = 0; i < createdFromParcel.getSample().length; i++)
             assertEquals(mDataPointObject.getSample()[i], createdFromParcel.getSample()[i]);
@@ -94,7 +91,7 @@ public class DataPointObjectAndroidUnitTest {
         DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(mDataPointObject, createdFromParcel);
     }
 

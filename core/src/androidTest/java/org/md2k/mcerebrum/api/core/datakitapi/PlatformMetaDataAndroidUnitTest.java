@@ -5,11 +5,9 @@ import android.support.test.filters.SmallTest;
 
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertNotEquals;
 
 @SmallTest
 public class PlatformMetaDataAndroidUnitTest {
@@ -72,7 +70,7 @@ public class PlatformMetaDataAndroidUnitTest {
         PlatformMetaData[] createdFromParcelArray = PlatformMetaData.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(testTitle, createdFromParcel.getTitle());
         assertEquals(testSummary, createdFromParcel.getSummary());
         assertEquals(testDescription, createdFromParcel.getDescription());
@@ -110,7 +108,7 @@ public class PlatformMetaDataAndroidUnitTest {
         PlatformMetaData[] createdFromParcelArray = PlatformMetaData.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(testPlatformMetaData, createdFromParcel);
     }
 }
