@@ -206,6 +206,14 @@ public class DataSourceCreatorAndroidUnitTest {
     }
 
     @Test
+    public void platformAsPhoneComparableTest() {
+        testDataSourceCreator = new DataSourceCreator.Builder().setPlatformAsPhone().build();
+        assertEquals(PLATFORM.TYPE.PHONE, testDataSourceCreator.getPlatformType());
+        assertNotNull(testDataSourceCreator.getPlatformId());
+        assertEquals(testPlatformMetaData, testDataSourceCreator.getPlatformMetaData());
+    }
+
+    @Test
     public void dataDescriptorTest() {
         testDataSourceCreator = new DataSourceCreator.Builder().setDataDescriptor(0, testDataDescriptor).build();
         assertEquals(testDataDescriptor.getTitle(), testDataSourceCreator.getDataDescriptors().get(0).getTitle());
@@ -252,7 +260,7 @@ public class DataSourceCreatorAndroidUnitTest {
                 .setPlatformAppType(platformAppTypeArray[0]).setPlatformAppId(platformAppIdArray[0])
                 .setApplicationType(applicationTypeArray[0]).setDataSourceMetadata(testDataSourceMetaData)
                 .setPlatformMetadata(testPlatformMetaData).setPlatformAppMetadata(testPlatformAppMetaData)
-                .setApplicationMetaData(testAppMetaData).setDataRate(testSampleNo, timeUnitArray[0])
+                .setApplicationMetaData(testAppMetaData).setDataRate(TestingConstants.TEST_SAMPLE_NO, timeUnitArray[0])
                 .setDataDescriptor(0, testDataDescriptor).build();
 
         // Write data to parcel.
