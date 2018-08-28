@@ -1,161 +1,47 @@
 package org.md2k.mcerebrum.api.core.datakitapi;
 
 import android.content.Context;
-import android.os.Build;
+
 import android.support.test.InstrumentationRegistry;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.md2k.mcerebrum.api.core.MCerebrumAPI;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.APPLICATION;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.DATASOURCE;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM_APP;
-import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
 
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+import org.md2k.mcerebrum.api.core.MCerebrumAPI;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class RegistrationAndroidUnitTest {
-    public static final double DELTA = 0.1;
-    final String testDataSourceType = DATASOURCE.TYPE.ACCELEROMETER;
-    final String testDataSourceId = DATASOURCE.ID.SMOKING;
-    DataSourceMetaData testDataSourceMetaData;
-    final String testPlatformType = PLATFORM.TYPE.AUTOSENSE_CHEST;
-    final String testPlatformId = PLATFORM.ID.CHEST;
-    final String testPlatformAppType = PLATFORM_APP.TYPE.AUTOSENSE_CHEST;
-    final String testPlatformAppId = PLATFORM_APP.ID.CHEST;
-    final String testApplicationType = APPLICATION.TYPE.SENSE;
-    final int[] statusIntArray = {MCerebrumStatus.UNKNOWN_ERROR, MCerebrumStatus.SUCCESS,
-            MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED, MCerebrumStatus.MCEREBRUM_APP_NOT_INSTALLED,
-            MCerebrumStatus.CONNECTION_ERROR, MCerebrumStatus.INVALID_PARAMETER,
-            MCerebrumStatus.INVALID_DATA_SOURCE, MCerebrumStatus.MISSING_DATA_SOURCE_TYPE,
-            MCerebrumStatus.MISSING_DATA_TYPE, MCerebrumStatus.DATA_SOURCE_NOT_REGISTERED,
-            MCerebrumStatus.INVALID_DATA, MCerebrumStatus.INCONSISTENT_DATA_TYPE,
-            MCerebrumStatus.INVALID_TIMESTAMP, MCerebrumStatus.DATA_SIZE_TOO_LARGE};
-    PlatformMetaData testPlatformMetaData;
-    PlatformAppMetaData testPlatformAppMetaData;
-    ApplicationMetaData testAppMetaData;
-    DataDescriptor testDataDescriptor;
+    static final double DELTA = TestingConstants.DELTA;
+    final int[] statusIntArray = TestingConstants.STATUS_INT_ARRAY;
 
-    // Variable for Platform and Application metadata objects
-    private final String testTitle = "Android Phone";
-    private final String testSummary = "Android Phone";
-    private final String testDescription = "Test Description";
-    private final String testOperationSystem = "Android " + Build.VERSION.RELEASE;
-    private final String testManufacturer = Build.MANUFACTURER;
-    private final String testModel = Build.MODEL;
-    private final String testVersionFirmware = "Test Version Firmware";
-    private final String testVersionHardware = "Test Version Hardware";
-    private String testVersionName = "Test version";
-    private int testVersionNumber = 1;
-    private final double testMinValue = 3.14;
-    private final double testMaxValue = 6.28;
-    private final String[] testPossibleValuesAsString = {"3.14", "4", "5", "6", "6.28"};
-    private final int[] testPossibleValuesAsInt = {3, 4, 5, 6};
-    private final String testUnit = "Test Unit";
-    private final String testDeviceId = "Test Device ID";
-    private final String testKey = "Test Key";
-    private final String testValue = "Test Value";
+    private final String testKey = TestingConstants.TEST_KEY;
+
     DataSourceCreator testDataSourceCreator;
     DataSourceReadWrite testDataSourceReadWrite;
     Registration testReg;
-    private final TimeUnit testTimeUnit = TimeUnit.DAYS;
-    private final int testSampleNo = 10;
-    ArrayList<DataDescriptor> testDataDescriptors = new ArrayList<>();
     MCerebrumAPI testmCerebrumAPI;
     Context testContext;
 
-    public void createPlatformMetaData() {
-        // Create testPlatformMetaData
-        testPlatformMetaData = new PlatformMetaData.Builder().setValue(testKey, testValue).build();
-        testPlatformMetaData.setTitle(testTitle);
-        testPlatformMetaData.setSummary(testSummary);
-        testPlatformMetaData.setDescription(testDescription);
-        testPlatformMetaData.setOperationSystem(testOperationSystem);
-        testPlatformMetaData.setManufacturer(testManufacturer);
-        testPlatformMetaData.setModel(testModel);
-        testPlatformMetaData.setVersionFirmware(testVersionFirmware);
-        testPlatformMetaData.setVersionHardware(testVersionHardware);
-        testPlatformMetaData.setDeviceId(testDeviceId);
-    }
-
-    public void createPlatformAppMetaData() {
-        // Create testPlatformAppMetaData
-        testPlatformAppMetaData = new PlatformAppMetaData.Builder().setTitle(testTitle).setSummary(testSummary)
-                .setDescription(testDescription).setOperationSystem(testOperationSystem)
-                .setManufacturer(testManufacturer).setModel(testModel).setVersionFirmware(testVersionFirmware)
-                .setVersionHardware(testVersionHardware).setDeviceId(testDeviceId).setValue(testKey, testValue)
-                .build();
-    }
-
-    public void createApplicationMetaData() {
-        // Create testApplicationMetaData
-        testAppMetaData = new ApplicationMetaData.Builder().setTitle(testTitle).setSummary(testSummary)
-                .setDescription(testDescription).setVersionName(testVersionName)
-                .setVersionNumber(testVersionNumber).setValue(testKey, testValue).build();
-    }
-
-    public void createDataDescriptor() {
-        // Create testDataDescriptor
-        testDataDescriptor = new DataDescriptor.Builder().setTitle(testTitle)
-                .setSummary(testSummary).setDescription(testDescription).setMinValue(testMinValue)
-                .setMaxValue(testMaxValue).setPossibleValues(testPossibleValuesAsString)
-                .setPossibleValues(testPossibleValuesAsInt).setUnit(testUnit).setValue(testKey, testValue)
-                .build();
-    }
-
-    public void createDataSourceMetaData() {
-        // Create testDataSourceMetaData
-        testDataSourceMetaData = new DataSourceMetaData.Builder().setTitle(testTitle)
-                .setSummary(testSummary).setDescription(testDescription).setValue(testKey, testValue).build();
-    }
-
     @Before
     public void objectCreation() {
-        createPlatformMetaData();
-        createPlatformAppMetaData();
-        createApplicationMetaData();
-        createDataDescriptor();
-        createDataSourceMetaData();
-        testDataDescriptors.add(testDataDescriptor);
-
         // Initialize mCerebrumAPI
         testContext = InstrumentationRegistry.getContext();
-        testmCerebrumAPI.init(testContext);
+        MCerebrumAPI.init(testContext);
 
-        testDataSourceCreator = new DataSourceCreator.Builder().setDataSourceId(testDataSourceId)
-                .setPlatformType(testPlatformType).setPlatformId(testPlatformId)
-                .setPlatformAppType(testPlatformAppType).setPlatformAppId(testPlatformAppId)
-                .setApplicationType(testApplicationType).setDataSourceMetadata(testDataSourceMetaData)
-                .setPlatformMetadata(testPlatformMetaData).setPlatformAppMetadata(testPlatformAppMetaData)
-                .setApplicationMetaData(testAppMetaData).setDataRate(testSampleNo, testTimeUnit)
-                .setDataDescriptor(0, testDataDescriptor).build();
-
-        testDataSourceReadWrite = new DataSourceReadWrite();
-        testDataSourceReadWrite.setDataSourceType(testDataSourceType);
-        testDataSourceReadWrite.setDataSourceId(testDataSourceId);
-        testDataSourceReadWrite.setPlatformType(testPlatformType);
-        testDataSourceReadWrite.setPlatformId(testPlatformId);
-        testDataSourceReadWrite.setPlatformAppType(testPlatformAppType);
-        testDataSourceReadWrite.setPlatformAppId(testPlatformAppId);
-        testDataSourceReadWrite.setApplicationType(testApplicationType);
-        testDataSourceReadWrite.setPlatformMetadata(testPlatformMetaData);
-        testDataSourceReadWrite.setPlatformAppMetadata(testPlatformAppMetaData);
-        testDataSourceReadWrite.setApplicationMetadata(testAppMetaData);
-        testDataSourceReadWrite.setDataDescriptors(testDataDescriptors);
-        testDataSourceReadWrite.setDataSourceMetadata(testDataSourceMetaData);
+        // Create test data sources
+        testDataSourceCreator = CommonObjectConstructors.createDataSourceCreator();
+        testDataSourceReadWrite = CommonObjectConstructors.createDataSourceReadWrite();
     }
 
     @Test
     public void registrationCreatorTest() {
-        for (int i = 0; i < statusIntArray.length; i++) {
-            testReg = new Registration(testDataSourceCreator, statusIntArray[i]);
-            assertEquals(statusIntArray[i], testReg.getStatus());
+        for (int statusInt : statusIntArray) {
+            testReg = new Registration(testDataSourceCreator, statusInt);
+            assertEquals(statusInt, testReg.getStatus());
         }
+
         assertEquals(testDataSourceCreator.getDataSourceId(), testReg.getDataSource().getDataSourceId());
         assertEquals(testDataSourceCreator.getPlatformType(), testReg.getDataSource().getPlatformType());
         assertEquals(testDataSourceCreator.getPlatformId(), testReg.getDataSource().getPlatformId());
@@ -256,18 +142,18 @@ public class RegistrationAndroidUnitTest {
 
     @Test
     public void registrationCreatorComparableTest() {
-        for (int i = 0; i < statusIntArray.length; i++) {
-            testReg = new Registration(testDataSourceCreator, statusIntArray[i]);
-            assertEquals(statusIntArray[i], testReg.getStatus());
+        for (int statusInt : statusIntArray) {
+            testReg = new Registration(testDataSourceCreator, statusInt);
+            assertEquals(statusInt, testReg.getStatus());
         }
         assertEquals(testDataSourceCreator, testReg.getDataSource());
     }
 
     @Test
     public void registrationReadWriteTest() {
-        for (int i = 0; i < statusIntArray.length; i++) {
-            testReg = new Registration(testDataSourceReadWrite, statusIntArray[i]);
-            assertEquals(statusIntArray[i], testReg.getStatus());
+        for (int statusInt : statusIntArray) {
+             testReg = new Registration(testDataSourceReadWrite, statusInt);
+             assertEquals(statusInt, testReg.getStatus());
         }
         assertEquals(testDataSourceReadWrite.getDataSourceId(), testReg.getDataSource().getDataSourceId());
         assertEquals(testDataSourceReadWrite.getPlatformType(), testReg.getDataSource().getPlatformType());
@@ -369,9 +255,9 @@ public class RegistrationAndroidUnitTest {
 
     @Test
     public void registrationReadWriteComparableTest() {
-        for (int i = 0; i < statusIntArray.length; i++) {
-            testReg = new Registration(testDataSourceReadWrite, statusIntArray[i]);
-            assertEquals(statusIntArray[i], testReg.getStatus());
+        for (int statusInt : statusIntArray) {
+             testReg = new Registration(testDataSourceReadWrite, statusInt);
+             assertEquals(statusInt, testReg.getStatus());
         }
         assertEquals(testDataSourceReadWrite, testReg.getDataSource());
     }

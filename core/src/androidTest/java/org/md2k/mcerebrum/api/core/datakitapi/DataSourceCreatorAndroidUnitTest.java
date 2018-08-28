@@ -6,9 +6,8 @@ import android.support.test.InstrumentationRegistry;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.md2k.mcerebrum.api.core.CommonObjectConstructors;
+
 import org.md2k.mcerebrum.api.core.MCerebrumAPI;
-import org.md2k.mcerebrum.api.core.TestingConstants;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataType;
 
@@ -20,7 +19,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class DataSourceCreatorAndroidUnitTest {
-    public static final double DELTA = 0.1;
+    static final double DELTA = TestingConstants.DELTA;
 
     String[] dataSourceTypeArray = TestingConstants.DATA_SOURCE_TYPE_ARRAY;
     DataType[] dataTypeArray = TestingConstants.DATA_TYPE_ARRAY;
@@ -52,73 +51,73 @@ public class DataSourceCreatorAndroidUnitTest {
 
         // Initialize mCerebrumAPI
         testContext = InstrumentationRegistry.getContext();
-        testmCerebrumAPI.init(testContext);
+        MCerebrumAPI.init(testContext);
     }
 
     @Test
     public void dataSourceTypeTest() {
-        for (int i = 0; i < dataSourceTypeArray.length; i++) {
-            for (int j = 0; j < dataTypeArray.length; j++) {
-                testDataSourceCreator = DataSourceCreator.builder(dataSourceTypeArray[i], dataTypeArray[j]).build();
-                assertEquals(dataTypeArray[j].name(), testDataSourceCreator.getDataType());
+        for (String dataSourceType : dataSourceTypeArray) {
+            for (DataType dataType : dataTypeArray) {
+                testDataSourceCreator = DataSourceCreator.builder(dataSourceType, dataType).build();
+                assertEquals(dataType.name(), testDataSourceCreator.getDataType());
             }
-            assertEquals(dataSourceTypeArray[i], testDataSourceCreator.getDataSourceType());
+            assertEquals(dataSourceType, testDataSourceCreator.getDataSourceType());
         }
     }
 
     @Test
     public void dataSourceIdTest() {
-        for (int i = 0; i < dataSourceIdArray.length; i++) {
-            testDataSourceCreator = new DataSourceCreator.Builder().setDataSourceId(dataSourceIdArray[i]).build();
-            assertEquals(dataSourceIdArray[i], testDataSourceCreator.getDataSourceId());
+        for (String dataSourceId : dataSourceIdArray) {
+             testDataSourceCreator = new DataSourceCreator.Builder().setDataSourceId(dataSourceId).build();
+             assertEquals(dataSourceId, testDataSourceCreator.getDataSourceId());
         }
     }
 
     @Test
     public void platformTypeTest() {
-        for (int i = 0; i < platformTypeArray.length; i++) {
-            testDataSourceCreator = new DataSourceCreator.Builder().setPlatformType(platformTypeArray[i]).build();
-            assertEquals(platformTypeArray[i], testDataSourceCreator.getPlatformType());
+        for (String platformType : platformTypeArray) {
+            testDataSourceCreator = new DataSourceCreator.Builder().setPlatformType(platformType).build();
+            assertEquals(platformType, testDataSourceCreator.getPlatformType());
         }
     }
 
     @Test
     public void platformIdTest() {
-        for (int i = 0; i < platformIdArray.length; i++) {
-            testDataSourceCreator = new DataSourceCreator.Builder().setPlatformId(platformIdArray[i]).build();
-            assertEquals(platformIdArray[i], testDataSourceCreator.getPlatformId());
+        for (String platformId : platformIdArray) {
+             testDataSourceCreator = new DataSourceCreator.Builder().setPlatformId(platformId).build();
+             assertEquals(platformId, testDataSourceCreator.getPlatformId());
         }
     }
 
     @Test
     public void platformAppTypeTest() {
-        for (int i = 0; i < platformAppTypeArray.length; i++) {
-            testDataSourceCreator = new DataSourceCreator.Builder().setPlatformAppType(platformAppTypeArray[i]).build();
-            assertEquals(platformAppTypeArray[i], testDataSourceCreator.getPlatformAppType());
+        for (String platformAppType : platformAppTypeArray) {
+            testDataSourceCreator = new DataSourceCreator.Builder().setPlatformAppType(platformAppType).build();
+            assertEquals(platformAppType, testDataSourceCreator.getPlatformAppType());
         }
     }
 
     @Test
     public void platformAppIdTest() {
-        for (int i = 0; i < platformAppIdArray.length; i++) {
-            testDataSourceCreator = new DataSourceCreator.Builder().setPlatformAppId(platformAppIdArray[i]).build();
-            assertEquals(platformAppIdArray[i], testDataSourceCreator.getPlatformAppId());
+        for (String platformAppId : platformAppIdArray) {
+            testDataSourceCreator = new DataSourceCreator.Builder().setPlatformAppId(platformAppId).build();
+            assertEquals(platformAppId, testDataSourceCreator.getPlatformAppId());
         }
     }
 
     @Test
     public void applicationTypeTest() {
-        for (int i = 0; i < applicationTypeArray.length; i++) {
-            testDataSourceCreator = new DataSourceCreator.Builder().setApplicationType(applicationTypeArray[i]).build();
-            assertEquals(applicationTypeArray[i], testDataSourceCreator.getApplicationType());
+        for (String applicationType : applicationTypeArray) {
+            testDataSourceCreator = new DataSourceCreator.Builder().setApplicationType(applicationType).build();
+            assertEquals(applicationType, testDataSourceCreator.getApplicationType());
         }
     }
 
     @Test
     public void applicationIdTest() {
-        for (int i = 0; i < applicationIdArray.length; i++) {
-            testDataSourceCreator = new DataSourceCreator.Builder().setApplicationId(applicationIdArray[i]).build();
-            assertEquals(applicationIdArray[i], testDataSourceCreator.getApplicationId());
+        for (String applicationId : applicationIdArray) {
+            testDataSourceCreator = new DataSourceCreator.Builder().setApplicationId(applicationId).build();
+            assertEquals(applicationId, testDataSourceCreator.getApplicationId());
         }
     }
 
