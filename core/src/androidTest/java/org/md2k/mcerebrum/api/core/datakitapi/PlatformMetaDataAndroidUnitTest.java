@@ -11,17 +11,17 @@ import static org.junit.Assert.assertNotEquals;
 
 @SmallTest
 public class PlatformMetaDataAndroidUnitTest {
-    private final String testTitle = "Test Title";
-    private final String testSummary = "Test Summary";
-    private final String testDescription = "Test Description";
-    private final String testOperationSystem = "Test Operating System";
-    private final String testManufacturer = "Test Manufacturer";
-    private final String testModel = "Test Model";
-    private final String testVersionFirmware = "Test Version Firmware";
-    private final String testVersionHardware = "Test Version Hardware";
-    private final String testDeviceId = "Test Device ID";
-    private final String testKey = "Test Key";
-    private final String testValue = "Test Value";
+    private final String testTitle = TestingConstants.TEST_TITLE;
+    private final String testSummary = TestingConstants.TEST_SUMMARY;
+    private final String testDescription = TestingConstants.TEST_DESCRIPTION;
+    private final String testOperationSystem = TestingConstants.TEST_OPERATING_SYSTEM;
+    private final String testManufacturer = TestingConstants.TEST_MANUFACTURER;
+    private final String testModel = TestingConstants.TEST_MODEL;
+    private final String testVersionFirmware = TestingConstants.TEST_VERSION_FIRMWARE;
+    private final String testVersionHardware = TestingConstants.TEST_VERSION_HARDWARE;
+    private final String testDeviceId = TestingConstants.TEST_DEVICE_ID;
+    private final String testKey = TestingConstants.TEST_KEY;
+    private final String testValue = TestingConstants.TEST_VALUE;
     private PlatformMetaData testPlatformMetaData;
 
     @Test
@@ -47,16 +47,7 @@ public class PlatformMetaDataAndroidUnitTest {
 
     @Test
     public void PlatformMetaData_ParcelableWriteReadTest() {
-        testPlatformMetaData = new PlatformMetaData.Builder().setValue(testKey, testValue).build();
-        testPlatformMetaData.setTitle(testTitle);
-        testPlatformMetaData.setSummary(testSummary);
-        testPlatformMetaData.setDescription(testDescription);
-        testPlatformMetaData.setOperationSystem(testOperationSystem);
-        testPlatformMetaData.setManufacturer(testManufacturer);
-        testPlatformMetaData.setModel(testModel);
-        testPlatformMetaData.setVersionFirmware(testVersionFirmware);
-        testPlatformMetaData.setVersionHardware(testVersionHardware);
-        testPlatformMetaData.setDeviceId(testDeviceId);
+        testPlatformMetaData = CommonObjectConstructors.createPlatformMetaData();
 
         // Write to parcel.
         Parcel parcel = Parcel.obtain();
