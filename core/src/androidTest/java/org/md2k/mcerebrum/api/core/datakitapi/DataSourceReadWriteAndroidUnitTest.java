@@ -1,14 +1,9 @@
 package org.md2k.mcerebrum.api.core.datakitapi;
 
-import android.os.Build;
 import android.os.Parcel;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.APPLICATION;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.DATASOURCE;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM_APP;
 
 import java.util.ArrayList;
 
@@ -17,85 +12,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 public class DataSourceReadWriteAndroidUnitTest {
-    public static final double DELTA = 0.1;
-    final String[] dataSourceTypeArray = {DATASOURCE.TYPE.ACCELEROMETER, DATASOURCE.TYPE.GYROSCOPE,
-            DATASOURCE.TYPE.COMPASS, DATASOURCE.TYPE.AMBIENT_LIGHT, DATASOURCE.TYPE.PRESSURE,
-            DATASOURCE.TYPE.PROXIMITY, DATASOURCE.TYPE.LOCATION, DATASOURCE.TYPE.GEOFENCE,
-            DATASOURCE.TYPE.DISTANCE, DATASOURCE.TYPE.HEART_RATE, DATASOURCE.TYPE.SPEED,
-            DATASOURCE.TYPE.STEP_COUNT, DATASOURCE.TYPE.PACE, DATASOURCE.TYPE.MOTION_TYPE,
-            DATASOURCE.TYPE.ULTRA_VIOLET_RADIATION, DATASOURCE.TYPE.BAND_CONTACT, DATASOURCE.TYPE.CALORY_BURN,
-            DATASOURCE.TYPE.ECG, DATASOURCE.TYPE.RESPIRATION, DATASOURCE.TYPE.RESPIRATION_BASELINE,
-            DATASOURCE.TYPE.RESPIRATION_RAW, DATASOURCE.TYPE.ALTIMETER, DATASOURCE.TYPE.AIR_PRESSURE,
-            DATASOURCE.TYPE.RR_INTERVAL, DATASOURCE.TYPE.AMBIENT_TEMPERATURE, DATASOURCE.TYPE.SKIN_TEMPERATURE,
-            DATASOURCE.TYPE.BATTERY, DATASOURCE.TYPE.CPU, DATASOURCE.TYPE.MEMORY, DATASOURCE.TYPE.AUTOSENSE,
-            DATASOURCE.TYPE.ACCELEROMETER_X, DATASOURCE.TYPE.ACCELEROMETER_Y, DATASOURCE.TYPE.ACCELEROMETER_Z,
-            DATASOURCE.TYPE.GYROSCOPE_X, DATASOURCE.TYPE.GYROSCOPE_Y, DATASOURCE.TYPE.GYROSCOPE_Z,
-            DATASOURCE.TYPE.EMA, DATASOURCE.TYPE.STATUS, DATASOURCE.TYPE.LOG, DATASOURCE.TYPE.TIMEZONE,
-            DATASOURCE.TYPE.PRIVACY, DATASOURCE.TYPE.STUDY_INFO, DATASOURCE.TYPE.USER_INFO,
-            DATASOURCE.TYPE.SLEEP, DATASOURCE.TYPE.WAKEUP, DATASOURCE.TYPE.DAY_START, DATASOURCE.TYPE.DAY_END,
-            DATASOURCE.TYPE.STRESS_PROBABILITY, DATASOURCE.TYPE.STRESS_LABEL, DATASOURCE.TYPE.STUDY_START,
-            DATASOURCE.TYPE.STUDY_END, DATASOURCE.TYPE.STRESS_ACTIVITY, DATASOURCE.TYPE.CSTRESS_FEATURE_VECTOR,
-            DATASOURCE.TYPE.ORG_MD2K_CSTRESS_DATA_RIP_QUALITY, DATASOURCE.TYPE.ORG_MD2K_CSTRESS_DATA_ECG_QUALITY,
-            DATASOURCE.TYPE.ORG_MD2K_CSTRESS_STRESS_EPISODE_CLASSIFICATION,
-            DATASOURCE.TYPE.ORG_MD2K_CSTRESS_STRESS_EPISODE_ARRAY_CLASSIFICATION_FULL_EPISODE,
-            DATASOURCE.TYPE.ORG_MD2K_CSTRESS_STRESS_EPISODE_START, DATASOURCE.TYPE.ORG_MD2K_CSTRESS_STRESS_EPISODE_PEAK,
-            DATASOURCE.TYPE.ORG_MD2K_CSTRESS_STRESS_EPISODE_END, DATASOURCE.TYPE.CSTRESS_FEATURE_VECTOR_RIP,
-            DATASOURCE.TYPE.STRESS_RIP_PROBABILITY, DATASOURCE.TYPE.STRESS_RIP_LABEL, DATASOURCE.TYPE.ACTIVITY,
-            DATASOURCE.TYPE.PUFF_PROBABILITY, DATASOURCE.TYPE.PUFF_LABEL, DATASOURCE.TYPE.PUFFMARKER_FEATURE_VECTOR,
-            DATASOURCE.TYPE.PUFFMARKER_SMOKING_EPISODE, DATASOURCE.TYPE.NOTIFICATION_REQUEST,
-            DATASOURCE.TYPE.NOTIFICATION_ACKNOWLEDGE, DATASOURCE.TYPE.NOTIFICATION_RESPONSE,
-            DATASOURCE.TYPE.DATA_QUALITY, DATASOURCE.TYPE.DATA_VARIANCE, DATASOURCE.TYPE.TYPE_OF_DAY,
-            DATASOURCE.TYPE.EVENT, DATASOURCE.TYPE.INCENTIVE, DATASOURCE.TYPE.BLOOD_PRESSURE,
-            DATASOURCE.TYPE.WEIGHT, DATASOURCE.TYPE.ORALB_PRESSURE, DATASOURCE.TYPE.ORALB_CONNECTION,
-            DATASOURCE.TYPE.ORALB_SECTOR, DATASOURCE.TYPE.ORALB_BRUSHING_MODE,
-            DATASOURCE.TYPE.ORALB_BRUSHING_STATE, DATASOURCE.TYPE.ORALB_BUSHING_TIME,
-            DATASOURCE.TYPE.ACTIVITY_TYPE, DATASOURCE.TYPE.LED, DATASOURCE.TYPE.SEQUENCE_NUMBER,
-            DATASOURCE.TYPE.SMOKING, DATASOURCE.TYPE.RAW, DATASOURCE.TYPE.POST_QUIT,
-            DATASOURCE.TYPE.PRE_QUIT, DATASOURCE.TYPE.BEACON, DATASOURCE.TYPE.DATA_QUALITY_SUMMARY_MINUTE,
-            DATASOURCE.TYPE.DATA_QUALITY_SUMMARY_HOUR, DATASOURCE.TYPE.DATA_QUALITY_SUMMARY_DAY,
-            DATASOURCE.TYPE.GALVANIC_SKIN_RESPONSE, DATASOURCE.TYPE.TOUCH_SCREEN,
-            DATASOURCE.TYPE.WORK_ANNOTATION, DATASOURCE.TYPE.CU_IS_SCREEN_ON,
-            DATASOURCE.TYPE.CU_AUDIO_FEATURE, DATASOURCE.TYPE.CU_AUDIO_ENERGY,
-            DATASOURCE.TYPE.CU_AUDIO_INFERENCE, DATASOURCE.TYPE.CU_APPUSAGE, DATASOURCE.TYPE.CU_SMS_NUMBER,
-            DATASOURCE.TYPE.CU_SMS_TYPE, DATASOURCE.TYPE.CU_SMS_LENGTH, DATASOURCE.TYPE.CU_CALL_NUMBER,
-            DATASOURCE.TYPE.CU_SMS_TYPE, DATASOURCE.TYPE.CU_CALL_DURATION, DATASOURCE.TYPE.LABEL,
-            DATASOURCE.TYPE.MAGNETOMETER, DATASOURCE.TYPE.QUATERNION, DATASOURCE.TYPE.MAGNETOMETER_SENSITIVITY,
-            DATASOURCE.TYPE.ORALB_BRUSHING_TIME, DATASOURCE.TYPE.ORALB_BRUSH_ACCELEROMETER};
-    final String[] dataSourceIdArray = {DATASOURCE.ID.SMOKING, DATASOURCE.ID.EATING, DATASOURCE.ID.SELF_REPORT};
-    final String[] platformTypeArray = {PLATFORM.TYPE.AUTOSENSE_CHEST, PLATFORM.TYPE.AUTOSENSE_BLE,
-            PLATFORM.TYPE.AUTOSENSE_WRIST, PLATFORM.TYPE.MICROSOFT_BAND, PLATFORM.TYPE.PHONE,
-            PLATFORM.TYPE.OMRON_BLOOD_PRESSURE, PLATFORM.TYPE.OMRON_WEIGHT_SCALE, PLATFORM.TYPE.EASYSENSE,
-            PLATFORM.TYPE.MOTION_SENSE, PLATFORM.TYPE.MOTION_SENSE_HRV, PLATFORM.TYPE.MOTION_SENSE_HRV_PLUS,
-            PLATFORM.TYPE.ORALB_BRUSH, PLATFORM.TYPE.BEACON};
-    final String[] platformIdArray = {PLATFORM.ID.CHEST, PLATFORM.ID.LEFT_WRIST, PLATFORM.ID.RIGHT_WRIST};
-    final String[] platformAppTypeArray = {PLATFORM_APP.TYPE.AUTOSENSE_CHEST, PLATFORM_APP.TYPE.AUTOSENSE_BLE,
-            PLATFORM_APP.TYPE.AUTOSENSE_WRIST, PLATFORM_APP.TYPE.MICROSOFT_BAND, PLATFORM_APP.TYPE.PHONE,
-            PLATFORM_APP.TYPE.OMRON_BLOOD_PRESSURE, PLATFORM_APP.TYPE.OMRON_WEIGHT_SCALE,
-            PLATFORM_APP.TYPE.EASYSENSE, PLATFORM_APP.TYPE.MOTION_SENSE, PLATFORM_APP.TYPE.MOTION_SENSE_HRV,
-            PLATFORM_APP.TYPE.MOTION_SENSE_HRV_PLUS, PLATFORM_APP.TYPE.ORALB_BRUSH, PLATFORM_APP.TYPE.BEACON};
-    final String[] platformAppIdArray = {PLATFORM_APP.ID.CHEST, PLATFORM_APP.ID.LEFT_WRIST, PLATFORM_APP.ID.RIGHT_WRIST};
-    final String[] applicationTypeArray = {APPLICATION.TYPE.SENSE, APPLICATION.TYPE.ANALYZE, APPLICATION.TYPE.ACT};
-    final String[] applicationIdArray = {};
+    static final double DELTA = TestingConstants.DELTA;
 
-    // Variable for Platform and Application metadata objects
-    private final String testTitle = "Android Phone";
-    private final String testSummary = "Android Phone";
-    private final String testDescription = "Test Description";
-    private final String testOperationSystem = "Android " + Build.VERSION.RELEASE;
-    private final String testManufacturer = Build.MANUFACTURER;
-    private final String testModel = Build.MODEL;
-    private final String testVersionFirmware = "Test Version Firmware";
-    private final String testVersionHardware = "Test Version Hardware";
-    private String testVersionName = "Test version";
-    private int testVersionNumber = 1;
-    private final double testMinValue = 3.14;
-    private final double testMaxValue = 6.28;
-    private final String[] testPossibleValuesAsString = {"3.14", "4", "5", "6", "6.28"};
-    private final int[] testPossibleValuesAsInt = {3, 4, 5, 6};
-    private final String testUnit = "Test Unit";
-    private final String testDeviceId = "Test Device ID";
-    private final String testKey = "Test Key";
-    private final String testValue = "Test Value";
+    final String[] dataSourceTypeArray = TestingConstants.DATA_SOURCE_TYPE_ARRAY;
+    final String[] dataSourceIdArray = TestingConstants.DATASOURCE_ID_ARRAY;
+    final String[] platformTypeArray = TestingConstants.PLATFORM_TYPE_ARRAY;
+    final String[] platformIdArray = TestingConstants.PLATFORM_ID_ARRAY;
+    final String[] platformAppTypeArray = TestingConstants.PLATFORM_APP_TYPE_ARRAY;
+    final String[] platformAppIdArray = TestingConstants.PLATFORM_APP_ID_ARRAY;
+    final String[] applicationTypeArray = TestingConstants.APPLICATION_TYPE_ARRAY;
+    final String[] applicationIdArray = TestingConstants.APPLICATION_ID_ARRAY;
+
+    private final String testKey = TestingConstants.TEST_KEY;
 
     ArrayList testDataDescriptors = new ArrayList();
     PlatformMetaData testPlatformMetaData;
@@ -105,130 +33,85 @@ public class DataSourceReadWriteAndroidUnitTest {
     DataSourceMetaData testDataSourceMetaData;
     DataSourceReadWrite testDataSourceReadWrite;
 
-    public void createPlatformMetaData() {
-        // Create testPlatformMetaData
-        testPlatformMetaData = new PlatformMetaData.Builder().setValue(testKey, testValue).build();
-        testPlatformMetaData.setTitle(testTitle);
-        testPlatformMetaData.setSummary(testSummary);
-        testPlatformMetaData.setDescription(testDescription);
-        testPlatformMetaData.setOperationSystem(testOperationSystem);
-        testPlatformMetaData.setManufacturer(testManufacturer);
-        testPlatformMetaData.setModel(testModel);
-        testPlatformMetaData.setVersionFirmware(testVersionFirmware);
-        testPlatformMetaData.setVersionHardware(testVersionHardware);
-        testPlatformMetaData.setDeviceId(testDeviceId);
-    }
-
-    public void createPlatformAppMetaData() {
-        // Create testPlatformAppMetaData
-        testPlatformAppMetaData = new PlatformAppMetaData.Builder().setTitle(testTitle).setSummary(testSummary)
-                .setDescription(testDescription).setOperationSystem(testOperationSystem)
-                .setManufacturer(testManufacturer).setModel(testModel).setVersionFirmware(testVersionFirmware)
-                .setVersionHardware(testVersionHardware).setDeviceId(testDeviceId).setValue(testKey, testValue)
-                .build();
-    }
-
-    public void createApplicationMetaData() {
-        // Create testApplicationMetaData
-        testAppMetaData = new ApplicationMetaData.Builder().setTitle(testTitle).setSummary(testSummary)
-                .setDescription(testDescription).setVersionName(testVersionName)
-                .setVersionNumber(testVersionNumber).setValue(testKey, testValue).build();
-    }
-
-    public void createDataDescriptor() {
-        // Create testDataDescriptor
-        testDataDescriptor = new DataDescriptor.Builder().setTitle(testTitle)
-                .setSummary(testSummary).setDescription(testDescription).setMinValue(testMinValue)
-                .setMaxValue(testMaxValue).setPossibleValues(testPossibleValuesAsString)
-                .setPossibleValues(testPossibleValuesAsInt).setUnit(testUnit).setValue(testKey, testValue)
-                .build();
-    }
-
-    public void createDataSourceMetaData() {
-        // Create testDataSourceMetaData
-        testDataSourceMetaData = new DataSourceMetaData.Builder().setTitle(testTitle)
-                .setSummary(testSummary).setDescription(testDescription).setValue(testKey, testValue).build();
-    }
-
     @Before
     public void objectCreation(){
-        createPlatformMetaData();
-        createPlatformAppMetaData();
-        createApplicationMetaData();
-        createDataDescriptor();
-        createDataSourceMetaData();
+        testPlatformMetaData = CommonObjectConstructors.createPlatformMetaData();
+        testPlatformAppMetaData = CommonObjectConstructors.createPlatformAppMetaData();
+        testAppMetaData = CommonObjectConstructors.createApplicationMetaData();
+        testDataDescriptor = CommonObjectConstructors.createDataDescriptor();
+        testDataSourceMetaData = CommonObjectConstructors.createDataSourceMetaData();
         testDataDescriptors.add(testDataDescriptor);
     }
 
     @Test
     public void dataSourceTypeTest() {
-        for (int i = 0; i < dataSourceTypeArray.length; i++) {
+        for (String dataSourceType : dataSourceTypeArray) {
             testDataSourceReadWrite = new DataSourceReadWrite();
-            testDataSourceReadWrite.setDataSourceType(dataSourceTypeArray[i]);
-            assertEquals(dataSourceTypeArray[i], testDataSourceReadWrite.getDataSourceType());
+            testDataSourceReadWrite.setDataSourceType(dataSourceType);
+            assertEquals(dataSourceType, testDataSourceReadWrite.getDataSourceType());
         }
     }
 
     @Test
     public void dataSourceIdTest() {
-        for (int i = 0; i < dataSourceIdArray.length; i++) {
+        for (String dataSourceId : dataSourceIdArray) {
             testDataSourceReadWrite = new DataSourceReadWrite();
-            testDataSourceReadWrite.setDataSourceId(dataSourceIdArray[i]);
-            assertEquals(dataSourceIdArray[i], testDataSourceReadWrite.getDataSourceId());
+            testDataSourceReadWrite.setDataSourceId(dataSourceId);
+            assertEquals(dataSourceId, testDataSourceReadWrite.getDataSourceId());
         }
     }
 
     @Test
     public void platformTypeTest() {
-        for (int i = 0; i < platformTypeArray.length; i++) {
+        for (String platformType : platformTypeArray) {
             testDataSourceReadWrite = new DataSourceReadWrite();
-            testDataSourceReadWrite.setPlatformType(platformTypeArray[i]);
-            assertEquals(platformTypeArray[i], testDataSourceReadWrite.getPlatformType());
+            testDataSourceReadWrite.setPlatformType(platformType);
+            assertEquals(platformType, testDataSourceReadWrite.getPlatformType());
         }
     }
 
     @Test
     public void platformIdTest() {
-        for (int i = 0; i < platformIdArray.length; i++) {
+        for (String platformId : platformIdArray) {
             testDataSourceReadWrite = new DataSourceReadWrite();
-            testDataSourceReadWrite.setPlatformId(platformIdArray[i]);
-            assertEquals(platformIdArray[i], testDataSourceReadWrite.getPlatformId());
+            testDataSourceReadWrite.setPlatformId(platformId);
+            assertEquals(platformId, testDataSourceReadWrite.getPlatformId());
         }
     }
 
     @Test
     public void platformAppTypeTest() {
-        for (int i = 0; i < platformAppTypeArray.length; i++) {
+        for (String platformAppType : platformAppTypeArray) {
             testDataSourceReadWrite = new DataSourceReadWrite();
-            testDataSourceReadWrite.setPlatformAppType(platformAppTypeArray[i]);
-            assertEquals(platformAppTypeArray[i], testDataSourceReadWrite.getPlatformAppType());
+            testDataSourceReadWrite.setPlatformAppType(platformAppType);
+            assertEquals(platformAppType, testDataSourceReadWrite.getPlatformAppType());
         }
     }
 
     @Test
     public void platformAppIdTest() {
-        for (int i = 0; i < platformAppIdArray.length; i++) {
+        for (String platformAppId : platformAppIdArray) {
             testDataSourceReadWrite = new DataSourceReadWrite();
-            testDataSourceReadWrite.setPlatformAppId(platformAppIdArray[i]);
-            assertEquals(platformAppIdArray[i], testDataSourceReadWrite.getPlatformAppId());
+            testDataSourceReadWrite.setPlatformAppId(platformAppId);
+            assertEquals(platformAppId, testDataSourceReadWrite.getPlatformAppId());
         }
     }
 
     @Test
     public void applicationTypeTest() {
-        for (int i = 0; i < applicationTypeArray.length; i++) {
+        for (String applicationType : applicationTypeArray) {
             testDataSourceReadWrite = new DataSourceReadWrite();
-            testDataSourceReadWrite.setApplicationType(applicationTypeArray[i]);
-            assertEquals(applicationTypeArray[i], testDataSourceReadWrite.getApplicationType());
+            testDataSourceReadWrite.setApplicationType(applicationType);
+            assertEquals(applicationType, testDataSourceReadWrite.getApplicationType());
         }
     }
 
     @Test
     public void applicationIdTest() {
-        for (int i = 0; i < applicationIdArray.length; i++) {
+        for (String applicationId : applicationIdArray) {
             testDataSourceReadWrite = new DataSourceReadWrite();
-            testDataSourceReadWrite.setApplicationId(applicationIdArray[i]);
-            assertEquals(applicationIdArray[i], testDataSourceReadWrite.getApplicationId());
+            testDataSourceReadWrite.setApplicationId(applicationId);
+            assertEquals(applicationId, testDataSourceReadWrite.getApplicationId());
         }
     }
 
@@ -335,7 +218,7 @@ public class DataSourceReadWriteAndroidUnitTest {
     }
 
     @Test
-    public void dataSourceMetaDatacomparableTest() {
+    public void dataSourceMetaDataComparableTest() {
         testDataSourceReadWrite = new DataSourceReadWrite();
         testDataSourceReadWrite.setDataSourceMetadata(testDataSourceMetaData);
         assertEquals(testDataSourceMetaData, testDataSourceReadWrite.getDataSourceMetaData());
@@ -343,19 +226,7 @@ public class DataSourceReadWriteAndroidUnitTest {
 
     @Test
     public void dataSourceReadWrite_ParcelableWriteReadTest() {
-        testDataSourceReadWrite = new DataSourceReadWrite();
-        testDataSourceReadWrite.setDataSourceType(dataSourceTypeArray[0]);
-        testDataSourceReadWrite.setDataSourceId(dataSourceIdArray[0]);
-        testDataSourceReadWrite.setPlatformType(platformTypeArray[0]);
-        testDataSourceReadWrite.setPlatformId(platformIdArray[0]);
-        testDataSourceReadWrite.setPlatformAppType(platformAppTypeArray[0]);
-        testDataSourceReadWrite.setPlatformAppId(platformAppIdArray[0]);
-        testDataSourceReadWrite.setApplicationType(applicationTypeArray[0]);
-        testDataSourceReadWrite.setPlatformMetadata(testPlatformMetaData);
-        testDataSourceReadWrite.setPlatformAppMetadata(testPlatformAppMetaData);
-        testDataSourceReadWrite.setApplicationMetadata(testAppMetaData);
-        testDataSourceReadWrite.setDataDescriptors(testDataDescriptors);
-        testDataSourceReadWrite.setDataSourceMetadata(testDataSourceMetaData);
+        testDataSourceReadWrite = CommonObjectConstructors.createDataSourceReadWrite();
 
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
@@ -470,19 +341,7 @@ public class DataSourceReadWriteAndroidUnitTest {
 
     @Test
     public void dataSourceReadWrite_ParcelableWriteReadComparableTest() {
-        testDataSourceReadWrite = new DataSourceReadWrite();
-        testDataSourceReadWrite.setDataSourceType(dataSourceTypeArray[0]);
-        testDataSourceReadWrite.setDataSourceId(dataSourceIdArray[0]);
-        testDataSourceReadWrite.setPlatformType(platformTypeArray[0]);
-        testDataSourceReadWrite.setPlatformId(platformIdArray[0]);
-        testDataSourceReadWrite.setPlatformAppType(platformAppTypeArray[0]);
-        testDataSourceReadWrite.setPlatformAppId(platformAppIdArray[0]);
-        testDataSourceReadWrite.setApplicationType(applicationTypeArray[0]);
-        testDataSourceReadWrite.setPlatformMetadata(testPlatformMetaData);
-        testDataSourceReadWrite.setPlatformAppMetadata(testPlatformAppMetaData);
-        testDataSourceReadWrite.setApplicationMetadata(testAppMetaData);
-        testDataSourceReadWrite.setDataDescriptors(testDataDescriptors);
-        testDataSourceReadWrite.setDataSourceMetadata(testDataSourceMetaData);
+        testDataSourceReadWrite = CommonObjectConstructors.createDataSourceReadWrite();
 
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
