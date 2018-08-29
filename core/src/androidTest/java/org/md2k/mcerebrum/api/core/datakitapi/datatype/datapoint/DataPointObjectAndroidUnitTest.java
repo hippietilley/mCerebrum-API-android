@@ -5,6 +5,7 @@ import android.support.test.filters.SmallTest;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -13,15 +14,16 @@ import static org.junit.Assert.assertNotSame;
 
 @SmallTest
 public class DataPointObjectAndroidUnitTest {
-    private final long testTimestamp = 1268660460;
+    private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
 
     private final String testSample = "Hello world";
+    private final String[] testSampleArray = {"Test 1", "Test 2"};
     private DataPointObject mDataPointObject;
 
     private final Object testObjectSample = (Object)(testSample);
-    // TODO: add Object[] test make array have different types of objects
 
-    private final String[] testSampleArray = {"Test 1", "Test 2"};
+    private final Object[] testObjectSampleArray = {testSampleArray[0], testSampleArray[1]};
+
     private DataPointObject mDataPointObjectArray;
 
     // Create the object.
