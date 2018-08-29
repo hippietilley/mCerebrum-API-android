@@ -9,14 +9,15 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
 
 @SmallTest
 public class DataSourceMetaDataAndroidUnitTest {
-    private final String testTitle = "Test Title";
-    private final String testSummary = "Test Summary";
-    private final String testDescription = "Test Description";
-    private final String testKey = "key";
-    private final String testValue = "value";
+    private final String testTitle = TestingConstants.TEST_TITLE;
+    private final String testSummary = TestingConstants.TEST_SUMMARY;
+    private final String testDescription = TestingConstants.TEST_DESCRIPTION;
+    private final String testKey = TestingConstants.TEST_KEY;
+    private final String testValue = TestingConstants.TEST_VALUE;
     private DataSourceMetaData testDataSourceMetaData;
 
     @Test
@@ -29,13 +30,12 @@ public class DataSourceMetaDataAndroidUnitTest {
         assertEquals(testTitle, testDataSourceMetaData.getTitle());
         assertEquals(testSummary, testDataSourceMetaData.getSummary());
         assertEquals(testDescription, testDataSourceMetaData.getDescription());
-        assertEquals(null, testDataSourceMetaData.getValue(testKey));
+        assertNull(testDataSourceMetaData.getValue(testKey));
     }
 
     @Test
     public void DataSourceMetaData_ParcelableWriteReadTest() {
-        testDataSourceMetaData = new DataSourceMetaData.Builder().setTitle(testTitle)
-                .setSummary(testSummary).setDescription(testDescription).setValue(testKey, testValue).build();
+        testDataSourceMetaData = CommonObjectConstructors.createDataSourceMetaData();
 
         // Write to parcel
         Parcel parcel = Parcel.obtain();
@@ -58,8 +58,7 @@ public class DataSourceMetaDataAndroidUnitTest {
 
     @Test
     public void DataSourceMetaData_ParcelableWriteReadComparableTest() {
-        testDataSourceMetaData = new DataSourceMetaData.Builder().setTitle(testTitle)
-                .setSummary(testSummary).setDescription(testDescription).setValue(testKey, testValue).build();
+        testDataSourceMetaData = CommonObjectConstructors.createDataSourceMetaData();
 
         // Write to parcel
         Parcel parcel = Parcel.obtain();
