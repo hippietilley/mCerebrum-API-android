@@ -11,13 +11,13 @@ import static org.junit.Assert.assertNull;
 
 @SmallTest
 public class ApplicationMetaDataAndroidUnitTest {
-    private String testTitle = "testApp";
-    private String testSummary = "testSummary";
-    private String testDescription = "Description of the testApp";
-    private String testVersionName = "Test version";
-    private int testVersionNumber = 1;
-    private String testKey = "Key";
-    private String testValue = "Value";
+    private String testTitle = TestingConstants.TEST_TITLE;
+    private String testSummary = TestingConstants.TEST_SUMMARY;
+    private String testDescription = TestingConstants.TEST_DESCRIPTION;
+    private String testVersionName = TestingConstants.TEST_VERSION_NAME;
+    private int testVersionNumber = TestingConstants.TEST_VERSION_NUMBER;
+    private String testKey = TestingConstants.TEST_KEY;
+    private String testValue = TestingConstants.TEST_VALUE;
     private ApplicationMetaData testAppMetaData;
 
     @Test
@@ -38,9 +38,7 @@ public class ApplicationMetaDataAndroidUnitTest {
 
     @Test
     public void ApplicationMetaData_ParcelableWriteReadTest() {
-        testAppMetaData = new ApplicationMetaData.Builder().setTitle(testTitle).setSummary(testSummary)
-                .setDescription(testDescription).setVersionName(testVersionName)
-                .setVersionNumber(testVersionNumber).setValue(testKey, testValue).build();
+        testAppMetaData = CommonObjectConstructors.createApplicationMetaData();
 
         // Write to parcel.
         Parcel parcel = Parcel.obtain();
@@ -65,9 +63,7 @@ public class ApplicationMetaDataAndroidUnitTest {
 
     @Test
     public void ApplicationMetaData_ParcelableWriteReadComparableTest() {
-        testAppMetaData = new ApplicationMetaData.Builder().setTitle(testTitle).setSummary(testSummary)
-                .setDescription(testDescription).setVersionName(testVersionName)
-                .setVersionNumber(testVersionNumber).setValue(testKey, testValue).build();
+        testAppMetaData = CommonObjectConstructors.createApplicationMetaData();
 
         // Write to parcel.
         Parcel parcel = Parcel.obtain();
