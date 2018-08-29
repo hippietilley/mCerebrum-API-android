@@ -85,9 +85,7 @@ public class ApplicationMetaDataAndroidUnitTest {
 
     @Test
     public void ApplicationMetaData_ParcelableWriteReadComparableTest() {
-        testAppMetaData = new ApplicationMetaData.Builder().setTitle(testTitle).setSummary(testSummary)
-                .setDescription(testDescription).setVersionName(testVersionName)
-                .setVersionNumber(testVersionNumber).setValue(testKey, testValue).build();
+        testAppMetaData = CommonObjectConstructors.createApplicationMetaData();
 
         // Write to parcel.
         Parcel parcel = Parcel.obtain();
