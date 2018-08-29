@@ -8,20 +8,21 @@ import org.junit.Test;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
 
 @SmallTest
 public class DataDescriptorAndroidUnitTest {
-    public static final double DELTA = 0.1;
-    private final String testTitle = "Test Title";
-    private final String testSummary = "Test Summary";
-    private final String testDescription = "Test Description";
-    private final double testMinValue = 3.14;
-    private final double testMaxValue = 6.28;
-    private final String[] testPossibleValuesAsString = {"3.14", "4", "5", "6", "6.28"};
-    private final int[] testPossibleValuesAsInt = {3, 4, 5, 6};
-    private final String testUnit = "Test Unit";
-    private final String testKey = "Test Key";
-    private final String testValue = "Test Value";
+    static final double DELTA = TestingConstants.DELTA;
+    private final String testTitle = TestingConstants.TEST_TITLE;
+    private final String testSummary = TestingConstants.TEST_SUMMARY;
+    private final String testDescription = TestingConstants.TEST_DESCRIPTION;
+    private final double testMinValue = TestingConstants.TEST_MIN_VALUE;
+    private final double testMaxValue = TestingConstants.TEST_MAX_VALUE;
+    private final String[] testPossibleValuesAsString = TestingConstants.TEST_POSSIBLE_VALUES_AS_STRING;
+    private final int[] testPossibleValuesAsInt = TestingConstants.TEST_POSSIBLE_VALUES_AS_INT;
+    private final String testUnit = TestingConstants.TEST_UNIT;
+    private final String testKey = TestingConstants.TEST_KEY;
+    private final String testValue = TestingConstants.TEST_VALUE;
     private DataDescriptor testDataDescriptor;
 
     @Test
@@ -41,16 +42,12 @@ public class DataDescriptorAndroidUnitTest {
         assertArrayEquals(testPossibleValuesAsString, testDataDescriptor.getPossibleValuesAsString());
         assertArrayEquals(testPossibleValuesAsInt, testDataDescriptor.getPossibleValuesAsInt());
         assertEquals(testUnit, testDataDescriptor.getUnit());
-        assertEquals(null, testDataDescriptor.getValue(testKey));
+        assertNull(testDataDescriptor.getValue(testKey));
     }
 
     @Test
     public void DataDescriptor_ParcelableWriteReadTest() {
-        testDataDescriptor = new DataDescriptor.Builder().setTitle(testTitle)
-                .setSummary(testSummary).setDescription(testDescription).setMinValue(testMinValue)
-                .setMaxValue(testMaxValue).setPossibleValues(testPossibleValuesAsString)
-                .setPossibleValues(testPossibleValuesAsInt).setUnit(testUnit).setValue(testKey, testValue)
-                .build();
+        testDataDescriptor = CommonObjectConstructors.createDataDescriptor();
 
         // Write to parcel
         Parcel parcel = Parcel.obtain();
@@ -78,11 +75,7 @@ public class DataDescriptorAndroidUnitTest {
 
     @Test
     public void DataDescriptor_ParcelableWriteReadComparableTest() {
-        testDataDescriptor = new DataDescriptor.Builder().setTitle(testTitle)
-                .setSummary(testSummary).setDescription(testDescription).setMinValue(testMinValue)
-                .setMaxValue(testMaxValue).setPossibleValues(testPossibleValuesAsString)
-                .setPossibleValues(testPossibleValuesAsInt).setUnit(testUnit).setValue(testKey, testValue)
-                .build();
+        testDataDescriptor = CommonObjectConstructors.createDataDescriptor();
 
         // Write to parcel
         Parcel parcel = Parcel.obtain();
