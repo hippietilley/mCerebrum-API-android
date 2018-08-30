@@ -18,30 +18,41 @@ public class DataPointObjectAndroidUnitTest {
 
     private final String testSample = "Hello world";
     private final String[] testSampleArray = {"Test 1", "Test 2"};
+    private DataPointObject mDataPointObjectString;
     private DataPointObject mDataPointObject;
+    private DataPointObject mDataPointObjectArray;
+    private DataPointObject mDataPointObjectStringArray;
 
     private final Object testObjectSample = (Object)(testSample);
+    private final Boolean testObjectSample1 = true;
+    private final Double testObjectSample2 = 6.28;
+    private final Integer testObjectSample3 = 21;
 
-    private final Object[] testObjectSampleArray = {testSampleArray[0], testSampleArray[1]};
-
-    private DataPointObject mDataPointObjectArray;
+    private final Object[] testObjectSampleArray = {testObjectSample1, testObjectSample2, testObjectSample3};
 
     // Create the object.
     @Before
     public void createDataPointObject() {
-        mDataPointObject = new DataPointObject(testTimestamp, testSample);
-        mDataPointObjectArray = new DataPointObject(testTimestamp, testSampleArray);
+        mDataPointObjectString = new DataPointObject(testTimestamp, testSample);
+        mDataPointObjectStringArray = new DataPointObject(testTimestamp, testSampleArray);
+        mDataPointObject = new DataPointObject(testTimestamp, testObjectSample);
+        mDataPointObjectArray = new DataPointObject(testTimestamp, testObjectSampleArray);
     }
 
 
     @Test
     public void fieldAccuracyTest() {
+        assertEquals(testTimestamp, mDataPointObjectString.getTimestamp());
+        assertEquals("Hello world", mDataPointObjectString.getSample()[0]);
+
+        assertEquals(testTimestamp, mDataPointObjectStringArray.getTimestamp());
+        assertArrayEquals(testSampleArray, mDataPointObjectStringArray.getSample());
+
         assertEquals(testTimestamp, mDataPointObject.getTimestamp());
-        assertEquals("Hello world", mDataPointObject.getSample()[0]);
+        assertEquals(testObjectSample, mDataPointObject.getSample());
+
         assertEquals(testTimestamp, mDataPointObjectArray.getTimestamp());
-        for (int i = 0; i < testSampleArray.length; i++) {
-            assertEquals(testSampleArray[i], mDataPointObjectArray.getSample()[i]);
-        }
+        assertArrayEquals(testObjectSampleArray, mDataPointObjectArray.getSample());
     }
 
     @Test
@@ -54,10 +65,33 @@ public class DataPointObjectAndroidUnitTest {
 
     @Test
     public void dataPointObjectCloneComparableTest() {
-        DataPointObject dataPointClone = mDataPointObject.clone();
-        assertEquals(mDataPointObject, dataPointClone);
-        assertNotSame(mDataPointObject, dataPointClone);
+        DataPointObject dataPointClone = mDataPointObjectString.clone();
+        assertEquals(mDataPointObjectString, dataPointClone);
+        assertNotSame(mDataPointObjectString, dataPointClone);
     }
+
+    @Test
+    public void dataPointObjectString_ParcelableWriteRead() {
+        // Write data to parcel.
+        Parcel parcel = Parcel.obtain();
+        mDataPointObjectString.writeToParcel(parcel, mDataPointObjectString.describeContents());
+
+        // After writing, reset the parcel for reading
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataPointObject createdFromParcel = DataPointObject.CREATOR.createFromParcel(parcel);
+        DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
+
+        // Verify results.
+        assertNotEquals(0, createdFromParcelArray.length);
+        assertEquals(mDataPointObjectString.getTimestamp(), createdFromParcel.getTimestamp());
+        for (String sample : createdFromParcel.getSample()) {
+            for (String expectedSample : mDataPointObject.getSample())
+                assertEquals(expectedSample, sample);
+        }
+    }
+
 
     @Test
     public void dataPointObject_ParcelableWriteRead() {
@@ -75,8 +109,10 @@ public class DataPointObjectAndroidUnitTest {
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(mDataPointObject.getTimestamp(), createdFromParcel.getTimestamp());
-        for (int i = 0; i < createdFromParcel.getSample().length; i++)
-            assertEquals(mDataPointObject.getSample()[i], createdFromParcel.getSample()[i]);
+        for (String sample : createdFromParcel.getSample()) {
+            for (String expectedSample : mDataPointObject.getSample())
+                assertEquals(expectedSample, sample);
+        }
     }
 
     @Test
@@ -98,6 +134,43 @@ public class DataPointObjectAndroidUnitTest {
     }
 
     @Test
+    public void dataPointObjectString_ParcelableWriteReadComparable() {
+        // Write data to parcel.
+        Parcel parcel = Parcel.obtain();
+        mDataPointObjectString.writeToParcel(parcel, mDataPointObjectString.describeContents());
+
+        // After writing, reset the parcel for reading
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataPointObject createdFromParcel = DataPointObject.CREATOR.createFromParcel(parcel);
+        DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
+
+        // Verify results.
+        assertNotEquals(0, createdFromParcelArray.length);
+        assertEquals(mDataPointObjectString, createdFromParcel);
+    }
+
+    @Test
+    public void dataPointObjectStringArray_ParcelableWriteRead() {
+        // Write data to parcel.
+        Parcel parcel = Parcel.obtain();
+        mDataPointObjectStringArray.writeToParcel(parcel, mDataPointObjectStringArray.describeContents());
+
+        // After writing, reset the parcel for reading
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataPointObject createdFromParcel = DataPointObject.CREATOR.createFromParcel(parcel);
+        DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
+
+        // Verify results.
+        assertNotEquals(0, createdFromParcelArray.length);
+        assertEquals(mDataPointObjectStringArray.getTimestamp(), createdFromParcel.getTimestamp());
+        assertArrayEquals(mDataPointObjectStringArray.getSample(), createdFromParcel.getSample());
+    }
+
+    @Test
     public void dataPointObjectArray_ParcelableWriteRead() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
@@ -114,6 +187,24 @@ public class DataPointObjectAndroidUnitTest {
         assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(mDataPointObjectArray.getTimestamp(), createdFromParcel.getTimestamp());
         assertArrayEquals(mDataPointObjectArray.getSample(), createdFromParcel.getSample());
+    }
+
+    @Test
+    public void dataPointObjectStringArray_ParcelableWriteReadComparable() {
+        // Write data to parcel.
+        Parcel parcel = Parcel.obtain();
+        mDataPointObjectStringArray.writeToParcel(parcel, mDataPointObjectStringArray.describeContents());
+
+        // After writing, reset the parcel for reading
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataPointObject createdFromParcel = DataPointObject.CREATOR.createFromParcel(parcel);
+        DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
+
+        // Verify results.
+        assertNotEquals(0, createdFromParcelArray.length);
+        assertEquals(mDataPointObjectStringArray, createdFromParcel);
     }
 
     @Test
