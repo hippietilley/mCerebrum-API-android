@@ -10,7 +10,12 @@ import org.md2k.mcerebrum.api.core.pluginapi.MCPluginParam;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
+<<<<<<< HEAD
 import static org.junit.Assert.assertNotEquals;
+=======
+
+import static org.junit.Assert.assertThat;
+>>>>>>> upstream/master
 
 public class MCPluginParamAndroidUnitTest {
     public static String testTitle = "Test title";
@@ -45,11 +50,16 @@ public class MCPluginParamAndroidUnitTest {
         MCPluginParam[] createdFromParcelArray = MCPluginParam.CREATOR.newArray(1);
 
         // Verify results.
+<<<<<<< HEAD
         assertNotEquals(0, createdFromParcelArray.length);
+=======
+        assertThat(createdFromParcelArray.length, is(not(0)));
+>>>>>>> upstream/master
         assertEquals(testMCPluginParam.getTitle(), createdFromParcel.getTitle());
         assertEquals(testMCPluginParam.getId(), createdFromParcel.getId());
         assertEquals(testMCPluginParam.getParams().toString(), createdFromParcel.getParams().toString());
     }
+<<<<<<< HEAD
 
     @Test
     public void MCPluginParam_ParcelableWriteReadComparable() {
@@ -69,5 +79,7 @@ public class MCPluginParamAndroidUnitTest {
         assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(testMCPluginParam, createdFromParcel);
     }
+=======
+>>>>>>> upstream/master
 }
 

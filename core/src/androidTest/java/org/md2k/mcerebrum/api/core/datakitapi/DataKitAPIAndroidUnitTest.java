@@ -4,6 +4,10 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 
 import org.junit.Before;
+<<<<<<< HEAD
+=======
+import org.junit.Ignore;
+>>>>>>> upstream/master
 import org.junit.Test;
 import org.md2k.mcerebrum.api.core.MCerebrumAPI;
 import org.md2k.mcerebrum.api.core.datakitapi.callback.ConnectionCallback;
@@ -50,6 +54,10 @@ public class DataKitAPIAndroidUnitTest {
         testDataKitAPI = new DataKitAPI(testmCerebrumAPI);
     }
 
+<<<<<<< HEAD
+=======
+    @Ignore
+>>>>>>> upstream/master
     @Test
     public void nullmCerebrumAPITest() {
         testDataKitAPIwithNullmCerebrumAPI = new DataKitAPI(testmCerebrumAPINullInstance);
@@ -61,6 +69,10 @@ public class DataKitAPIAndroidUnitTest {
         assertEquals(MCerebrumStatus.INVALID_PARAMETER, testDataKitAPI.connect(testConnectionCallbackNull));
     }
 
+<<<<<<< HEAD
+=======
+    @Ignore
+>>>>>>> upstream/master
     @Test
     public void successfulConnectionTest() {
         assertEquals(MCerebrumStatus.SUCCESS, testDataKitAPI.connect(testConnectionCallback));

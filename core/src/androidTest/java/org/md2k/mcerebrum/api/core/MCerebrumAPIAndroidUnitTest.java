@@ -1,6 +1,7 @@
 package org.md2k.mcerebrum.api.core;
 
 import android.content.Context;
+<<<<<<< HEAD
 import android.os.Build;
 import android.support.test.InstrumentationRegistry;
 
@@ -32,10 +33,23 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+=======
+import android.support.test.InstrumentationRegistry;
+
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.callback.ConnectionCallback;
+import org.md2k.mcerebrum.api.core.datakitapi.exception.MCerebrumException;
+import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
+
+import static org.junit.Assert.assertEquals;
+>>>>>>> upstream/master
 
 public class MCerebrumAPIAndroidUnitTest {
 
     MCerebrumAPI testmCerebrumAPI;
+<<<<<<< HEAD
     MCerebrumAPI testmCerebrumAPINotInit;
     Context testContext;
     ConnectionCallback testConnectionCallback;
@@ -76,6 +90,27 @@ public class MCerebrumAPIAndroidUnitTest {
 
     @Before
     public void gettingStarted() {
+=======
+    Context testContext;
+    ConnectionCallback testConnectionCallback;
+
+    @Before
+    public void gettingStarted() {
+
+    }
+
+    @Ignore
+    @Test
+    public void dataKitAPIInitializationTest() {
+        // testmCerebrumAPI.init() should create an instance of MCerebrumAPI that calls for an instance of DataKitAPI to be created.
+    }
+
+    @Ignore
+    @Test
+    public void connectionTest() {
+        assertEquals(MCerebrumStatus.INVALID_PARAMETER, testmCerebrumAPI.connect(testConnectionCallback));
+
+>>>>>>> upstream/master
         testConnectionCallback = new ConnectionCallback() {
             @Override
             public void onConnected() {}
@@ -87,6 +122,7 @@ public class MCerebrumAPIAndroidUnitTest {
             public void onDisconnected() {}
         };
 
+<<<<<<< HEAD
         // Initialize mCerebrumAPI
         testContext = InstrumentationRegistry.getContext();
         MCerebrumAPI.init(testContext);
@@ -155,5 +191,14 @@ public class MCerebrumAPIAndroidUnitTest {
         assertEquals(MCerebrumStatus.INVALID_PARAMETER, MCerebrumAPI.disconnect(testConnectionCallbackNull));
         assertEquals(MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED, testmCerebrumAPINotInit.disconnect(testConnectionCallback));
         assertEquals(MCerebrumStatus.SUCCESS, MCerebrumAPI.disconnect(testConnectionCallback));
+=======
+        assertEquals(MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED, testmCerebrumAPI.connect(testConnectionCallback));
+
+        // Initialize mCerebrumAPI
+        testContext = InstrumentationRegistry.getContext();
+        testmCerebrumAPI.init(testContext);
+
+        assertEquals(MCerebrumStatus.SUCCESS, testmCerebrumAPI.connect(testConnectionCallback));
+>>>>>>> upstream/master
     }
 }
