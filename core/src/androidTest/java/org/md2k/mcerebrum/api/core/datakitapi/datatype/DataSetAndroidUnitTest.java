@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.support.test.filters.SmallTest;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.dataannotation.DataAnnotationEnum;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointBoolean;
@@ -17,14 +16,14 @@ import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointObject
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointString;
 import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertNotEquals;
+
 
 @SmallTest
 public class DataSetAndroidUnitTest {
+    public static final double DELTA = 0.1;
     private final int actualDataSize = 100;
     private final int receivedDataSize = 101;
     private int[] samplingTypes = {DataSet.SAMPLING_TYPE.ALL.getCode(),
@@ -89,7 +88,6 @@ public class DataSetAndroidUnitTest {
         }
     }
 
-    @Ignore
     @Test
     public void dataSetSamplingAll_ParcelableWriteRead() {
         // Write data to parcel.
@@ -106,7 +104,7 @@ public class DataSetAndroidUnitTest {
         readFromParcelAll.readFromParcel(parcelAll);
 
         // Verify results.
-        assertThat(createdFromParcelArrayAll.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArrayAll.length);
         assertEquals(actualDataSize, createdFromParcelAll.getActualDataSize());
         assertEquals(receivedDataSize, createdFromParcelAll.getReceivedDataSize());
         for (int i = 0; i < testDataSetSamplingAll.getData().length; i++) {
@@ -118,7 +116,7 @@ public class DataSetAndroidUnitTest {
                         ((DataPointByte)createdFromParcelAll.getData()[i]).getSample());
             if (createdFromParcelAll.getData()[i] instanceof DataPointDouble)
                 assertArrayEquals(((DataPointDouble)testDataSetSamplingAll.getData()[i]).getSample(),
-                        ((DataPointDouble)createdFromParcelAll.getData()[i]).getSample(), 0.1);
+                        ((DataPointDouble)createdFromParcelAll.getData()[i]).getSample(), DELTA);
             if (createdFromParcelAll.getData()[i] instanceof DataPointEnum)
                 assertArrayEquals(((DataPointEnum)testDataSetSamplingAll.getData()[i]).getSample(),
                         ((DataPointEnum)createdFromParcelAll.getData()[i]).getSample());
@@ -148,7 +146,7 @@ public class DataSetAndroidUnitTest {
                         ((DataPointByte)readFromParcelAll.getData()[i]).getSample());
             if (readFromParcelAll.getData()[i] instanceof DataPointDouble)
                 assertArrayEquals(((DataPointDouble)testDataSetSamplingAll.getData()[i]).getSample(),
-                        ((DataPointDouble)readFromParcelAll.getData()[i]).getSample(), 0.1);
+                        ((DataPointDouble)readFromParcelAll.getData()[i]).getSample(), DELTA);
             if (readFromParcelAll.getData()[i] instanceof DataPointEnum)
                 assertArrayEquals(((DataPointEnum)testDataSetSamplingAll.getData()[i]).getSample(),
                         ((DataPointEnum)readFromParcelAll.getData()[i]).getSample());
@@ -168,7 +166,6 @@ public class DataSetAndroidUnitTest {
         assertEquals(DataSet.SAMPLING_TYPE.ALL.getCode(), readFromParcelAll.getSamplingType());
     }
 
-    @Ignore
     @Test
     public void dataSetSamplingFirstN_ParcelableWriteRead() {
         // Write data to parcel.
@@ -185,7 +182,7 @@ public class DataSetAndroidUnitTest {
         readFromParcelFirstN.readFromParcel(parcelFirstN);
 
         // Verify results.
-        assertThat(createdFromParcelArrayFirstN.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArrayFirstN.length);
         assertEquals(actualDataSize, createdFromParcelFirstN.getActualDataSize());
         assertEquals(receivedDataSize, createdFromParcelFirstN.getReceivedDataSize());
         for (int i = 0; i < testDataSetSamplingFirstN.getData().length; i++) {
@@ -217,7 +214,7 @@ public class DataSetAndroidUnitTest {
                         ((DataPointByte)readFromParcelFirstN.getData()[i]).getSample());
             if (readFromParcelFirstN.getData()[i] instanceof DataPointDouble)
                 assertArrayEquals(((DataPointDouble)testDataSetSamplingAll.getData()[i]).getSample(),
-                        ((DataPointDouble)readFromParcelFirstN.getData()[i]).getSample(), 0.1);
+                        ((DataPointDouble)readFromParcelFirstN.getData()[i]).getSample(), DELTA);
             if (readFromParcelFirstN.getData()[i] instanceof DataPointEnum)
                 assertArrayEquals(((DataPointEnum)testDataSetSamplingAll.getData()[i]).getSample(),
                         ((DataPointEnum)readFromParcelFirstN.getData()[i]).getSample());
@@ -237,7 +234,6 @@ public class DataSetAndroidUnitTest {
         assertEquals(DataSet.SAMPLING_TYPE.FIRST_N_SAMPLE.getCode(), readFromParcelFirstN.getSamplingType());
     }
 
-    @Ignore
     @Test
     public void dataSetSamplingDistributedN_ParcelableWriteRead() {
         // Write data to parcel.
@@ -255,7 +251,7 @@ public class DataSetAndroidUnitTest {
         readFromParcelDistributedN.readFromParcel(parcelDistributedN);
 
         // Verify results.
-        assertThat(createdFromParcelArrayDistributedN.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArrayDistributedN.length);
         assertEquals(actualDataSize, createdFromParcelDistributedN.getActualDataSize());
         assertEquals(receivedDataSize, createdFromParcelDistributedN.getReceivedDataSize());
         for (int i = 0; i < testDataSetSamplingDistributedN.getData().length; i++) {
@@ -267,7 +263,7 @@ public class DataSetAndroidUnitTest {
                         ((DataPointByte)createdFromParcelDistributedN.getData()[i]).getSample());
             if (createdFromParcelDistributedN.getData()[i] instanceof DataPointDouble)
                 assertArrayEquals(((DataPointDouble)testDataSetSamplingAll.getData()[i]).getSample(),
-                        ((DataPointDouble)createdFromParcelDistributedN.getData()[i]).getSample(), 0.1);
+                        ((DataPointDouble)createdFromParcelDistributedN.getData()[i]).getSample(), DELTA);
             if (createdFromParcelDistributedN.getData()[i] instanceof DataPointEnum)
                 assertArrayEquals(((DataPointEnum)testDataSetSamplingAll.getData()[i]).getSample(),
                         ((DataPointEnum)createdFromParcelDistributedN.getData()[i]).getSample());
@@ -298,7 +294,7 @@ public class DataSetAndroidUnitTest {
                         ((DataPointByte)readFromParcelDistributedN.getData()[i]).getSample());
             if (readFromParcelDistributedN.getData()[i] instanceof DataPointDouble)
                 assertArrayEquals(((DataPointDouble)testDataSetSamplingAll.getData()[i]).getSample(),
-                        ((DataPointDouble)readFromParcelDistributedN.getData()[i]).getSample(), 0.1);
+                        ((DataPointDouble)readFromParcelDistributedN.getData()[i]).getSample(), DELTA);
             if (readFromParcelDistributedN.getData()[i] instanceof DataPointEnum)
                 assertArrayEquals(((DataPointEnum)testDataSetSamplingAll.getData()[i]).getSample(),
                         ((DataPointEnum)readFromParcelDistributedN.getData()[i]).getSample());

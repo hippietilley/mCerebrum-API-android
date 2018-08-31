@@ -8,15 +8,16 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
 
 @SmallTest
 public class DataSourceMetaDataAndroidUnitTest {
-    private final String testTitle = "Test Title";
-    private final String testSummary = "Test Summary";
-    private final String testDescription = "Test Description";
-    private final String testKey = "key";
-    private final String testValue = "value";
+    private final String testTitle = TestingConstants.TEST_TITLE;
+    private final String testSummary = TestingConstants.TEST_SUMMARY;
+    private final String testDescription = TestingConstants.TEST_DESCRIPTION;
+    private final String testKey = TestingConstants.TEST_KEY;
+    private final String testValue = TestingConstants.TEST_VALUE;
     private DataSourceMetaData testDataSourceMetaData;
 
     @Test
@@ -29,13 +30,12 @@ public class DataSourceMetaDataAndroidUnitTest {
         assertEquals(testTitle, testDataSourceMetaData.getTitle());
         assertEquals(testSummary, testDataSourceMetaData.getSummary());
         assertEquals(testDescription, testDataSourceMetaData.getDescription());
-        assertEquals(null, testDataSourceMetaData.getValue(testKey));
+        assertNull(testDataSourceMetaData.getValue(testKey));
     }
 
     @Test
     public void DataSourceMetaData_ParcelableWriteReadTest() {
-        testDataSourceMetaData = new DataSourceMetaData.Builder().setTitle(testTitle)
-                .setSummary(testSummary).setDescription(testDescription).setValue(testKey, testValue).build();
+        testDataSourceMetaData = CommonObjectConstructors.createDataSourceMetaData();
 
         // Write to parcel
         Parcel parcel = Parcel.obtain();
@@ -49,10 +49,30 @@ public class DataSourceMetaDataAndroidUnitTest {
         DataSourceMetaData[] createdFromParcelArray = DataSourceMetaData.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
+        assertNotEquals(0, createdFromParcelArray.length);
         assertEquals(testDataSourceMetaData.getTitle(), createdFromParcel.getTitle());
         assertEquals(testDataSourceMetaData.getSummary(), createdFromParcel.getSummary());
         assertEquals(testDataSourceMetaData.getDescription(), createdFromParcel.getDescription());
         assertEquals(testDataSourceMetaData.getValue(testKey), createdFromParcel.getValue(testKey));
+    }
+
+    @Test
+    public void DataSourceMetaData_ParcelableWriteReadComparableTest() {
+        testDataSourceMetaData = CommonObjectConstructors.createDataSourceMetaData();
+
+        // Write to parcel
+        Parcel parcel = Parcel.obtain();
+        testDataSourceMetaData.writeToParcel(parcel, testDataSourceMetaData.describeContents());
+
+        // After writing, reset the parcel for reading
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataSourceMetaData createdFromParcel = DataSourceMetaData.CREATOR.createFromParcel(parcel);
+        DataSourceMetaData[] createdFromParcelArray = DataSourceMetaData.CREATOR.newArray(1);
+
+        // Verify results.
+        assertNotEquals(0, createdFromParcelArray.length);
+        assertEquals(testDataSourceMetaData, createdFromParcel);
     }
 }

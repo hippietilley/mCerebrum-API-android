@@ -35,7 +35,7 @@ import java.util.HashMap;
 /**
  * Builder class for <code>DataSource</code> objects
  */
-public class PlatformMetaData implements Parcelable{
+public class PlatformMetaData implements Parcelable {
     private String title;
     private String summary;
     private String description;
@@ -82,17 +82,25 @@ public class PlatformMetaData implements Parcelable{
         }
     };
 
-    public String getTitle(){
+    public String getTitle() {
         return title;
     }
-    public String getSummary(){
+
+    public String getSummary() {
         return summary;
     }
-    public String getDescription(){
+
+    public String getDescription() {
         return description;
     }
-    public String getOperationSystem(){ return operationSystem;}
-    public String getManufacturer(){return manufacturer;}
+
+    public String getOperationSystem() {
+        return operationSystem;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
 
     public String getModel() {
         return model;
@@ -110,11 +118,12 @@ public class PlatformMetaData implements Parcelable{
         return deviceId;
     }
 
-    public String getValue(String key){
-        if(custom==null) return null;
+    public String getValue(String key) {
+        if (custom == null) return null;
         return custom.get(key);
     }
-    protected void setTitle(String title){
+
+    protected void setTitle(String title) {
         this.title = title;
     }
 
@@ -156,11 +165,11 @@ public class PlatformMetaData implements Parcelable{
         description = builder.description;
         operationSystem = builder.operationSystem;
         manufacturer = builder.manufacturer;
-        model=builder.model;
-        versionFirmware=builder.versionFirmware;
-        versionHardware=builder.versionHardware;
-        deviceId=builder.deviceId;
-        custom= builder.custom;
+        model = builder.model;
+        versionFirmware = builder.versionFirmware;
+        versionHardware = builder.versionHardware;
+        deviceId = builder.deviceId;
+        custom = builder.custom;
     }
 
 
@@ -261,6 +270,7 @@ public class PlatformMetaData implements Parcelable{
             this.custom.put(key, value);
             return this;
         }
+
         public PlatformMetaData build() {
             return new PlatformMetaData(this);
         }

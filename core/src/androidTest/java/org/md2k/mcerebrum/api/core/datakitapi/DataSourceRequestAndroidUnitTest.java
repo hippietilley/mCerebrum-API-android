@@ -5,46 +5,28 @@ import android.support.test.filters.SmallTest;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
 
-import java.util.ArrayList;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertNotEquals;
 
 @SmallTest
 public class DataSourceRequestAndroidUnitTest {
-    private final String testDataSourceType = "Test Data Source Type";
-    private final String testDataSourceId = "Test Data Source Id";
-    private final String testPlatformType = "Test Platform Type";
-    private final String testPlatformId = "Test Platform Id";
-    private final String testPlatformAppType = "Test Platform App Type";
-    private final String testPlatformAppId = "Test Platform App Id";
-    private final String testApplicationType = "Test Application Type";
-    private final String testApplicationId = "Test Application Id";
     private DataSourceRequest testDataSourceRequest;
 
     @Before
     public void CreateDataSourceRequest() {
-        testDataSourceRequest = new DataSourceRequest.Builder().setDataSourceType(testDataSourceType)
-                .setDataSourceId(testDataSourceId).setPlatformType(testPlatformType)
-                .setPlatformId(testPlatformId).setPlatformAppType(testPlatformAppType)
-                .setPlatformAppId(testPlatformAppId).setApplicationType(testApplicationType)
-                .setApplicationId(testApplicationId).build();
+        testDataSourceRequest = CommonObjectConstructors.createDataSourceRequest();
     }
 
     @Test
     public void DataSourceRequestBuilderTest() {
-        assertEquals(testDataSourceType, testDataSourceRequest.getDataSourceType());
-        assertEquals(testDataSourceId, testDataSourceRequest.getDataSourceId());
-        assertEquals(testPlatformType, testDataSourceRequest.getPlatformType());
-        assertEquals(testPlatformId, testDataSourceRequest.getPlatformId());
-        assertEquals(testPlatformAppType, testDataSourceRequest.getPlatformAppType());
-        assertEquals(testPlatformAppId, testDataSourceRequest.getPlatformAppId());
-        assertEquals(testApplicationType, testDataSourceRequest.getApplicationType());
-        assertEquals(testApplicationId, testDataSourceRequest.getApplicationId());
+        assertEquals(TestingConstants.DATA_SOURCE_TYPE_ARRAY[0], testDataSourceRequest.getDataSourceType());
+        assertEquals(TestingConstants.DATASOURCE_ID_ARRAY[0], testDataSourceRequest.getDataSourceId());
+        assertEquals(TestingConstants.PLATFORM_TYPE_ARRAY[0], testDataSourceRequest.getPlatformType());
+        assertEquals(TestingConstants.PLATFORM_ID_ARRAY[0], testDataSourceRequest.getPlatformId());
+        assertEquals(TestingConstants.PLATFORM_APP_TYPE_ARRAY[0], testDataSourceRequest.getPlatformAppType());
+        assertEquals(TestingConstants.PLATFORM_APP_ID_ARRAY[0], testDataSourceRequest.getPlatformAppId());
+        assertEquals(TestingConstants.APPLICATION_TYPE_ARRAY[0], testDataSourceRequest.getApplicationType());
     }
 
     @Test
@@ -61,14 +43,32 @@ public class DataSourceRequestAndroidUnitTest {
         DataSourceRequest[] createdFromParcelArray = DataSourceRequest.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
-        assertEquals(testDataSourceType, createdFromParcel.getDataSourceType());
-        assertEquals(testDataSourceId, createdFromParcel.getDataSourceId());
-        assertEquals(testPlatformType, createdFromParcel.getPlatformType());
-        assertEquals(testPlatformId, createdFromParcel.getPlatformId());
-        assertEquals(testPlatformAppType, createdFromParcel.getPlatformAppType());
-        assertEquals(testPlatformAppId, createdFromParcel.getPlatformAppId());
-        assertEquals(testApplicationType, createdFromParcel.getApplicationType());
-        assertEquals(testApplicationId, createdFromParcel.getApplicationId());
+        assertNotEquals(0, createdFromParcelArray.length);
+        assertEquals(TestingConstants.DATA_SOURCE_TYPE_ARRAY[0], createdFromParcel.getDataSourceType());
+        assertEquals(TestingConstants.DATASOURCE_ID_ARRAY[0], createdFromParcel.getDataSourceId());
+        assertEquals(TestingConstants.PLATFORM_TYPE_ARRAY[0], createdFromParcel.getPlatformType());
+        assertEquals(TestingConstants.PLATFORM_ID_ARRAY[0], createdFromParcel.getPlatformId());
+        assertEquals(TestingConstants.PLATFORM_APP_TYPE_ARRAY[0], createdFromParcel.getPlatformAppType());
+        assertEquals(TestingConstants.PLATFORM_APP_ID_ARRAY[0], createdFromParcel.getPlatformAppId());
+        assertEquals(TestingConstants.APPLICATION_TYPE_ARRAY[0], createdFromParcel.getApplicationType());
+        assertEquals(TestingConstants.APPLICATION_ID_ARRAY[0], createdFromParcel.getApplicationId());
+    }
+
+    @Test
+    public void DataSourceRequest_ParcelableWriteReadComparableTest() {
+        // Write to parcel.
+        Parcel parcel = Parcel.obtain();
+        testDataSourceRequest.writeToParcel(parcel, testDataSourceRequest.describeContents());
+
+        // After writing, reset the parcel for reading.
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataSourceRequest createdFromParcel = DataSourceRequest.CREATOR.createFromParcel(parcel);
+        DataSourceRequest[] createdFromParcelArray = DataSourceRequest.CREATOR.newArray(1);
+
+        // Verify results.
+        assertNotEquals(0, createdFromParcelArray.length);
+        assertEquals(testDataSourceRequest, createdFromParcel);
     }
 }

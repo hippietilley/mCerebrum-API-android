@@ -5,28 +5,23 @@ import android.support.test.filters.SmallTest;
 
 import org.junit.Test;
 
-import java.util.HashMap;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertNotEquals;
 
 @SmallTest
 public class PlatformMetaDataAndroidUnitTest {
-    private final String testTitle = "Test Title";
-    private final String testSummary = "Test Summary";
-    private final String testDescription = "Test Description";
-    private final String testOperationSystem = "Test Operating System";
-    private final String testManufacturer = "Test Manufacturer";
-    private final String testModel = "Test Model";
-    private final String testVersionFirmware = "Test Version Firmware";
-    private final String testVersionHardware = "Test Version Hardware";
-    private final String testDeviceId = "Test Device ID";
-    private final String testKey = "Test Key";
-    private final String testValue = "Test Value";
-    private HashMap<String, String> testCustom = new HashMap<>();
+    private final String testTitle = TestingConstants.TEST_TITLE;
+    private final String testSummary = TestingConstants.TEST_SUMMARY;
+    private final String testDescription = TestingConstants.TEST_DESCRIPTION;
+    private final String testOperationSystem = TestingConstants.TEST_OPERATING_SYSTEM;
+    private final String testManufacturer = TestingConstants.TEST_MANUFACTURER;
+    private final String testModel = TestingConstants.TEST_MODEL;
+    private final String testVersionFirmware = TestingConstants.TEST_VERSION_FIRMWARE;
+    private final String testVersionHardware = TestingConstants.TEST_VERSION_HARDWARE;
+    private final String testDeviceId = TestingConstants.TEST_DEVICE_ID;
+    private final String testKey = TestingConstants.TEST_KEY;
+    private final String testValue = TestingConstants.TEST_VALUE;
     private PlatformMetaData testPlatformMetaData;
 
     @Test
@@ -52,6 +47,35 @@ public class PlatformMetaDataAndroidUnitTest {
 
     @Test
     public void PlatformMetaData_ParcelableWriteReadTest() {
+        testPlatformMetaData = CommonObjectConstructors.createPlatformMetaData();
+
+        // Write to parcel.
+        Parcel parcel = Parcel.obtain();
+        testPlatformMetaData.writeToParcel(parcel, testPlatformMetaData.describeContents());
+
+        // After writing, reset the parcel for reading.
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        PlatformMetaData createdFromParcel = PlatformMetaData.CREATOR.createFromParcel(parcel);
+        PlatformMetaData[] createdFromParcelArray = PlatformMetaData.CREATOR.newArray(1);
+
+        // Verify results.
+        assertNotEquals(0, createdFromParcelArray.length);
+        assertEquals(testTitle, createdFromParcel.getTitle());
+        assertEquals(testSummary, createdFromParcel.getSummary());
+        assertEquals(testDescription, createdFromParcel.getDescription());
+        assertEquals(testOperationSystem, createdFromParcel.getOperationSystem());
+        assertEquals(testManufacturer, createdFromParcel.getManufacturer());
+        assertEquals(testModel, createdFromParcel.getModel());
+        assertEquals(testVersionFirmware, createdFromParcel.getVersionFirmware());
+        assertEquals(testVersionHardware, createdFromParcel.getVersionHardware());
+        assertEquals(testDeviceId, createdFromParcel.getDeviceId());
+        assertEquals(testValue, createdFromParcel.getValue(testKey));
+    }
+
+    @Test
+    public void PlatformMetaData_ParcelableWriteReadComparableTest() {
         testPlatformMetaData = new PlatformMetaData.Builder().setValue(testKey, testValue).build();
         testPlatformMetaData.setTitle(testTitle);
         testPlatformMetaData.setSummary(testSummary);
@@ -75,16 +99,7 @@ public class PlatformMetaDataAndroidUnitTest {
         PlatformMetaData[] createdFromParcelArray = PlatformMetaData.CREATOR.newArray(1);
 
         // Verify results.
-        assertThat(createdFromParcelArray.length, is(not(0)));
-        assertEquals(testTitle, createdFromParcel.getTitle());
-        assertEquals(testSummary, createdFromParcel.getSummary());
-        assertEquals(testDescription, createdFromParcel.getDescription());
-        assertEquals(testOperationSystem, createdFromParcel.getOperationSystem());
-        assertEquals(testManufacturer, createdFromParcel.getManufacturer());
-        assertEquals(testModel, createdFromParcel.getModel());
-        assertEquals(testVersionFirmware, createdFromParcel.getVersionFirmware());
-        assertEquals(testVersionHardware, createdFromParcel.getVersionHardware());
-        assertEquals(testDeviceId, createdFromParcel.getDeviceId());
-        assertEquals(testValue, createdFromParcel.getValue(testKey));
+        assertNotEquals(0, createdFromParcelArray.length);
+        assertEquals(testPlatformMetaData, createdFromParcel);
     }
 }

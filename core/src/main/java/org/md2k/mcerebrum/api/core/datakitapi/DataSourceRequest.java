@@ -33,7 +33,8 @@ public class DataSourceRequest extends AbstractDataSource {
     private DataSourceRequest() {
         super();
     }
-    private DataSourceRequest(Parcel in){
+
+    private DataSourceRequest(Parcel in) {
         super(in);
     }
 
@@ -47,32 +48,40 @@ public class DataSourceRequest extends AbstractDataSource {
         super.setApplicationType(dataSourceBuilder.applicationType);
         super.setApplicationId(dataSourceBuilder.applicationId);
     }
-    public String getDataSourceType(){
+
+    public String getDataSourceType() {
         return super.getDataSourceType();
     }
-    public String getDataSourceId(){
+
+    public String getDataSourceId() {
         return super.getDataSourceId();
     }
-    public String getPlatformType(){
+
+    public String getPlatformType() {
         return super.getPlatformType();
     }
-    public String getPlatformId(){
+
+    public String getPlatformId() {
         return super.getPlatformId();
     }
-    public String getPlatformAppType(){
+
+    public String getPlatformAppType() {
         return super.getPlatformAppType();
     }
-    public String getPlatformAppId(){
+
+    public String getPlatformAppId() {
         return super.getPlatformAppId();
     }
-    public String getApplicationType(){
+
+    public String getApplicationType() {
         return super.getApplicationType();
     }
-    public String getApplicationId(){
+
+    public String getApplicationId() {
         return super.getApplicationId();
     }
 
-    public static Builder builder(){
+    public static Builder builder() {
         return new Builder();
     }
 
@@ -85,12 +94,15 @@ public class DataSourceRequest extends AbstractDataSource {
         private String platformAppId = null;
         private String applicationType = null;
         private String applicationId = null;
+
         Builder() {
         }
+
         public Builder setDataSourceType(String dataSourceType) {
             this.dataSourceType = dataSourceType;
             return this;
         }
+
         public Builder setDataSourceId(String datasourceId) {
             this.dataSourceId = datasourceId;
             return this;
@@ -100,14 +112,17 @@ public class DataSourceRequest extends AbstractDataSource {
             this.platformType = platformType;
             return this;
         }
+
         public Builder setPlatformId(String platformId) {
             this.platformId = platformId;
             return this;
         }
+
         public Builder setPlatformAppType(String platformApp) {
             this.platformAppType = platformApp;
             return this;
         }
+
         public Builder setPlatformAppId(String platformAppId) {
             this.platformAppId = platformAppId;
             return this;
@@ -117,18 +132,22 @@ public class DataSourceRequest extends AbstractDataSource {
             this.applicationType = applicationType;
             return this;
         }
+
         public Builder setApplicationId(String applicationId) {
             this.applicationId = applicationId;
             return this;
         }
+
         public DataSourceRequest build() {
             return new DataSourceRequest(this);
         }
     }
+
     @Override
     public int describeContents() {
         return 0;
     }
+
     public static final Creator<DataSourceRequest> CREATOR = new Creator<DataSourceRequest>() {
         @Override
         public DataSourceRequest createFromParcel(Parcel in) {
