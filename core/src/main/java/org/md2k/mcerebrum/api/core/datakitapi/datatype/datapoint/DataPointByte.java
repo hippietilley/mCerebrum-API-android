@@ -125,4 +125,20 @@ public class DataPointByte extends Data implements Parcelable{
             return new DataPointByte[size];
         }
     };
+
+    @Override
+    public boolean equals(Object toCompare) {
+        if (super.equals(toCompare)) {
+            if (toCompare instanceof DataPointByte) {
+                for (int i = 0; i < this.getSample().length; i++) {
+                    if (this.getSample()[i] != ((DataPointByte) toCompare).getSample()[i]) {
+                        return false;
+                    }
+                }
+                return true;
+            } else
+                return false;
+        } else
+            return false;
+    }
 }

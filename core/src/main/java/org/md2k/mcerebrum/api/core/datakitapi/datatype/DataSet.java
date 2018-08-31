@@ -117,4 +117,27 @@ public class DataSet implements Parcelable{
     public int getStatus() {
         return status;
     }
+
+    @Override
+    public boolean equals(Object toCompare) {
+        if (super.equals(toCompare)) {
+            if (toCompare instanceof DataSet) {
+                if (this.actualDataSize != ((DataSet) toCompare).actualDataSize)
+                    return false;
+                if (this.receivedDataSize != ((DataSet) toCompare).receivedDataSize)
+                    return false;
+                if (this.samplingType != ((DataSet) toCompare).samplingType)
+                    return false;
+                else {
+                    for (int i = 0; i < this.data.length; i++) {
+                        if (this.getData()[i] != ((DataSet) toCompare).getData()[i])
+                            return false;
+                    }
+                    return true;
+                }
+            } else
+                return false;
+        } else
+            return false;
+    }
 }

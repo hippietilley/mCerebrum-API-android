@@ -13,6 +13,9 @@ import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataType;
 
 import java.util.concurrent.TimeUnit;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -140,7 +143,7 @@ public class DataSourceCreatorAndroidUnitTest {
     @Test
     public void platformMetaDataComparableTest() {
         testDataSourceCreator = new DataSourceCreator.Builder().setPlatformMetadata(testPlatformMetaData).build();
-        assertEquals(testPlatformMetaData, testDataSourceCreator.getPlatformMetaData());
+        assertThat(testDataSourceCreator.getPlatformMetaData(), is(equalTo(testPlatformMetaData)));
     }
 
     @Test
@@ -161,7 +164,7 @@ public class DataSourceCreatorAndroidUnitTest {
     @Test
     public void platformAppMetaDataComparableTest() {
         testDataSourceCreator = new DataSourceCreator.Builder().setPlatformAppMetadata(testPlatformAppMetaData).build();
-        assertEquals(testPlatformAppMetaData, testDataSourceCreator.getPlatformAppMetaData());
+        assertThat(testDataSourceCreator.getPlatformAppMetaData(), is(equalTo(testPlatformAppMetaData)));
     }
 
     @Test
@@ -178,7 +181,8 @@ public class DataSourceCreatorAndroidUnitTest {
     @Test
     public void applicationMetaDataComparableTest() {
         testDataSourceCreator = new DataSourceCreator.Builder().setApplicationMetaData(testAppMetaData).build();
-        assertEquals(testAppMetaData, testDataSourceCreator.getApplicationMetaData());
+        // testAppMetaData.versionName turns null at this point
+        assertThat(testDataSourceCreator.getApplicationMetaData(), is(equalTo(testAppMetaData)));
     }
 
     @Test
@@ -222,14 +226,6 @@ public class DataSourceCreatorAndroidUnitTest {
     }
 
     @Test
-    public void platformAsPhoneComparableTest() {
-        testDataSourceCreator = new DataSourceCreator.Builder().setPlatformAsPhone().build();
-        assertEquals(PLATFORM.TYPE.PHONE, testDataSourceCreator.getPlatformType());
-        assertNotNull(testDataSourceCreator.getPlatformId());
-        assertEquals(testPlatformMetaData, testDataSourceCreator.getPlatformMetaData());
-    }
-
-    @Test
     public void dataDescriptorTest() {
         testDataSourceCreator = new DataSourceCreator.Builder().setDataDescriptor(0, testDataDescriptor).build();
         assertEquals(testDataDescriptor.getTitle(), testDataSourceCreator.getDataDescriptors().get(0).getTitle());
@@ -251,7 +247,7 @@ public class DataSourceCreatorAndroidUnitTest {
     public void dataDescriptorComparableTest() {
         testDataSourceCreator = new DataSourceCreator.Builder().setDataDescriptor(0, testDataDescriptor).build();
         for (DataDescriptor dataDescriptorToCheck : testDataSourceCreator.getDataDescriptors())
-            assertEquals(testDataDescriptor, dataDescriptorToCheck);
+            assertThat(dataDescriptorToCheck, is(equalTo(testDataDescriptor)));
     }
 
     @Test
@@ -266,18 +262,12 @@ public class DataSourceCreatorAndroidUnitTest {
     @Test
     public void dataSourceMetaDataComparableTest() {
         testDataSourceCreator = new DataSourceCreator.Builder().setDataSourceMetadata(testDataSourceMetaData).build();
-        assertEquals(testDataSourceMetaData, testDataSourceCreator.getDataSourceMetaData());
+        assertThat(testDataSourceCreator.getDataSourceMetaData(), is(equalTo(testDataSourceMetaData)));
     }
 
     @Test
     public void dataSourceCreator_ParcelableWriteReadTest() {
-        testDataSourceCreator = new DataSourceCreator.Builder().setDataSourceId(dataSourceIdArray[0])
-                .setPlatformType(platformTypeArray[0]).setPlatformId(platformIdArray[0])
-                .setPlatformAppType(platformAppTypeArray[0]).setPlatformAppId(platformAppIdArray[0])
-                .setApplicationType(applicationTypeArray[0]).setDataSourceMetadata(testDataSourceMetaData)
-                .setPlatformMetadata(testPlatformMetaData).setPlatformAppMetadata(testPlatformAppMetaData)
-                .setApplicationMetaData(testAppMetaData).setDataRate(TestingConstants.TEST_SAMPLE_NO, timeUnitArray[0])
-                .setDataDescriptor(0, testDataDescriptor).build();
+        testDataSourceCreator = CommonObjectConstructors.createDataSourceCreator();
 
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
@@ -392,13 +382,7 @@ public class DataSourceCreatorAndroidUnitTest {
 
     @Test
     public void dataSourceCreator_ParcelableWriteReadComparableTest() {
-        testDataSourceCreator = new DataSourceCreator.Builder().setDataSourceId(dataSourceIdArray[0])
-                .setPlatformType(platformTypeArray[0]).setPlatformId(platformIdArray[0])
-                .setPlatformAppType(platformAppTypeArray[0]).setPlatformAppId(platformAppIdArray[0])
-                .setApplicationType(applicationTypeArray[0]).setDataSourceMetadata(testDataSourceMetaData)
-                .setPlatformMetadata(testPlatformMetaData).setPlatformAppMetadata(testPlatformAppMetaData)
-                .setApplicationMetaData(testAppMetaData).setDataRate(TestingConstants.TEST_SAMPLE_NO, timeUnitArray[0])
-                .setDataDescriptor(0, testDataDescriptor).build();
+        testDataSourceCreator = CommonObjectConstructors.createDataSourceCreator();
 
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
@@ -413,6 +397,6 @@ public class DataSourceCreatorAndroidUnitTest {
 
         // Verify the results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(testDataSourceCreator, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(testDataSourceCreator)));
     }
 }

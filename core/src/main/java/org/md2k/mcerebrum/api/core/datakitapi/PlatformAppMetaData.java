@@ -231,4 +231,39 @@ public class PlatformAppMetaData implements Parcelable{
             return new PlatformAppMetaData(this);
         }
     }
+
+    @Override
+    public boolean equals(Object toCompare) {
+        if (toCompare instanceof  PlatformAppMetaData) {
+            for (String thisKey : this.custom.keySet()) {
+                if (!this.custom.get(thisKey).equalsIgnoreCase(((PlatformAppMetaData) toCompare).custom.get(thisKey)))
+                    return false;
+            }
+            for (String toCompareKey : ((PlatformAppMetaData) toCompare).custom.keySet()) {
+                if (!((PlatformAppMetaData) toCompare).custom.get(toCompareKey).equalsIgnoreCase(this.custom.get(toCompareKey)))
+                    return false;
+            }
+            if (!(this.title.equals(((PlatformAppMetaData) toCompare).title)))
+                return false;
+            if (!(this.summary.equals(((PlatformAppMetaData) toCompare).summary)))
+                return false;
+            if (!(this.description.equals(((PlatformAppMetaData) toCompare).description)))
+                return false;
+            if (!(this.operationSystem.equals(((PlatformAppMetaData) toCompare).operationSystem)))
+                return false;
+            if (!(this.manufacturer.equals(((PlatformAppMetaData) toCompare).manufacturer)))
+                return false;
+            if (!(this.model.equals(((PlatformAppMetaData) toCompare).model)))
+                return false;
+            if (!(this.versionFirmware.equals(((PlatformAppMetaData) toCompare).versionFirmware)))
+                return false;
+            if (!(this.versionHardware.equals(((PlatformAppMetaData) toCompare).versionHardware)))
+                return false;
+            if (!(this.deviceId.equals(((PlatformAppMetaData) toCompare).deviceId)))
+                return false;
+            else
+                return true;
+        } else
+            return false;
+    }
 }

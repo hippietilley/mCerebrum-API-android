@@ -7,6 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -42,17 +45,18 @@ public class DataPointObjectAndroidUnitTest {
 
     @Test
     public void fieldAccuracyTest() {
+        assertEquals(testTimestamp, mDataPointObjectArray.getTimestamp());
+        assertArrayEquals(testObjectSampleArray, mDataPointObjectArray.getSample());
+
+        assertEquals(testTimestamp, mDataPointObject.getTimestamp());
+        for (Object obj : mDataPointObject.getSample())
+            assertEquals(testObjectSample, obj);
+
         assertEquals(testTimestamp, mDataPointObjectString.getTimestamp());
-        assertEquals("Hello world", mDataPointObjectString.getSample()[0]);
+        assertEquals(testSample, mDataPointObjectString.getSample()[0]);
 
         assertEquals(testTimestamp, mDataPointObjectStringArray.getTimestamp());
         assertArrayEquals(testSampleArray, mDataPointObjectStringArray.getSample());
-
-        assertEquals(testTimestamp, mDataPointObject.getTimestamp());
-        assertEquals(testObjectSample, mDataPointObject.getSample());
-
-        assertEquals(testTimestamp, mDataPointObjectArray.getTimestamp());
-        assertArrayEquals(testObjectSampleArray, mDataPointObjectArray.getSample());
     }
 
     @Test
@@ -66,8 +70,12 @@ public class DataPointObjectAndroidUnitTest {
     @Test
     public void dataPointObjectCloneComparableTest() {
         DataPointObject dataPointClone = mDataPointObjectString.clone();
-        assertEquals(mDataPointObjectString, dataPointClone);
+        assertThat(dataPointClone, is(equalTo(mDataPointObjectString)));
         assertNotSame(mDataPointObjectString, dataPointClone);
+
+        DataPointObject dataPointObjectClone = mDataPointObject.clone();
+        assertThat(dataPointObjectClone, is(equalTo(mDataPointObject)));
+        assertNotSame(mDataPointObject, dataPointObjectClone);
     }
 
     @Test
@@ -130,7 +138,7 @@ public class DataPointObjectAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointObject, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(mDataPointObject)));
     }
 
     @Test
@@ -148,7 +156,7 @@ public class DataPointObjectAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointObjectString, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(mDataPointObjectString)));
     }
 
     @Test
@@ -204,7 +212,7 @@ public class DataPointObjectAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointObjectStringArray, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(mDataPointObjectStringArray)));
     }
 
     @Test
@@ -222,6 +230,6 @@ public class DataPointObjectAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointObjectArray, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(mDataPointObjectArray)));
     }
 }

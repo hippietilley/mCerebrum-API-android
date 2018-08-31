@@ -5,6 +5,7 @@ import android.support.test.filters.SmallTest;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.dataannotation.DataAnnotationEnum;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointBoolean;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointByte;
@@ -16,6 +17,9 @@ import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointObject
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointString;
 import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -23,21 +27,13 @@ import static org.junit.Assert.assertNotEquals;
 
 @SmallTest
 public class DataSetAndroidUnitTest {
-    public static final double DELTA = 0.1;
+    public static final double DELTA = TestingConstants.DELTA;
     private final int actualDataSize = 100;
     private final int receivedDataSize = 101;
     private int[] samplingTypes = {DataSet.SAMPLING_TYPE.ALL.getCode(),
                                    DataSet.SAMPLING_TYPE.FIRST_N_SAMPLE.getCode(),
                                    DataSet.SAMPLING_TYPE.DISTRIBUTED_N_SAMPLE.getCode()};
-    private int[] statuses = {MCerebrumStatus.UNKNOWN_ERROR, MCerebrumStatus.SUCCESS,
-                              MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED,
-                              MCerebrumStatus.MCEREBRUM_APP_NOT_INSTALLED,
-                              MCerebrumStatus.CONNECTION_ERROR, MCerebrumStatus.INVALID_PARAMETER,
-                              MCerebrumStatus.INVALID_DATA_SOURCE,
-                              MCerebrumStatus.MISSING_DATA_SOURCE_TYPE, MCerebrumStatus.MISSING_DATA_TYPE,
-                              MCerebrumStatus.DATA_SOURCE_NOT_REGISTERED, MCerebrumStatus.INVALID_DATA,
-                              MCerebrumStatus.INCONSISTENT_DATA_TYPE, MCerebrumStatus.INVALID_TIMESTAMP,
-                              MCerebrumStatus.DATA_SIZE_TOO_LARGE};
+    private int[] statuses = TestingConstants.STATUS_INT_ARRAY;
 
     private long testTimestamp = 1268660460;
     private long testStartTimestamp = 1268660060;
@@ -86,6 +82,26 @@ public class DataSetAndroidUnitTest {
             assertEquals(status, testDataSetSamplingFirstN.getStatus());
             assertEquals(status, testDataSetSamplingDistributedN.getStatus());
         }
+    }
+
+    @Test
+    public void dataSetSamplingAll_ParcelableWriteReadComparable() {
+        // Write data to parcel.
+        Parcel parcelAll = Parcel.obtain();
+        testDataSetSamplingAll.writeToParcel(parcelAll, testDataSetSamplingAll.describeContents());
+
+        // After writing, reset the parcel for reading
+        parcelAll.setDataPosition(0);
+
+        // Read the data.
+        DataSet createdFromParcelAll = DataSet.CREATOR.createFromParcel(parcelAll);
+        DataSet[] createdFromParcelArrayAll = DataSet.CREATOR.newArray(1);
+        DataSet readFromParcelAll = new DataSet();
+        readFromParcelAll.readFromParcel(parcelAll);
+
+        // Verify results.
+        assertNotEquals(0, createdFromParcelArrayAll.length);
+        assertThat(createdFromParcelAll, is(equalTo(testDataSetSamplingAll)));
     }
 
     @Test
@@ -167,6 +183,26 @@ public class DataSetAndroidUnitTest {
     }
 
     @Test
+    public void dataSetSamplingFirstN_ParcelableWriteReadComparable() {
+        // Write data to parcel.
+        Parcel parcelFirstN = Parcel.obtain();
+        testDataSetSamplingFirstN.writeToParcel(parcelFirstN, testDataSetSamplingFirstN.describeContents());
+
+        // After writing, reset the parcel for reading
+        parcelFirstN.setDataPosition(0);
+
+        // Read the data.
+        DataSet createdFromParcelFirstN = DataSet.CREATOR.createFromParcel(parcelFirstN);
+        DataSet[] createdFromParcelArrayFirstN = DataSet.CREATOR.newArray(1);
+        DataSet readFromParcelFirstN = new DataSet();
+        readFromParcelFirstN.readFromParcel(parcelFirstN);
+
+        // Verify results.
+        assertNotEquals(0, createdFromParcelArrayFirstN.length);
+        assertThat(createdFromParcelFirstN, is(equalTo(testDataSetSamplingFirstN)));
+    }
+
+    @Test
     public void dataSetSamplingFirstN_ParcelableWriteRead() {
         // Write data to parcel.
         Parcel parcelFirstN = Parcel.obtain();
@@ -235,6 +271,27 @@ public class DataSetAndroidUnitTest {
     }
 
     @Test
+    public void dataSetSamplingDistributedN_ParcelableWriteReadComparable() {
+        // Write data to parcel.
+        Parcel parcelDistributedN = Parcel.obtain();
+        testDataSetSamplingDistributedN.writeToParcel(parcelDistributedN,
+                testDataSetSamplingDistributedN.describeContents());
+
+        // After writing, reset the parcel for reading
+        parcelDistributedN.setDataPosition(0);
+
+        // Read the data.
+        DataSet createdFromParcelDistributedN = DataSet.CREATOR.createFromParcel(parcelDistributedN);
+        DataSet[] createdFromParcelArrayDistributedN = DataSet.CREATOR.newArray(1);
+        DataSet readFromParcelDistributedN = new DataSet();
+        readFromParcelDistributedN.readFromParcel(parcelDistributedN);
+
+        // Verify results.
+        assertNotEquals(0, createdFromParcelArrayDistributedN.length);
+        assertThat(createdFromParcelDistributedN, is(equalTo(testDataSetSamplingDistributedN)));
+    }
+
+        @Test
     public void dataSetSamplingDistributedN_ParcelableWriteRead() {
         // Write data to parcel.
         Parcel parcelDistributedN = Parcel.obtain();
