@@ -38,37 +38,6 @@ public class DataSourceCreatorAndroidUnitTest {
     PlatformAppMetaData testPlatformAppMetaData;
     ApplicationMetaData testAppMetaData;
     DataDescriptor testDataDescriptor;
-<<<<<<< HEAD
-=======
-    final DataType[] dataTypeArray = {DataType.DATAPOINT_BOOLEAN, DataType.DATAPOINT_BYTE,
-            DataType.DATAPOINT_INT, DataType.DATAPOINT_LONG, DataType.DATAPOINT_DOUBLE,
-            DataType.DATAPOINT_STRING, DataType.DATAPOINT_ENUM, DataType.DATAPOINT_OBJECT,
-            DataType.DATAANNOTATION_ENUM, DataType.UNKNOWN};
-
-    // Variable for Platform and Application metadata objects
-    private final String testTitle = "Android Phone";
-    private final String testSummary = "Android Phone";
-    private final String testDescription = "Test Description";
-    private final String testOperationSystem = "Android " + Build.VERSION.RELEASE;
-    private final String testManufacturer = Build.MANUFACTURER;
-    private final String testModel = Build.MODEL;
-    private final String testVersionFirmware = "Test Version Firmware";
-    private final String testVersionHardware = "Test Version Hardware";
-    private String testVersionName = "Test version";
-    private int testVersionNumber = 1;
-    private final double testMinValue = 3.14;
-    private final double testMaxValue = 6.28;
-    private final String[] testPossibleValuesAsString = {"3.14", "4", "5", "6", "6.28"};
-    private final int[] testPossibleValuesAsInt = {3, 4, 5, 6};
-    private final String testUnit = "Test Unit";
-    private final String testDeviceId = "Test Device ID";
-    private final String testKey = "Test Key";
-    private final String testValue = "Test Value";
-    private DataSourceCreator testDataSourceCreator;
-    private final TimeUnit[] timeUnitArray = {TimeUnit.DAYS, TimeUnit.HOURS, TimeUnit.MINUTES,
-            TimeUnit.SECONDS, TimeUnit.MILLISECONDS};
-    private final int testSampleNo = 10;
->>>>>>> upstream/master
     MCerebrumAPI testmCerebrumAPI;
     Context testContext;
 
