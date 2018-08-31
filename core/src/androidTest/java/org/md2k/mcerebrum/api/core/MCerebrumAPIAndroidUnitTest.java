@@ -1,7 +1,6 @@
 package org.md2k.mcerebrum.api.core;
 
 import android.content.Context;
-import android.os.Build;
 import android.support.test.InstrumentationRegistry;
 
 import org.junit.Before;
@@ -22,8 +21,6 @@ import org.md2k.mcerebrum.api.core.datakitapi.callback.ConnectionCallback;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.Data;
 import org.md2k.mcerebrum.api.core.datakitapi.exception.MCerebrumException;
 import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
-
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
