@@ -5,8 +5,11 @@ import android.support.test.filters.SmallTest;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isEmptyString;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -15,7 +18,7 @@ import static org.junit.Assert.assertNotSame;
 
 @SmallTest
 public class DataPointStringAndroidUnitTest {
-    private final long testTimestamp = 1268660460;
+    private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
 
     private final String testSample = "Hello world";
     private DataPointString mDataPointString;
@@ -58,7 +61,7 @@ public class DataPointStringAndroidUnitTest {
     @Test
     public void dataPointStringCloneComparableTest() {
         DataPointString dataPointClone = mDataPointString.clone();
-        assertEquals(mDataPointString, dataPointClone);
+        assertThat(dataPointClone, is(equalTo(mDataPointString)));
         assertNotSame(mDataPointString, dataPointClone);
     }
 
@@ -97,7 +100,7 @@ public class DataPointStringAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointString, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(mDataPointString)));
     }
 
     @Test
@@ -134,6 +137,6 @@ public class DataPointStringAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointStringArray, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(mDataPointStringArray)));
     }
 }

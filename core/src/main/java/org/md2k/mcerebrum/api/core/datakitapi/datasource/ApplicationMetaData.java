@@ -188,4 +188,27 @@ public class ApplicationMetaData implements Parcelable{
             }
         }
     }
+
+    @Override
+    public boolean equals(Object toCompare) {
+        if (toCompare instanceof  DataSourceMetaData) {
+            for (String thisKey : this.custom.keySet()) {
+                if (!this.custom.get(thisKey).equalsIgnoreCase(((DataSourceMetaData) toCompare).custom.get(thisKey)))
+                    return false;
+            }
+            for (String toCompareKey : ((DataSourceMetaData) toCompare).custom.keySet()) {
+                if (!((DataSourceMetaData) toCompare).custom.get(toCompareKey).equalsIgnoreCase(this.custom.get(toCompareKey)))
+                    return false;
+            }
+            if (!(this.title.equals(((DataSourceMetaData) toCompare).title)))
+                return false;
+            if (!(this.summary.equals(((DataSourceMetaData) toCompare).summary)))
+                return false;
+            if (!(this.description.equals(((DataSourceMetaData) toCompare).description)))
+                return false;
+            else
+                return true;
+        } else
+            return false;
+    }
 }

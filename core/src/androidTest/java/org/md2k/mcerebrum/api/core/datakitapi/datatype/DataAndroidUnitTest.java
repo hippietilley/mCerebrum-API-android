@@ -5,14 +5,18 @@ import android.support.test.filters.SmallTest;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertThat;
 
 @SmallTest
 public class DataAndroidUnitTest {
-    private final long testTimestamp = 1268660460;
+    private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
     private Data mData;
 
     // Create the object.
@@ -36,7 +40,7 @@ public class DataAndroidUnitTest {
     @Test
     public void dataCloneComparableTest() {
         Data dataClone = mData.clone();
-        assertEquals(mData, dataClone);
+        assertThat(dataClone, is(equalTo(mData)));
         assertNotSame(mData, dataClone);
     }
 
@@ -73,6 +77,6 @@ public class DataAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mData, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(mData)));
     }
 }

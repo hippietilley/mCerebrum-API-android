@@ -133,4 +133,20 @@ public class DataPointObject extends Data implements Parcelable {
             return new DataPointObject[size];
         }
     };
+
+    @Override
+    public boolean equals(Object toCompare) {
+        if (super.equals(toCompare)) {
+            if (toCompare instanceof DataPointObject) {
+                for (int i = 0; i < this.getSample().length; i++) {
+                    if (!(this.getSample()[i].equals(((DataPointObject) toCompare).getSample()[i]))) {
+                        return false;
+                    }
+                }
+                return true;
+            } else
+                return false;
+        } else
+            return false;
+    }
 }
