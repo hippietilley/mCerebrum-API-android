@@ -5,15 +5,18 @@ import android.os.Parcel;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+import static org.junit.Assert.assertThat;
+
 public class MCPluginParamAndroidUnitTest {
-    public static String testTitle = "Test title";
-    public static String testId = "Test Id";
+    public static String testTitle = TestingConstants.TEST_TITLE;
+    public static String testId = TestingConstants.TEST_DEVICE_ID;
     public static JSONObject testJSONObject = new JSONObject();
     public MCPluginParam testMCPluginParam;
 
@@ -45,6 +48,7 @@ public class MCPluginParamAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
+        assertThat(createdFromParcelArray.length, is(not(0)));
         assertEquals(testMCPluginParam.getTitle(), createdFromParcel.getTitle());
         assertEquals(testMCPluginParam.getId(), createdFromParcel.getId());
         assertEquals(testMCPluginParam.getParams().toString(), createdFromParcel.getParams().toString());
