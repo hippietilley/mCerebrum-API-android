@@ -122,6 +122,9 @@ public abstract class DataSource extends AbstractDataSource implements Parcelabl
         return super.getStatus();
     }
 
-
+    @Override
+    public boolean equals(Object toCompare) {
+        return super.equals(toCompare);
+    }
 }
 
