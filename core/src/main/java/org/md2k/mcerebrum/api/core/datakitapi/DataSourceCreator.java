@@ -248,29 +248,7 @@ public class DataSourceCreator extends DataSource implements Parcelable {
 
     @Override
     public boolean equals(Object toCompare) {
-        if (toCompare instanceof  DataSourceCreator) {
-            if (!(this.getDataSourceType().equals(((DataSourceCreator) toCompare).getDataSourceType())))
-                return false;
-            if (!(this.getDataSourceId().equals(((DataSourceCreator) toCompare).getDataSourceId())))
-                return false;
-            if (!(this.getPlatformType().equals(((DataSourceCreator) toCompare).getPlatformType())))
-                return false;
-            if (!(this.getPlatformId().equals(((DataSourceCreator) toCompare).getPlatformId())))
-                return false;
-            if (!(this.getPlatformAppType().equals(((DataSourceCreator) toCompare).getPlatformAppType())))
-                return false;
-            if (!(this.getPlatformAppId().equals(((DataSourceCreator) toCompare).getPlatformAppId())))
-                return false;
-            if (!(this.getApplicationType().equals(((DataSourceCreator) toCompare).getApplicationType())))
-                return false;
-            //if (!(this.getApplicationId().equals(((DataSourceCreator) toCompare).getApplicationId())))
-                //return false;
-            return ((this.getDataSourceMetaData().equals(((DataSourceCreator) toCompare).getDataSourceMetaData())) &&
-                    (this.getPlatformMetaData().equals(((DataSourceCreator) toCompare).getPlatformMetaData())) &&
-                    (this.getPlatformAppMetaData().equals(((DataSourceCreator) toCompare).getPlatformAppMetaData())) &&
-                    (this.getApplicationMetaData().equals(((DataSourceCreator) toCompare).getApplicationMetaData())));
-        } else
-            return false;
+        return super.equals(toCompare);
     }
 }
 

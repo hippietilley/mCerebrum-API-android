@@ -299,4 +299,39 @@ public abstract class AbstractDataSource implements Parcelable {
         parcel.writeString(dataRate);
         parcel.writeString(appId);
     }
+
+    @Override
+    public boolean equals(Object toCompare) {
+        if (toCompare instanceof  AbstractDataSource) {
+            if (!(this.dsId == ((AbstractDataSource) toCompare).dsId))
+                return false;
+            if (!(this.creationTime == ((AbstractDataSource) toCompare).creationTime))
+                return false;
+            if (!(this.modifiedTime == ((AbstractDataSource) toCompare).modifiedTime))
+                return false;
+            if (!(this.status == ((AbstractDataSource) toCompare).status))
+                return false;
+            if (!(this.getDataSourceType().equals(((AbstractDataSource) toCompare).getDataSourceType())))
+                return false;
+            if (!(this.getDataSourceId().equals(((AbstractDataSource) toCompare).getDataSourceId())))
+                return false;
+            if (!(this.getPlatformType().equals(((AbstractDataSource) toCompare).getPlatformType())))
+                return false;
+            if (!(this.getPlatformId().equals(((AbstractDataSource) toCompare).getPlatformId())))
+                return false;
+            if (!(this.getPlatformAppType().equals(((AbstractDataSource) toCompare).getPlatformAppType())))
+                return false;
+            if (!(this.getPlatformAppId().equals(((AbstractDataSource) toCompare).getPlatformAppId())))
+                return false;
+            if (!(this.getApplicationType().equals(((AbstractDataSource) toCompare).getApplicationType())))
+                return false;
+            //if (!(this.getApplicationId().equals(((AbstractDataSource) toCompare).getApplicationId())))
+            //return false;
+            return ((this.getDataSourceMetaData().equals(((AbstractDataSource) toCompare).getDataSourceMetaData())) &&
+                    (this.getPlatformMetaData().equals(((AbstractDataSource) toCompare).getPlatformMetaData())) &&
+                    (this.getPlatformAppMetaData().equals(((AbstractDataSource) toCompare).getPlatformAppMetaData())) &&
+                    (this.getApplicationMetaData().equals(((AbstractDataSource) toCompare).getApplicationMetaData())));
+        } else
+            return false;
+    }
 }
