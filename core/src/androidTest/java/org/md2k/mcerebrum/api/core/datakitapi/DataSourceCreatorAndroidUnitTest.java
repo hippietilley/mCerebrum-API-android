@@ -133,8 +133,8 @@ public class DataSourceCreatorAndroidUnitTest {
         assertEquals(testPlatformMetaData.getVersionFirmware(), testDataSourceCreator.getPlatformMetaData().getVersionFirmware());
         assertEquals(testPlatformMetaData.getVersionHardware(), testDataSourceCreator.getPlatformMetaData().getVersionHardware());
         assertEquals(testPlatformMetaData.getDeviceId(), testDataSourceCreator.getPlatformMetaData().getDeviceId());
-        assertEquals(testPlatformMetaData.getValue(TestingConstants.TEST_KEY),
-                testDataSourceCreator.getPlatformMetaData().getValue(TestingConstants.TEST_KEY));
+        assertEquals(testPlatformMetaData.getData(TestingConstants.TEST_KEY),
+                testDataSourceCreator.getPlatformMetaData().getData(TestingConstants.TEST_KEY));
     }
 
     @Test
@@ -172,7 +172,7 @@ public class DataSourceCreatorAndroidUnitTest {
         assertEquals(testAppMetaData.getDescription(), testDataSourceCreator.getApplicationMetaData().getDescription());
         assertEquals(testAppMetaData.getVersionName(), testDataSourceCreator.getApplicationMetaData().getVersionName());
         assertEquals(testAppMetaData.getVersionNumber(), testDataSourceCreator.getApplicationMetaData().getVersionNumber());
-        assertEquals(testAppMetaData.getValue(TestingConstants.TEST_KEY), testDataSourceCreator.getApplicationMetaData().getValue(TestingConstants.TEST_KEY));
+        assertEquals(testAppMetaData.getData(TestingConstants.TEST_KEY), testDataSourceCreator.getApplicationMetaData().getData(TestingConstants.TEST_KEY));
     }
 
     @Test
@@ -260,7 +260,7 @@ public class DataSourceCreatorAndroidUnitTest {
         assertEquals(testDataSourceMetaData.getTitle(), testDataSourceCreator.getDataSourceMetaData().getTitle());
         assertEquals(testDataSourceMetaData.getSummary(), testDataSourceCreator.getDataSourceMetaData().getSummary());
         assertEquals(testDataSourceMetaData.getDescription(), testDataSourceCreator.getDataSourceMetaData().getDescription());
-        assertEquals(testDataSourceMetaData.getValue(TestingConstants.TEST_KEY), testDataSourceCreator.getDataSourceMetaData().getValue(TestingConstants.TEST_KEY));
+        assertEquals(testDataSourceMetaData.getData(TestingConstants.TEST_KEY), testDataSourceCreator.getDataSourceMetaData().getData(TestingConstants.TEST_KEY));
     }
 
     @Test
@@ -306,8 +306,8 @@ public class DataSourceCreatorAndroidUnitTest {
                 createdFromParcel.getDataSourceMetaData().getSummary());
         assertEquals(testDataSourceCreator.getDataSourceMetaData().getDescription(),
                 createdFromParcel.getDataSourceMetaData().getDescription());
-        assertEquals(testDataSourceCreator.getDataSourceMetaData().getValue(TestingConstants.TEST_KEY),
-                createdFromParcel.getDataSourceMetaData().getValue(TestingConstants.TEST_KEY));
+        assertEquals(testDataSourceCreator.getDataSourceMetaData().getData(TestingConstants.TEST_KEY),
+                createdFromParcel.getDataSourceMetaData().getData(TestingConstants.TEST_KEY));
 
         // Test the PlatformMetaData for equality
         assertEquals(testDataSourceCreator.getPlatformMetaData().getTitle(),
@@ -328,8 +328,8 @@ public class DataSourceCreatorAndroidUnitTest {
                 createdFromParcel.getPlatformMetaData().getVersionHardware());
         assertEquals(testDataSourceCreator.getPlatformMetaData().getDeviceId(),
                 createdFromParcel.getPlatformMetaData().getDeviceId());
-        assertEquals(testDataSourceCreator.getPlatformMetaData().getValue(TestingConstants.TEST_KEY),
-                createdFromParcel.getPlatformMetaData().getValue(TestingConstants.TEST_KEY));
+        assertEquals(testDataSourceCreator.getPlatformMetaData().getData(TestingConstants.TEST_KEY),
+                createdFromParcel.getPlatformMetaData().getData(TestingConstants.TEST_KEY));
 
         // Test PlatformAppMetaData for equality
         assertEquals(testDataSourceCreator.getPlatformAppMetaData().getTitle(),
@@ -364,8 +364,8 @@ public class DataSourceCreatorAndroidUnitTest {
                 createdFromParcel.getApplicationMetaData().getVersionName());
         assertEquals(testDataSourceCreator.getApplicationMetaData().getVersionNumber(),
                 createdFromParcel.getApplicationMetaData().getVersionNumber());
-        assertEquals(testDataSourceCreator.getApplicationMetaData().getValue(TestingConstants.TEST_KEY),
-                createdFromParcel.getApplicationMetaData().getValue(TestingConstants.TEST_KEY));
+        assertEquals(testDataSourceCreator.getApplicationMetaData().getData(TestingConstants.TEST_KEY),
+                createdFromParcel.getApplicationMetaData().getData(TestingConstants.TEST_KEY));
 
         assertEquals(testDataSourceCreator.getDataRate(), createdFromParcel.getDataRate());
 

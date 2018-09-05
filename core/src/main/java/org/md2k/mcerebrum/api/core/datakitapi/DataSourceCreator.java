@@ -28,6 +28,7 @@
 package org.md2k.mcerebrum.api.core.datakitapi;
 
 import android.annotation.SuppressLint;
+import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.os.Parcel;
@@ -61,22 +62,7 @@ public class DataSourceCreator extends DataSource implements Parcelable {
         super.setDataDescriptors(dataSourceBuilder.dataDescriptors);
         super.setDataType(dataSourceBuilder.dataType);
         super.setDataRate(dataSourceBuilder.dataRate);
-        try {
-            Context context = MCerebrumAPI.getContext();
-            if (context != null) {
-                super.setAppId(context.getPackageName());
-                String versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
-                int versionNumber = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
-                if (super.getApplicationMetaData() == null)
-                    super.setApplicationMetaData(ApplicationMetaData.builder().setVersionNumber(versionNumber).setVersionName(versionName).build());
-                else {
-                    super.getApplicationMetaData().setVersionName(versionName);
-                    super.getApplicationMetaData().setVersionNumber(versionNumber);
-                }
-            }
-        } catch (Exception ignored) {
 
-        }
     }
 
     protected DataSourceCreator(Parcel in) {
@@ -226,13 +212,12 @@ public class DataSourceCreator extends DataSource implements Parcelable {
             this.platformType = PLATFORM.TYPE.PHONE;
             this.platformId = Settings.Secure.getString(context.getContentResolver(),
                     Settings.Secure.ANDROID_ID);
-            if (this.platformMetaData == null)
-                this.platformMetaData = new PlatformMetaData();
-            this.platformMetaData.setTitle("Android Phone");
-//        this.metadata.put(PlatformMetaData.SUMMARY,"Android Phone");
-            this.platformMetaData.setOperationSystem("Android " + Build.VERSION.RELEASE);
-            this.platformMetaData.setManufacturer(Build.MANUFACTURER);
-            this.platformMetaData.setModel(Build.MODEL);
+            this.platformMetaData = PlatformMetaData.builder(platformMetaData)
+                    .setTitle("Android Phone")
+                    .setDescription("Android Phone")
+                    .setOperationSystem("Android " + Build.VERSION.RELEASE)
+                    .setManufacturer(Build.MANUFACTURER)
+                    .setModel(Build.MODEL).build();
             return this;
         }
 

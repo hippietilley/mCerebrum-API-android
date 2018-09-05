@@ -26,8 +26,8 @@ public class PlatformMetaDataAndroidUnitTest {
 
     @Test
     public void PlatformMetaDataBuilderTest() {
-        testPlatformMetaData = new PlatformMetaData.Builder().setValue(testKey, testValue).build();
-        assertEquals(testValue, testPlatformMetaData.getValue(testKey));
+        testPlatformMetaData = new PlatformMetaData.Builder().setData(testKey, testValue).build();
+        assertEquals(testValue, testPlatformMetaData.getData(testKey));
 
         testPlatformMetaData = new PlatformMetaData.Builder().setTitle(testTitle).setSummary(testSummary)
                 .setDescription(testDescription).setOperationSystem(testOperationSystem)
@@ -42,7 +42,7 @@ public class PlatformMetaDataAndroidUnitTest {
         assertEquals(testVersionFirmware, testPlatformMetaData.getVersionFirmware());
         assertEquals(testVersionHardware, testPlatformMetaData.getVersionHardware());
         assertEquals(testDeviceId, testPlatformMetaData.getDeviceId());
-        assertNull(testPlatformMetaData.getValue(testKey));
+        assertNull(testPlatformMetaData.getData(testKey));
     }
 
     @Test
@@ -71,35 +71,6 @@ public class PlatformMetaDataAndroidUnitTest {
         assertEquals(testVersionFirmware, createdFromParcel.getVersionFirmware());
         assertEquals(testVersionHardware, createdFromParcel.getVersionHardware());
         assertEquals(testDeviceId, createdFromParcel.getDeviceId());
-        assertEquals(testValue, createdFromParcel.getValue(testKey));
-    }
-
-    @Test
-    public void PlatformMetaData_ParcelableWriteReadComparableTest() {
-        testPlatformMetaData = new PlatformMetaData.Builder().setValue(testKey, testValue).build();
-        testPlatformMetaData.setTitle(testTitle);
-        testPlatformMetaData.setSummary(testSummary);
-        testPlatformMetaData.setDescription(testDescription);
-        testPlatformMetaData.setOperationSystem(testOperationSystem);
-        testPlatformMetaData.setManufacturer(testManufacturer);
-        testPlatformMetaData.setModel(testModel);
-        testPlatformMetaData.setVersionFirmware(testVersionFirmware);
-        testPlatformMetaData.setVersionHardware(testVersionHardware);
-        testPlatformMetaData.setDeviceId(testDeviceId);
-
-        // Write to parcel.
-        Parcel parcel = Parcel.obtain();
-        testPlatformMetaData.writeToParcel(parcel, testPlatformMetaData.describeContents());
-
-        // After writing, reset the parcel for reading.
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        PlatformMetaData createdFromParcel = PlatformMetaData.CREATOR.createFromParcel(parcel);
-        PlatformMetaData[] createdFromParcelArray = PlatformMetaData.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(testPlatformMetaData, createdFromParcel);
+        assertEquals(testValue, createdFromParcel.getData(testKey));
     }
 }

@@ -30,34 +30,127 @@ package org.md2k.mcerebrum.api.core.datakitapi;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Builder class for <code>DataSource</code> objects
  */
 public class ApplicationMetaData implements Parcelable{
-    private String title;
-    private String summary;
-    private String description;
-    private String versionName;
-    private int versionNumber;
-    private HashMap<String, String> custom = new HashMap<>();
+    private static final String TITLE = "TITLE";
+    private static final String SUMMARY = "SUMMARY";
+    private static final String DESCRIPTION = "DESCRIPTION";
+    private static final String VERSION_NAME = "VERSION_NAME";
+    private static final String VERSION_NUMBER = "VERSION_NUMBER";
 
-    private ApplicationMetaData() {
+    private HashMap<String, String> metaData;
+
+    public String getTitle() {
+        return metaData.get(TITLE);
     }
 
+    public String getSummary() {
+        return metaData.get(SUMMARY);
+    }
+
+    public String getDescription() {
+        return metaData.get(DESCRIPTION);
+    }
+
+    public String getVersionName() {
+        return metaData.get(VERSION_NAME);
+    }
+
+    public int getVersionNumber() {
+        if(metaData.containsKey(VERSION_NUMBER))
+            return Integer.valueOf(metaData.get(VERSION_NUMBER));
+        else return -1;
+    }
+
+    public String getData(String key){
+        return metaData.get(key);
+    }
+    public String[] getKeys(){
+        String[] res=new String[metaData.size()];
+        int i=-1;
+
+        // Display the TreeMap which is naturally sorted
+        for (Map.Entry<String, String> entry : metaData.entrySet()) {
+            res[++i]=entry.getKey();
+        }
+        Arrays.sort(res);
+        return res;
+    }
+
+    private ApplicationMetaData(Builder builder) {
+        this.metaData = new HashMap<>();
+        this.metaData.putAll(builder.metaData);
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static Builder builder(ApplicationMetaData applicationMetaData) {
+        if(applicationMetaData ==null)
+            return new Builder();
+        else return new Builder(applicationMetaData.metaData);
+    }
+
+
+    public static class Builder {
+        private HashMap<String, String> metaData;
+
+        Builder() {
+            metaData = new HashMap<>();
+        }
+        Builder(HashMap<String, String> metaData) {
+            this.metaData = new HashMap<>();
+            this.metaData.putAll(metaData);
+        }
+
+        public Builder setTitle(String title) {
+            metaData.put(TITLE,title);
+            return this;
+        }
+
+        public Builder setSummary(String summary) {
+            metaData.put(SUMMARY,summary);
+            return this;
+        }
+
+        public Builder setDescription(String description) {
+            metaData.put(DESCRIPTION,description);
+            return this;
+        }
+        public Builder setVersionName(String versionName) {
+            metaData.put(VERSION_NAME, versionName);
+            return this;
+        }
+        public Builder setVersionNumber(int versionNumber) {
+            metaData.put(VERSION_NUMBER, Integer.toString(versionNumber));
+            return this;
+        }
+
+        public Builder setData(String key, String value) {
+            this.metaData.put(key, value);
+            return this;
+        }
+
+        public ApplicationMetaData build() {
+            return new ApplicationMetaData(this);
+        }
+
+    }
     protected ApplicationMetaData(Parcel in) {
-        title = in.readString();
-        summary = in.readString();
-        description = in.readString();
-        versionName = in.readString();
-        versionNumber = in.readInt();
         int size = in.readInt();
-        if (size == -1) custom = null;
+        if (size == -1) metaData = null;
         else {
-            custom = new HashMap<>();
+            metaData = new HashMap<>();
             for (int j = 0; j < size; j++) {
-                custom.put(in.readString(), in.readString());
+                metaData.put(in.readString(), in.readString());
             }
         }
     }
@@ -73,43 +166,6 @@ public class ApplicationMetaData implements Parcelable{
             return new ApplicationMetaData[size];
         }
     };
-
-    public String getTitle(){
-        return title;
-    }
-    public String getSummary(){
-        return summary;
-    }
-    public String getDescription(){
-        return description;
-    }
-    public String getVersionName(){ return versionName;}
-    public int getVersionNumber(){return versionNumber;}
-    public String getValue(String key){
-        if(custom==null) return null;
-        return custom.get(key);
-    }
-    private ApplicationMetaData(Builder builder) {
-        title = builder.title;
-        summary = builder.summary;
-        description = builder.description;
-        versionName = builder.versionName;
-        versionNumber = builder.versionNumber;
-        custom= builder.custom;
-    }
-
-    protected void setVersionName(String versionName) {
-        this.versionName = versionName;
-    }
-
-    protected void setVersionNumber(int versionNumber) {
-        this.versionNumber = versionNumber;
-    }
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -117,65 +173,15 @@ public class ApplicationMetaData implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(title);
-        parcel.writeString(summary);
-        parcel.writeString(description);
-        parcel.writeString(versionName);
-        parcel.writeInt(versionNumber);
-        if (custom == null)
+        if (metaData == null)
             parcel.writeInt(-1);
         else {
-            int size = custom.size();
+            int size = metaData.size();
             parcel.writeInt(size);
-            for (HashMap.Entry<String, String> entry : custom.entrySet()) {
+            for (HashMap.Entry<String, String> entry : metaData.entrySet()) {
                 parcel.writeString(entry.getKey());
                 parcel.writeString(entry.getValue());
             }
-        }
-    }
-
-    public static class Builder {
-        private String title;
-        private String summary;
-        private String description;
-        private String versionName;
-        private int versionNumber;
-        private HashMap<String, String> custom = new HashMap<>();
-
-        Builder() {
-        }
-
-        public Builder setTitle(String title) {
-            this.title = title;
-            return this;
-        }
-
-        public Builder setSummary(String summary) {
-            this.summary = summary;
-            return this;
-        }
-
-        public Builder setDescription(String description) {
-            this.description = description;
-            return this;
-        }
-
-        public Builder setVersionName(String versionName) {
-            this.versionName = versionName;
-            return this;
-        }
-
-        public Builder setVersionNumber(int versionNumber) {
-            this.versionNumber = versionNumber;
-            return this;
-        }
-
-        public Builder setValue(String key, String value) {
-            this.custom.put(key, value);
-            return this;
-        }
-        public ApplicationMetaData build() {
-            return new ApplicationMetaData(this);
         }
     }
 }

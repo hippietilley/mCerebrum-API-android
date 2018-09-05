@@ -36,24 +36,98 @@ import java.util.HashMap;
  * Builder class for <code>DataSource</code> objects
  */
 public class DataSourceMetaData implements Parcelable {
-    private String title;
-    private String summary;
-    private String description;
-    private HashMap<String, String> custom = new HashMap<>();
+    /** Title of the data source */
+    private static final String TITLE = "TITLE";
 
-    DataSourceMetaData() {
+    /** Summary of the data source */
+    private static final String SUMMARY = "SUMMARY";
+
+    /** Description of what the data source is. */
+    private static final String DESCRIPTION = "DESCRIPTION";
+
+    private HashMap<String, String> metaData;
+
+    public String getTitle() {
+        return metaData.get(TITLE);
     }
 
+    public String getSummary() {
+        return metaData.get(SUMMARY);
+    }
+
+    public String getDescription() {
+        return metaData.get(DESCRIPTION);
+    }
+
+
+    public String getData(String key) {
+        return metaData.get(key);
+    }
+
+
+    private DataSourceMetaData(Builder builder) {
+        this.metaData = new HashMap<>();
+        this.metaData.putAll(builder.metaData);
+    }
+
+
+    public static Builder builder() {
+        return new Builder();
+    }
+    public static Builder builder(DataSourceMetaData dataSourceMetaData){
+        if(dataSourceMetaData==null)
+            return new Builder();
+        else return new Builder(dataSourceMetaData.metaData);
+    }
+
+
+    public static class Builder {
+        private HashMap<String, String> metaData;
+
+        Builder() {
+            metaData = new HashMap<>();
+        }
+        Builder(HashMap<String, String> metaData) {
+            this.metaData = new HashMap<>();
+            this.metaData.putAll(metaData);
+        }
+
+        public Builder setTitle(String title) {
+            this.metaData.put(TITLE, title);
+            return this;
+        }
+
+        public Builder setSummary(String summary) {
+            this.metaData.put(SUMMARY, summary);
+            return this;
+        }
+
+        public Builder setDescription(String description) {
+            this.metaData.put(DESCRIPTION, description);
+            return this;
+        }
+
+        public Builder setData(String key, String value) {
+            this.metaData.put(key, value);
+            return this;
+        }
+        public Builder setData(HashMap<String, String> metaData){
+            for (HashMap.Entry<String, String> entry : metaData.entrySet())
+                this.metaData.put(entry.getKey(), entry.getValue());
+            return this;
+        }
+
+        public DataSourceMetaData build() {
+            return new DataSourceMetaData(this);
+        }
+    }
     private DataSourceMetaData(Parcel in) {
-        title = in.readString();
-        summary = in.readString();
-        description = in.readString();
         int size = in.readInt();
-        if (size == -1) custom = null;
+        if (size == -1) metaData = null;
         else {
-            custom = new HashMap<>();
+            metaData = new HashMap<>();
             for (int j = 0; j < size; j++) {
-                custom.put(in.readString(), in.readString());
+                metaData.put(in.readString(), in.readString());
             }
         }
     }
@@ -69,37 +143,6 @@ public class DataSourceMetaData implements Parcelable {
             return new DataSourceMetaData[size];
         }
     };
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getValue(String key) {
-        if (custom == null) return null;
-        return custom.get(key);
-    }
-
-
-    private DataSourceMetaData(Builder builder) {
-        title = builder.title;
-        summary = builder.summary;
-        description = builder.description;
-        custom = builder.custom;
-    }
-
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -107,52 +150,17 @@ public class DataSourceMetaData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(title);
-        parcel.writeString(summary);
-        parcel.writeString(description);
-        if (custom == null)
+        if (metaData == null)
             parcel.writeInt(-1);
         else {
-            int size = custom.size();
+            int size = metaData.size();
             parcel.writeInt(size);
-            for (HashMap.Entry<String, String> entry : custom.entrySet()) {
+            for (HashMap.Entry<String, String> entry : metaData.entrySet()) {
                 parcel.writeString(entry.getKey());
                 parcel.writeString(entry.getValue());
             }
         }
     }
 
-    public static class Builder {
-        private String title;
-        private String summary;
-        private String description;
-        private HashMap<String, String> custom = new HashMap<>();
 
-        Builder() {
-        }
-
-        public Builder setTitle(String title) {
-            this.title = title;
-            return this;
-        }
-
-        public Builder setSummary(String summary) {
-            this.summary = summary;
-            return this;
-        }
-
-        public Builder setDescription(String description) {
-            this.description = description;
-            return this;
-        }
-
-        public Builder setValue(String key, String value) {
-            this.custom.put(key, value);
-            return this;
-        }
-
-        public DataSourceMetaData build() {
-            return new DataSourceMetaData(this);
-        }
-    }
 }

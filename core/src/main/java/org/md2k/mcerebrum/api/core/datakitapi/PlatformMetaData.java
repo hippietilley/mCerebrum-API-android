@@ -36,36 +36,152 @@ import java.util.HashMap;
  * Builder class for <code>DataSource</code> objects
  */
 public class PlatformMetaData implements Parcelable {
-    private String title;
-    private String summary;
-    private String description;
-    private String operationSystem;
-    private String manufacturer;
-    private String model;
-    private String versionFirmware;
-    private String versionHardware;
-    private String deviceId;
-    private HashMap<String, String> custom = new HashMap<>();
+    /** Title of the platform */
+    private static final String TITLE = "TITLE";
+    /** Summary of the platform */
+    private static final String SUMMARY = "SUMMARY";
+    /** Description of the platform */
+    private static final String DESCRIPTION = "DESCRIPTION";
+    private static final String OPERATING_SYSTEM = "OPERATING_SYSTEM";
+    private static final String MANUFACTURER = "MANUFACTURER";
+    private static final String MODEL = "MODEL";
+    private static final String VERSION_FIRMWARE = "VERSION_FIRMWARE";
+    private static final String VERSION_HARDWARE = "VERSION_HARDWARE";
+    private static final String DEVICE_ID = "DEVICE_ID";
+    private HashMap<String, String> metaData;
 
-    PlatformMetaData() {
+    public String getTitle() {
+        return metaData.get(TITLE);
     }
 
+    public String getSummary() {
+        return metaData.get(SUMMARY);
+    }
+
+    public String getDescription() {
+        return metaData.get(DESCRIPTION);
+    }
+
+    public String getOperationSystem() {
+        return metaData.get(OPERATING_SYSTEM);
+    }
+
+    public String getManufacturer() {
+        return metaData.get(MANUFACTURER);
+    }
+
+    public String getModel() {
+        return metaData.get(MODEL);
+    }
+
+    public String getVersionFirmware() {
+        return metaData.get(VERSION_FIRMWARE);
+    }
+
+    public String getVersionHardware() {
+        return metaData.get(VERSION_HARDWARE);
+    }
+
+    public String getDeviceId() {
+        return metaData.get(DEVICE_ID);
+    }
+
+    public String getData(String key) {
+        return metaData.get(key);
+    }
+
+    private PlatformMetaData(Builder builder) {
+        this.metaData = new HashMap<>();
+        this.metaData.putAll(builder.metaData);
+    }
+
+
+    public static Builder builder() {
+        return new Builder();
+    }
+    public static Builder builder(PlatformMetaData platformMetaData){
+        if(platformMetaData==null)
+            return new Builder();
+        else return new Builder(platformMetaData.metaData);
+    }
+
+    public static class Builder {
+        private HashMap<String, String> metaData;
+
+        Builder() {
+            metaData = new HashMap<>();
+        }
+        Builder(HashMap<String, String> metaData) {
+            this.metaData = new HashMap<>();
+            this.metaData.putAll(metaData);
+        }
+
+        public Builder setTitle(String title) {
+            metaData.put(TITLE,title);
+            return this;
+        }
+
+        public Builder setSummary(String summary) {
+            metaData.put(SUMMARY,summary);
+            return this;
+        }
+
+        public Builder setDescription(String description) {
+            metaData.put(DESCRIPTION, description);
+            return this;
+        }
+
+        public Builder setOperationSystem(String operationSystem) {
+            metaData.put(OPERATING_SYSTEM,operationSystem);
+            return this;
+        }
+
+        public Builder setManufacturer(String manufacturer) {
+            metaData.put(MANUFACTURER,manufacturer);
+            return this;
+        }
+
+        public Builder setModel(String model) {
+            metaData.put(MODEL,model);
+            return this;
+        }
+
+        public Builder setVersionFirmware(String versionFirmware) {
+            metaData.put(VERSION_FIRMWARE,versionFirmware);
+            return this;
+        }
+
+        public Builder setVersionHardware(String versionHardware) {
+            metaData.put(VERSION_HARDWARE,versionHardware);
+            return this;
+        }
+
+        public Builder setDeviceId(String deviceId) {
+            metaData.put(DEVICE_ID,deviceId);
+            return this;
+        }
+
+        public Builder setData(String key, String value) {
+            this.metaData.put(key, value);
+            return this;
+        }
+        public Builder setData(HashMap<String, String> metaData){
+            for (HashMap.Entry<String, String> entry : metaData.entrySet())
+                this.metaData.put(entry.getKey(), entry.getValue());
+            return this;
+        }
+
+        public PlatformMetaData build() {
+            return new PlatformMetaData(this);
+        }
+    }
     private PlatformMetaData(Parcel in) {
-        title = in.readString();
-        summary = in.readString();
-        description = in.readString();
-        operationSystem = in.readString();
-        manufacturer = in.readString();
-        model = in.readString();
-        versionFirmware = in.readString();
-        versionHardware = in.readString();
-        deviceId = in.readString();
         int size = in.readInt();
-        if (size == -1) custom = null;
+        if (size == -1) metaData = null;
         else {
-            custom = new HashMap<>();
+            metaData = new HashMap<>();
             for (int j = 0; j < size; j++) {
-                custom.put(in.readString(), in.readString());
+                metaData.put(in.readString(), in.readString());
             }
         }
     }
@@ -81,102 +197,6 @@ public class PlatformMetaData implements Parcelable {
             return new PlatformMetaData[size];
         }
     };
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getOperationSystem() {
-        return operationSystem;
-    }
-
-    public String getManufacturer() {
-        return manufacturer;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public String getVersionFirmware() {
-        return versionFirmware;
-    }
-
-    public String getVersionHardware() {
-        return versionHardware;
-    }
-
-    public String getDeviceId() {
-        return deviceId;
-    }
-
-    public String getValue(String key) {
-        if (custom == null) return null;
-        return custom.get(key);
-    }
-
-    protected void setTitle(String title) {
-        this.title = title;
-    }
-
-    protected void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    protected void setDescription(String description) {
-        this.description = description;
-    }
-
-    protected void setOperationSystem(String operationSystem) {
-        this.operationSystem = operationSystem;
-    }
-
-    protected void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
-    }
-
-    protected void setModel(String model) {
-        this.model = model;
-    }
-
-    protected void setVersionFirmware(String versionFirmware) {
-        this.versionFirmware = versionFirmware;
-    }
-
-    protected void setVersionHardware(String versionHardware) {
-        this.versionHardware = versionHardware;
-    }
-
-    protected void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
-    }
-
-    private PlatformMetaData(Builder builder) {
-        title = builder.title;
-        summary = builder.summary;
-        description = builder.description;
-        operationSystem = builder.operationSystem;
-        manufacturer = builder.manufacturer;
-        model = builder.model;
-        versionFirmware = builder.versionFirmware;
-        versionHardware = builder.versionHardware;
-        deviceId = builder.deviceId;
-        custom = builder.custom;
-    }
-
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -184,21 +204,12 @@ public class PlatformMetaData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(title);
-        parcel.writeString(summary);
-        parcel.writeString(description);
-        parcel.writeString(operationSystem);
-        parcel.writeString(manufacturer);
-        parcel.writeString(model);
-        parcel.writeString(versionFirmware);
-        parcel.writeString(versionHardware);
-        parcel.writeString(deviceId);
-        if (custom == null)
+        if (metaData == null)
             parcel.writeInt(-1);
         else {
-            int size = custom.size();
+            int size = metaData.size();
             parcel.writeInt(size);
-            for (HashMap.Entry<String, String> entry : custom.entrySet()) {
+            for (HashMap.Entry<String, String> entry : metaData.entrySet()) {
                 parcel.writeString(entry.getKey());
                 parcel.writeString(entry.getValue());
             }
@@ -206,73 +217,6 @@ public class PlatformMetaData implements Parcelable {
 
     }
 
-    public static class Builder {
-        private String title;
-        private String summary;
-        private String description;
-        private String operationSystem;
-        private String manufacturer;
-        private String model;
-        private String versionFirmware;
-        private String versionHardware;
-        private String deviceId;
-        private HashMap<String, String> custom = new HashMap<>();
 
-        Builder() {
-        }
 
-        public Builder setTitle(String title) {
-            this.title = title;
-            return this;
-        }
-
-        public Builder setSummary(String summary) {
-            this.summary = summary;
-            return this;
-        }
-
-        public Builder setDescription(String description) {
-            this.description = description;
-            return this;
-        }
-
-        public Builder setOperationSystem(String operationSystem) {
-            this.operationSystem = operationSystem;
-            return this;
-        }
-
-        public Builder setManufacturer(String manufacturer) {
-            this.manufacturer = manufacturer;
-            return this;
-        }
-
-        public Builder setModel(String model) {
-            this.model = model;
-            return this;
-        }
-
-        public Builder setVersionFirmware(String versionFirmware) {
-            this.versionFirmware = versionFirmware;
-            return this;
-        }
-
-        public Builder setVersionHardware(String versionHardware) {
-            this.versionHardware = versionHardware;
-            return this;
-        }
-
-        public Builder setDeviceId(String deviceId) {
-            this.deviceId = deviceId;
-            return this;
-        }
-
-        public Builder setValue(String key, String value) {
-            this.custom.put(key, value);
-            return this;
-        }
-
-        public PlatformMetaData build() {
-            return new PlatformMetaData(this);
-        }
-    }
 }
