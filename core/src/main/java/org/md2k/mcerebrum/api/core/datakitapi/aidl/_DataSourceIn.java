@@ -5,6 +5,9 @@ import android.os.Parcelable;
 
 import com.google.gson.Gson;
 
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataDescriptor;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /*
@@ -49,7 +52,7 @@ public class _DataSourceIn implements Parcelable {
     private HashMap<String, String> applicationMetaData = null;
 
     private String dataType = null;
-    private HashMap[] dataDescriptors = null;
+    private ArrayList<DataDescriptor> dataDescriptors = null;
 
     private int accessLevel =-1; //0: ALL, 1: with permission 5:
     private int priorityLevel =-1; //0: None, Very Low, Low, Medium, High, Very High
@@ -175,11 +178,11 @@ public class _DataSourceIn implements Parcelable {
         this.dataType = dataType;
     }
 
-    public HashMap[] getDataDescriptors() {
+    public ArrayList<DataDescriptor> getDataDescriptors() {
         return dataDescriptors;
     }
 
-    public void setDataDescriptors(HashMap[] dataDescriptors) {
+    public void setDataDescriptors(ArrayList<DataDescriptor> dataDescriptors) {
         this.dataDescriptors = dataDescriptors;
     }
 
@@ -213,14 +216,15 @@ public class _DataSourceIn implements Parcelable {
         platformAppId = in.readString();
         applicationType = in.readString();
         applicationId = in.readString();
+        dataType = in.readString();
+        accessLevel = in.readInt();
+        priorityLevel =in.readInt();
+
         dataSourceMetaData = readMetaDataFromParcel(in);
         platformMetaData = readMetaDataFromParcel(in);
         platformAppMetaData = readMetaDataFromParcel(in);
         applicationMetaData = readMetaDataFromParcel(in);
-        dataType = in.readString();
-        dataDescriptors = readMetaDataArrayFromParcel(in);
-        accessLevel = in.readInt();
-        priorityLevel =in.readInt();
+        dataDescriptors = in.createTypedArrayList(DataDescriptor.CREATOR);
     }
     private HashMap[] readMetaDataArrayFromParcel(Parcel in){
         HashMap[] hashMaps;
@@ -257,14 +261,15 @@ public class _DataSourceIn implements Parcelable {
         parcel.writeString(applicationType);
         parcel.writeString(applicationId);
 
+        parcel.writeString(dataType);
+        parcel.writeInt(accessLevel);
+        parcel.writeInt(priorityLevel);
+
         writeToParcelMetaData(parcel, dataSourceMetaData);
         writeToParcelMetaData(parcel, platformMetaData);
         writeToParcelMetaData(parcel, platformAppMetaData);
         writeToParcelMetaData(parcel, applicationMetaData);
-        parcel.writeString(dataType);
-        writeToParcelMetaDataArray(parcel, dataDescriptors);
-        parcel.writeInt(accessLevel);
-        parcel.writeInt(priorityLevel);
+        parcel.writeTypedList(dataDescriptors);
     }
     private void writeToParcelMetaData(Parcel parcel, HashMap<String, String> metaData){
         int size = metaData.size();
@@ -273,12 +278,6 @@ public class _DataSourceIn implements Parcelable {
             parcel.writeString(entry.getKey());
             parcel.writeString(entry.getValue());
         }
-    }
-    private void writeToParcelMetaDataArray(Parcel parcel, HashMap[] metaData){
-        int size = metaData.length;
-        parcel.writeInt(size);
-        for(int i =0;i<size;i++)
-            writeToParcelMetaData(parcel, dataDescriptors[i]);
     }
 
     public String toUuid() {

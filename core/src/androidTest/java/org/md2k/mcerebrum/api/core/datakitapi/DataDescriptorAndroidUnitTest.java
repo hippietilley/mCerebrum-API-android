@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.support.test.filters.SmallTest;
 
 import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataDescriptor;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;

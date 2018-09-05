@@ -25,7 +25,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.md2k.mcerebrum.api.core.datakitapi;
+package org.md2k.mcerebrum.api.core.datakitapi.datasource;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -36,34 +36,29 @@ import java.util.HashMap;
  * Builder class for <code>DataSource</code> objects
  */
 public class DataDescriptor implements Parcelable{
-    private String title;
-    private String summary;
-    private String description;
+    private static final String TITLE = "TITLE";
+    private static final String SUMMARY = "SUMMARY";
+    private static final String DESCRIPTION = "DESCRIPTION";
+
     private double minValue;
     private double maxValue;
     private String[] possibleValuesAsString;
     private int[] possibleValuesAsInt;
     private String unit;
-    private HashMap<String, String> custom = new HashMap<>();
-
-    private DataDescriptor() {
-    }
+    private HashMap<String, String> descriptor = new HashMap<>();
 
     protected DataDescriptor(Parcel in) {
-        title = in.readString();
-        summary = in.readString();
-        description = in.readString();
         minValue = in.readDouble();
         maxValue = in.readDouble();
         possibleValuesAsString = in.createStringArray();
         possibleValuesAsInt = in.createIntArray();
         unit = in.readString();
         int size = in.readInt();
-        if (size == -1) custom = null;
+        if (size == -1) descriptor = null;
         else {
-            custom = new HashMap<>();
+            descriptor = new HashMap<>();
             for (int j = 0; j < size; j++) {
-                custom.put(in.readString(), in.readString());
+                descriptor.put(in.readString(), in.readString());
             }
         }
 
@@ -81,14 +76,16 @@ public class DataDescriptor implements Parcelable{
         }
     };
 
-    public String getTitle(){
-        return title;
+    public String getTitle() {
+        return descriptor.get(TITLE);
     }
-    public String getSummary(){
-        return summary;
+
+    public String getSummary() {
+        return descriptor.get(SUMMARY);
     }
-    public String getDescription(){
-        return description;
+
+    public String getDescription() {
+        return descriptor.get(DESCRIPTION);
     }
     public double getMinValue(){
         return minValue;
@@ -106,19 +103,16 @@ public class DataDescriptor implements Parcelable{
         return possibleValuesAsInt;
     }
     public String getValue(String key){
-        if(custom==null) return null;
-        return custom.get(key);
+        if(descriptor ==null) return null;
+        return descriptor.get(key);
     }
     private DataDescriptor(Builder builder) {
-        title = builder.title;
-        summary = builder.summary;
-        description = builder.description;
         minValue = builder.minValue;
         maxValue = builder.maxValue;
         unit = builder.unit;
         possibleValuesAsString =builder.possibleValuesAsString;
         possibleValuesAsInt =builder.possibleValuesAsInt;
-        custom= builder.custom;
+        descriptor = builder.descriptor;
     }
 
     public static Builder builder() {
@@ -132,20 +126,17 @@ public class DataDescriptor implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(title);
-        parcel.writeString(summary);
-        parcel.writeString(description);
         parcel.writeDouble(minValue);
         parcel.writeDouble(maxValue);
         parcel.writeStringArray(possibleValuesAsString);
         parcel.writeIntArray(possibleValuesAsInt);
         parcel.writeString(unit);
-        if (custom == null)
+        if (descriptor == null)
             parcel.writeInt(-1);
         else {
-            int size = custom.size();
+            int size = descriptor.size();
             parcel.writeInt(size);
-            for (HashMap.Entry<String, String> entry : custom.entrySet()) {
+            for (HashMap.Entry<String, String> entry : descriptor.entrySet()) {
                 parcel.writeString(entry.getKey());
                 parcel.writeString(entry.getValue());
             }
@@ -153,31 +144,29 @@ public class DataDescriptor implements Parcelable{
     }
 
     public static class Builder {
-        private String title;
-        private String summary;
-        private String description;
+
         private double minValue;
         private double maxValue;
         private String unit;
         private String[] possibleValuesAsString;
         private int[] possibleValuesAsInt;
-        private HashMap<String, String> custom = new HashMap<>();
+        private HashMap<String, String> descriptor = new HashMap<>();
 
-        Builder() {
+        public Builder() {
         }
 
         public Builder setTitle(String title) {
-            this.title = title;
+            descriptor.put(TITLE,title);
             return this;
         }
 
         public Builder setSummary(String summary) {
-            this.summary = summary;
+            descriptor.put(SUMMARY,summary);
             return this;
         }
 
         public Builder setDescription(String description) {
-            this.description = description;
+            descriptor.put(DESCRIPTION,description);
             return this;
         }
 
@@ -200,7 +189,7 @@ public class DataDescriptor implements Parcelable{
         }
 
         public Builder setValue(String key, String value) {
-            this.custom.put(key, value);
+            this.descriptor.put(key, value);
             return this;
         }
 

@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.ApplicationMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.CommonObjectConstructors;
-import org.md2k.mcerebrum.api.core.datakitapi.DataDescriptor;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataDescriptor;
 import org.md2k.mcerebrum.api.core.datakitapi.DataSourceCreator;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.DataSourceRequest;

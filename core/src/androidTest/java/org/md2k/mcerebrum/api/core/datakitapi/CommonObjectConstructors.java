@@ -1,6 +1,7 @@
 package org.md2k.mcerebrum.api.core.datakitapi;
 
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.ApplicationMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataDescriptor;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.PlatformMetaData;
 
