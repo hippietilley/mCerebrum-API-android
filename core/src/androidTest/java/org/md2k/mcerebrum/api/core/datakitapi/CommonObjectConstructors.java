@@ -11,7 +11,7 @@ public class CommonObjectConstructors {
     public static PlatformMetaData createPlatformMetaData() {
         PlatformMetaData.Builder testPlatformMetaDataBuilder;
         testPlatformMetaDataBuilder = PlatformMetaData.builder();
-        return testPlatformMetaDataBuilder.setData(TestingConstants.TEST_KEY, TestingConstants.TEST_VALUE)
+        return testPlatformMetaDataBuilder.setMetaData(TestingConstants.TEST_KEY, TestingConstants.TEST_VALUE)
                                           .setTitle(TestingConstants.TEST_TITLE)
                                           .setSummary(TestingConstants.TEST_SUMMARY)
                                           .setDescription(TestingConstants.TEST_DESCRIPTION)
@@ -45,7 +45,7 @@ public class CommonObjectConstructors {
                                      .setDescription(TestingConstants.TEST_DESCRIPTION)
                                      .setVersionName(TestingConstants.TEST_VERSION_NAME)
                                      .setVersionNumber(TestingConstants.TEST_VERSION_NUMBER)
-                                     .setData(TestingConstants.TEST_KEY, TestingConstants.TEST_VALUE)
+                                     .setMetaData(TestingConstants.TEST_KEY, TestingConstants.TEST_VALUE)
                                      .build();
     }
 
@@ -68,7 +68,7 @@ public class CommonObjectConstructors {
         return testDataSourceMetaDataBuilder.setTitle(TestingConstants.TEST_TITLE)
                                             .setSummary(TestingConstants.TEST_SUMMARY)
                                             .setDescription(TestingConstants.TEST_DESCRIPTION)
-                                            .setData(TestingConstants.TEST_KEY, TestingConstants.TEST_VALUE)
+                                            .setMetaData(TestingConstants.TEST_KEY, TestingConstants.TEST_VALUE)
                                             .build();
     }
 

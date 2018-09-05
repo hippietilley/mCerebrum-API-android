@@ -56,8 +56,8 @@ public class RegistrationAndroidUnitTest {
                 testReg.getDataSource().getDataSourceMetaData().getSummary());
         assertEquals(testDataSourceCreator.getDataSourceMetaData().getDescription(),
                 testReg.getDataSource().getDataSourceMetaData().getDescription());
-        assertEquals(testDataSourceCreator.getDataSourceMetaData().getData(testKey),
-                testReg.getDataSource().getDataSourceMetaData().getData(testKey));
+        assertEquals(testDataSourceCreator.getDataSourceMetaData().getMetaData(testKey),
+                testReg.getDataSource().getDataSourceMetaData().getMetaData(testKey));
 
         // Test the PlatformMetaData for equality
         assertEquals(testDataSourceCreator.getPlatformMetaData().getTitle(),
@@ -78,8 +78,8 @@ public class RegistrationAndroidUnitTest {
                 testReg.getDataSource().getPlatformMetaData().getVersionHardware());
         assertEquals(testDataSourceCreator.getPlatformMetaData().getDeviceId(),
                 testReg.getDataSource().getPlatformMetaData().getDeviceId());
-        assertEquals(testDataSourceCreator.getPlatformMetaData().getData(testKey),
-                testReg.getDataSource().getPlatformMetaData().getData(testKey));
+        assertEquals(testDataSourceCreator.getPlatformMetaData().getMetaData(testKey),
+                testReg.getDataSource().getPlatformMetaData().getMetaData(testKey));
 
         // Test PlatformAppMetaData for equality
         assertEquals(testDataSourceCreator.getPlatformAppMetaData().getTitle(),
@@ -114,10 +114,8 @@ public class RegistrationAndroidUnitTest {
                 testReg.getDataSource().getApplicationMetaData().getVersionName());
         assertEquals(testDataSourceCreator.getApplicationMetaData().getVersionNumber(),
                 testReg.getDataSource().getApplicationMetaData().getVersionNumber());
-        assertEquals(testDataSourceCreator.getApplicationMetaData().getData(testKey),
-                testReg.getDataSource().getApplicationMetaData().getData(testKey));
-
-        assertEquals(testDataSourceCreator.getDataRate(), testReg.getDataSource().getDataRate());
+        assertEquals(testDataSourceCreator.getApplicationMetaData().getMetaData(testKey),
+                testReg.getDataSource().getApplicationMetaData().getMetaData(testKey));
 
         // Test DataDescriptors for equality
         assertEquals(testDataSourceCreator.getDataDescriptors().get(0).getTitle(),
@@ -169,8 +167,8 @@ public class RegistrationAndroidUnitTest {
                 testReg.getDataSource().getDataSourceMetaData().getSummary());
         assertEquals(testDataSourceReadWrite.getDataSourceMetaData().getDescription(),
                 testReg.getDataSource().getDataSourceMetaData().getDescription());
-        assertEquals(testDataSourceReadWrite.getDataSourceMetaData().getData(testKey),
-                testReg.getDataSource().getDataSourceMetaData().getData(testKey));
+        assertEquals(testDataSourceReadWrite.getDataSourceMetaData().getMetaData(testKey),
+                testReg.getDataSource().getDataSourceMetaData().getMetaData(testKey));
 
         // Test the PlatformMetaData for equality
         assertEquals(testDataSourceReadWrite.getPlatformMetaData().getTitle(),
@@ -191,8 +189,8 @@ public class RegistrationAndroidUnitTest {
                 testReg.getDataSource().getPlatformMetaData().getVersionHardware());
         assertEquals(testDataSourceReadWrite.getPlatformMetaData().getDeviceId(),
                 testReg.getDataSource().getPlatformMetaData().getDeviceId());
-        assertEquals(testDataSourceReadWrite.getPlatformMetaData().getData(testKey),
-                testReg.getDataSource().getPlatformMetaData().getData(testKey));
+        assertEquals(testDataSourceReadWrite.getPlatformMetaData().getMetaData(testKey),
+                testReg.getDataSource().getPlatformMetaData().getMetaData(testKey));
 
         // Test PlatformAppMetaData for equality
         assertEquals(testDataSourceReadWrite.getPlatformAppMetaData().getTitle(),
@@ -227,10 +225,9 @@ public class RegistrationAndroidUnitTest {
                 testReg.getDataSource().getApplicationMetaData().getVersionName());
         assertEquals(testDataSourceReadWrite.getApplicationMetaData().getVersionNumber(),
                 testReg.getDataSource().getApplicationMetaData().getVersionNumber());
-        assertEquals(testDataSourceReadWrite.getApplicationMetaData().getData(testKey),
-                testReg.getDataSource().getApplicationMetaData().getData(testKey));
+        assertEquals(testDataSourceReadWrite.getApplicationMetaData().getMetaData(testKey),
+                testReg.getDataSource().getApplicationMetaData().getMetaData(testKey));
 
-        assertEquals(testDataSourceReadWrite.getDataRate(), testReg.getDataSource().getDataRate());
 
         // Test DataDescriptors for equality
         assertEquals(testDataSourceReadWrite.getDataDescriptors().get(0).getTitle(),

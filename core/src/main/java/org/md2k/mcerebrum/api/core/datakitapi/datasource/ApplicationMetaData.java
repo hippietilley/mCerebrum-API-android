@@ -68,7 +68,7 @@ public class ApplicationMetaData implements Parcelable{
         else return -1;
     }
 
-    public String getData(String key){
+    public String getMetaData(String key){
         return metaData.get(key);
     }
     public String[] getKeys(){
@@ -133,8 +133,13 @@ public class ApplicationMetaData implements Parcelable{
             return this;
         }
 
-        public Builder setData(String key, String value) {
+        public Builder setMetaData(String key, String value) {
             this.metaData.put(key, value);
+            return this;
+        }
+        public Builder setMetaData(HashMap<String, String> metaData){
+            for (HashMap.Entry<String, String> entry : metaData.entrySet())
+                this.metaData.put(entry.getKey(), entry.getValue());
             return this;
         }
 

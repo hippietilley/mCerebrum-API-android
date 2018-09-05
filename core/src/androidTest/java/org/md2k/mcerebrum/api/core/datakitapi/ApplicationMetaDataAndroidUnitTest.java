@@ -23,8 +23,8 @@ public class ApplicationMetaDataAndroidUnitTest {
 
     @Test
     public void ApplicationMetaDataBuilderTest() {
-        testAppMetaData = new ApplicationMetaData.Builder().setData(testKey, testValue).build();
-        assertEquals(testValue, testAppMetaData.getData(testKey));
+        testAppMetaData = new ApplicationMetaData.Builder().setMetaData(testKey, testValue).build();
+        assertEquals(testValue, testAppMetaData.getMetaData(testKey));
 
         testAppMetaData = new ApplicationMetaData.Builder().setTitle(testTitle).setSummary(testSummary)
                 .setDescription(testDescription).setVersionName(testVersionName)
@@ -34,7 +34,7 @@ public class ApplicationMetaDataAndroidUnitTest {
         assertEquals(testDescription, testAppMetaData.getDescription());
         assertEquals(testVersionName, testAppMetaData.getVersionName());
         assertEquals(testVersionNumber, testAppMetaData.getVersionNumber());
-        assertNull(testAppMetaData.getData(testKey));
+        assertNull(testAppMetaData.getMetaData(testKey));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class ApplicationMetaDataAndroidUnitTest {
         assertEquals(testAppMetaData.getDescription(), createdFromParcel.getDescription());
         assertEquals(testAppMetaData.getVersionName(), createdFromParcel.getVersionName());
         assertEquals(testAppMetaData.getVersionNumber(), createdFromParcel.getVersionNumber());
-        assertEquals(testAppMetaData.getData(testKey), createdFromParcel.getData(testKey));
+        assertEquals(testAppMetaData.getMetaData(testKey), createdFromParcel.getMetaData(testKey));
     }
 
     @Test

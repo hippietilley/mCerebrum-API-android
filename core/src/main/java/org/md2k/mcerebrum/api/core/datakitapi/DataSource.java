@@ -104,9 +104,6 @@ public abstract class DataSource extends AbstractDataSource implements Parcelabl
     public String getDataType() {
         return super.getDataType();
     }
-    public String getDataRate(){
-        return super.getDataRate();
-    }
 
     public int getDsId() {
         return super.getDsId();

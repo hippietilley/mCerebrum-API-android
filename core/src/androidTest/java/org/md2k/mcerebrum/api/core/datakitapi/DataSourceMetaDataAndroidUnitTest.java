@@ -23,15 +23,15 @@ public class DataSourceMetaDataAndroidUnitTest {
 
     @Test
     public void DataSourceMetaDataBuilderTest() {
-        testDataSourceMetaData = new DataSourceMetaData.Builder().setData(testKey, testValue).build();
-        assertEquals(testValue, testDataSourceMetaData.getData(testKey));
+        testDataSourceMetaData = new DataSourceMetaData.Builder().setMetaData(testKey, testValue).build();
+        assertEquals(testValue, testDataSourceMetaData.getMetaData(testKey));
 
         testDataSourceMetaData = new DataSourceMetaData.Builder().setTitle(testTitle)
                 .setSummary(testSummary).setDescription(testDescription).build();
         assertEquals(testTitle, testDataSourceMetaData.getTitle());
         assertEquals(testSummary, testDataSourceMetaData.getSummary());
         assertEquals(testDescription, testDataSourceMetaData.getDescription());
-        assertNull(testDataSourceMetaData.getData(testKey));
+        assertNull(testDataSourceMetaData.getMetaData(testKey));
     }
 
     @Test
@@ -54,7 +54,7 @@ public class DataSourceMetaDataAndroidUnitTest {
         assertEquals(testDataSourceMetaData.getTitle(), createdFromParcel.getTitle());
         assertEquals(testDataSourceMetaData.getSummary(), createdFromParcel.getSummary());
         assertEquals(testDataSourceMetaData.getDescription(), createdFromParcel.getDescription());
-        assertEquals(testDataSourceMetaData.getData(testKey), createdFromParcel.getData(testKey));
+        assertEquals(testDataSourceMetaData.getMetaData(testKey), createdFromParcel.getMetaData(testKey));
     }
 
     @Test

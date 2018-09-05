@@ -30,7 +30,10 @@ package org.md2k.mcerebrum.api.core.datakitapi.datasource;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.md2k.mcerebrum.api.core.datakitapi.DataSourceCreator;
+
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Builder class for <code>DataSource</code> objects
@@ -44,6 +47,9 @@ public class DataSourceMetaData implements Parcelable {
 
     /** Description of what the data source is. */
     private static final String DESCRIPTION = "DESCRIPTION";
+
+    /** Description of what the data source is. */
+    private static final String DATA_RATE = "DATA_RATE";
 
     private HashMap<String, String> metaData;
 
@@ -60,7 +66,7 @@ public class DataSourceMetaData implements Parcelable {
     }
 
 
-    public String getData(String key) {
+    public String getMetaData(String key) {
         return metaData.get(key);
     }
 
@@ -106,12 +112,47 @@ public class DataSourceMetaData implements Parcelable {
             this.metaData.put(DESCRIPTION, description);
             return this;
         }
+        public Builder setDataRateAsOnChange(){
+            this.metaData.put(DATA_RATE, "ON_CHANGE");
+            return this;
+        }
+        public Builder setDataRate(int sampleNo, TimeUnit timeUnit) {
+            String dataRate;
+            switch (timeUnit) {
+                case DAYS:
+                    dataRate = Double.toString((double) (sampleNo) / (24.0 * 60.0 * 60.0));
+                    break;
+                case HOURS:
+                    dataRate = Double.toString((double) (sampleNo) / (60.0 * 60.0));
+                    break;
+                case MINUTES:
+                    dataRate = Double.toString((double) (sampleNo) / (60.0));
+                    break;
+                case SECONDS:
+                    dataRate = Double.toString((double) (sampleNo));
+                    break;
+                case MILLISECONDS:
+                    dataRate = Double.toString((double) (sampleNo)*1000);
+                    break;
+                case MICROSECONDS:
+                    dataRate = Double.toString((double) (sampleNo)*1000*1000);
+                    break;
+                case NANOSECONDS:
+                    dataRate = Double.toString((double) (sampleNo)*1000*1000*1000);
+                    break;
+                default:
+                    dataRate = "UNKNOWN";
+                    break;
+            }
+            this.metaData.put(DATA_RATE, dataRate);
+            return this;
+        }
 
-        public Builder setData(String key, String value) {
+        public Builder setMetaData(String key, String value) {
             this.metaData.put(key, value);
             return this;
         }
-        public Builder setData(HashMap<String, String> metaData){
+        public Builder setMetaData(HashMap<String, String> metaData){
             for (HashMap.Entry<String, String> entry : metaData.entrySet())
                 this.metaData.put(entry.getKey(), entry.getValue());
             return this;

@@ -136,8 +136,8 @@ public class DataSourceCreatorAndroidUnitTest {
         assertEquals(testPlatformMetaData.getVersionFirmware(), testDataSourceCreator.getPlatformMetaData().getVersionFirmware());
         assertEquals(testPlatformMetaData.getVersionHardware(), testDataSourceCreator.getPlatformMetaData().getVersionHardware());
         assertEquals(testPlatformMetaData.getDeviceId(), testDataSourceCreator.getPlatformMetaData().getDeviceId());
-        assertEquals(testPlatformMetaData.getData(TestingConstants.TEST_KEY),
-                testDataSourceCreator.getPlatformMetaData().getData(TestingConstants.TEST_KEY));
+        assertEquals(testPlatformMetaData.getMetaData(TestingConstants.TEST_KEY),
+                testDataSourceCreator.getPlatformMetaData().getMetaData(TestingConstants.TEST_KEY));
     }
 
     @Test
@@ -175,7 +175,7 @@ public class DataSourceCreatorAndroidUnitTest {
         assertEquals(testAppMetaData.getDescription(), testDataSourceCreator.getApplicationMetaData().getDescription());
         assertEquals(testAppMetaData.getVersionName(), testDataSourceCreator.getApplicationMetaData().getVersionName());
         assertEquals(testAppMetaData.getVersionNumber(), testDataSourceCreator.getApplicationMetaData().getVersionNumber());
-        assertEquals(testAppMetaData.getData(TestingConstants.TEST_KEY), testDataSourceCreator.getApplicationMetaData().getData(TestingConstants.TEST_KEY));
+        assertEquals(testAppMetaData.getMetaData(TestingConstants.TEST_KEY), testDataSourceCreator.getApplicationMetaData().getMetaData(TestingConstants.TEST_KEY));
     }
 
     @Test
@@ -184,33 +184,6 @@ public class DataSourceCreatorAndroidUnitTest {
         assertEquals(testAppMetaData, testDataSourceCreator.getApplicationMetaData());
     }
 
-    @Test
-    public void dataRateTest() {
-        double hoursInDay = 24.0;
-        double minInHour = 60.0;
-        double secInMin = 60.0;
-        // Test days
-        testDataSourceCreator = new DataSourceCreator.Builder()
-                .setDataRate(TestingConstants.TEST_SAMPLE_NO, timeUnitArray[0]).build();
-        assertEquals(Double.toString((TestingConstants.TEST_SAMPLE_NO) / (hoursInDay * minInHour * secInMin)),
-                testDataSourceCreator.getDataRate());
-        // Test hours
-        testDataSourceCreator = new DataSourceCreator.Builder()
-                .setDataRate(TestingConstants.TEST_SAMPLE_NO, timeUnitArray[1]).build();
-        assertEquals(Double.toString((TestingConstants.TEST_SAMPLE_NO) / (minInHour * secInMin)), testDataSourceCreator.getDataRate());
-        // Test minutes
-        testDataSourceCreator = new DataSourceCreator.Builder()
-                .setDataRate(TestingConstants.TEST_SAMPLE_NO, timeUnitArray[2]).build();
-        assertEquals(Double.toString((TestingConstants.TEST_SAMPLE_NO) / (secInMin)), testDataSourceCreator.getDataRate());
-        // Test seconds
-        testDataSourceCreator = new DataSourceCreator.Builder()
-                .setDataRate(TestingConstants.TEST_SAMPLE_NO, timeUnitArray[3]).build();
-        assertEquals(Double.toString(TestingConstants.TEST_SAMPLE_NO), testDataSourceCreator.getDataRate());
-        // Test default (TimeUnit.MILLISECONDS)
-        testDataSourceCreator = new DataSourceCreator.Builder()
-                .setDataRate(TestingConstants.TEST_SAMPLE_NO, timeUnitArray[4]).build();
-        assertEquals(Double.toString(TestingConstants.TEST_SAMPLE_NO), testDataSourceCreator.getDataRate());
-    }
 
     @Test
     public void platformAsPhoneTest() {
@@ -263,159 +236,12 @@ public class DataSourceCreatorAndroidUnitTest {
         assertEquals(testDataSourceMetaData.getTitle(), testDataSourceCreator.getDataSourceMetaData().getTitle());
         assertEquals(testDataSourceMetaData.getSummary(), testDataSourceCreator.getDataSourceMetaData().getSummary());
         assertEquals(testDataSourceMetaData.getDescription(), testDataSourceCreator.getDataSourceMetaData().getDescription());
-        assertEquals(testDataSourceMetaData.getData(TestingConstants.TEST_KEY), testDataSourceCreator.getDataSourceMetaData().getData(TestingConstants.TEST_KEY));
+        assertEquals(testDataSourceMetaData.getMetaData(TestingConstants.TEST_KEY), testDataSourceCreator.getDataSourceMetaData().getMetaData(TestingConstants.TEST_KEY));
     }
 
     @Test
     public void dataSourceMetaDataComparableTest() {
         testDataSourceCreator = new DataSourceCreator.Builder().setDataSourceMetadata(testDataSourceMetaData).build();
         assertEquals(testDataSourceMetaData, testDataSourceCreator.getDataSourceMetaData());
-    }
-
-    @Test
-    public void dataSourceCreator_ParcelableWriteReadTest() {
-        testDataSourceCreator = new DataSourceCreator.Builder().setDataSourceId(dataSourceIdArray[0])
-                .setPlatformType(platformTypeArray[0]).setPlatformId(platformIdArray[0])
-                .setPlatformAppType(platformAppTypeArray[0]).setPlatformAppId(platformAppIdArray[0])
-                .setApplicationType(applicationTypeArray[0]).setDataSourceMetadata(testDataSourceMetaData)
-                .setPlatformMetadata(testPlatformMetaData).setPlatformAppMetadata(testPlatformAppMetaData)
-                .setApplicationMetaData(testAppMetaData).setDataRate(TestingConstants.TEST_SAMPLE_NO, timeUnitArray[0])
-                .setDataDescriptor(0, testDataDescriptor).build();
-
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        testDataSourceCreator.writeToParcel(parcel , testDataSourceCreator.describeContents());
-
-        // After writing, reset the parcel for reading.
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataSourceCreator createdFromParcel = DataSourceCreator.CREATOR.createFromParcel(parcel);
-        DataSourceCreator[] createdFromParcelArray = DataSourceCreator.CREATOR.newArray(1);
-
-        // Verify the results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(testDataSourceCreator.getDataSourceId(), createdFromParcel.getDataSourceId());
-        assertEquals(testDataSourceCreator.getPlatformType(), createdFromParcel.getPlatformType());
-        assertEquals(testDataSourceCreator.getPlatformId(), createdFromParcel.getPlatformId());
-        assertEquals(testDataSourceCreator.getPlatformAppType(), createdFromParcel.getPlatformAppType());
-        assertEquals(testDataSourceCreator.getPlatformAppId(), createdFromParcel.getPlatformAppId());
-        assertEquals(testDataSourceCreator.getApplicationType(), createdFromParcel.getApplicationType());
-
-        // Test the DataSourceMetaData for equality
-        assertEquals(testDataSourceCreator.getDataSourceMetaData().getTitle(),
-                createdFromParcel.getDataSourceMetaData().getTitle());
-        assertEquals(testDataSourceCreator.getDataSourceMetaData().getSummary(),
-                createdFromParcel.getDataSourceMetaData().getSummary());
-        assertEquals(testDataSourceCreator.getDataSourceMetaData().getDescription(),
-                createdFromParcel.getDataSourceMetaData().getDescription());
-        assertEquals(testDataSourceCreator.getDataSourceMetaData().getData(TestingConstants.TEST_KEY),
-                createdFromParcel.getDataSourceMetaData().getData(TestingConstants.TEST_KEY));
-
-        // Test the PlatformMetaData for equality
-        assertEquals(testDataSourceCreator.getPlatformMetaData().getTitle(),
-                createdFromParcel.getPlatformMetaData().getTitle());
-        assertEquals(testDataSourceCreator.getPlatformMetaData().getSummary(),
-                createdFromParcel.getPlatformMetaData().getSummary());
-        assertEquals(testDataSourceCreator.getPlatformMetaData().getDescription(),
-                createdFromParcel.getPlatformMetaData().getDescription());
-        assertEquals(testDataSourceCreator.getPlatformMetaData().getOperationSystem(),
-                createdFromParcel.getPlatformMetaData().getOperationSystem());
-        assertEquals(testDataSourceCreator.getPlatformMetaData().getManufacturer(),
-                createdFromParcel.getPlatformMetaData().getManufacturer());
-        assertEquals(testDataSourceCreator.getPlatformMetaData().getModel(),
-                createdFromParcel.getPlatformMetaData().getModel());
-        assertEquals(testDataSourceCreator.getPlatformMetaData().getVersionFirmware(),
-                createdFromParcel.getPlatformMetaData().getVersionFirmware());
-        assertEquals(testDataSourceCreator.getPlatformMetaData().getVersionHardware(),
-                createdFromParcel.getPlatformMetaData().getVersionHardware());
-        assertEquals(testDataSourceCreator.getPlatformMetaData().getDeviceId(),
-                createdFromParcel.getPlatformMetaData().getDeviceId());
-        assertEquals(testDataSourceCreator.getPlatformMetaData().getData(TestingConstants.TEST_KEY),
-                createdFromParcel.getPlatformMetaData().getData(TestingConstants.TEST_KEY));
-
-        // Test PlatformAppMetaData for equality
-        assertEquals(testDataSourceCreator.getPlatformAppMetaData().getTitle(),
-                createdFromParcel.getPlatformAppMetaData().getTitle());
-        assertEquals(testDataSourceCreator.getPlatformAppMetaData().getSummary(),
-                createdFromParcel.getPlatformAppMetaData().getSummary());
-        assertEquals(testDataSourceCreator.getPlatformAppMetaData().getDescription(),
-                createdFromParcel.getPlatformAppMetaData().getDescription());
-        assertEquals(testDataSourceCreator.getPlatformAppMetaData().getOperationSystem(),
-                createdFromParcel.getPlatformAppMetaData().getOperationSystem());
-        assertEquals(testDataSourceCreator.getPlatformAppMetaData().getManufacturer(),
-                createdFromParcel.getPlatformAppMetaData().getManufacturer());
-        assertEquals(testDataSourceCreator.getPlatformAppMetaData().getModel(),
-                createdFromParcel.getPlatformAppMetaData().getModel());
-        assertEquals(testDataSourceCreator.getPlatformAppMetaData().getVersionFirmware(),
-                createdFromParcel.getPlatformAppMetaData().getVersionFirmware());
-        assertEquals(testDataSourceCreator.getPlatformAppMetaData().getVersionHardware(),
-                createdFromParcel.getPlatformAppMetaData().getVersionHardware());
-        assertEquals(testDataSourceCreator.getPlatformAppMetaData().getDeviceId(),
-                createdFromParcel.getPlatformAppMetaData().getDeviceId());
-        assertEquals(testDataSourceCreator.getPlatformAppMetaData().getValue(TestingConstants.TEST_KEY),
-                createdFromParcel.getPlatformAppMetaData().getValue(TestingConstants.TEST_KEY));
-
-        // Test ApplicationMetaData for equality
-        assertEquals(testDataSourceCreator.getApplicationMetaData().getTitle(),
-                createdFromParcel.getApplicationMetaData().getTitle());
-        assertEquals(testDataSourceCreator.getApplicationMetaData().getSummary(),
-                createdFromParcel.getApplicationMetaData().getSummary());
-        assertEquals(testDataSourceCreator.getApplicationMetaData().getDescription(),
-                createdFromParcel.getApplicationMetaData().getDescription());
-        assertEquals(testDataSourceCreator.getApplicationMetaData().getVersionName(),
-                createdFromParcel.getApplicationMetaData().getVersionName());
-        assertEquals(testDataSourceCreator.getApplicationMetaData().getVersionNumber(),
-                createdFromParcel.getApplicationMetaData().getVersionNumber());
-        assertEquals(testDataSourceCreator.getApplicationMetaData().getData(TestingConstants.TEST_KEY),
-                createdFromParcel.getApplicationMetaData().getData(TestingConstants.TEST_KEY));
-
-        assertEquals(testDataSourceCreator.getDataRate(), createdFromParcel.getDataRate());
-
-        // Test DataDescriptors for equality
-        assertEquals(testDataSourceCreator.getDataDescriptors().get(0).getTitle(),
-                createdFromParcel.getDataDescriptors().get(0).getTitle());
-        assertEquals(testDataSourceCreator.getDataDescriptors().get(0).getSummary(),
-                createdFromParcel.getDataDescriptors().get(0).getSummary());
-        assertEquals(testDataSourceCreator.getDataDescriptors().get(0).getDescription(),
-                createdFromParcel.getDataDescriptors().get(0).getDescription());
-        assertEquals(testDataSourceCreator.getDataDescriptors().get(0).getMinValue(),
-                createdFromParcel.getDataDescriptors().get(0).getMinValue(), DELTA);
-        assertEquals(testDataSourceCreator.getDataDescriptors().get(0).getMaxValue(),
-                createdFromParcel.getDataDescriptors().get(0).getMaxValue(), DELTA);
-        assertArrayEquals(testDataSourceCreator.getDataDescriptors().get(0).getPossibleValuesAsString(),
-                createdFromParcel.getDataDescriptors().get(0).getPossibleValuesAsString());
-        assertArrayEquals(testDataSourceCreator.getDataDescriptors().get(0).getPossibleValuesAsInt(),
-                createdFromParcel.getDataDescriptors().get(0).getPossibleValuesAsInt());
-        assertEquals(testDataSourceCreator.getDataDescriptors().get(0).getUnit(),
-                createdFromParcel.getDataDescriptors().get(0).getUnit());
-        assertEquals(testDataSourceCreator.getDataDescriptors().get(0).getValue(TestingConstants.TEST_KEY),
-                createdFromParcel.getDataDescriptors().get(0).getValue(TestingConstants.TEST_KEY));
-    }
-
-    @Test
-    public void dataSourceCreator_ParcelableWriteReadComparableTest() {
-        testDataSourceCreator = new DataSourceCreator.Builder().setDataSourceId(dataSourceIdArray[0])
-                .setPlatformType(platformTypeArray[0]).setPlatformId(platformIdArray[0])
-                .setPlatformAppType(platformAppTypeArray[0]).setPlatformAppId(platformAppIdArray[0])
-                .setApplicationType(applicationTypeArray[0]).setDataSourceMetadata(testDataSourceMetaData)
-                .setPlatformMetadata(testPlatformMetaData).setPlatformAppMetadata(testPlatformAppMetaData)
-                .setApplicationMetaData(testAppMetaData).setDataRate(TestingConstants.TEST_SAMPLE_NO, timeUnitArray[0])
-                .setDataDescriptor(0, testDataDescriptor).build();
-
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        testDataSourceCreator.writeToParcel(parcel, testDataSourceCreator.describeContents());
-
-        // After writing, reset the parcel for reading.
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataSourceCreator createdFromParcel = DataSourceCreator.CREATOR.createFromParcel(parcel);
-        DataSourceCreator[] createdFromParcelArray = DataSourceCreator.CREATOR.newArray(1);
-
-        // Verify the results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(testDataSourceCreator, createdFromParcel);
     }
 }

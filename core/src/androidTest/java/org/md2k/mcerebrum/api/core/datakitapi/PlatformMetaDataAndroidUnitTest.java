@@ -27,8 +27,8 @@ public class PlatformMetaDataAndroidUnitTest {
 
     @Test
     public void PlatformMetaDataBuilderTest() {
-        testPlatformMetaData = new PlatformMetaData.Builder().setData(testKey, testValue).build();
-        assertEquals(testValue, testPlatformMetaData.getData(testKey));
+        testPlatformMetaData = new PlatformMetaData.Builder().setMetaData(testKey, testValue).build();
+        assertEquals(testValue, testPlatformMetaData.getMetaData(testKey));
 
         testPlatformMetaData = new PlatformMetaData.Builder().setTitle(testTitle).setSummary(testSummary)
                 .setDescription(testDescription).setOperationSystem(testOperationSystem)
@@ -43,7 +43,7 @@ public class PlatformMetaDataAndroidUnitTest {
         assertEquals(testVersionFirmware, testPlatformMetaData.getVersionFirmware());
         assertEquals(testVersionHardware, testPlatformMetaData.getVersionHardware());
         assertEquals(testDeviceId, testPlatformMetaData.getDeviceId());
-        assertNull(testPlatformMetaData.getData(testKey));
+        assertNull(testPlatformMetaData.getMetaData(testKey));
     }
 
     @Test
@@ -72,6 +72,6 @@ public class PlatformMetaDataAndroidUnitTest {
         assertEquals(testVersionFirmware, createdFromParcel.getVersionFirmware());
         assertEquals(testVersionHardware, createdFromParcel.getVersionHardware());
         assertEquals(testDeviceId, createdFromParcel.getDeviceId());
-        assertEquals(testValue, createdFromParcel.getData(testKey));
+        assertEquals(testValue, createdFromParcel.getMetaData(testKey));
     }
 }

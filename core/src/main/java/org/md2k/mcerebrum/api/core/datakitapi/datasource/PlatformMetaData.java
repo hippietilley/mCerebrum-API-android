@@ -86,7 +86,7 @@ public class PlatformMetaData implements Parcelable {
         return metaData.get(DEVICE_ID);
     }
 
-    public String getData(String key) {
+    public String getMetaData(String key) {
         return metaData.get(key);
     }
 
@@ -161,11 +161,11 @@ public class PlatformMetaData implements Parcelable {
             return this;
         }
 
-        public Builder setData(String key, String value) {
+        public Builder setMetaData(String key, String value) {
             this.metaData.put(key, value);
             return this;
         }
-        public Builder setData(HashMap<String, String> metaData){
+        public Builder setMetaData(HashMap<String, String> metaData){
             for (HashMap.Entry<String, String> entry : metaData.entrySet())
                 this.metaData.put(entry.getKey(), entry.getValue());
             return this;

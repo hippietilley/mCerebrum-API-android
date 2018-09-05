@@ -131,7 +131,7 @@ public class DataSourceReadWriteAndroidUnitTest {
         assertEquals(testPlatformMetaData.getVersionFirmware(), testDataSourceReadWrite.getPlatformMetaData().getVersionFirmware());
         assertEquals(testPlatformMetaData.getVersionHardware(), testDataSourceReadWrite.getPlatformMetaData().getVersionHardware());
         assertEquals(testPlatformMetaData.getDeviceId(), testDataSourceReadWrite.getPlatformMetaData().getDeviceId());
-        assertEquals(testPlatformMetaData.getData(testKey), testDataSourceReadWrite.getPlatformMetaData().getData(testKey));
+        assertEquals(testPlatformMetaData.getMetaData(testKey), testDataSourceReadWrite.getPlatformMetaData().getMetaData(testKey));
     }
 
     @Test
@@ -173,7 +173,7 @@ public class DataSourceReadWriteAndroidUnitTest {
         assertEquals(testAppMetaData.getDescription(), testDataSourceReadWrite.getApplicationMetaData().getDescription());
         assertEquals(testAppMetaData.getVersionName(), testDataSourceReadWrite.getApplicationMetaData().getVersionName());
         assertEquals(testAppMetaData.getVersionNumber(), testDataSourceReadWrite.getApplicationMetaData().getVersionNumber());
-        assertEquals(testAppMetaData.getData(testKey), testDataSourceReadWrite.getApplicationMetaData().getData(testKey));
+        assertEquals(testAppMetaData.getMetaData(testKey), testDataSourceReadWrite.getApplicationMetaData().getMetaData(testKey));
     }
 
     @Test
@@ -217,7 +217,7 @@ public class DataSourceReadWriteAndroidUnitTest {
         assertEquals(testDataSourceMetaData.getTitle(), testDataSourceReadWrite.getDataSourceMetaData().getTitle());
         assertEquals(testDataSourceMetaData.getSummary(), testDataSourceReadWrite.getDataSourceMetaData().getSummary());
         assertEquals(testDataSourceMetaData.getDescription(), testDataSourceReadWrite.getDataSourceMetaData().getDescription());
-        assertEquals(testDataSourceMetaData.getData(testKey), testDataSourceReadWrite.getDataSourceMetaData().getData(testKey));
+        assertEquals(testDataSourceMetaData.getMetaData(testKey), testDataSourceReadWrite.getDataSourceMetaData().getMetaData(testKey));
     }
 
     @Test
@@ -258,8 +258,8 @@ public class DataSourceReadWriteAndroidUnitTest {
                 createdFromParcel.getDataSourceMetaData().getSummary());
         assertEquals(testDataSourceReadWrite.getDataSourceMetaData().getDescription(),
                 createdFromParcel.getDataSourceMetaData().getDescription());
-        assertEquals(testDataSourceReadWrite.getDataSourceMetaData().getData(testKey),
-                createdFromParcel.getDataSourceMetaData().getData(testKey));
+        assertEquals(testDataSourceReadWrite.getDataSourceMetaData().getMetaData(testKey),
+                createdFromParcel.getDataSourceMetaData().getMetaData(testKey));
 
         // Test the PlatformMetaData for equality
         assertEquals(testDataSourceReadWrite.getPlatformMetaData().getTitle(),
@@ -280,8 +280,8 @@ public class DataSourceReadWriteAndroidUnitTest {
                 createdFromParcel.getPlatformMetaData().getVersionHardware());
         assertEquals(testDataSourceReadWrite.getPlatformMetaData().getDeviceId(),
                 createdFromParcel.getPlatformMetaData().getDeviceId());
-        assertEquals(testDataSourceReadWrite.getPlatformMetaData().getData(testKey),
-                createdFromParcel.getPlatformMetaData().getData(testKey));
+        assertEquals(testDataSourceReadWrite.getPlatformMetaData().getMetaData(testKey),
+                createdFromParcel.getPlatformMetaData().getMetaData(testKey));
 
         // Test PlatformAppMetaData for equality
         assertEquals(testDataSourceReadWrite.getPlatformAppMetaData().getTitle(),
@@ -316,10 +316,8 @@ public class DataSourceReadWriteAndroidUnitTest {
                 createdFromParcel.getApplicationMetaData().getVersionName());
         assertEquals(testDataSourceReadWrite.getApplicationMetaData().getVersionNumber(),
                 createdFromParcel.getApplicationMetaData().getVersionNumber());
-        assertEquals(testDataSourceReadWrite.getApplicationMetaData().getData(testKey),
-                createdFromParcel.getApplicationMetaData().getData(testKey));
-
-        assertEquals(testDataSourceReadWrite.getDataRate(), createdFromParcel.getDataRate());
+        assertEquals(testDataSourceReadWrite.getApplicationMetaData().getMetaData(testKey),
+                createdFromParcel.getApplicationMetaData().getMetaData(testKey));
 
         // Test DataDescriptors for equality
         assertEquals(testDataSourceReadWrite.getDataDescriptors().get(0).getTitle(),

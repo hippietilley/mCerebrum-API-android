@@ -63,7 +63,6 @@ public class DataSourceCreator extends DataSource implements Parcelable {
         super.setApplicationMetaData(dataSourceBuilder.applicationMetaData);
         super.setDataDescriptors(dataSourceBuilder.dataDescriptors);
         super.setDataType(dataSourceBuilder.dataType);
-        super.setDataRate(dataSourceBuilder.dataRate);
 
     }
 

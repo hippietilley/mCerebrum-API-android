@@ -57,7 +57,6 @@ public abstract class AbstractDataSource implements Parcelable {
 
     private ArrayList<DataDescriptor> dataDescriptors = null;
     private String dataType = null;
-    private String dataRate = null;
 
     AbstractDataSource() {
 
@@ -82,7 +81,6 @@ public abstract class AbstractDataSource implements Parcelable {
         applicationMetaData = in.readParcelable(ApplicationMetaData.class.getClassLoader());
         dataDescriptors = in.createTypedArrayList(DataDescriptor.CREATOR);
         dataType = in.readString();
-        dataRate = in.readString();
     }
 
     protected int getDsId() {
@@ -229,15 +227,6 @@ public abstract class AbstractDataSource implements Parcelable {
         this.dataType = dataType;
     }
 
-    protected String getDataRate() {
-        return dataRate;
-    }
-
-    protected void setDataRate(String dataRate) {
-        this.dataRate = dataRate;
-    }
-
-
     AbstractDataSource(Parcel in) {
         readFromParcel(in);
     }
@@ -265,7 +254,6 @@ public abstract class AbstractDataSource implements Parcelable {
 
         d.setDataDescriptors(this.dataDescriptors);
         d.setDataType(this.dataType);
-        d.setDataRate(this.dataRate);
         return d;
     }
 
@@ -290,6 +278,5 @@ public abstract class AbstractDataSource implements Parcelable {
         parcel.writeParcelable(applicationMetaData, i);
         parcel.writeTypedList(dataDescriptors);
         parcel.writeString(dataType);
-        parcel.writeString(dataRate);
     }
 }
