@@ -78,7 +78,6 @@ class MyServiceConnection implements ServiceConnection {
                 return MCerebrumStatus.MISSING_DATA_SOURCE_TYPE;
             if (dataSourceAIDL.getDataType() == null || dataSourceAIDL.getDataType().length() == 0)
                 return MCerebrumStatus.MISSING_DATA_TYPE;
-            dataSourceAIDL.setAppId(MCerebrumAPI.getContext().getPackageName());
             return mService.register(dataSourceAIDL);
 
         } catch (RemoteException e) {

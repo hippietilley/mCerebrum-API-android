@@ -25,25 +25,25 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.md2k.mcerebrum.api.core.datakitapi;
+package org.md2k.mcerebrum.api.core.datakitapi.datasource;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Builder class for <code>DataSource</code> objects
  */
-public class ApplicationMetaData implements Parcelable{
+public class DataSourceMetaData implements Parcelable {
+    /** Title of the data source */
     private static final String TITLE = "TITLE";
+
+    /** Summary of the data source */
     private static final String SUMMARY = "SUMMARY";
+
+    /** Description of what the data source is. */
     private static final String DESCRIPTION = "DESCRIPTION";
-    private static final String VERSION_NAME = "VERSION_NAME";
-    private static final String VERSION_NUMBER = "VERSION_NUMBER";
 
     private HashMap<String, String> metaData;
 
@@ -59,51 +59,32 @@ public class ApplicationMetaData implements Parcelable{
         return metaData.get(DESCRIPTION);
     }
 
-    public String getVersionName() {
-        return metaData.get(VERSION_NAME);
-    }
 
-    public int getVersionNumber() {
-        if(metaData.containsKey(VERSION_NUMBER))
-            return Integer.valueOf(metaData.get(VERSION_NUMBER));
-        else return -1;
-    }
-
-    public String getData(String key){
+    public String getData(String key) {
         return metaData.get(key);
     }
-    public String[] getKeys(){
-        String[] res=new String[metaData.size()];
-        int i=-1;
 
-        // Display the TreeMap which is naturally sorted
-        for (Map.Entry<String, String> entry : metaData.entrySet()) {
-            res[++i]=entry.getKey();
-        }
-        Arrays.sort(res);
-        return res;
-    }
 
-    private ApplicationMetaData(Builder builder) {
+    private DataSourceMetaData(Builder builder) {
         this.metaData = new HashMap<>();
         this.metaData.putAll(builder.metaData);
     }
 
+
     public static Builder builder() {
         return new Builder();
     }
-
-    public static Builder builder(ApplicationMetaData applicationMetaData) {
-        if(applicationMetaData ==null)
+    public static Builder builder(DataSourceMetaData dataSourceMetaData){
+        if(dataSourceMetaData==null)
             return new Builder();
-        else return new Builder(applicationMetaData.metaData);
+        else return new Builder(dataSourceMetaData.metaData);
     }
 
 
     public static class Builder {
         private HashMap<String, String> metaData;
 
-        Builder() {
+        public Builder() {
             metaData = new HashMap<>();
         }
         Builder(HashMap<String, String> metaData) {
@@ -112,25 +93,17 @@ public class ApplicationMetaData implements Parcelable{
         }
 
         public Builder setTitle(String title) {
-            metaData.put(TITLE,title);
+            this.metaData.put(TITLE, title);
             return this;
         }
 
         public Builder setSummary(String summary) {
-            metaData.put(SUMMARY,summary);
+            this.metaData.put(SUMMARY, summary);
             return this;
         }
 
         public Builder setDescription(String description) {
-            metaData.put(DESCRIPTION,description);
-            return this;
-        }
-        public Builder setVersionName(String versionName) {
-            metaData.put(VERSION_NAME, versionName);
-            return this;
-        }
-        public Builder setVersionNumber(int versionNumber) {
-            metaData.put(VERSION_NUMBER, Integer.toString(versionNumber));
+            this.metaData.put(DESCRIPTION, description);
             return this;
         }
 
@@ -138,13 +111,17 @@ public class ApplicationMetaData implements Parcelable{
             this.metaData.put(key, value);
             return this;
         }
-
-        public ApplicationMetaData build() {
-            return new ApplicationMetaData(this);
+        public Builder setData(HashMap<String, String> metaData){
+            for (HashMap.Entry<String, String> entry : metaData.entrySet())
+                this.metaData.put(entry.getKey(), entry.getValue());
+            return this;
         }
 
+        public DataSourceMetaData build() {
+            return new DataSourceMetaData(this);
+        }
     }
-    protected ApplicationMetaData(Parcel in) {
+    private DataSourceMetaData(Parcel in) {
         int size = in.readInt();
         if (size == -1) metaData = null;
         else {
@@ -155,15 +132,15 @@ public class ApplicationMetaData implements Parcelable{
         }
     }
 
-    public static final Creator<ApplicationMetaData> CREATOR = new Creator<ApplicationMetaData>() {
+    public static final Creator<DataSourceMetaData> CREATOR = new Creator<DataSourceMetaData>() {
         @Override
-        public ApplicationMetaData createFromParcel(Parcel in) {
-            return new ApplicationMetaData(in);
+        public DataSourceMetaData createFromParcel(Parcel in) {
+            return new DataSourceMetaData(in);
         }
 
         @Override
-        public ApplicationMetaData[] newArray(int size) {
-            return new ApplicationMetaData[size];
+        public DataSourceMetaData[] newArray(int size) {
+            return new DataSourceMetaData[size];
         }
     };
     @Override
@@ -184,4 +161,6 @@ public class ApplicationMetaData implements Parcelable{
             }
         }
     }
+
+
 }

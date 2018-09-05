@@ -8,7 +8,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.md2k.mcerebrum.api.core.MCerebrumAPI;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.ApplicationMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.PlatformMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataType;
 
 import java.util.concurrent.TimeUnit;

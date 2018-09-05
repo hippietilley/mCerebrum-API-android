@@ -1,18 +1,15 @@
 package org.md2k.mcerebrum.api.core.datakitapi;
 
 import android.content.Context;
-import android.os.Build;
 import android.support.test.InstrumentationRegistry;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.md2k.mcerebrum.api.core.MCerebrumAPI;
 import org.md2k.mcerebrum.api.core.datakitapi.callback.ConnectionCallback;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.APPLICATION;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.DATASOURCE;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM_APP;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataType;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.ApplicationMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.PlatformMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.exception.MCerebrumException;
 import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
 

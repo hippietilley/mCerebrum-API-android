@@ -30,6 +30,10 @@ package org.md2k.mcerebrum.api.core.datakitapi;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.ApplicationMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.PlatformMetaData;
+
 import java.util.ArrayList;
 
 /**
@@ -102,10 +106,6 @@ public abstract class DataSource extends AbstractDataSource implements Parcelabl
     }
     public String getDataRate(){
         return super.getDataRate();
-    }
-
-    public String getAppId() {
-        return super.getAppId();
     }
 
     public int getDsId() {

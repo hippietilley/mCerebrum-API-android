@@ -3,6 +3,10 @@ package org.md2k.mcerebrum.api.core.datakitapi;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.ApplicationMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.PlatformMetaData;
+
 import java.util.ArrayList;
 
 /*
@@ -54,7 +58,6 @@ public abstract class AbstractDataSource implements Parcelable {
     private ArrayList<DataDescriptor> dataDescriptors = null;
     private String dataType = null;
     private String dataRate = null;
-    private String appId = null;
 
     AbstractDataSource() {
 
@@ -80,7 +83,6 @@ public abstract class AbstractDataSource implements Parcelable {
         dataDescriptors = in.createTypedArrayList(DataDescriptor.CREATOR);
         dataType = in.readString();
         dataRate = in.readString();
-        appId = in.readString();
     }
 
     protected int getDsId() {
@@ -235,13 +237,6 @@ public abstract class AbstractDataSource implements Parcelable {
         this.dataRate = dataRate;
     }
 
-    protected String getAppId() {
-        return appId;
-    }
-
-    protected void setAppId(String appId) {
-        this.appId = appId;
-    }
 
     AbstractDataSource(Parcel in) {
         readFromParcel(in);
@@ -271,7 +266,6 @@ public abstract class AbstractDataSource implements Parcelable {
         d.setDataDescriptors(this.dataDescriptors);
         d.setDataType(this.dataType);
         d.setDataRate(this.dataRate);
-        d.setAppId(this.appId);
         return d;
     }
 
@@ -297,6 +291,5 @@ public abstract class AbstractDataSource implements Parcelable {
         parcel.writeTypedList(dataDescriptors);
         parcel.writeString(dataType);
         parcel.writeString(dataRate);
-        parcel.writeString(appId);
     }
 }

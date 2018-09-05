@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.test.suitebuilder.annotation.SmallTest;
 
 import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceMetaData;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNot.not;

@@ -25,7 +25,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.md2k.mcerebrum.api.core.datakitapi;
+package org.md2k.mcerebrum.api.core.datakitapi.datasource;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -108,7 +108,7 @@ public class PlatformMetaData implements Parcelable {
     public static class Builder {
         private HashMap<String, String> metaData;
 
-        Builder() {
+        public Builder() {
             metaData = new HashMap<>();
         }
         Builder(HashMap<String, String> metaData) {

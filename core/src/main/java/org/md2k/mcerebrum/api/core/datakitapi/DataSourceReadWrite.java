@@ -30,6 +30,10 @@ package org.md2k.mcerebrum.api.core.datakitapi;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.ApplicationMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.PlatformMetaData;
+
 import java.util.ArrayList;
 
 /**
@@ -117,9 +121,6 @@ public class DataSourceReadWrite extends DataSource implements Parcelable{
     }
     public void setDataType(String dataType) {
         super.setDataType(dataType);
-    }
-    public void setAppId(String appId) {
-        super.setAppId(appId);
     }
 
     @Override

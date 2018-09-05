@@ -6,15 +6,15 @@ import android.support.test.InstrumentationRegistry;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.md2k.mcerebrum.api.core.datakitapi.ApplicationMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.ApplicationMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.CommonObjectConstructors;
 import org.md2k.mcerebrum.api.core.datakitapi.DataDescriptor;
 import org.md2k.mcerebrum.api.core.datakitapi.DataSourceCreator;
-import org.md2k.mcerebrum.api.core.datakitapi.DataSourceMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.DataSourceRequest;
 import org.md2k.mcerebrum.api.core.datakitapi.DataSourceSet;
 import org.md2k.mcerebrum.api.core.datakitapi.PlatformAppMetaData;
-import org.md2k.mcerebrum.api.core.datakitapi.PlatformMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.PlatformMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.Registration;
 import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
 import org.md2k.mcerebrum.api.core.datakitapi.callback.ConnectionCallback;
