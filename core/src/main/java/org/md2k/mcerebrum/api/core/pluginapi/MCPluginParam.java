@@ -95,4 +95,17 @@ public class MCPluginParam implements Parcelable {
         parcel.writeString(id);
         parcel.writeString(params.toString());
     }
+
+    @Override
+    public boolean equals (Object toCompare) {
+        if (toCompare instanceof MCPluginParam) {
+            if (!(this.title.equals(((MCPluginParam) toCompare).title)))
+                return false;
+            if (!(this.id.equals(((MCPluginParam) toCompare).id)))
+                return false;
+            // TODO: fix this equality
+            return (this.params.equals(((MCPluginParam) toCompare).params));
+        } else
+            return false;
+    }
 }
