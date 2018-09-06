@@ -7,6 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
 
+import java.util.Arrays;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -32,6 +34,9 @@ public class DataPointObjectAndroidUnitTest {
     private final Integer testObjectSample3 = 21;
 
     private final Object[] testObjectSampleArray = {testObjectSample1, testObjectSample2, testObjectSample3};
+    private final String[] testObjectSampleArrayAsStrings = {testObjectSample1.toString(),
+                                                             testObjectSample2.toString(),
+                                                             testObjectSample3.toString()};
 
     // Create the object.
     @Before
@@ -45,8 +50,12 @@ public class DataPointObjectAndroidUnitTest {
 
     @Test
     public void fieldAccuracyTest() {
+        /* The following line would convert the Object sample array to a String array for comparison but method
+         * references aren't supported in Java 7. We would need to change the minSdkVersion from 14 to 24 for this line to work.
+         */
+        //String[] testObjectSampleArrayAsStrings = Arrays.stream(testObjectSampleArray).map(Object::toString).toArray(String[]::new);
         assertEquals(testTimestamp, mDataPointObjectArray.getTimestamp());
-        assertArrayEquals(testObjectSampleArray, mDataPointObjectArray.getSample());
+        assertArrayEquals(testObjectSampleArrayAsStrings, mDataPointObjectArray.getSample());
 
         assertEquals(testTimestamp, mDataPointObject.getTimestamp());
         for (Object obj : mDataPointObject.getSample())

@@ -306,9 +306,9 @@ public abstract class AbstractDataSource implements Parcelable {
                 return false;
             if (!(this.getApplicationType().equals(((AbstractDataSource) toCompare).getApplicationType())))
                 return false;
-            //if (!(this.getApplicationId().equals(((AbstractDataSource) toCompare).getApplicationId())))
-            //return false;
-            return ((this.getDataSourceMetaData().equals(((AbstractDataSource) toCompare).getDataSourceMetaData())) &&
+            return ((this.getApplicationId() == null && ((AbstractDataSource) toCompare).getApplicationId() == null) ||
+                        (this.getApplicationId().equals(((AbstractDataSource) toCompare).getApplicationId()))) &&
+                    ((this.getDataSourceMetaData().equals(((AbstractDataSource) toCompare).getDataSourceMetaData())) &&
                     (this.getPlatformMetaData().equals(((AbstractDataSource) toCompare).getPlatformMetaData())) &&
                     (this.getPlatformAppMetaData().equals(((AbstractDataSource) toCompare).getPlatformAppMetaData())) &&
                     (this.getApplicationMetaData().equals(((AbstractDataSource) toCompare).getApplicationMetaData())));
