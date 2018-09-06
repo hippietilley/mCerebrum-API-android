@@ -205,7 +205,8 @@ public class ApplicationMetaData implements Parcelable {
             return (this.title.equals(((ApplicationMetaData) toCompare).title)) &&
                    (this.summary.equals(((ApplicationMetaData) toCompare).summary)) &&
                    (this.description.equals(((ApplicationMetaData) toCompare).description)) &&
-                   (this.versionName.equals(((ApplicationMetaData) toCompare).versionName)) &&
+                   ((this.versionName == null && ((ApplicationMetaData) toCompare).versionName == null) ||
+                        (this.versionName.equals(((ApplicationMetaData) toCompare).versionName))) &&
                    (this.versionNumber == ((ApplicationMetaData) toCompare).versionNumber);
         } else
             return false;
