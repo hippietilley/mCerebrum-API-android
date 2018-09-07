@@ -37,7 +37,7 @@ import java.util.Map;
 /**
  * Builder class for <code>DataSource</code> objects
  */
-public class ApplicationMetaData implements Parcelable{
+public class ApplicationMetaData implements Parcelable {
     private static final String TITLE = "TITLE";
     private static final String SUMMARY = "SUMMARY";
     private static final String DESCRIPTION = "DESCRIPTION";
@@ -63,21 +63,22 @@ public class ApplicationMetaData implements Parcelable{
     }
 
     public int getVersionNumber() {
-        if(metaData.containsKey(VERSION_NUMBER))
+        if (metaData.containsKey(VERSION_NUMBER))
             return Integer.valueOf(metaData.get(VERSION_NUMBER));
         else return -1;
     }
 
-    public String getMetaData(String key){
+    public String getMetaData(String key) {
         return metaData.get(key);
     }
-    public String[] getKeys(){
-        String[] res=new String[metaData.size()];
-        int i=-1;
+
+    public String[] getKeys() {
+        String[] res = new String[metaData.size()];
+        int i = -1;
 
         // Display the TreeMap which is naturally sorted
         for (Map.Entry<String, String> entry : metaData.entrySet()) {
-            res[++i]=entry.getKey();
+            res[++i] = entry.getKey();
         }
         Arrays.sort(res);
         return res;
@@ -93,7 +94,7 @@ public class ApplicationMetaData implements Parcelable{
     }
 
     public static Builder builder(ApplicationMetaData applicationMetaData) {
-        if(applicationMetaData ==null)
+        if (applicationMetaData == null)
             return new Builder();
         else return new Builder(applicationMetaData.metaData);
     }
@@ -105,29 +106,32 @@ public class ApplicationMetaData implements Parcelable{
         public Builder() {
             metaData = new HashMap<>();
         }
+
         Builder(HashMap<String, String> metaData) {
             this.metaData = new HashMap<>();
             this.metaData.putAll(metaData);
         }
 
         public Builder setTitle(String title) {
-            metaData.put(TITLE,title);
+            metaData.put(TITLE, title);
             return this;
         }
 
         public Builder setSummary(String summary) {
-            metaData.put(SUMMARY,summary);
+            metaData.put(SUMMARY, summary);
             return this;
         }
 
         public Builder setDescription(String description) {
-            metaData.put(DESCRIPTION,description);
+            metaData.put(DESCRIPTION, description);
             return this;
         }
+
         public Builder setVersionName(String versionName) {
             metaData.put(VERSION_NAME, versionName);
             return this;
         }
+
         public Builder setVersionNumber(int versionNumber) {
             metaData.put(VERSION_NUMBER, Integer.toString(versionNumber));
             return this;
@@ -137,7 +141,8 @@ public class ApplicationMetaData implements Parcelable{
             this.metaData.put(key, value);
             return this;
         }
-        public Builder setMetaData(HashMap<String, String> metaData){
+
+        public Builder setMetaData(HashMap<String, String> metaData) {
             for (HashMap.Entry<String, String> entry : metaData.entrySet())
                 this.metaData.put(entry.getKey(), entry.getValue());
             return this;
@@ -148,6 +153,7 @@ public class ApplicationMetaData implements Parcelable{
         }
 
     }
+
     protected ApplicationMetaData(Parcel in) {
         int size = in.readInt();
         if (size == -1) metaData = null;
@@ -170,6 +176,7 @@ public class ApplicationMetaData implements Parcelable{
             return new ApplicationMetaData[size];
         }
     };
+
     @Override
     public int describeContents() {
         return 0;
@@ -191,20 +198,20 @@ public class ApplicationMetaData implements Parcelable{
 
     @Override
     public boolean equals(Object toCompare) {
-        if (toCompare instanceof  DataSourceMetaData) {
-            for (String thisKey : this.custom.keySet()) {
-                if (!this.custom.get(thisKey).equalsIgnoreCase(((DataSourceMetaData) toCompare).custom.get(thisKey)))
+        if (toCompare instanceof ApplicationMetaData) {
+            for (String thisKey : this.metaData.keySet()) {
+                if (!this.metaData.get(thisKey).equalsIgnoreCase(((ApplicationMetaData) toCompare).metaData.get(thisKey)))
                     return false;
             }
-            for (String toCompareKey : ((DataSourceMetaData) toCompare).custom.keySet()) {
-                if (!((DataSourceMetaData) toCompare).custom.get(toCompareKey).equalsIgnoreCase(this.custom.get(toCompareKey)))
+            for (String toCompareKey : ((ApplicationMetaData) toCompare).metaData.keySet()) {
+                if (!((ApplicationMetaData) toCompare).metaData.get(toCompareKey).equalsIgnoreCase(this.metaData.get(toCompareKey)))
                     return false;
             }
-            if (!(this.title.equals(((DataSourceMetaData) toCompare).title)))
+            if (!(this.getTitle().equals(((ApplicationMetaData) toCompare).getTitle())))
                 return false;
-            if (!(this.summary.equals(((DataSourceMetaData) toCompare).summary)))
+            if (!(this.getSummary().equals(((ApplicationMetaData) toCompare).getSummary())))
                 return false;
-            if (!(this.description.equals(((DataSourceMetaData) toCompare).description)))
+            if (!(this.getDescription().equals(((ApplicationMetaData) toCompare).getDescription())))
                 return false;
             else
                 return true;

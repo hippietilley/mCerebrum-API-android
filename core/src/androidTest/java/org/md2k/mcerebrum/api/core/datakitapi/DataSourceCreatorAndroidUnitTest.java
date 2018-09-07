@@ -1,6 +1,7 @@
 package org.md2k.mcerebrum.api.core.datakitapi;
 
 import android.content.Context;
+import android.os.Parcel;
 import android.support.test.InstrumentationRegistry;
 
 import org.junit.Before;
@@ -246,26 +247,6 @@ public class DataSourceCreatorAndroidUnitTest {
     public void dataSourceMetaDataComparableTest() {
         testDataSourceCreator = new DataSourceCreator.Builder().setDataSourceMetadata(testDataSourceMetaData).build();
         assertThat(testDataSourceCreator.getDataSourceMetaData(), is(equalTo(testDataSourceMetaData)));
-    }
-
-    @Test
-    public void dataSourceCreator_ParcelableWriteReadComparableTest() {
-        testDataSourceCreator = CommonObjectConstructors.createDataSourceCreator();
-
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        testDataSourceCreator.writeToParcel(parcel, testDataSourceCreator.describeContents());
-
-        // After writing, reset the parcel for reading.
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataSourceCreator createdFromParcel = DataSourceCreator.CREATOR.createFromParcel(parcel);
-        DataSourceCreator[] createdFromParcelArray = DataSourceCreator.CREATOR.newArray(1);
-
-        // Verify the results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertThat(createdFromParcel, is(equalTo(testDataSourceCreator)));
     }
 
     @Test

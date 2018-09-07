@@ -87,27 +87,7 @@ public class ApplicationMetaDataAndroidUnitTest {
     }
 
     @Test
-    public void ApplicationMetaData_ParcelableWriteReadComparableTest() {
-        testAppMetaData = CommonObjectConstructors.createApplicationMetaData();
-
-        // Write to parcel.
-        Parcel parcel = Parcel.obtain();
-        testAppMetaData.writeToParcel(parcel, testAppMetaData.describeContents());
-
-        // After writing, reset the parcel for reading.
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        ApplicationMetaData createdFromParcel = ApplicationMetaData.CREATOR.createFromParcel(parcel);
-        ApplicationMetaData[] createdFromParcelArray = ApplicationMetaData.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertThat(createdFromParcel, is(equalTo(testAppMetaData)));
-    }
-
-    @Test
-    public void ApplicationMetaData_ParcelableWriteReadComparableTest() {
+    public void ApplicationMetaData_ParcelableWriteReadComparableTestExtra() {
         testAppMetaData = CommonObjectConstructors.createApplicationMetaData();
 
         // Write to parcel.

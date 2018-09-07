@@ -18,24 +18,24 @@ import static org.junit.Assert.assertNotEquals;
 public class DataSourceReadWriteAndroidUnitTest {
     static final double DELTA = TestingConstants.DELTA;
 
-    final String[] dataSourceTypeArray = TestingConstants.DATA_SOURCE_TYPE_ARRAY;
-    final String[] dataSourceIdArray = TestingConstants.DATASOURCE_ID_ARRAY;
-    final String[] platformTypeArray = TestingConstants.PLATFORM_TYPE_ARRAY;
-    final String[] platformIdArray = TestingConstants.PLATFORM_ID_ARRAY;
-    final String[] platformAppTypeArray = TestingConstants.PLATFORM_APP_TYPE_ARRAY;
-    final String[] platformAppIdArray = TestingConstants.PLATFORM_APP_ID_ARRAY;
-    final String[] applicationTypeArray = TestingConstants.APPLICATION_TYPE_ARRAY;
-    final String[] applicationIdArray = TestingConstants.APPLICATION_ID_ARRAY;
+    private final String[] dataSourceTypeArray = TestingConstants.DATA_SOURCE_TYPE_ARRAY;
+    private final String[] dataSourceIdArray = TestingConstants.DATASOURCE_ID_ARRAY;
+    private final String[] platformTypeArray = TestingConstants.PLATFORM_TYPE_ARRAY;
+    private final String[] platformIdArray = TestingConstants.PLATFORM_ID_ARRAY;
+    private final String[] platformAppTypeArray = TestingConstants.PLATFORM_APP_TYPE_ARRAY;
+    private final String[] platformAppIdArray = TestingConstants.PLATFORM_APP_ID_ARRAY;
+    private final String[] applicationTypeArray = TestingConstants.APPLICATION_TYPE_ARRAY;
+    private final String[] applicationIdArray = TestingConstants.APPLICATION_ID_ARRAY;
 
     private final String testKey = TestingConstants.TEST_KEY;
 
-    ArrayList testDataDescriptors = new ArrayList();
-    PlatformMetaData testPlatformMetaData;
-    PlatformAppMetaData testPlatformAppMetaData;
-    ApplicationMetaData testAppMetaData;
-    DataDescriptor testDataDescriptor;
-    DataSourceMetaData testDataSourceMetaData;
-    DataSourceReadWrite testDataSourceReadWrite;
+    private ArrayList testDataDescriptors = new ArrayList();
+    private PlatformMetaData testPlatformMetaData;
+    private PlatformAppMetaData testPlatformAppMetaData;
+    private ApplicationMetaData testAppMetaData;
+    private DataDescriptor testDataDescriptor;
+    private DataSourceMetaData testDataSourceMetaData;
+    private DataSourceReadWrite testDataSourceReadWrite;
 
     @Before
     public void objectCreation(){
