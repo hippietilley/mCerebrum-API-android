@@ -6,6 +6,9 @@ import android.support.test.filters.SmallTest;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -13,7 +16,7 @@ import static org.junit.Assert.assertNotSame;
 
 @SmallTest
 public class DataAnnotationEnumAndroidUnitTest {
-    private long testStartTimestamp = 1268660060;
+    private long testStartTimestamp = 12686600;
     private long testEndTimestamp = 1268660460;
     private byte testSample = 127;
     private DataAnnotationEnum mDataAnnotationEnum;
@@ -41,7 +44,7 @@ public class DataAnnotationEnumAndroidUnitTest {
     @Test
     public void cloneComparableTest() {
         DataAnnotationEnum dataAnnotationEnumClone = mDataAnnotationEnum.clone();
-        assertEquals(mDataAnnotationEnum, dataAnnotationEnumClone);
+        assertThat(dataAnnotationEnumClone, is(equalTo(mDataAnnotationEnum)));
         assertNotSame(mDataAnnotationEnum, dataAnnotationEnumClone);
     }
 
@@ -79,6 +82,6 @@ public class DataAnnotationEnumAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataAnnotationEnum, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(mDataAnnotationEnum)));
     }
 }

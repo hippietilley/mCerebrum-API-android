@@ -129,4 +129,20 @@ public class DataPointLong extends Data implements Parcelable {
             return new DataPointLong[size];
         }
     };
+
+    @Override
+    public boolean equals(Object toCompare) {
+        if (super.equals(toCompare)) {
+            if (toCompare instanceof DataPointLong) {
+                for (int i = 0; i < this.getSample().length; i++) {
+                    if (this.getSample()[i] != ((DataPointLong) toCompare).getSample()[i]) {
+                        return false;
+                    }
+                }
+                return true;
+            } else
+                return false;
+        } else
+            return false;
+    }
 }

@@ -35,7 +35,7 @@ import java.util.HashMap;
 /**
  * Builder class for <code>DataSource</code> objects
  */
-public class ApplicationMetaData implements Parcelable{
+public class ApplicationMetaData implements Parcelable {
     private String title;
     private String summary;
     private String description;
@@ -74,28 +74,38 @@ public class ApplicationMetaData implements Parcelable{
         }
     };
 
-    public String getTitle(){
+    public String getTitle() {
         return title;
     }
-    public String getSummary(){
+
+    public String getSummary() {
         return summary;
     }
-    public String getDescription(){
+
+    public String getDescription() {
         return description;
     }
-    public String getVersionName(){ return versionName;}
-    public int getVersionNumber(){return versionNumber;}
-    public String getValue(String key){
-        if(custom==null) return null;
+
+    public String getVersionName() {
+        return versionName;
+    }
+
+    public int getVersionNumber() {
+        return versionNumber;
+    }
+
+    public String getValue(String key) {
+        if (custom == null) return null;
         return custom.get(key);
     }
+
     private ApplicationMetaData(Builder builder) {
         title = builder.title;
         summary = builder.summary;
         description = builder.description;
         versionName = builder.versionName;
         versionNumber = builder.versionNumber;
-        custom= builder.custom;
+        custom = builder.custom;
     }
 
     protected void setVersionName(String versionName) {
@@ -174,8 +184,31 @@ public class ApplicationMetaData implements Parcelable{
             this.custom.put(key, value);
             return this;
         }
+
         public ApplicationMetaData build() {
             return new ApplicationMetaData(this);
         }
+    }
+
+    @Override
+    public boolean equals(Object toCompare) {
+        if (toCompare instanceof ApplicationMetaData) {
+            for (String thisKey : this.custom.keySet()) {
+                if (!this.custom.get(thisKey).equalsIgnoreCase(((ApplicationMetaData) toCompare).custom.get(thisKey)))
+                    return false;
+            }
+            for (String toCompareKey : ((ApplicationMetaData) toCompare).custom.keySet()) {
+                if (!((ApplicationMetaData) toCompare).custom.get(toCompareKey).equalsIgnoreCase(this.custom.get(toCompareKey)))
+                    return false;
+            }
+
+            return (this.title.equals(((ApplicationMetaData) toCompare).title)) &&
+                   (this.summary.equals(((ApplicationMetaData) toCompare).summary)) &&
+                   (this.description.equals(((ApplicationMetaData) toCompare).description)) &&
+                   ((this.versionName == null && ((ApplicationMetaData) toCompare).versionName == null) ||
+                        (this.versionName.equals(((ApplicationMetaData) toCompare).versionName))) &&
+                   (this.versionNumber == ((ApplicationMetaData) toCompare).versionNumber);
+        } else
+            return false;
     }
 }

@@ -35,7 +35,7 @@ import org.md2k.mcerebrum.api.core.datakitapi.datatype.Data;
 /**
  * This class creates <code>DataType</code> objects for samples that have double data types in an array.
  */
-public class DataPointDouble extends Data implements Parcelable{
+public class DataPointDouble extends Data implements Parcelable {
 
     /**
      * The data point collected from the data source.
@@ -47,21 +47,22 @@ public class DataPointDouble extends Data implements Parcelable{
      * Constructor
      *
      * @param timestamp The timestamp for when the data was collected.
-     * @param sample The data point sampled from the data source.
+     * @param sample    The data point sampled from the data source.
      */
     public DataPointDouble(long timestamp, double[] sample) {
         super(timestamp);
         this.sample = new double[sample.length];
         System.arraycopy(sample, 0, this.sample, 0, sample.length);
     }
+
     public DataPointDouble(long timestamp, double sample) {
         super(timestamp);
         this.sample = new double[1];
         this.sample[0] = sample;
     }
 
-    public DataPointDouble clone(){
-        return new DataPointDouble(getTimestamp(),sample);
+    public DataPointDouble clone() {
+        return new DataPointDouble(getTimestamp(), sample);
     }
 
     /**
@@ -98,7 +99,7 @@ public class DataPointDouble extends Data implements Parcelable{
     /**
      * @return The the value of the sample.
      */
-    public double[] getSample(){
+    public double[] getSample() {
         return sample;
     }
 
@@ -130,4 +131,20 @@ public class DataPointDouble extends Data implements Parcelable{
             return new DataPointDouble[size];
         }
     };
+
+    @Override
+    public boolean equals(Object toCompare) {
+        if (super.equals(toCompare)) {
+            if (toCompare instanceof DataPointDouble) {
+                for (int i = 0; i < this.getSample().length; i++) {
+                    if (this.getSample()[i] != ((DataPointDouble) toCompare).getSample()[i]) {
+                        return false;
+                    }
+                }
+                return true;
+            } else
+                return false;
+        } else
+            return false;
+    }
 }

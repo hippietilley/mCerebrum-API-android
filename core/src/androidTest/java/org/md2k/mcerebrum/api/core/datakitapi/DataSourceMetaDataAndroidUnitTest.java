@@ -6,6 +6,8 @@ import android.test.suitebuilder.annotation.SmallTest;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -73,6 +75,6 @@ public class DataSourceMetaDataAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(testDataSourceMetaData, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(testDataSourceMetaData)));
     }
 }

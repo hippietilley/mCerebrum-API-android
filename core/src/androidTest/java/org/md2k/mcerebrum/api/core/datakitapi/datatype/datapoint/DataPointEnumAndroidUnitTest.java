@@ -5,15 +5,19 @@ import android.support.test.filters.SmallTest;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertThat;
 
 @SmallTest
 public class DataPointEnumAndroidUnitTest {
-    private final long testTimestamp = 1268660460;
+    private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
 
     private final byte testSample = 1;
     private DataPointEnum mDataPointEnum;
@@ -47,7 +51,7 @@ public class DataPointEnumAndroidUnitTest {
     @Test
     public void dataPointEnumCloneComparableTest() {
         DataPointEnum dataPointClone = mDataPointEnum.clone();
-        assertEquals(mDataPointEnum, dataPointClone);
+        assertThat(dataPointClone, is(equalTo(mDataPointEnum)));
         assertNotSame(mDataPointEnum, dataPointClone);
     }
 
@@ -85,7 +89,7 @@ public class DataPointEnumAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointEnum, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(mDataPointEnum)));
     }
 
     @Test
@@ -122,6 +126,6 @@ public class DataPointEnumAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointEnumArray, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(mDataPointEnumArray)));
     }
 }

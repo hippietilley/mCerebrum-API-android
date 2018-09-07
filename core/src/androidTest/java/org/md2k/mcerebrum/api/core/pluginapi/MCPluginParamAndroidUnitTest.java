@@ -6,6 +6,8 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
@@ -66,7 +68,7 @@ public class MCPluginParamAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(testMCPluginParam, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(testMCPluginParam)));
     }
 }
 

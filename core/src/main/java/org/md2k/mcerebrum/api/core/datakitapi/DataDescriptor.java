@@ -35,7 +35,7 @@ import java.util.HashMap;
 /**
  * Builder class for <code>DataSource</code> objects
  */
-public class DataDescriptor implements Parcelable{
+public class DataDescriptor implements Parcelable {
     private String title;
     private String summary;
     private String description;
@@ -81,34 +81,43 @@ public class DataDescriptor implements Parcelable{
         }
     };
 
-    public String getTitle(){
+    public String getTitle() {
         return title;
     }
-    public String getSummary(){
+
+    public String getSummary() {
         return summary;
     }
-    public String getDescription(){
+
+    public String getDescription() {
         return description;
     }
-    public double getMinValue(){
+
+    public double getMinValue() {
         return minValue;
     }
-    public double getMaxValue(){
+
+    public double getMaxValue() {
         return maxValue;
     }
-    public String getUnit(){
+
+    public String getUnit() {
         return unit;
     }
-    public String[] getPossibleValuesAsString(){
+
+    public String[] getPossibleValuesAsString() {
         return possibleValuesAsString;
     }
-    public int[] getPossibleValuesAsInt(){
+
+    public int[] getPossibleValuesAsInt() {
         return possibleValuesAsInt;
     }
-    public String getValue(String key){
-        if(custom==null) return null;
+
+    public String getValue(String key) {
+        if (custom == null) return null;
         return custom.get(key);
     }
+
     private DataDescriptor(Builder builder) {
         title = builder.title;
         summary = builder.summary;
@@ -116,9 +125,9 @@ public class DataDescriptor implements Parcelable{
         minValue = builder.minValue;
         maxValue = builder.maxValue;
         unit = builder.unit;
-        possibleValuesAsString =builder.possibleValuesAsString;
-        possibleValuesAsInt =builder.possibleValuesAsInt;
-        custom= builder.custom;
+        possibleValuesAsString = builder.possibleValuesAsString;
+        possibleValuesAsInt = builder.possibleValuesAsInt;
+        custom = builder.custom;
     }
 
     public static Builder builder() {
@@ -190,12 +199,14 @@ public class DataDescriptor implements Parcelable{
             this.maxValue = maxValue;
             return this;
         }
+
         public Builder setPossibleValues(String[] possibleValues) {
-            this.possibleValuesAsString=possibleValues;
+            this.possibleValuesAsString = possibleValues;
             return this;
         }
+
         public Builder setPossibleValues(int[] possibleValues) {
-            this.possibleValuesAsInt=possibleValues;
+            this.possibleValuesAsInt = possibleValues;
             return this;
         }
 
@@ -208,8 +219,44 @@ public class DataDescriptor implements Parcelable{
             this.unit = unit;
             return this;
         }
+
         public DataDescriptor build() {
             return new DataDescriptor(this);
         }
+    }
+
+    @Override
+    public boolean equals(Object toCompare) {
+        if (toCompare instanceof  DataDescriptor) {
+            for (String thisKey : this.custom.keySet()) {
+                if (!this.custom.get(thisKey).equalsIgnoreCase(((DataDescriptor) toCompare).custom.get(thisKey)))
+                    return false;
+            }
+            for (String toCompareKey : ((DataDescriptor) toCompare).custom.keySet()) {
+                if (!((DataDescriptor) toCompare).custom.get(toCompareKey).equalsIgnoreCase(this.custom.get(toCompareKey)))
+                    return false;
+            }
+            for (int i = 0; i < this.possibleValuesAsString.length; i++)
+                if (!this.possibleValuesAsString[i].equals(((DataDescriptor) toCompare).possibleValuesAsString[i]))
+                    return false;
+            for (int i = 0; i < this.possibleValuesAsInt.length; i++)
+                if (this.possibleValuesAsInt[i] != ((DataDescriptor) toCompare).possibleValuesAsInt[i])
+                    return false;
+            if (!(this.title.equals(((DataDescriptor) toCompare).title)))
+                return false;
+            if (!(this.summary.equals(((DataDescriptor) toCompare).summary)))
+                return false;
+            if (!(this.description.equals(((DataDescriptor) toCompare).description)))
+                return false;
+            if (!(this.unit.equals(((DataDescriptor) toCompare).unit)))
+                return false;
+            if (this.minValue != ((DataDescriptor) toCompare).minValue)
+                return false;
+            if (this.maxValue != ((DataDescriptor) toCompare).maxValue)
+                return false;
+            else
+                return true;
+        } else
+            return false;
     }
 }

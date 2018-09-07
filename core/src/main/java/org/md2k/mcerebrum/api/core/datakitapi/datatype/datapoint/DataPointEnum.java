@@ -128,4 +128,23 @@ public class DataPointEnum extends Data implements Parcelable {
             return new DataPointEnum[size];
         }
     };
+
+    @Override
+    public boolean equals(Object toCompare) {
+        if (super.equals(toCompare)) {
+            if (toCompare instanceof DataPointEnum) {
+                if (this.getTimestamp() != ((DataPointEnum) toCompare).getTimestamp())
+                    return false;
+
+                for (int i = 0; i < this.getSample().length; i++) {
+                    if (this.getSample()[i] != ((DataPointEnum) toCompare).getSample()[i]) {
+                        return false;
+                    }
+                }
+                return true;
+            } else
+                return false;
+        } else
+            return false;
+    }
 }

@@ -5,7 +5,12 @@ import android.support.test.filters.SmallTest;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -13,7 +18,7 @@ import static org.junit.Assert.assertNotSame;
 
 @SmallTest
 public class DataPointBooleanAndroidUnitTest {
-    private final long testTimestamp = 1268660460;
+    private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
 
     private final boolean testSample = true;
     private DataPointBoolean mDataPointBoolean;
@@ -47,7 +52,7 @@ public class DataPointBooleanAndroidUnitTest {
     @Test
     public void dataPointBooleanCloneComparableTest() {
         DataPointBoolean dataPointClone = mDataPointBoolean.clone();
-        assertEquals(mDataPointBoolean, dataPointClone);
+        assertThat(dataPointClone, is(equalTo(mDataPointBoolean)));
         assertNotSame(mDataPointBoolean, dataPointClone);
     }
 
@@ -85,7 +90,7 @@ public class DataPointBooleanAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointBoolean, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(mDataPointBoolean)));
     }
 
     @Test
@@ -122,6 +127,15 @@ public class DataPointBooleanAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointBooleanArray, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(mDataPointBooleanArray)));
+    }
+
+    @Test
+    public void equalsNullObjectTest() {
+        DataPointBoolean nullBoolean = null;
+        DataPointBoolean nullBoolean1 = null;
+
+        assertThat(nullBoolean, is(equalTo(nullBoolean1)));
+        assertThat(nullBoolean, is(not(equalTo(mDataPointBoolean))));
     }
 }

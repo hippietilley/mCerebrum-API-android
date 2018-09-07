@@ -7,6 +7,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
 
+import java.util.Arrays;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -29,6 +34,9 @@ public class DataPointObjectAndroidUnitTest {
     private final Integer testObjectSample3 = 21;
 
     private final Object[] testObjectSampleArray = {testObjectSample1, testObjectSample2, testObjectSample3};
+    private final String[] testObjectSampleArrayAsStrings = {testObjectSample1.toString(),
+                                                             testObjectSample2.toString(),
+                                                             testObjectSample3.toString()};
 
     // Create the object.
     @Before
@@ -42,17 +50,22 @@ public class DataPointObjectAndroidUnitTest {
 
     @Test
     public void fieldAccuracyTest() {
+        /* The following line would convert the Object sample array to a String array for comparison but method
+         * references aren't supported in Java 7. We would need to change the minSdkVersion from 14 to 24 for this line to work.
+         */
+        //String[] testObjectSampleArrayAsStrings = Arrays.stream(testObjectSampleArray).map(Object::toString).toArray(String[]::new);
+        assertEquals(testTimestamp, mDataPointObjectArray.getTimestamp());
+        assertArrayEquals(testObjectSampleArrayAsStrings, mDataPointObjectArray.getSample());
+
+        assertEquals(testTimestamp, mDataPointObject.getTimestamp());
+        for (Object obj : mDataPointObject.getSample())
+            assertEquals(testObjectSample, obj);
+
         assertEquals(testTimestamp, mDataPointObjectString.getTimestamp());
-        assertEquals("Hello world", mDataPointObjectString.getSample()[0]);
+        assertEquals(testSample, mDataPointObjectString.getSample()[0]);
 
         assertEquals(testTimestamp, mDataPointObjectStringArray.getTimestamp());
         assertArrayEquals(testSampleArray, mDataPointObjectStringArray.getSample());
-
-        assertEquals(testTimestamp, mDataPointObject.getTimestamp());
-        assertEquals(testObjectSample, mDataPointObject.getSample());
-
-        assertEquals(testTimestamp, mDataPointObjectArray.getTimestamp());
-        assertArrayEquals(testObjectSampleArray, mDataPointObjectArray.getSample());
     }
 
     @Test
@@ -66,8 +79,12 @@ public class DataPointObjectAndroidUnitTest {
     @Test
     public void dataPointObjectCloneComparableTest() {
         DataPointObject dataPointClone = mDataPointObjectString.clone();
-        assertEquals(mDataPointObjectString, dataPointClone);
+        assertThat(dataPointClone, is(equalTo(mDataPointObjectString)));
         assertNotSame(mDataPointObjectString, dataPointClone);
+
+        DataPointObject dataPointObjectClone = mDataPointObject.clone();
+        assertThat(dataPointObjectClone, is(equalTo(mDataPointObject)));
+        assertNotSame(mDataPointObject, dataPointObjectClone);
     }
 
     @Test
@@ -130,7 +147,7 @@ public class DataPointObjectAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointObject, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(mDataPointObject)));
     }
 
     @Test
@@ -148,7 +165,7 @@ public class DataPointObjectAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointObjectString, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(mDataPointObjectString)));
     }
 
     @Test
@@ -204,7 +221,7 @@ public class DataPointObjectAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointObjectStringArray, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(mDataPointObjectStringArray)));
     }
 
     @Test
@@ -222,6 +239,6 @@ public class DataPointObjectAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointObjectArray, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(mDataPointObjectArray)));
     }
 }

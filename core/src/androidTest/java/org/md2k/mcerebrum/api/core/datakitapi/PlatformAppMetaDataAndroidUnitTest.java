@@ -5,6 +5,9 @@ import android.support.test.filters.SmallTest;
 
 import org.junit.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
@@ -91,6 +94,6 @@ public class PlatformAppMetaDataAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(testPlatformAppMetaData, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(testPlatformAppMetaData)));
     }
 }

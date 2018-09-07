@@ -5,6 +5,9 @@ import android.support.test.filters.SmallTest;
 
 import org.junit.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertNotEquals;
@@ -76,16 +79,7 @@ public class PlatformMetaDataAndroidUnitTest {
 
     @Test
     public void PlatformMetaData_ParcelableWriteReadComparableTest() {
-        testPlatformMetaData = new PlatformMetaData.Builder().setValue(testKey, testValue).build();
-        testPlatformMetaData.setTitle(testTitle);
-        testPlatformMetaData.setSummary(testSummary);
-        testPlatformMetaData.setDescription(testDescription);
-        testPlatformMetaData.setOperationSystem(testOperationSystem);
-        testPlatformMetaData.setManufacturer(testManufacturer);
-        testPlatformMetaData.setModel(testModel);
-        testPlatformMetaData.setVersionFirmware(testVersionFirmware);
-        testPlatformMetaData.setVersionHardware(testVersionHardware);
-        testPlatformMetaData.setDeviceId(testDeviceId);
+        testPlatformMetaData = CommonObjectConstructors.createPlatformMetaData();
 
         // Write to parcel.
         Parcel parcel = Parcel.obtain();
@@ -100,6 +94,6 @@ public class PlatformMetaDataAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(testPlatformMetaData, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(testPlatformMetaData)));
     }
 }
