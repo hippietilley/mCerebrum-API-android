@@ -181,7 +181,7 @@ public class DataSourceCreatorAndroidUnitTest {
     @Test
     public void applicationMetaDataComparableTest() {
         testDataSourceCreator = new DataSourceCreator.Builder().setApplicationMetaData(testAppMetaData).build();
-        // testAppMetaData.versionName turns null at this point
+        // testAppMetaData.versionName turns null at this point TODO: make a test that checks for object mutability
         assertThat(testDataSourceCreator.getApplicationMetaData(), is(equalTo(testAppMetaData)));
     }
 
