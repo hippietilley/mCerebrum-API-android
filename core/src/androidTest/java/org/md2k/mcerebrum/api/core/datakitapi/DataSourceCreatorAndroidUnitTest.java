@@ -267,4 +267,24 @@ public class DataSourceCreatorAndroidUnitTest {
         assertNotEquals(0, createdFromParcelArray.length);
         assertThat(createdFromParcel, is(equalTo(testDataSourceCreator)));
     }
+
+    @Test
+    public void dataSourceCreator_ParcelableWriteReadComparableTest() {
+        testDataSourceCreator = CommonObjectConstructors.createDataSourceCreator();
+
+        // Write data to parcel.
+        Parcel parcel = Parcel.obtain();
+        testDataSourceCreator.writeToParcel(parcel, testDataSourceCreator.describeContents());
+
+        // After writing, reset the parcel for reading.
+        parcel.setDataPosition(0);
+
+        // Read the data.
+        DataSourceCreator createdFromParcel = DataSourceCreator.CREATOR.createFromParcel(parcel);
+        DataSourceCreator[] createdFromParcelArray = DataSourceCreator.CREATOR.newArray(1);
+
+        // Verify the results.
+        assertNotEquals(0, createdFromParcelArray.length);
+        assertThat(createdFromParcel, is(equalTo(testDataSourceCreator)));
+    }
 }

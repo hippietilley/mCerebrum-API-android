@@ -14,8 +14,6 @@ import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import static org.junit.Assert.assertThat;
-
 public class MCPluginParamAndroidUnitTest {
     public static String testTitle = TestingConstants.TEST_TITLE;
     public static String testId = TestingConstants.TEST_DEVICE_ID;
@@ -50,7 +48,6 @@ public class MCPluginParamAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertThat(createdFromParcelArray.length, is(not(0)));
         assertEquals(testMCPluginParam.getTitle(), createdFromParcel.getTitle());
         assertEquals(testMCPluginParam.getId(), createdFromParcel.getId());
         assertEquals(testMCPluginParam.getParams().toString(), createdFromParcel.getParams().toString());
