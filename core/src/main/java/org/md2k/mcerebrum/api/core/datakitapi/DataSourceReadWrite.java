@@ -128,5 +128,13 @@ public class DataSourceReadWrite extends DataSource implements Parcelable{
     public int describeContents() {
         return 0;
     }
+
+    @Override
+    public boolean equals(Object toCompare) {
+        if (toCompare instanceof DataSourceReadWrite) {
+            return super.equals(toCompare);
+        } else
+            return false;
+    }
 }
 

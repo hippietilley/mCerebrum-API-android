@@ -31,6 +31,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.HashMap;
+import java.util.Arrays;
 
 /**
  * Builder class for <code>DataSource</code> objects
@@ -215,26 +216,14 @@ public class DataDescriptor implements Parcelable {
     @Override
     public boolean equals(Object toCompare) {
         if (toCompare instanceof DataDescriptor) {
-            for (int possibleValues : this.getPossibleValuesAsInt()) {
-                for (int possibleValuesToCompare : ((DataDescriptor) toCompare).getPossibleValuesAsInt()) {
-                    if (!(possibleValues == possibleValuesToCompare))
-                        return false;
-                }
-            }
-
-            for (String possibleValues : this.getPossibleValuesAsString()) {
-                for (String possibleValuesToCompare : ((DataDescriptor) toCompare).getPossibleValuesAsString()) {
-                    if (!(possibleValues.equals(possibleValuesToCompare)))
-                        return false;
-                }
-            }
-
             return ((this.getTitle().equals(((DataDescriptor) toCompare).getTitle())) &&
                     (this.getSummary().equals(((DataDescriptor) toCompare).getSummary())) &&
                     (this.getDescription().equals(((DataDescriptor) toCompare).getDescription())) &&
                     (this.getMinValue() == ((DataDescriptor) toCompare).getMinValue()) &&
                     (this.getMaxValue() == ((DataDescriptor) toCompare).getMaxValue()) &&
-                    (this.getUnit().equals(((DataDescriptor) toCompare).getUnit())));
+                    (this.getUnit().equals(((DataDescriptor) toCompare).getUnit())) &&
+                    (Arrays.equals(this.getPossibleValuesAsInt(), ((DataDescriptor) toCompare).getPossibleValuesAsInt())) &&
+                    (Arrays.equals(this.getPossibleValuesAsString(), ((DataDescriptor) toCompare).getPossibleValuesAsString())));
         } else
             return false;
     }

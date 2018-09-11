@@ -232,12 +232,15 @@ public class PlatformMetaData implements Parcelable {
     public boolean equals(Object toCompare) {
         if (toCompare instanceof PlatformMetaData) {
             return ((this.getTitle().equals(((PlatformMetaData) toCompare).getTitle())) &&
-                    (this.getSummary().equals(((PlatformMetaData) toCompare).getSummary())) &&
+                    ((this.getSummary() == null && ((PlatformMetaData) toCompare).getSummary() == null) ||
+                    (this.getSummary().equals(((PlatformMetaData) toCompare).getSummary()))) &&
                     (this.getDescription().equals(((PlatformMetaData) toCompare).getDescription())) &&
                     (this.getOperationSystem().equals(((PlatformMetaData) toCompare).getOperationSystem())) &&
                     (this.getManufacturer().equals(((PlatformMetaData) toCompare).getManufacturer())) &&
                     (this.getModel().equals(((PlatformMetaData) toCompare).getModel())) &&
-                    (this.getVersionFirmware().equals(toCompare.getVer)))
+                    (this.getVersionFirmware().equals(((PlatformMetaData) toCompare).getVersionFirmware())) &&
+                    (this.getVersionHardware().equals(((PlatformMetaData) toCompare).getVersionHardware())) &&
+                    (this.getDeviceId().equals(((PlatformMetaData) toCompare).getDeviceId())));
         } else
             return false;
     }

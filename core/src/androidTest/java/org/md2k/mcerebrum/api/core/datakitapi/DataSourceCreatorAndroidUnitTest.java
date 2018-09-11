@@ -207,7 +207,7 @@ public class DataSourceCreatorAndroidUnitTest {
         testDataSourceCreator = new DataSourceCreator.Builder().setPlatformAsPhone().build();
         assertEquals(PLATFORM.TYPE.PHONE, testDataSourceCreator.getPlatformType());
         assertNotNull(testDataSourceCreator.getPlatformId());
-        assertEquals(testPlatformMetaData, testDataSourceCreator.getPlatformMetaData());
+        assertThat(testDataSourceCreator.getPlatformMetaData(), is(equalTo(testPlatformMetaData)));
     }
     @Test
     public void dataDescriptorTest() {

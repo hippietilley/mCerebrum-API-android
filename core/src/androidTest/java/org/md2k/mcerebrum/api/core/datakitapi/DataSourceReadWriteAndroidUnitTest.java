@@ -11,6 +11,9 @@ import org.md2k.mcerebrum.api.core.datakitapi.datasource.PlatformMetaData;
 
 import java.util.ArrayList;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -358,6 +361,6 @@ public class DataSourceReadWriteAndroidUnitTest {
 
         // Verify the results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(testDataSourceReadWrite, createdFromParcel);
+        assertThat(createdFromParcel, is(equalTo(testDataSourceReadWrite)));
     }
 }
