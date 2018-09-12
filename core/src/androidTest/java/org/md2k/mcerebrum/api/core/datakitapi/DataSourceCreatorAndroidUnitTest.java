@@ -26,27 +26,25 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class DataSourceCreatorAndroidUnitTest {
-    static final double DELTA = TestingConstants.DELTA;
+    private static final double DELTA = TestingConstants.DELTA;
 
-    String[] dataSourceTypeArray = TestingConstants.DATA_SOURCE_TYPE_ARRAY;
-    DataType[] dataTypeArray = TestingConstants.DATA_TYPE_ARRAY;
-    String[] dataSourceIdArray = TestingConstants.DATASOURCE_ID_ARRAY;
-    String[] platformTypeArray = TestingConstants.PLATFORM_TYPE_ARRAY;
-    String[] platformIdArray = TestingConstants.PLATFORM_ID_ARRAY;
-    String[] platformAppTypeArray = TestingConstants.PLATFORM_APP_TYPE_ARRAY;
-    String[] platformAppIdArray = TestingConstants.PLATFORM_APP_ID_ARRAY;
-    String[] applicationTypeArray = TestingConstants.APPLICATION_TYPE_ARRAY;
-    String[] applicationIdArray = TestingConstants.APPLICATION_ID_ARRAY;
-    TimeUnit[] timeUnitArray = TestingConstants.TIME_UNITS;
+    private String[] dataSourceTypeArray = TestingConstants.DATA_SOURCE_TYPE_ARRAY;
+    private DataType[] dataTypeArray = TestingConstants.DATA_TYPE_ARRAY;
+    private String[] dataSourceIdArray = TestingConstants.DATASOURCE_ID_ARRAY;
+    private String[] platformTypeArray = TestingConstants.PLATFORM_TYPE_ARRAY;
+    private String[] platformIdArray = TestingConstants.PLATFORM_ID_ARRAY;
+    private String[] platformAppTypeArray = TestingConstants.PLATFORM_APP_TYPE_ARRAY;
+    private String[] platformAppIdArray = TestingConstants.PLATFORM_APP_ID_ARRAY;
+    private String[] applicationTypeArray = TestingConstants.APPLICATION_TYPE_ARRAY;
+    private String[] applicationIdArray = TestingConstants.APPLICATION_ID_ARRAY;
 
-    DataSourceCreator testDataSourceCreator;
-    DataSourceMetaData testDataSourceMetaData;
-    PlatformMetaData testPlatformMetaData;
-    PlatformAppMetaData testPlatformAppMetaData;
-    ApplicationMetaData testAppMetaData;
-    DataDescriptor testDataDescriptor;
-    MCerebrumAPI testmCerebrumAPI;
-    Context testContext;
+    private DataSourceCreator testDataSourceCreator;
+    private DataSourceMetaData testDataSourceMetaData;
+    private PlatformMetaData testPlatformMetaData;
+    private PlatformAppMetaData testPlatformAppMetaData;
+    private ApplicationMetaData testAppMetaData;
+    private DataDescriptor testDataDescriptor;
+    private Context testContext;
 
     @Before
     public void objectCreation(){
@@ -203,12 +201,11 @@ public class DataSourceCreatorAndroidUnitTest {
     }
 
     @Test
-    public void platformAsPhoneComparableTest() {
-        testDataSourceCreator = new DataSourceCreator.Builder().setPlatformAsPhone().build();
-        assertEquals(PLATFORM.TYPE.PHONE, testDataSourceCreator.getPlatformType());
-        assertNotNull(testDataSourceCreator.getPlatformId());
-        assertThat(testDataSourceCreator.getPlatformMetaData(), is(equalTo(testPlatformMetaData)));
+    public void platformAsPhoneTestComparable() {
+        testDataSourceCreator = CommonObjectConstructors.createDataSourceCreatorWithPlatformAsPhone();
+        assertThat(testDataSourceCreator, is(equalTo(CommonObjectConstructors.createDataSourceCreatorWithPlatformAsPhone())));
     }
+
     @Test
     public void dataDescriptorTest() {
         testDataSourceCreator = new DataSourceCreator.Builder().setDataDescriptor(0, testDataDescriptor).build();

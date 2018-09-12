@@ -45,5 +45,16 @@ public class DataSourceSet {
     public int getStatus() {
         return status;
     }
+
+    @Override
+    public boolean equals(Object toCompare) {
+        if (toCompare instanceof DataSourceSet) {
+            if (this.getStatus() != ((DataSourceSet) toCompare).getStatus())
+                return false;
+            else
+                return super.equals(toCompare);
+        } else
+            return false;
+    }
 }
 

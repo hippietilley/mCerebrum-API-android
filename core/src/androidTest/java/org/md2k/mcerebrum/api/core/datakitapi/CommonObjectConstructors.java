@@ -10,18 +10,17 @@ import java.util.ArrayList;
 public class CommonObjectConstructors {
 
     public static PlatformMetaData createPlatformMetaData() {
-        PlatformMetaData.Builder testPlatformMetaDataBuilder;
-        testPlatformMetaDataBuilder = PlatformMetaData.builder();
-        return testPlatformMetaDataBuilder.setMetaData(TestingConstants.TEST_KEY, TestingConstants.TEST_VALUE)
-                                          .setTitle(TestingConstants.TEST_TITLE)
-                                          .setSummary(TestingConstants.TEST_SUMMARY)
-                                          .setDescription(TestingConstants.TEST_DESCRIPTION)
-                                          .setOperationSystem(TestingConstants.TEST_OPERATING_SYSTEM)
-                                          .setManufacturer(TestingConstants.TEST_MANUFACTURER)
-                                          .setModel(TestingConstants.TEST_MODEL)
-                                          .setVersionFirmware(TestingConstants.TEST_VERSION_FIRMWARE)
-                                          .setVersionHardware(TestingConstants.TEST_VERSION_HARDWARE)
-                                          .setDeviceId(TestingConstants.TEST_DEVICE_ID).build();
+        return PlatformMetaData.builder().setTitle(TestingConstants.TEST_TITLE)
+                                         .setSummary(TestingConstants.TEST_SUMMARY)
+                                         .setDescription(TestingConstants.TEST_DESCRIPTION)
+                                         .setOperationSystem(TestingConstants.TEST_OPERATING_SYSTEM)
+                                         .setManufacturer(TestingConstants.TEST_MANUFACTURER)
+                                         .setModel(TestingConstants.TEST_MODEL)
+                                         .setVersionFirmware(TestingConstants.TEST_VERSION_FIRMWARE)
+                                         .setVersionHardware(TestingConstants.TEST_VERSION_HARDWARE)
+                                         .setDeviceId(TestingConstants.TEST_DEVICE_ID)
+                                         .setMetaData(TestingConstants.TEST_KEY, TestingConstants.TEST_VALUE)
+                                         .setMetaData(TestingConstants.TEST_HASHMAP_METADATA).build();
     }
 
     public static PlatformAppMetaData createPlatformAppMetaData() {
@@ -65,12 +64,11 @@ public class CommonObjectConstructors {
     }
 
     public static DataSourceMetaData createDataSourceMetaData() {
-        DataSourceMetaData.Builder testDataSourceMetaDataBuilder = DataSourceMetaData.builder();
-        return testDataSourceMetaDataBuilder.setTitle(TestingConstants.TEST_TITLE)
-                                            .setSummary(TestingConstants.TEST_SUMMARY)
-                                            .setDescription(TestingConstants.TEST_DESCRIPTION)
-                                            .setMetaData(TestingConstants.TEST_KEY, TestingConstants.TEST_VALUE)
-                                            .build();
+        return DataSourceMetaData.builder().setTitle(TestingConstants.TEST_TITLE)
+                                           .setSummary(TestingConstants.TEST_SUMMARY)
+                                           .setDescription(TestingConstants.TEST_DESCRIPTION)
+                                           .setDataRate(TestingConstants.TEST_SAMPLE_NO, TestingConstants.TIME_UNITS[0])
+                                           .build();
     }
 
     public static DataSourceCreator createDataSourceCreator() {
@@ -90,6 +88,19 @@ public class CommonObjectConstructors {
                                            .setDataDescriptor(0, createDataDescriptor())
                                            .build();
     }
+
+        public static DataSourceCreator createDataSourceCreatorWithPlatformAsPhone() {
+            return DataSourceCreator.builder(TestingConstants.DATA_SOURCE_TYPE_ARRAY[0], TestingConstants.DATA_TYPE_ARRAY[0])
+                                    .setDataSourceId(TestingConstants.DATASOURCE_ID_ARRAY[0])
+                                    .setPlatformAppType(TestingConstants.PLATFORM_APP_TYPE_ARRAY[0])
+                                    .setPlatformAppId(TestingConstants.PLATFORM_APP_ID_ARRAY[0])
+                                    .setApplicationType(TestingConstants.APPLICATION_TYPE_ARRAY[0])
+                                    //.setApplicationId(TestingConstants.APPLICATION_ID_ARRAY[0])
+                                    .setDataSourceMetadata(createDataSourceMetaData())
+                                    .setPlatformAppMetadata(createPlatformAppMetaData())
+                                    .setApplicationMetaData(createApplicationMetaData())
+                                    .setPlatformAsPhone().build();
+            }
 
     public static DataSourceReadWrite createDataSourceReadWrite() {
         ArrayList<DataDescriptor> testDataDescriptors = new ArrayList<>();

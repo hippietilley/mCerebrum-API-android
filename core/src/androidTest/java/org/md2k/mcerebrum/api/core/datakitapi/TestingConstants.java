@@ -9,6 +9,7 @@ import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM_APP;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataType;
 import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
 
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class TestingConstants {
@@ -238,4 +239,14 @@ public class TestingConstants {
                                     // Oral B Toothbrush
                                           DATASOURCE.TYPE.ORALB_BRUSHING_TIME,
                                           DATASOURCE.TYPE.ORALB_BRUSH_ACCELEROMETER};
+
+    public static final HashMap<String, String> TEST_HASHMAP_METADATA = fillMetaDataHashMap();
+
+    private static HashMap<String, String> fillMetaDataHashMap() {
+        HashMap<String, String> hashMap = new HashMap<>();
+        for (String platformType : PLATFORM_TYPE_ARRAY) {
+            hashMap.put(platformType, platformType);
+        }
+        return hashMap;
+    }
 }

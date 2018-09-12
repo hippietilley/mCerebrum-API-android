@@ -224,7 +224,7 @@ public class DataSourceMetaData implements Parcelable {
             return ((this.getTitle().equals(((DataSourceMetaData) toCompare).getTitle())) &&
                     (this.getSummary().equals(((DataSourceMetaData) toCompare).getSummary())) &&
                     (this.getDescription().equals(((DataSourceMetaData) toCompare).getDescription())) &&
-                    ());
+                    (this.getMetaData(DATA_RATE).equals(((DataSourceMetaData) toCompare).getMetaData(DATA_RATE))));
         } else
             return false;
     }

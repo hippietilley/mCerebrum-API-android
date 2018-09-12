@@ -238,9 +238,12 @@ public class PlatformMetaData implements Parcelable {
                     (this.getOperationSystem().equals(((PlatformMetaData) toCompare).getOperationSystem())) &&
                     (this.getManufacturer().equals(((PlatformMetaData) toCompare).getManufacturer())) &&
                     (this.getModel().equals(((PlatformMetaData) toCompare).getModel())) &&
-                    (this.getVersionFirmware().equals(((PlatformMetaData) toCompare).getVersionFirmware())) &&
-                    (this.getVersionHardware().equals(((PlatformMetaData) toCompare).getVersionHardware())) &&
-                    (this.getDeviceId().equals(((PlatformMetaData) toCompare).getDeviceId())));
+                    ((this.getVersionFirmware() == null && ((PlatformMetaData) toCompare).getVersionFirmware() == null) ||
+                    (this.getVersionFirmware().equals(((PlatformMetaData) toCompare).getVersionFirmware()))) &&
+                    ((this.getVersionHardware() == null && ((PlatformMetaData) toCompare).getVersionHardware() == null) ||
+                    (this.getVersionHardware().equals(((PlatformMetaData) toCompare).getVersionHardware()))) &&
+                    ((this.getDeviceId() == null && ((PlatformMetaData) toCompare).getDeviceId() == null) ||
+                    (this.getDeviceId().equals(((PlatformMetaData) toCompare).getDeviceId()))));
         } else
             return false;
     }
