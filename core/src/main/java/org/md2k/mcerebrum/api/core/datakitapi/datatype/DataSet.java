@@ -3,6 +3,10 @@ package org.md2k.mcerebrum.api.core.datakitapi.datatype;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointBoolean;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointByte;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointDouble;
+
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -29,7 +33,7 @@ import android.os.Parcelable;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public class DataSet implements Parcelable{
+public class DataSet implements Parcelable {
     private Data[] data;
     private int actualDataSize;
     private int receivedDataSize;
@@ -77,16 +81,20 @@ public class DataSet implements Parcelable{
         FIRST_N_SAMPLE(1),
         DISTRIBUTED_N_SAMPLE(2);
         int id;
-        SAMPLING_TYPE(int id){
+
+        SAMPLING_TYPE(int id) {
             this.id = id;
         }
-        public int getCode(){
+
+        public int getCode() {
             return id;
         }
     }
-    public DataSet(){
+
+    public DataSet() {
 
     }
+
     public DataSet(Data[] data, int actualDataSize, int receivedDataSize, int samplingType) {
         this.data = data;
         this.actualDataSize = actualDataSize;
@@ -120,23 +128,29 @@ public class DataSet implements Parcelable{
 
     @Override
     public boolean equals(Object toCompare) {
-        if (super.equals(toCompare)) {
-            if (toCompare instanceof DataSet) {
-                if (this.actualDataSize != ((DataSet) toCompare).actualDataSize)
-                    return false;
-                if (this.receivedDataSize != ((DataSet) toCompare).receivedDataSize)
-                    return false;
-                if (this.samplingType != ((DataSet) toCompare).samplingType)
-                    return false;
-                else {
-                    for (int i = 0; i < this.data.length; i++) {
-                        if (this.getData()[i] != ((DataSet) toCompare).getData()[i])
-                            return false;
-                    }
-                    return true;
-                }
-            } else
+        if (toCompare instanceof DataSet) {
+            if (this.actualDataSize != ((DataSet) toCompare).actualDataSize)
                 return false;
+            if (this.receivedDataSize != ((DataSet) toCompare).receivedDataSize)
+                return false;
+            if (this.samplingType != ((DataSet) toCompare).samplingType)
+                return false;
+            else {
+                for (int i = 0; i < this.data.length; i++) {
+                    if (this.data[i] instanceof DataPointBoolean)
+                        if (!(this.equals(((DataSet) toCompare).data[i])))
+                            return false;
+                    else if (this.data[i] instanceof DataPointByte)
+                        if (!(this.equals(((DataSet) toCompare).data[i])))
+                            return false;
+                    else if (this.data[i] instanceof DataPointDouble)
+                        if (!(this.equals(((DataSet) toCompare).data[i])))
+                            return false;
+                    else
+                        return false;
+                }
+                return true;
+            }
         } else
             return false;
     }

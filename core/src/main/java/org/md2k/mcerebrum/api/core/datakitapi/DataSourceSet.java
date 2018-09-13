@@ -51,8 +51,11 @@ public class DataSourceSet {
         if (toCompare instanceof DataSourceSet) {
             if (this.getStatus() != ((DataSourceSet) toCompare).getStatus())
                 return false;
-            else
-                return super.equals(toCompare);
+            for (int i = 0; i < this.getDataSources().length; i++) {
+                if (!(this.getDataSources()[i].equals(((DataSourceSet) toCompare).getDataSources()[i])))
+                    return false;
+            }
+            return true;
         } else
             return false;
     }
