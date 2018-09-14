@@ -3,242 +3,112 @@ package org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint;
 import android.os.Parcel;
 import android.support.test.filters.SmallTest;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
-
-import java.util.Arrays;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
 
 @SmallTest
 public class DataPointObjectAndroidUnitTest {
-    private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
+    // Objects created with a single data point
+    private DataPointObject testDPOByte = DataPointObjectMocker.createDPOByte();
+    private DataPointObject testDPOShort = DataPointObjectMocker.createDPOShort();
+    private DataPointObject testDPOInt = DataPointObjectMocker.createDPOInt();
+    private DataPointObject testDPOLong = DataPointObjectMocker.createDPOLong();
+    private DataPointObject testDPOChar = DataPointObjectMocker.createDPOChar();
+    private DataPointObject testDPOFloat = DataPointObjectMocker.createDPOFloat();
+    private DataPointObject testDPODouble = DataPointObjectMocker.createDPODouble();
+    private DataPointObject testDPOBoolean = DataPointObjectMocker.createDPOBoolean();
 
-    private final String testSample = "Hello world";
-    private final String[] testSampleArray = {"Test 1", "Test 2"};
-    private DataPointObject mDataPointObjectString;
-    private DataPointObject mDataPointObject;
-    private DataPointObject mDataPointObjectArray;
-    private DataPointObject mDataPointObjectStringArray;
+    // Objects created with an array of data points.
+    private DataPointObject testDPOByteArray = DataPointObjectMocker.createDPOByteArray();
+    private DataPointObject testDPOShortArray = DataPointObjectMocker.createDPOShortArray();
+    private DataPointObject testDPOIntArray = DataPointObjectMocker.createDPOIntArray();
+    private DataPointObject testDPOLongArray = DataPointObjectMocker.createDPOLongArray();
+    private DataPointObject testDPOCharArray = DataPointObjectMocker.createDPOCharArray();
+    private DataPointObject testDPOFloatArray = DataPointObjectMocker.createDPOFloatArray();
+    private DataPointObject testDPODoubleArray = DataPointObjectMocker.createDPODoubleArray();
+    private DataPointObject testDPOBooleanArray = DataPointObjectMocker.createDPOBooleanArray();
+    private DataPointObject testDPOAllTypeArray = DataPointObjectMocker.createDPOAllTypeArray();
+    private DataPointObject testDPOStringArray = DataPointObjectMocker.createDPOStringArray();
 
-    private final Object testObjectSample = (Object)(testSample);
-    private final Boolean testObjectSample1 = true;
-    private final Double testObjectSample2 = 6.28;
-    private final Integer testObjectSample3 = 21;
-
-    private final Object[] testObjectSampleArray = {testObjectSample1, testObjectSample2, testObjectSample3};
-    private final String[] testObjectSampleArrayAsStrings = {testObjectSample1.toString(),
-                                                             testObjectSample2.toString(),
-                                                             testObjectSample3.toString()};
-
-    // Create the object.
-    @Before
-    public void createDataPointObject() {
-        mDataPointObjectString = new DataPointObject(testTimestamp, testSample);
-        mDataPointObjectStringArray = new DataPointObject(testTimestamp, testSampleArray);
-        mDataPointObject = new DataPointObject(testTimestamp, testObjectSample);
-        mDataPointObjectArray = new DataPointObject(testTimestamp, testObjectSampleArray);
-    }
-
-
+    private DataPointObject[] allTestDPO = {testDPOByte, testDPOShort, testDPOInt, testDPOLong,
+                                    testDPOChar, testDPOFloat, testDPODouble, testDPOBoolean};
+    private DataPointObject[] allTestDPOArrays = {testDPOByteArray, testDPOShortArray, testDPOIntArray,
+                                          testDPOLongArray, testDPOCharArray, testDPOFloatArray,
+                                          testDPODoubleArray, testDPOBooleanArray, testDPOAllTypeArray,
+                                          testDPOStringArray};
     @Test
     public void fieldAccuracyTest() {
-        /* The following line would convert the Object sample array to a String array for comparison but method
-         * references aren't supported in Java 7. We would need to change the minSdkVersion from 14 to 24 for this line to work.
-         */
-        //String[] testObjectSampleArrayAsStrings = Arrays.stream(testObjectSampleArray).map(Object::toString).toArray(String[]::new);
-        assertEquals(testTimestamp, mDataPointObjectArray.getTimestamp());
-        assertArrayEquals(testObjectSampleArrayAsStrings, mDataPointObjectArray.getSample());
+        final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
 
-        assertEquals(testTimestamp, mDataPointObject.getTimestamp());
-        for (Object obj : mDataPointObject.getSample())
-            assertEquals(testObjectSample, obj);
+        for (DataPointObject dataPointObject : allTestDPO) {
+            assertEquals(testTimestamp, dataPointObject.getTimestamp());
+        }
 
-        assertEquals(testTimestamp, mDataPointObjectString.getTimestamp());
-        assertEquals(testSample, mDataPointObjectString.getSample()[0]);
-
-        assertEquals(testTimestamp, mDataPointObjectStringArray.getTimestamp());
-        assertArrayEquals(testSampleArray, mDataPointObjectStringArray.getSample());
+        for (DataPointObject dataPointObject : allTestDPOArrays) {
+            assertEquals(testTimestamp, dataPointObject.getTimestamp());
+        }
     }
 
     @Test
     public void dataPointObjectCloneTest() {
-        DataPointObject dataPointClone = mDataPointObject.clone();
-        assertEquals(mDataPointObject.getTimestamp(), dataPointClone.getTimestamp());
-        assertArrayEquals(mDataPointObject.getSample(), dataPointClone.getSample());
-        assertNotSame(mDataPointObject, dataPointClone);
-    }
-
-    @Test
-    public void dataPointObjectCloneComparableTest() {
-        DataPointObject dataPointClone = mDataPointObjectString.clone();
-        assertThat(dataPointClone, is(equalTo(mDataPointObjectString)));
-        assertNotSame(mDataPointObjectString, dataPointClone);
-
-        DataPointObject dataPointObjectClone = mDataPointObject.clone();
-        assertThat(dataPointObjectClone, is(equalTo(mDataPointObject)));
-        assertNotSame(mDataPointObject, dataPointObjectClone);
-    }
-
-    @Test
-    public void dataPointObjectString_ParcelableWriteRead() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mDataPointObjectString.writeToParcel(parcel, mDataPointObjectString.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataPointObject createdFromParcel = DataPointObject.CREATOR.createFromParcel(parcel);
-        DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointObjectString.getTimestamp(), createdFromParcel.getTimestamp());
-        for (String sample : createdFromParcel.getSample()) {
-            for (String expectedSample : mDataPointObject.getSample())
-                assertEquals(expectedSample, sample);
+        for (DataPointObject dataPointObject : allTestDPO) {
+            DataPointObject dataPointObjectClone = dataPointObject.clone();
+            assertThat(dataPointObjectClone, is(equalTo(dataPointObject)));
         }
     }
 
-
     @Test
-    public void dataPointObject_ParcelableWriteRead() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mDataPointObject.writeToParcel(parcel, mDataPointObject.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataPointObject createdFromParcel = DataPointObject.CREATOR.createFromParcel(parcel);
-        DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointObject.getTimestamp(), createdFromParcel.getTimestamp());
-        for (String sample : createdFromParcel.getSample()) {
-            for (String expectedSample : mDataPointObject.getSample())
-                assertEquals(expectedSample, sample);
+    public void dataPointObjectArrayCloneTest() {
+        for (DataPointObject dataPointObject : allTestDPOArrays) {
+            DataPointObject dataPointObjectClone = dataPointObject.clone();
+            assertThat(dataPointObjectClone, is(equalTo(dataPointObject)));
         }
     }
 
     @Test
     public void dataPointObject_ParcelableWriteReadComparable() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mDataPointObject.writeToParcel(parcel, mDataPointObject.describeContents());
+        for (DataPointObject dataPointObject : allTestDPO) {
+            // Write data to parcel.
+            Parcel parcel = Parcel.obtain();
+            dataPointObject.writeToParcel(parcel, dataPointObject.describeContents());
 
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
 
-        // Read the data.
-        DataPointObject createdFromParcel = DataPointObject.CREATOR.createFromParcel(parcel);
-        DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
+            // After writing, reset the parcel for reading
+            parcel.setDataPosition(0);
 
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertThat(createdFromParcel, is(equalTo(mDataPointObject)));
-    }
+            // Read the data.
+            DataPointObject createdFromParcel = DataPointObject.CREATOR.createFromParcel(parcel);
+            DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
 
-    @Test
-    public void dataPointObjectString_ParcelableWriteReadComparable() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mDataPointObjectString.writeToParcel(parcel, mDataPointObjectString.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataPointObject createdFromParcel = DataPointObject.CREATOR.createFromParcel(parcel);
-        DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertThat(createdFromParcel, is(equalTo(mDataPointObjectString)));
-    }
-
-    @Test
-    public void dataPointObjectStringArray_ParcelableWriteRead() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mDataPointObjectStringArray.writeToParcel(parcel, mDataPointObjectStringArray.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataPointObject createdFromParcel = DataPointObject.CREATOR.createFromParcel(parcel);
-        DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointObjectStringArray.getTimestamp(), createdFromParcel.getTimestamp());
-        assertArrayEquals(mDataPointObjectStringArray.getSample(), createdFromParcel.getSample());
-    }
-
-    @Test
-    public void dataPointObjectArray_ParcelableWriteRead() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mDataPointObjectArray.writeToParcel(parcel, mDataPointObjectArray.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataPointObject createdFromParcel = DataPointObject.CREATOR.createFromParcel(parcel);
-        DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointObjectArray.getTimestamp(), createdFromParcel.getTimestamp());
-        assertArrayEquals(mDataPointObjectArray.getSample(), createdFromParcel.getSample());
-    }
-
-    @Test
-    public void dataPointObjectStringArray_ParcelableWriteReadComparable() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mDataPointObjectStringArray.writeToParcel(parcel, mDataPointObjectStringArray.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataPointObject createdFromParcel = DataPointObject.CREATOR.createFromParcel(parcel);
-        DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertThat(createdFromParcel, is(equalTo(mDataPointObjectStringArray)));
+            // Verify results.
+            assertNotEquals(0, createdFromParcelArray.length);
+            assertThat(createdFromParcel, is(equalTo(dataPointObject)));
+        }
     }
 
     @Test
     public void dataPointObjectArray_ParcelableWriteReadComparable() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mDataPointObjectArray.writeToParcel(parcel, mDataPointObjectArray.describeContents());
+        for (DataPointObject dataPointObject : allTestDPOArrays) {
+            // Write data to parcel.
+            Parcel parcel = Parcel.obtain();
+            dataPointObject.writeToParcel(parcel, dataPointObject.describeContents());
 
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
+            // After writing, reset the parcel for reading
+            parcel.setDataPosition(0);
 
-        // Read the data.
-        DataPointObject createdFromParcel = DataPointObject.CREATOR.createFromParcel(parcel);
-        DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
+            // Read the data.
+            DataPointObject createdFromParcel = DataPointObject.CREATOR.createFromParcel(parcel);
+            DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
 
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertThat(createdFromParcel, is(equalTo(mDataPointObjectArray)));
+            // Verify results.
+            assertNotEquals(0, createdFromParcelArray.length);
+            assertThat(createdFromParcel, is(equalTo(dataPointObject)));
+        }
     }
 }

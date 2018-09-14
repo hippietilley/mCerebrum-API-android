@@ -48,9 +48,10 @@ public class DataPointObject extends Data implements Parcelable {
         super(timestamp);
         Gson gson = new Gson();
         this.sample = new String[sample.length];
-        for(int i = 0 ;i<sample.length;i++)
+        for (int i = 0; i < sample.length; i++)
             this.sample[i] = gson.toJson(sample[i]);
     }
+
     public <R> DataPointObject(long timestamp, R sample) {
         super(timestamp);
         Gson gson = new Gson();
@@ -60,11 +61,11 @@ public class DataPointObject extends Data implements Parcelable {
 
     private DataPointObject(long timestamp, String[] ts) {
         super(timestamp);
-        this.sample=new String[ts.length];
+        this.sample = new String[ts.length];
         System.arraycopy(ts, 0, sample, 0, ts.length);
     }
 
-    public DataPointObject clone(){
+    public DataPointObject clone() {
         return new DataPointObject(getTimestamp(), sample);
     }
 
