@@ -5,6 +5,7 @@ import android.support.test.filters.SmallTest;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.theories.DataPoint;
 import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.dataannotation.DataAnnotationEnum;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointBoolean;
@@ -14,6 +15,7 @@ import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointEnum;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointInt;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointLong;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointObject;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointObjectMocker;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointString;
 import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
 
@@ -27,8 +29,8 @@ import static org.junit.Assert.assertNotEquals;
 
 @SmallTest
 public class DataSetAndroidUnitTest {
-    public static final double DELTA = TestingConstants.DELTA;
-    private final int actualDataSize = 100;
+    private static final double DELTA = TestingConstants.DELTA;
+    private final int actualDataSize = 0;
     private final int receivedDataSize = 101;
     private int[] samplingTypes = {DataSet.SAMPLING_TYPE.ALL.getCode(),
                                    DataSet.SAMPLING_TYPE.FIRST_N_SAMPLE.getCode(),
@@ -38,25 +40,15 @@ public class DataSetAndroidUnitTest {
     private long testTimestamp = 1268660460;
     private long testStartTimestamp = 1268660060;
     private long testEndTimestamp = 1268660460;
-    private final boolean testSampleBoolean = true;
-    private DataPointBoolean testDataPointBoolean = new DataPointBoolean(testTimestamp, testSampleBoolean);
-    private final byte testSampleByte = 1;
-    private DataPointByte testDataPointByte = new DataPointByte(testTimestamp, testSampleByte);
-    private final double testSampleDouble = 6.2831853071;
-    private DataPointDouble testDataPointDouble = new DataPointDouble(testTimestamp, testSampleDouble);
-    private final byte testSampleEnum = 1;
-    private DataPointEnum testDataPointEnum = new DataPointEnum(testTimestamp, testSampleEnum);
-    private final int testSampleInt = -1;
-    private DataPointInt testDataPointInt = new DataPointInt(testTimestamp, testSampleInt);
-    private final long testSampleLong = -3874901;
-    private DataPointLong testDataPointLong = new DataPointLong(testTimestamp, testSampleLong);
-    private final String testSampleObject = "Hello object";
-    private DataPointObject testDataPointObject= new DataPointObject(testTimestamp, testSampleObject);
-    private final String testSampleString = "Hello string";
-    private DataPointString testDataPointString = new DataPointString(testTimestamp, testSampleString);
-    private byte testSampleAnnotationEnum = 127;
-    private DataAnnotationEnum testDataAnnotationEnum = new DataAnnotationEnum(testStartTimestamp,
-            testEndTimestamp, testSampleAnnotationEnum);
+    private DataPointBoolean testDataPointBoolean = DataPointMocker.createDataPointBoolean();
+    private DataPointByte testDataPointByte = DataPointMocker.createDataPointByte();
+    private DataPointDouble testDataPointDouble = DataPointMocker.createDataPointDouble();
+    private DataPointEnum testDataPointEnum = DataPointMocker.createDataPointEnum();
+    private DataPointInt testDataPointInt = DataPointMocker.createDataPointInt();
+    private DataPointLong testDataPointLong = DataPointMocker.createDataPointLong();
+    private DataPointObject testDataPointObject = DataPointObjectMocker.createDPOAllTypeArray();
+    private DataPointString testDataPointString = DataPointMocker.createDataPointString();
+    private DataAnnotationEnum testDataAnnotationEnum = DataPointMocker.createDataAnnoEnum();
     private Data testData = new Data(testTimestamp);
     private Data[] data = {testDataPointBoolean, testDataPointByte, testDataPointDouble,
                            testDataPointEnum, testDataPointInt, testDataPointLong, testDataPointObject,
