@@ -266,4 +266,20 @@ public class PlatformAppMetaData implements Parcelable{
         } else
             return false;
     }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + title.hashCode();
+        result = 31 * result + summary.hashCode();
+        result = 31 * result + description.hashCode();
+        result = 31 * result + operationSystem.hashCode();
+        result = 31 * result + manufacturer.hashCode();
+        result = 31 * result + model.hashCode();
+        result = 31 * result + versionFirmware.hashCode();
+        result = 31 * result + versionHardware.hashCode();
+        result = 31 * result + deviceId.hashCode();
+        result = 31 * result + custom.hashCode();
+        return result;
+    }
 }

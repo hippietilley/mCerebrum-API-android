@@ -228,4 +228,11 @@ public class DataSourceMetaData implements Parcelable {
         } else
             return false;
     }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + metaData.hashCode();
+        return result;
+    }
 }

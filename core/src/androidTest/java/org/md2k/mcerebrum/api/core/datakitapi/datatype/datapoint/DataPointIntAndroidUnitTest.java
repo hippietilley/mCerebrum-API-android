@@ -128,4 +128,17 @@ public class DataPointIntAndroidUnitTest {
         assertNotEquals(0, createdFromParcelArray.length);
         assertThat(createdFromParcel, is(equalTo(mDataPointIntArray)));
     }
+
+
+    @Test
+    public void dataPointIntHashcodeTest() {
+        DataPointInt dataClone = mDataPointInt.clone();
+        assertEquals(mDataPointInt.hashCode(), dataClone.hashCode());
+
+        DataPointInt dpbWithDifferentTimestamp = new DataPointInt(testTimestamp + 10, testSample);
+        assertNotEquals(dpbWithDifferentTimestamp.hashCode(), dataClone.hashCode());
+
+        DataPointInt dpbWithDifferentSample = new DataPointInt(testTimestamp, 42);
+        assertNotEquals(dpbWithDifferentSample.hashCode(), dataClone.hashCode());
+    }
 }

@@ -59,5 +59,15 @@ public class DataSourceSet {
         } else
             return false;
     }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        for (DataSource ds : dataSource) {
+            result = 31 * result + ds.hashCode();
+        }
+        result = 31 * result + status;
+        return result;
+    }
 }
 

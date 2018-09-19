@@ -79,4 +79,10 @@ public class DataAndroidUnitTest {
         assertNotEquals(0, createdFromParcelArray.length);
         assertThat(createdFromParcel, is(equalTo(mData)));
     }
+
+    @Test
+    public void dataHashcodeTest() {
+        Data dataClone = mData.clone();
+        assertEquals(mData.hashCode(), dataClone.hashCode());
+    }
 }

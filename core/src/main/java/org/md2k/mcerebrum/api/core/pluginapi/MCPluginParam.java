@@ -105,4 +105,13 @@ public class MCPluginParam implements Parcelable {
         } else
             return false;
     }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + title.hashCode();
+        result = 31 * result + id.hashCode();
+        result = 31 * result + params.hashCode();
+        return result;
+    }
 }

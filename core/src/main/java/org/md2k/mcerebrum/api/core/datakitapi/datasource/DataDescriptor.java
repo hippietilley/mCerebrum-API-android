@@ -227,4 +227,18 @@ public class DataDescriptor implements Parcelable {
         } else
             return false;
     }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        long minValueLong = Double.doubleToLongBits(minValue);
+        result = 31 * result + (int)(minValueLong ^ (minValueLong >>> 32));
+        long maxValueLong = Double .doubleToLongBits(maxValue);
+        result = 31 * result + (int)(maxValueLong ^ (maxValueLong >>> 32));
+        result = 31 * result + unit.hashCode();
+        result = 31 * result + Arrays.hashCode(possibleValuesAsString);
+        result = 31 * result + Arrays.hashCode(possibleValuesAsInt);
+        result = 31 * result + descriptor.hashCode();
+        return result;
+    }
 }

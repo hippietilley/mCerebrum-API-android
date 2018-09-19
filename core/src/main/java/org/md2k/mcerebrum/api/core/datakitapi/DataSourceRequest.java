@@ -184,5 +184,10 @@ public class DataSourceRequest extends AbstractDataSource {
         } else
             return false;
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
 

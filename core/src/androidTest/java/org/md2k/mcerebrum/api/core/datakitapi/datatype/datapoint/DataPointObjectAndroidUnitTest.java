@@ -111,4 +111,13 @@ public class DataPointObjectAndroidUnitTest {
             assertThat(createdFromParcel, is(equalTo(dataPointObject)));
         }
     }
+
+
+    @Test
+    public void dataPointObjectHashcodeTest() {
+        for (DataPointObject dataPointObject : allTestDPOArrays) {
+            DataPointObject dataPointObjectClone = dataPointObject.clone();
+            assertEquals(dataPointObject.hashCode(), dataPointObjectClone.hashCode());
+        }
+    }
 }

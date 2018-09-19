@@ -136,5 +136,10 @@ public class DataSourceReadWrite extends DataSource implements Parcelable{
         } else
             return false;
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
 

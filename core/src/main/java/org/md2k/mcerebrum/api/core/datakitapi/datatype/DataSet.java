@@ -6,6 +6,11 @@ import android.os.Parcelable;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointBoolean;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointByte;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointDouble;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointEnum;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointInt;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointLong;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointObject;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointString;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
@@ -146,8 +151,21 @@ public class DataSet implements Parcelable {
                     else if (this.data[i] instanceof DataPointDouble)
                         if (!(this.equals(((DataSet) toCompare).data[i])))
                             return false;
-                    else
-                        return false;
+                    else if (this.data[i] instanceof DataPointEnum)
+                        if (!(this.equals(((DataSet) toCompare).data[i])))
+                            return false;
+                    else if (this.data[i] instanceof DataPointInt)
+                        if (!(this.equals(((DataSet) toCompare).data[i])))
+                            return false;
+                    else if (this.data[i] instanceof DataPointLong)
+                        if (!(this.equals(((DataSet) toCompare).data[i])))
+                            return false;
+                    else if (this.data[i] instanceof DataPointObject)
+                        if (!(this.equals(((DataSet) toCompare).data[i])))
+                            return false;
+                    else if (this.data[i] instanceof DataPointString)
+                        if (!(this.equals(((DataSet) toCompare).data[i])))
+                            return false;
                 }
                 return true;
             }

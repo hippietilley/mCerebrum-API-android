@@ -138,4 +138,16 @@ public class DataPointBooleanAndroidUnitTest {
         assertThat(nullBoolean, is(equalTo(nullBoolean1)));
         assertThat(nullBoolean, is(not(equalTo(mDataPointBoolean))));
     }
+
+    @Test
+    public void dataPointBooleanHashcodeTest() {
+        DataPointBoolean dataClone = mDataPointBoolean.clone();
+        assertEquals(mDataPointBoolean.hashCode(), dataClone.hashCode());
+
+        DataPointBoolean dpbWithDifferentTimestamp = new DataPointBoolean(testTimestamp + 10, testSample);
+        assertNotEquals(dpbWithDifferentTimestamp.hashCode(), dataClone.hashCode());
+
+        DataPointBoolean dpbWithDifferentSample = new DataPointBoolean(testTimestamp, false);
+        assertNotEquals(dpbWithDifferentSample.hashCode(), dataClone.hashCode());
+    }
 }

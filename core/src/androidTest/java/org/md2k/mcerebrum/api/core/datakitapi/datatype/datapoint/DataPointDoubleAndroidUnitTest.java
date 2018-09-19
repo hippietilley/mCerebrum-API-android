@@ -129,4 +129,17 @@ public class DataPointDoubleAndroidUnitTest {
         assertNotEquals(0, createdFromParcelArray.length);
         assertThat(createdFromParcel, is(equalTo(mDataPointDoubleArray)));
     }
+
+
+    @Test
+    public void dataPointDoubleHashcodeTest() {
+        DataPointDouble dataClone = mDataPointDouble.clone();
+        assertEquals(mDataPointDouble.hashCode(), dataClone.hashCode());
+
+        DataPointDouble dpbWithDifferentTimestamp = new DataPointDouble(testTimestamp + 10, testSample);
+        assertNotEquals(dpbWithDifferentTimestamp.hashCode(), dataClone.hashCode());
+
+        DataPointDouble dpbWithDifferentSample = new DataPointDouble(testTimestamp, Math.sqrt(2));
+        assertNotEquals(dpbWithDifferentSample.hashCode(), dataClone.hashCode());
+    }
 }

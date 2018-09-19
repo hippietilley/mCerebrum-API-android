@@ -145,4 +145,12 @@ public class DataPointLong extends Data implements Parcelable {
         } else
             return false;
     }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + super.hashCode();
+        result = 31 * result + Arrays.hashCode(sample);
+        return result;
+    }
 }

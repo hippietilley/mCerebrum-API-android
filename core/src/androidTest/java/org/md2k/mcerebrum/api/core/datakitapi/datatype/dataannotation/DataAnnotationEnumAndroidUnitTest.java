@@ -84,4 +84,22 @@ public class DataAnnotationEnumAndroidUnitTest {
         assertNotEquals(0, createdFromParcelArray.length);
         assertThat(createdFromParcel, is(equalTo(mDataAnnotationEnum)));
     }
+
+    @Test
+    public void dataAnnotationEnumHashcodeTest() {
+        DataAnnotationEnum dataClone = mDataAnnotationEnum.clone();
+        assertEquals(mDataAnnotationEnum.hashCode(), dataClone.hashCode());
+
+        DataAnnotationEnum daeWithDifferentStartTimestamp = new
+                DataAnnotationEnum(testStartTimestamp + 10, testEndTimestamp, testSample);
+        assertNotEquals(daeWithDifferentStartTimestamp.hashCode(), dataClone.hashCode());
+
+        DataAnnotationEnum daeWithDifferentEndTimestamp = new
+                DataAnnotationEnum(testStartTimestamp, testEndTimestamp + 10, testSample);
+        assertNotEquals(daeWithDifferentEndTimestamp.hashCode(), dataClone.hashCode());
+
+        DataAnnotationEnum daeWithDifferentSample = new
+                DataAnnotationEnum(testStartTimestamp, testEndTimestamp, (byte)0101);
+        assertNotEquals(daeWithDifferentSample.hashCode(), dataClone.hashCode());
+    }
 }

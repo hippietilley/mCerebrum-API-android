@@ -128,4 +128,17 @@ public class DataPointEnumAndroidUnitTest {
         assertNotEquals(0, createdFromParcelArray.length);
         assertThat(createdFromParcel, is(equalTo(mDataPointEnumArray)));
     }
+
+
+    @Test
+    public void dataPointEnumHashcodeTest() {
+        DataPointEnum dataClone = mDataPointEnum.clone();
+        assertEquals(mDataPointEnum.hashCode(), dataClone.hashCode());
+
+        DataPointEnum dpbWithDifferentTimestamp = new DataPointEnum(testTimestamp + 10, testSample);
+        assertNotEquals(dpbWithDifferentTimestamp.hashCode(), dataClone.hashCode());
+
+        DataPointEnum dpbWithDifferentSample = new DataPointEnum(testTimestamp, (byte)1010);
+        assertNotEquals(dpbWithDifferentSample.hashCode(), dataClone.hashCode());
+    }
 }

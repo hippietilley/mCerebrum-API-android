@@ -283,7 +283,7 @@ public abstract class AbstractDataSource implements Parcelable {
 
     @Override
     public boolean equals(Object toCompare) {
-        if (toCompare instanceof  AbstractDataSource) {
+        if (toCompare instanceof AbstractDataSource) {
             if (!(this.dsId == ((AbstractDataSource) toCompare).dsId))
                 return false;
             if (!(this.creationTime == ((AbstractDataSource) toCompare).creationTime))
@@ -314,5 +314,27 @@ public abstract class AbstractDataSource implements Parcelable {
                     (this.getApplicationMetaData().equals(((AbstractDataSource) toCompare).getApplicationMetaData())));
         } else
             return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + dsId;
+        result = 31 * result + (int)(creationTime ^ (creationTime >>> 32));
+        result = 31 * result + (int)(modifiedTime ^ (modifiedTime >>> 32));
+        result = 31 * result + status;
+        result = 31 * result + dataSourceType.hashCode();
+        result = 31 * result + dataSourceId.hashCode();
+        result = 31 * result + platformType.hashCode();
+        result = 31 * result + platformId.hashCode();
+        result = 31 * result + platformAppType.hashCode();
+        result = 31 * result + platformAppId.hashCode();
+        result = 31 * result + applicationType.hashCode();
+        result = 31 * result + applicationId.hashCode();
+        result = 31 * result + dataSourceMetaData.hashCode();
+        result = 31 * result + platformMetaData.hashCode();
+        result = 31 * result + platformAppMetaData.hashCode();
+        result = 31 * result + applicationMetaData.hashCode();
+        return result;
     }
 }

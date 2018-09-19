@@ -237,5 +237,10 @@ public class DataSourceCreator extends DataSource implements Parcelable {
     public boolean equals(Object toCompare) {
         return super.equals(toCompare);
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
 

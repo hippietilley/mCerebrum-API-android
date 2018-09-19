@@ -128,5 +128,18 @@ public class DataPointLongAndroidUnitTest {
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
         assertThat(createdFromParcel, is(equalTo(mDataPointLongArray)));
-        }
     }
+
+
+    @Test
+    public void dataPointLongHashcodeTest() {
+        DataPointLong dataClone = mDataPointLong.clone();
+        assertEquals(mDataPointLong.hashCode(), dataClone.hashCode());
+
+        DataPointLong dpbWithDifferentTimestamp = new DataPointLong(testTimestamp + 10, testSample);
+        assertNotEquals(dpbWithDifferentTimestamp.hashCode(), dataClone.hashCode());
+
+        DataPointLong dpbWithDifferentSample = new DataPointLong(testTimestamp, (long)475894890);
+        assertNotEquals(dpbWithDifferentSample.hashCode(), dataClone.hashCode());
+    }
+}
