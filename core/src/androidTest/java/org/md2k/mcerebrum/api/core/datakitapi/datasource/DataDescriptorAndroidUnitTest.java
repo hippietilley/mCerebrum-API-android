@@ -1,9 +1,11 @@
-package org.md2k.mcerebrum.api.core.datakitapi;
+package org.md2k.mcerebrum.api.core.datakitapi.datasource;
 
 import android.os.Parcel;
 import android.support.test.filters.SmallTest;
 
 import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.CommonObjectConstructors;
+import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataDescriptor;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -95,5 +97,12 @@ public class DataDescriptorAndroidUnitTest {
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
         assertThat(createdFromParcel, is(equalTo(testDataDescriptor)));
+    }
+
+    @Test
+    public void setTestDataDescriptorHashCodeTest() {
+        testDataDescriptor = CommonObjectConstructors.createDataDescriptor();
+        DataDescriptor testDataDescriptor2 = CommonObjectConstructors.createDataDescriptor();
+        assertEquals(testDataDescriptor.hashCode(), testDataDescriptor2.hashCode());
     }
 }

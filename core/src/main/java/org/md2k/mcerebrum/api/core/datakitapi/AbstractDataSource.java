@@ -330,11 +330,15 @@ public abstract class AbstractDataSource implements Parcelable {
         result = 31 * result + platformAppType.hashCode();
         result = 31 * result + platformAppId.hashCode();
         result = 31 * result + applicationType.hashCode();
-        result = 31 * result + applicationId.hashCode();
-        result = 31 * result + dataSourceMetaData.hashCode();
-        result = 31 * result + platformMetaData.hashCode();
-        result = 31 * result + platformAppMetaData.hashCode();
-        result = 31 * result + applicationMetaData.hashCode();
+        //result = 31 * result + applicationId.hashCode();
+        if (dataSourceMetaData != null)
+            result = 31 * result + dataSourceMetaData.hashCode();
+        if (platformMetaData != null)
+            result = 31 * result + platformMetaData.hashCode();
+        if (platformAppMetaData != null)
+            result = 31 * result + platformAppMetaData.hashCode();
+        if (applicationMetaData != null)
+            result = 31 * result + applicationMetaData.hashCode();
         return result;
     }
 }

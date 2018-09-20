@@ -1,9 +1,11 @@
-package org.md2k.mcerebrum.api.core.datakitapi;
+package org.md2k.mcerebrum.api.core.datakitapi.datasource;
 
 import android.os.Parcel;
 import android.test.suitebuilder.annotation.SmallTest;
 
 import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.CommonObjectConstructors;
+import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceMetaData;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -77,5 +79,12 @@ public class DataSourceMetaDataAndroidUnitTest {
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
         assertThat(createdFromParcel, is(equalTo(testDataSourceMetaData)));
+    }
+
+    @Test
+    public void dataSourceMetaDataHashCodeTest() {
+        testDataSourceMetaData = CommonObjectConstructors.createDataSourceMetaData();
+        DataSourceMetaData testDataSourceMetaData2 = CommonObjectConstructors.createDataSourceMetaData();
+        assertEquals(testDataSourceMetaData.hashCode(), testDataSourceMetaData2.hashCode());
     }
 }

@@ -96,4 +96,11 @@ public class PlatformAppMetaDataAndroidUnitTest {
         assertNotEquals(0, createdFromParcelArray.length);
         assertThat(createdFromParcel, is(equalTo(testPlatformAppMetaData)));
     }
+
+    @Test
+    public void platformAppMetaDataHashCodeTest() {
+        testPlatformAppMetaData = CommonObjectConstructors.createPlatformAppMetaData();
+        PlatformAppMetaData testPlatformAppMetaData2 = CommonObjectConstructors.createPlatformAppMetaData();
+        assertEquals(testPlatformAppMetaData.hashCode(), testPlatformAppMetaData2.hashCode());
+    }
 }

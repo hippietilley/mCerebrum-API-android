@@ -265,4 +265,11 @@ public class DataSourceCreatorAndroidUnitTest {
         assertNotEquals(0, createdFromParcelArray.length);
         assertThat(createdFromParcel, is(equalTo(testDataSourceCreator)));
     }
+
+    @Test
+    public void dataSourceCreatorHashCodeTest() {
+        testDataSourceCreator = CommonObjectConstructors.createDataSourceCreator();
+        DataSourceCreator testDataSourceCreator2 = CommonObjectConstructors.createDataSourceCreator();
+        assertEquals(testDataSourceCreator.hashCode(), testDataSourceCreator2.hashCode());
+    }
 }

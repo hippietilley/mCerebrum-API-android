@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 public class DataSourceReadWriteAndroidUnitTest {
-    static final double DELTA = TestingConstants.DELTA;
+    private static final double DELTA = TestingConstants.DELTA;
 
     private final String[] dataSourceTypeArray = TestingConstants.DATA_SOURCE_TYPE_ARRAY;
     private final String[] dataSourceIdArray = TestingConstants.DATASOURCE_ID_ARRAY;
@@ -362,5 +362,12 @@ public class DataSourceReadWriteAndroidUnitTest {
         // Verify the results.
         assertNotEquals(0, createdFromParcelArray.length);
         assertThat(createdFromParcel, is(equalTo(testDataSourceReadWrite)));
+    }
+
+    @Test
+    public void dataSourceReadWriteHashCodeTest() {
+        testDataSourceReadWrite = CommonObjectConstructors.createDataSourceReadWrite();
+        DataSourceReadWrite testDataSourceReadWrite2 = CommonObjectConstructors.createDataSourceReadWrite();
+        assertEquals(testDataSourceReadWrite.hashCode(), testDataSourceReadWrite2.hashCode());
     }
 }

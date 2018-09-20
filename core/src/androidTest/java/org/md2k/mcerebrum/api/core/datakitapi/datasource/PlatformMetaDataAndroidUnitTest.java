@@ -1,9 +1,11 @@
-package org.md2k.mcerebrum.api.core.datakitapi;
+package org.md2k.mcerebrum.api.core.datakitapi.datasource;
 
 import android.os.Parcel;
 import android.support.test.filters.SmallTest;
 
 import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.CommonObjectConstructors;
+import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.PlatformMetaData;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -96,5 +98,12 @@ public class PlatformMetaDataAndroidUnitTest {
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
         assertThat(createdFromParcel, is(equalTo(testPlatformMetaData)));
+    }
+
+    @Test
+    public void platformMetaDataHashCodeTest() {
+        testPlatformMetaData = CommonObjectConstructors.createPlatformMetaData();
+        PlatformMetaData testPlatformMetaData2 = CommonObjectConstructors.createPlatformMetaData();
+        assertEquals(testPlatformMetaData.hashCode(), testPlatformMetaData2.hashCode());
     }
 }

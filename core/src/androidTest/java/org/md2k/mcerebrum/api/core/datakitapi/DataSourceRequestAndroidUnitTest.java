@@ -74,4 +74,10 @@ public class DataSourceRequestAndroidUnitTest {
         assertNotEquals(0, createdFromParcelArray.length);
         assertThat(createdFromParcel, is(equalTo(testDataSourceRequest)));
     }
+
+    @Test
+    public void dataSourceRequestHashCodeTest() {
+        DataSourceRequest testDataSourceRequest2 = CommonObjectConstructors.createDataSourceRequest();
+        assertEquals(testDataSourceRequest.hashCode(), testDataSourceRequest2.hashCode());
+    }
 }
