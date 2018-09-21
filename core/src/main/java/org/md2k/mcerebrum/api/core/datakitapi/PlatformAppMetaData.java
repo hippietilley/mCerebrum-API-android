@@ -35,7 +35,7 @@ import java.util.HashMap;
 /**
  * Builder class for <code>DataSource</code> objects
  */
-public class PlatformAppMetaData implements Parcelable{
+public class PlatformAppMetaData implements Parcelable {
     private String title;
     private String summary;
     private String description;
@@ -82,17 +82,25 @@ public class PlatformAppMetaData implements Parcelable{
         }
     };
 
-    public String getTitle(){
+    public String getTitle() {
         return title;
     }
-    public String getSummary(){
+
+    public String getSummary() {
         return summary;
     }
-    public String getDescription(){
+
+    public String getDescription() {
         return description;
     }
-    public String getOperationSystem(){ return operationSystem;}
-    public String getManufacturer(){return manufacturer;}
+
+    public String getOperationSystem() {
+        return operationSystem;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
 
     public String getModel() {
         return model;
@@ -110,8 +118,8 @@ public class PlatformAppMetaData implements Parcelable{
         return deviceId;
     }
 
-    public String getValue(String key){
-        if(custom==null) return null;
+    public String getValue(String key) {
+        if (custom == null) return null;
         return custom.get(key);
     }
 
@@ -122,11 +130,11 @@ public class PlatformAppMetaData implements Parcelable{
         description = builder.description;
         operationSystem = builder.operationSystem;
         manufacturer = builder.manufacturer;
-        model=builder.model;
-        versionFirmware=builder.versionFirmware;
-        versionHardware=builder.versionHardware;
-        deviceId=builder.deviceId;
-        custom= builder.custom;
+        model = builder.model;
+        versionFirmware = builder.versionFirmware;
+        versionHardware = builder.versionHardware;
+        deviceId = builder.deviceId;
+        custom = builder.custom;
     }
 
 
@@ -227,6 +235,7 @@ public class PlatformAppMetaData implements Parcelable{
             this.custom.put(key, value);
             return this;
         }
+
         public PlatformAppMetaData build() {
             return new PlatformAppMetaData(this);
         }
@@ -234,35 +243,17 @@ public class PlatformAppMetaData implements Parcelable{
 
     @Override
     public boolean equals(Object toCompare) {
-        if (toCompare instanceof  PlatformAppMetaData) {
-            for (String thisKey : this.custom.keySet()) {
-                if (!this.custom.get(thisKey).equalsIgnoreCase(((PlatformAppMetaData) toCompare).custom.get(thisKey)))
-                    return false;
-            }
-            for (String toCompareKey : ((PlatformAppMetaData) toCompare).custom.keySet()) {
-                if (!((PlatformAppMetaData) toCompare).custom.get(toCompareKey).equalsIgnoreCase(this.custom.get(toCompareKey)))
-                    return false;
-            }
-            if (!(this.title.equals(((PlatformAppMetaData) toCompare).title)))
-                return false;
-            if (!(this.summary.equals(((PlatformAppMetaData) toCompare).summary)))
-                return false;
-            if (!(this.description.equals(((PlatformAppMetaData) toCompare).description)))
-                return false;
-            if (!(this.operationSystem.equals(((PlatformAppMetaData) toCompare).operationSystem)))
-                return false;
-            if (!(this.manufacturer.equals(((PlatformAppMetaData) toCompare).manufacturer)))
-                return false;
-            if (!(this.model.equals(((PlatformAppMetaData) toCompare).model)))
-                return false;
-            if (!(this.versionFirmware.equals(((PlatformAppMetaData) toCompare).versionFirmware)))
-                return false;
-            if (!(this.versionHardware.equals(((PlatformAppMetaData) toCompare).versionHardware)))
-                return false;
-            if (!(this.deviceId.equals(((PlatformAppMetaData) toCompare).deviceId)))
-                return false;
-            else
-                return true;
+        if (toCompare instanceof PlatformAppMetaData) {
+            return ((this.custom.equals(((PlatformAppMetaData) toCompare).custom)) &&
+                    (this.title.equals(((PlatformAppMetaData) toCompare).title))) &&
+                    (this.summary.equals(((PlatformAppMetaData) toCompare).summary)) &&
+                    (this.description.equals(((PlatformAppMetaData) toCompare).description)) &&
+                    (this.operationSystem.equals(((PlatformAppMetaData) toCompare).operationSystem)) &&
+                    (this.manufacturer.equals(((PlatformAppMetaData) toCompare).manufacturer)) &&
+                    (this.model.equals(((PlatformAppMetaData) toCompare).model)) &&
+                    (this.versionFirmware.equals(((PlatformAppMetaData) toCompare).versionFirmware)) &&
+                    (this.versionHardware.equals(((PlatformAppMetaData) toCompare).versionHardware)) &&
+                    (this.deviceId.equals(((PlatformAppMetaData) toCompare).deviceId));
         } else
             return false;
     }

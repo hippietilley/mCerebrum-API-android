@@ -162,26 +162,17 @@ public class DataSourceRequest extends AbstractDataSource {
 
     @Override
     public boolean equals(Object toCompare) {
-        if (toCompare instanceof  DataSourceRequest) {
-            if (!(this.getDataSourceType().equals(((DataSourceRequest) toCompare).getDataSourceType())))
-                return false;
-            if (!(this.getDataSourceId().equals(((DataSourceRequest) toCompare).getDataSourceId())))
-                return false;
-            if (!(this.getPlatformType().equals(((DataSourceRequest) toCompare).getPlatformType())))
-                return false;
-            if (!(this.getPlatformId().equals(((DataSourceRequest) toCompare).getPlatformId())))
-                return false;
-            if (!(this.getPlatformAppType().equals(((DataSourceRequest) toCompare).getPlatformAppType())))
-                return false;
-            if (!(this.getPlatformAppId().equals(((DataSourceRequest) toCompare).getPlatformAppId())))
-                return false;
-            if (!(this.getApplicationType().equals(((DataSourceRequest) toCompare).getApplicationType())))
-                return false;
-            //if (!(this.getApplicationId().equals(((DataSourceRequest) toCompare).getApplicationId())))
-              //  return false;
-            else
-                return true;
-        } else
+        if ((toCompare instanceof DataSourceRequest))
+            return (this.getDataSourceType().equals(((DataSourceRequest) toCompare).getDataSourceType())) &&
+                    (this.getDataSourceId().equals(((DataSourceRequest) toCompare).getDataSourceId())) &&
+                    (this.getPlatformType().equals(((DataSourceRequest) toCompare).getPlatformType())) &&
+                    (this.getPlatformId().equals(((DataSourceRequest) toCompare).getPlatformId())) &&
+                    (this.getPlatformAppType().equals(((DataSourceRequest) toCompare).getPlatformAppType())) &&
+                    (this.getPlatformAppId().equals(((DataSourceRequest) toCompare).getPlatformAppId())) &&
+                    (this.getApplicationType().equals(((DataSourceRequest) toCompare).getApplicationType())) &&
+                    (this.getApplicationId() == null && ((DataSourceRequest) toCompare).getApplicationId() == null) ||
+                            (this.getApplicationId().equals(((DataSourceRequest) toCompare).getApplicationId()));
+        else
             return false;
     }
 

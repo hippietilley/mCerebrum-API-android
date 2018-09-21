@@ -143,28 +143,28 @@ public class DataSet implements Parcelable {
             else {
                 for (int i = 0; i < this.data.length; i++) {
                     if (this.data[i] instanceof DataPointBoolean)
-                        if (!(this.equals(((DataSet) toCompare).data[i])))
+                        if (!(this.data[i].equals(((DataSet) toCompare).data[i])))
                             return false;
                     else if (this.data[i] instanceof DataPointByte)
-                        if (!(this.equals(((DataSet) toCompare).data[i])))
+                        if (!(this.data[i].equals(((DataSet) toCompare).data[i])))
                             return false;
                     else if (this.data[i] instanceof DataPointDouble)
-                        if (!(this.equals(((DataSet) toCompare).data[i])))
+                        if (!(this.data[i].equals(((DataSet) toCompare).data[i])))
                             return false;
                     else if (this.data[i] instanceof DataPointEnum)
-                        if (!(this.equals(((DataSet) toCompare).data[i])))
+                        if (!(this.data[i].equals(((DataSet) toCompare).data[i])))
                             return false;
                     else if (this.data[i] instanceof DataPointInt)
-                        if (!(this.equals(((DataSet) toCompare).data[i])))
+                        if (!(this.data[i].equals(((DataSet) toCompare).data[i])))
                             return false;
                     else if (this.data[i] instanceof DataPointLong)
-                        if (!(this.equals(((DataSet) toCompare).data[i])))
+                        if (!(this.data[i].equals(((DataSet) toCompare).data[i])))
                             return false;
                     else if (this.data[i] instanceof DataPointObject)
-                        if (!(this.equals(((DataSet) toCompare).data[i])))
+                        if (!(this.data[i].equals(((DataSet) toCompare).data[i])))
                             return false;
                     else if (this.data[i] instanceof DataPointString)
-                        if (!(this.equals(((DataSet) toCompare).data[i])))
+                        if (!(this.data[i].equals(((DataSet) toCompare).data[i])))
                             return false;
                 }
                 return true;
@@ -177,7 +177,8 @@ public class DataSet implements Parcelable {
     public int hashCode() {
         int result = 17;
         for (Data dataPoint : data)
-            result = 31 * result + dataPoint.hashCode();
+            if (dataPoint != null)
+                result = 31 * result + dataPoint.hashCode();
         result = 31 * result + actualDataSize;
         result = 31 * result + receivedDataSize;
         result = 31 * result + status;

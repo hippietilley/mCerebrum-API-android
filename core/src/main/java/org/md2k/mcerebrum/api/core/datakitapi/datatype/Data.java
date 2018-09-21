@@ -104,14 +104,7 @@ public class Data implements Parcelable{
 
     @Override
     public boolean equals(Object toCompare) {
-        if (toCompare instanceof Data) {
-            if (this.getTimestamp() != ((Data) toCompare).getTimestamp())
-                return false;
-            else
-                return true;
-        }
-        else
-            return false;
+            return (toCompare instanceof Data && this.getTimestamp() == ((Data) toCompare).getTimestamp());
     }
 
     @Override

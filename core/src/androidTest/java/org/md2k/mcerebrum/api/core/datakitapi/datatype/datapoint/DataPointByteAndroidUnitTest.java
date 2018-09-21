@@ -48,7 +48,7 @@ public class DataPointByteAndroidUnitTest {
     }
 
     @Test
-    public void dataPointByte_ParcelableWriteReadTest() {
+    public void dataPointByteParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointByte.writeToParcel(parcel, mDataPointByte.describeContents());

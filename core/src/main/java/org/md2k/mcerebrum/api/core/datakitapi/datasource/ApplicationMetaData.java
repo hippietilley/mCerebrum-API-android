@@ -207,14 +207,9 @@ public class ApplicationMetaData implements Parcelable {
                 if (!((ApplicationMetaData) toCompare).metaData.get(toCompareKey).equalsIgnoreCase(this.metaData.get(toCompareKey)))
                     return false;
             }
-            if (!(this.getTitle().equals(((ApplicationMetaData) toCompare).getTitle())))
-                return false;
-            if (!(this.getSummary().equals(((ApplicationMetaData) toCompare).getSummary())))
-                return false;
-            if (!(this.getDescription().equals(((ApplicationMetaData) toCompare).getDescription())))
-                return false;
-            else
-                return true;
+            return((this.getTitle().equals(((ApplicationMetaData) toCompare).getTitle())) &&
+                    (this.getSummary().equals(((ApplicationMetaData) toCompare).getSummary())) &&
+                    (this.getDescription().equals(((ApplicationMetaData) toCompare).getDescription())));
         } else
             return false;
     }
