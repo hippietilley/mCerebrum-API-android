@@ -15,14 +15,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 public class MCPluginParamAndroidUnitTest {
-    public static String testTitle = TestingConstants.TEST_TITLE;
-    public static String testId = TestingConstants.TEST_DEVICE_ID;
-    public static JSONObject testJSONObject = new JSONObject();
-    public MCPluginParam testMCPluginParam;
+    private static String testTitle = TestingConstants.TEST_TITLE;
+    private static String testId = TestingConstants.TEST_DEVICE_ID;
+    private static JSONObject testJSONObject = new JSONObject();
+    private MCPluginParam testMCPluginParam, testMCPluginParam2;
 
     @Before
     public void createPluginParam() {
         testMCPluginParam = new MCPluginParam(testTitle, testId, testJSONObject);
+        testMCPluginParam2 = new MCPluginParam(testTitle, testId, testJSONObject);
     }
 
     @Test
@@ -33,28 +34,7 @@ public class MCPluginParamAndroidUnitTest {
     }
 
     @Test
-    public void MCPluginParam_ParcelableWriteRead() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        testMCPluginParam.writeToParcel(parcel, testMCPluginParam.describeContents());
-
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        MCPluginParam createdFromParcel = MCPluginParam.CREATOR.createFromParcel(parcel);
-        MCPluginParam[] createdFromParcelArray = MCPluginParam.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(testMCPluginParam.getTitle(), createdFromParcel.getTitle());
-        assertEquals(testMCPluginParam.getId(), createdFromParcel.getId());
-        assertEquals(testMCPluginParam.getParams().toString(), createdFromParcel.getParams().toString());
-    }
-
-    @Test
-    public void MCPluginParam_ParcelableWriteReadComparable() {
+    public void mCPluginParam_ParcelableWriteReadComparable() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         testMCPluginParam.writeToParcel(parcel, testMCPluginParam.describeContents());
@@ -70,6 +50,11 @@ public class MCPluginParamAndroidUnitTest {
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
         assertThat(createdFromParcel, is(equalTo(testMCPluginParam)));
+    }
+
+    @Test
+    public void mCPluginParamHashCodeTest() {
+        assertEquals(testMCPluginParam.hashCode(), testMCPluginParam2.hashCode());
     }
 }
 

@@ -8,10 +8,10 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class MCPluginMessageAndroidUnitTest {
-    public static String testTitle = "Test title";
-    public static String testId = "Test Id";
-    public static JsonObject testJSONObject = new JsonObject();
-    public MCPluginMessage testMCPluginMessage;
+    private static String testTitle = "Test title";
+    private static String testId = "Test Id";
+    private static JsonObject testJSONObject = new JsonObject();
+    private MCPluginMessage testMCPluginMessage;
 
     @Before
     public void createPluginParam() {

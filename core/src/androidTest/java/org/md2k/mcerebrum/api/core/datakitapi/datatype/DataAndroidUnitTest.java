@@ -33,37 +33,12 @@ public class DataAndroidUnitTest {
     @Test
     public void dataCloneTest() {
         Data dataClone = mData.clone();
-        assertEquals(mData.getTimestamp(), dataClone.getTimestamp());
-        assertNotSame(mData, dataClone);
-    }
-
-    @Test
-    public void dataCloneComparableTest() {
-        Data dataClone = mData.clone();
         assertThat(dataClone, is(equalTo(mData)));
         assertNotSame(mData, dataClone);
     }
 
     @Test
-    public void dataPoint_ParcelableWriteRead() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mData.writeToParcel(parcel, mData.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        Data createdFromParcel = Data.CREATOR.createFromParcel(parcel);
-        Data[] createdFromParcelArray = Data.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mData.getTimestamp(), createdFromParcel.getTimestamp());
-    }
-
-    @Test
-    public void dataPoint_ParcelableWriteReadComparable() {
+    public void dataPoint_ParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mData.writeToParcel(parcel, mData.describeContents());

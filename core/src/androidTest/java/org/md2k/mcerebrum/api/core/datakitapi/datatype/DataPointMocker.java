@@ -8,6 +8,7 @@ import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointDouble
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointEnum;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointInt;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointLong;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointObject;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointString;
 
 public class DataPointMocker {
@@ -28,14 +29,8 @@ public class DataPointMocker {
     private static final boolean  TEST_BOOLEAN = true;
 
     private static final byte[] TEST_BYTE_ARRAY = {-128, 0, 127};
-    private static final short[] TEST_SHORT_ARRAY = {-2^15, 0, (2^15)-1};
     private static final int[] TEST_INT_ARRAY = {-2^31, 0, (2^31)-1};
     private static final long[] TEST_LONG_ARRAY = {-2^63, 0 , (2^63)-1};
-    private static final char[] TEST_CHAR_ARRAY = {0, 65535};
-    private static final float[] TEST_FLOAT_ARRAY = {(float)(-3.40282346638528860 * Math.exp(38)),
-            (float)(-1.40129846432481707 * Math.exp(-45)),
-            (float)(1.40129846432481707 * Math.exp(-45)),
-            (float)(3.40282346638528860 * Math.exp(38))};
     private static final double[] TEST_DOUBLE_ARRAY = {-1.7976931348623157 * Math.exp(308),
             -4.9 * Math.exp(-324), 4.9 * Math.exp(-324),
             1.7976931348623157 * Math.exp(308)};
@@ -77,9 +72,37 @@ public class DataPointMocker {
         return new DataPointString(TEST_TIMESTAMP, TEST_STRING_ARRAY[0]);
     }
 
+    // This uses TEST_BYTE because the constructor for DataAnnoEnum takes a byte or byte array.
     public static DataAnnotationEnum createDataAnnoEnum() {
         return new DataAnnotationEnum(testStartTimestamp, testEndTimestamp, TEST_BYTE);
     }
 
+    public static DataPointBoolean createDataPointBooleanArray() {
+        return new DataPointBoolean(TEST_TIMESTAMP, TEST_BOOLEAN_ARRAY);
+    }
 
+    public static DataPointByte createDataPointByteArray() {
+        return new DataPointByte(TEST_TIMESTAMP, TEST_BYTE_ARRAY);
+    }
+
+    public static DataPointDouble createDataPointDoubleArray() {
+        return new DataPointDouble(TEST_TIMESTAMP, TEST_DOUBLE_ARRAY);
+    }
+
+    // This uses TEST_BYTE because the constructor for DataPointEnum takes a byte or byte array.
+    public static DataPointEnum createDataPointEnumArray() {
+        return new DataPointEnum(TEST_TIMESTAMP, TEST_BYTE_ARRAY);
+    }
+
+    public static DataPointInt createDataPointIntArray() {
+        return new DataPointInt(TEST_TIMESTAMP, TEST_INT_ARRAY);
+    }
+
+    public static DataPointLong createDataPointLongArray() {
+        return new DataPointLong(TEST_TIMESTAMP, TEST_LONG_ARRAY);
+    }
+
+    public static DataPointString createDataPointStringArray() {
+        return new DataPointString(TEST_TIMESTAMP, TEST_STRING_ARRAY);
+    }
 }

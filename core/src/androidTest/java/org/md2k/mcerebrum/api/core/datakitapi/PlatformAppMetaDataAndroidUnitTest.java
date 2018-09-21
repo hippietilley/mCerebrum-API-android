@@ -28,7 +28,7 @@ public class PlatformAppMetaDataAndroidUnitTest {
     private PlatformAppMetaData testPlatformAppMetaData;
 
     @Test
-    public void PlatformAppMetaDataBuilderTest() {
+    public void platformAppMetaDataBuilderTest() {
         testPlatformAppMetaData = new PlatformAppMetaData.Builder().setValue(testKey, testValue).build();
         assertEquals(testValue, testPlatformAppMetaData.getValue(testKey));
 
@@ -49,36 +49,7 @@ public class PlatformAppMetaDataAndroidUnitTest {
     }
 
     @Test
-    public void PlatformAppMetaData_ParcelableWriteReadTest() {
-        testPlatformAppMetaData = CommonObjectConstructors.createPlatformAppMetaData();
-
-        // Write to parcel.
-        Parcel parcel = Parcel.obtain();
-        testPlatformAppMetaData.writeToParcel(parcel, testPlatformAppMetaData.describeContents());
-
-        // After writing, reset the parcel for reading.
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        PlatformAppMetaData createdFromParcel = PlatformAppMetaData.CREATOR.createFromParcel(parcel);
-        PlatformAppMetaData[] createdFromParcelArray = PlatformAppMetaData.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(testTitle, createdFromParcel.getTitle());
-        assertEquals(testSummary, createdFromParcel.getSummary());
-        assertEquals(testDescription, createdFromParcel.getDescription());
-        assertEquals(testOperationSystem, createdFromParcel.getOperationSystem());
-        assertEquals(testManufacturer, createdFromParcel.getManufacturer());
-        assertEquals(testModel, createdFromParcel.getModel());
-        assertEquals(testVersionFirmware, createdFromParcel.getVersionFirmware());
-        assertEquals(testVersionHardware, createdFromParcel.getVersionHardware());
-        assertEquals(testDeviceId, createdFromParcel.getDeviceId());
-        assertEquals(testValue, createdFromParcel.getValue(testKey));
-    }
-
-    @Test
-    public void PlatformAppMetaData_ParcelableWriteReadComparableTest() {
+    public void platformAppMetaData_ParcelableWriteReadTest() {
         testPlatformAppMetaData = CommonObjectConstructors.createPlatformAppMetaData();
 
         // Write to parcel.

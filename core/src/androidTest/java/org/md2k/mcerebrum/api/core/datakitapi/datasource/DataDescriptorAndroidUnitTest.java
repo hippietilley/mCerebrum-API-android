@@ -18,7 +18,7 @@ import static org.junit.Assert.assertNull;
 
 @SmallTest
 public class DataDescriptorAndroidUnitTest {
-    static final double DELTA = TestingConstants.DELTA;
+    private static final double DELTA = TestingConstants.DELTA;
     private final String testTitle = TestingConstants.TEST_TITLE;
     private final String testSummary = TestingConstants.TEST_SUMMARY;
     private final String testDescription = TestingConstants.TEST_DESCRIPTION;
@@ -32,7 +32,7 @@ public class DataDescriptorAndroidUnitTest {
     private DataDescriptor testDataDescriptor;
 
     @Test
-    public void DataDescriptorBuilderTest() {
+    public void dataDescriptorBuilderTest() {
         testDataDescriptor = new DataDescriptor.Builder().setValue(testKey, testValue).build();
         assertEquals(testValue, testDataDescriptor.getValue(testKey));
 
@@ -52,35 +52,7 @@ public class DataDescriptorAndroidUnitTest {
     }
 
     @Test
-    public void DataDescriptor_ParcelableWriteReadTest() {
-        testDataDescriptor = CommonObjectConstructors.createDataDescriptor();
-
-        // Write to parcel
-        Parcel parcel = Parcel.obtain();
-        testDataDescriptor.writeToParcel(parcel, testDataDescriptor.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataDescriptor createdFromParcel = DataDescriptor.CREATOR.createFromParcel(parcel);
-        DataDescriptor[] createdFromParcelArray = DataDescriptor.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(testTitle, createdFromParcel.getTitle());
-        assertEquals(testSummary, createdFromParcel.getSummary());
-        assertEquals(testDescription, createdFromParcel.getDescription());
-        assertEquals(testMinValue, createdFromParcel.getMinValue(), DELTA);
-        assertEquals(testMaxValue, createdFromParcel.getMaxValue(), DELTA);
-        assertArrayEquals(testPossibleValuesAsString, createdFromParcel.getPossibleValuesAsString());
-        assertArrayEquals(testPossibleValuesAsInt, createdFromParcel.getPossibleValuesAsInt());
-        assertEquals(testUnit, createdFromParcel.getUnit());
-        assertEquals(testValue, createdFromParcel.getValue(testKey));
-    }
-
-    @Test
-    public void DataDescriptor_ParcelableWriteReadComparableTest() {
+    public void dataDescriptor_ParcelableWriteReadTest() {
         testDataDescriptor = CommonObjectConstructors.createDataDescriptor();
 
         // Write to parcel

@@ -29,12 +29,10 @@ public class DataPointStringAndroidUnitTest {
     private final String[] testSampleArray = {"Test 1", "Test 2", ""};
     private DataPointString mDataPointStringArray;
 
-    // Create the object.
     @Before
     public void createDataPointString() {
         mDataPointString = new DataPointString(testTimestamp, testSample);
         mDataPointStringArray = new DataPointString(testTimestamp, testSampleArray);
-
         mDataPointEmptyString = new DataPointString(testTimestamp, testEmptyString);
     }
 
@@ -53,40 +51,12 @@ public class DataPointStringAndroidUnitTest {
     @Test
     public void dataPointStringCloneTest() {
         DataPointString dataPointClone = mDataPointString.clone();
-        assertEquals(mDataPointString.getTimestamp(), dataPointClone.getTimestamp());
-        assertArrayEquals(mDataPointString.getSample(), dataPointClone.getSample());
-        assertNotSame(mDataPointString, dataPointClone);
-    }
-
-    @Test
-    public void dataPointStringCloneComparableTest() {
-        DataPointString dataPointClone = mDataPointString.clone();
         assertThat(dataPointClone, is(equalTo(mDataPointString)));
         assertNotSame(mDataPointString, dataPointClone);
     }
 
     @Test
-    public void dataPointString_ParcelableWriteRead() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mDataPointString.writeToParcel(parcel, mDataPointString.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataPointString createdFromParcel = DataPointString.CREATOR.createFromParcel(parcel);
-        DataPointString[] createdFromParcelArray = DataPointString.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointString.getTimestamp(), createdFromParcel.getTimestamp());
-        for (int i = 0; i < createdFromParcel.getSample().length; i++)
-            assertEquals(mDataPointString.getSample()[i], createdFromParcel.getSample()[i]);
-    }
-
-    @Test
-    public void dataPointString_ParcelableWriteReadComparable() {
+    public void dataPointString_ParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointString.writeToParcel(parcel, mDataPointString.describeContents());
@@ -104,10 +74,10 @@ public class DataPointStringAndroidUnitTest {
     }
 
     @Test
-    public void dataPointStringArray_ParcelableWriteRead() {
+    public void dataPointStringEmpty_ParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
-        mDataPointStringArray.writeToParcel(parcel, mDataPointStringArray.describeContents());
+        mDataPointEmptyString.writeToParcel(parcel, mDataPointEmptyString.describeContents());
 
         // After writing, reset the parcel for reading
         parcel.setDataPosition(0);
@@ -118,12 +88,11 @@ public class DataPointStringAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointStringArray.getTimestamp(), createdFromParcel.getTimestamp());
-        assertArrayEquals(mDataPointStringArray.getSample(), createdFromParcel.getSample());
+        assertThat(createdFromParcel, is(equalTo(mDataPointEmptyString)));
     }
 
     @Test
-    public void dataPointStringArray_ParcelableWriteReadComparable() {
+    public void dataPointStringArray_ParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointStringArray.writeToParcel(parcel, mDataPointStringArray.describeContents());

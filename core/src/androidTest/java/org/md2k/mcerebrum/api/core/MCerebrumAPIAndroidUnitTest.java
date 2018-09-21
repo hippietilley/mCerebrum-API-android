@@ -28,23 +28,22 @@ import static org.junit.Assert.assertNull;
 
 public class MCerebrumAPIAndroidUnitTest {
 
-    MCerebrumAPI testmCerebrumAPI;
-    MCerebrumAPI testmCerebrumAPINotInit;
-    Context testContext;
-    ConnectionCallback testConnectionCallback;
-    ConnectionCallback testConnectionCallbackNull;
-    DataSourceCreator testDataSourceCreator;
-    PlatformMetaData testPlatformMetaData;
-    PlatformAppMetaData testPlatformAppMetaData;
-    ApplicationMetaData testAppMetaData;
-    DataDescriptor testDataDescriptor;
-    DataSourceMetaData testDataSourceMetaData;
-    Registration testRegistration;
-    DataSourceRequest testDataSourceRequest;
-    DataSourceRequest.Builder testDataSourceRequestBuilder;
-    DataSourceSet testDataSourceSet;
-    Data testData;
-    Data[] testDataArray;
+    private MCerebrumAPI testmCerebrumAPINotInit;
+    private Context testContext;
+    private ConnectionCallback testConnectionCallback;
+    private ConnectionCallback testConnectionCallbackNull;
+    private DataSourceCreator testDataSourceCreator;
+    private PlatformMetaData testPlatformMetaData;
+    private PlatformAppMetaData testPlatformAppMetaData;
+    private ApplicationMetaData testAppMetaData;
+    private DataDescriptor testDataDescriptor;
+    private DataSourceMetaData testDataSourceMetaData;
+    private Registration testRegistration;
+    private DataSourceRequest testDataSourceRequest;
+    private DataSourceRequest.Builder testDataSourceRequestBuilder;
+    private DataSourceSet testDataSourceSet;
+    private Data testData;
+    private Data[] testDataArray;
 
     private final String testDataSourceType = TestingConstants.DATA_SOURCE_TYPE_ARRAY[0];
     private final String testDataSourceId = TestingConstants.DATASOURCE_ID_ARRAY[0];
@@ -55,11 +54,11 @@ public class MCerebrumAPIAndroidUnitTest {
     private final String testApplicationType = TestingConstants.APPLICATION_TYPE_ARRAY[0];
     private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
 
-    public void createRegistration() {
+    private void createRegistration() {
         testRegistration = MCerebrumAPI.register(testDataSourceCreator);
     }
 
-    public void createDataSourceRequest() {
+    private void createDataSourceRequest() {
         testDataSourceRequestBuilder = DataSourceRequest.builder();
         testDataSourceRequest = testDataSourceRequestBuilder.setDataSourceType(testDataSourceType)
                 .setDataSourceId(testDataSourceId).setPlatformType(testPlatformType)

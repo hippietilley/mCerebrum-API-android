@@ -22,11 +22,6 @@ public class DataSourceSetAndroidUnitTest {
     }
 
     @Test
-    public void dataSourceSetComparable() {
-        assertThat(dataSourceSet, is(equalTo(dataSourceSet2)));
-    }
-
-    @Test
     public void dataSourceSetHashCodeTest() {
         assertEquals(dataSourceSet.hashCode(), dataSourceSet2.hashCode());
     }

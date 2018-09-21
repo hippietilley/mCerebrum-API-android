@@ -43,39 +43,12 @@ public class DataPointIntAndroidUnitTest {
     @Test
     public void dataPointIntCloneTest() {
         DataPointInt dataPointClone = mDataPointInt.clone();
-        assertEquals(mDataPointInt.getTimestamp(), dataPointClone.getTimestamp());
-        assertArrayEquals(mDataPointInt.getSample(), dataPointClone.getSample());
-        assertNotSame(mDataPointInt, dataPointClone);
-    }
-
-    @Test
-    public void dataPointIntCloneComparableTest() {
-        DataPointInt dataPointClone = mDataPointInt.clone();
         assertThat(dataPointClone, is(equalTo(mDataPointInt)));
         assertNotSame(mDataPointInt, dataPointClone);
     }
 
     @Test
-    public void dataPointInt_ParcelableWriteRead() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mDataPointInt.writeToParcel(parcel, mDataPointInt.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataPointInt createdFromParcel = DataPointInt.CREATOR.createFromParcel(parcel);
-        DataPointInt[] createdFromParcelArray = DataPointInt.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointInt.getTimestamp(), createdFromParcel.getTimestamp());
-        assertArrayEquals(mDataPointInt.getSample(), createdFromParcel.getSample());
-    }
-
-    @Test
-    public void dataPointInt_ParcelableWriteReadComparable() {
+    public void dataPointInt_ParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointInt.writeToParcel(parcel, mDataPointInt.describeContents());
@@ -93,26 +66,7 @@ public class DataPointIntAndroidUnitTest {
     }
 
     @Test
-    public void dataPointIntArray_ParcelableWriteRead() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mDataPointIntArray.writeToParcel(parcel, mDataPointIntArray.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataPointInt createdFromParcel = DataPointInt.CREATOR.createFromParcel(parcel);
-        DataPointInt[] createdFromParcelArray = DataPointInt.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointIntArray.getTimestamp(), createdFromParcel.getTimestamp());
-        assertArrayEquals(mDataPointIntArray.getSample(), createdFromParcel.getSample());
-    }
-
-    @Test
-    public void dataPointIntArray_ParcelableWriteReadComparable() {
+    public void dataPointIntArray_ParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointIntArray.writeToParcel(parcel, mDataPointIntArray.describeContents());
@@ -128,7 +82,6 @@ public class DataPointIntAndroidUnitTest {
         assertNotEquals(0, createdFromParcelArray.length);
         assertThat(createdFromParcel, is(equalTo(mDataPointIntArray)));
     }
-
 
     @Test
     public void dataPointIntHashcodeTest() {

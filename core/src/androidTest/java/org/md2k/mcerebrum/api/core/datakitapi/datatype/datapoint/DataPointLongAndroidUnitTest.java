@@ -17,7 +17,7 @@ import static org.junit.Assert.assertNotSame;
 
 @SmallTest
 public class DataPointLongAndroidUnitTest {
-    public static final double DELTA = TestingConstants.DELTA;
+    private static final double DELTA = TestingConstants.DELTA;
     private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
 
     private final long testSample = 1;
@@ -44,39 +44,12 @@ public class DataPointLongAndroidUnitTest {
     @Test
     public void dataPointLongCloneTest() {
         DataPointLong dataPointClone = mDataPointLong.clone();
-        assertEquals(mDataPointLong.getTimestamp(), dataPointClone.getTimestamp());
-        assertArrayEquals(mDataPointLong.getSample(), dataPointClone.getSample());
-        assertNotSame(mDataPointLong, dataPointClone);
-    }
-
-    @Test
-    public void dataPointLongCloneComparableTest() {
-        DataPointLong dataPointClone = mDataPointLong.clone();
         assertThat(dataPointClone, is(equalTo(mDataPointLong)));
         assertNotSame(mDataPointLong, dataPointClone);
     }
 
     @Test
-    public void dataPointLong_ParcelableWriteRead() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mDataPointLong.writeToParcel(parcel, mDataPointLong.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataPointLong createdFromParcel = DataPointLong.CREATOR.createFromParcel(parcel);
-        DataPointLong[] createdFromParcelArray = DataPointLong.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointLong.getTimestamp(), createdFromParcel.getTimestamp());
-        assertArrayEquals(mDataPointLong.getSample(), createdFromParcel.getSample());
-    }
-
-    @Test
-    public void dataPointLong_ParcelableWriteReadComparable() {
+    public void dataPointLong_ParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointLong.writeToParcel(parcel, mDataPointLong.describeContents());
@@ -94,26 +67,7 @@ public class DataPointLongAndroidUnitTest {
     }
 
     @Test
-    public void dataPointLongArray_ParcelableWriteRead() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mDataPointLongArray.writeToParcel(parcel, mDataPointLongArray.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataPointLong createdFromParcel = DataPointLong.CREATOR.createFromParcel(parcel);
-        DataPointLong[] createdFromParcelArray = DataPointLong.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointLongArray.getTimestamp(), createdFromParcel.getTimestamp());
-        assertArrayEquals(mDataPointLongArray.getSample(), createdFromParcel.getSample());
-    }
-
-    @Test
-    public void dataPointLongArray_ParcelableWriteReadComparable() {
+    public void dataPointLongArray_ParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointLongArray.writeToParcel(parcel, mDataPointLongArray.describeContents());

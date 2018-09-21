@@ -26,7 +26,7 @@ public class DataSourceMetaDataAndroidUnitTest {
     private DataSourceMetaData testDataSourceMetaData;
 
     @Test
-    public void DataSourceMetaDataBuilderTest() {
+    public void dataSourceMetaDataBuilderTest() {
         testDataSourceMetaData = new DataSourceMetaData.Builder().setMetaData(testKey, testValue).build();
         assertEquals(testValue, testDataSourceMetaData.getMetaData(testKey));
 
@@ -39,30 +39,7 @@ public class DataSourceMetaDataAndroidUnitTest {
     }
 
     @Test
-    public void DataSourceMetaData_ParcelableWriteReadTest() {
-        testDataSourceMetaData = CommonObjectConstructors.createDataSourceMetaData();
-
-        // Write to parcel
-        Parcel parcel = Parcel.obtain();
-        testDataSourceMetaData.writeToParcel(parcel, testDataSourceMetaData.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataSourceMetaData createdFromParcel = DataSourceMetaData.CREATOR.createFromParcel(parcel);
-        DataSourceMetaData[] createdFromParcelArray = DataSourceMetaData.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(testDataSourceMetaData.getTitle(), createdFromParcel.getTitle());
-        assertEquals(testDataSourceMetaData.getSummary(), createdFromParcel.getSummary());
-        assertEquals(testDataSourceMetaData.getDescription(), createdFromParcel.getDescription());
-        assertEquals(testDataSourceMetaData.getMetaData(testKey), createdFromParcel.getMetaData(testKey));
-    }
-
-    @Test
-    public void DataSourceMetaData_ParcelableWriteReadComparableTest() {
+    public void dataSourceMetaData_ParcelableWriteReadComparableTest() {
         testDataSourceMetaData = CommonObjectConstructors.createDataSourceMetaData();
 
         // Write to parcel

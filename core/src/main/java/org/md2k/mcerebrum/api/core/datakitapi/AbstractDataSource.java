@@ -284,34 +284,23 @@ public abstract class AbstractDataSource implements Parcelable {
     @Override
     public boolean equals(Object toCompare) {
         if (toCompare instanceof AbstractDataSource) {
-            if (!(this.dsId == ((AbstractDataSource) toCompare).dsId))
-                return false;
-            if (!(this.creationTime == ((AbstractDataSource) toCompare).creationTime))
-                return false;
-            if (!(this.modifiedTime == ((AbstractDataSource) toCompare).modifiedTime))
-                return false;
-            if (!(this.status == ((AbstractDataSource) toCompare).status))
-                return false;
-            if (!(this.getDataSourceType().equals(((AbstractDataSource) toCompare).getDataSourceType())))
-                return false;
-            if (!(this.getDataSourceId().equals(((AbstractDataSource) toCompare).getDataSourceId())))
-                return false;
-            if (!(this.getPlatformType().equals(((AbstractDataSource) toCompare).getPlatformType())))
-                return false;
-            if (!(this.getPlatformId().equals(((AbstractDataSource) toCompare).getPlatformId())))
-                return false;
-            if (!(this.getPlatformAppType().equals(((AbstractDataSource) toCompare).getPlatformAppType())))
-                return false;
-            if (!(this.getPlatformAppId().equals(((AbstractDataSource) toCompare).getPlatformAppId())))
-                return false;
-            if (!(this.getApplicationType().equals(((AbstractDataSource) toCompare).getApplicationType())))
-                return false;
-            return ((this.getApplicationId() == null && ((AbstractDataSource) toCompare).getApplicationId() == null) ||
-                        (this.getApplicationId().equals(((AbstractDataSource) toCompare).getApplicationId()))) &&
-                    ((this.getDataSourceMetaData().equals(((AbstractDataSource) toCompare).getDataSourceMetaData())) &&
+            return ((this.dsId == ((AbstractDataSource) toCompare).dsId)) &&
+                    (this.creationTime == ((AbstractDataSource) toCompare).creationTime) &&
+                    (this.modifiedTime == ((AbstractDataSource) toCompare).modifiedTime) &&
+                    (this.status == ((AbstractDataSource) toCompare).status) &&
+                    (this.getDataSourceType().equals(((AbstractDataSource) toCompare).getDataSourceType())) &&
+                    (this.getDataSourceId().equals(((AbstractDataSource) toCompare).getDataSourceId())) &&
+                    (this.getPlatformType().equals(((AbstractDataSource) toCompare).getPlatformType())) &&
+                    (this.getPlatformId().equals(((AbstractDataSource) toCompare).getPlatformId())) &&
+                    (this.getPlatformAppType().equals(((AbstractDataSource) toCompare).getPlatformAppType())) &&
+                    (this.getPlatformAppId().equals(((AbstractDataSource) toCompare).getPlatformAppId())) &&
+                    (this.getApplicationType().equals(((AbstractDataSource) toCompare).getApplicationType())) &&
+                    ((this.getApplicationId() == null && ((AbstractDataSource) toCompare).getApplicationId() == null) ||
+                            (this.getApplicationId().equals(((AbstractDataSource) toCompare).getApplicationId()))) &&
+                    (this.getDataSourceMetaData().equals(((AbstractDataSource) toCompare).getDataSourceMetaData())) &&
                     (this.getPlatformMetaData().equals(((AbstractDataSource) toCompare).getPlatformMetaData())) &&
                     (this.getPlatformAppMetaData().equals(((AbstractDataSource) toCompare).getPlatformAppMetaData())) &&
-                    (this.getApplicationMetaData().equals(((AbstractDataSource) toCompare).getApplicationMetaData())));
+                    (this.getApplicationMetaData().equals(((AbstractDataSource) toCompare).getApplicationMetaData()));
         } else
             return false;
     }
@@ -320,8 +309,8 @@ public abstract class AbstractDataSource implements Parcelable {
     public int hashCode() {
         int result = 17;
         result = 31 * result + dsId;
-        result = 31 * result + (int)(creationTime ^ (creationTime >>> 32));
-        result = 31 * result + (int)(modifiedTime ^ (modifiedTime >>> 32));
+        result = 31 * result + (int) (creationTime ^ (creationTime >>> 32));
+        result = 31 * result + (int) (modifiedTime ^ (modifiedTime >>> 32));
         result = 31 * result + status;
         result = 31 * result + dataSourceType.hashCode();
         result = 31 * result + dataSourceId.hashCode();

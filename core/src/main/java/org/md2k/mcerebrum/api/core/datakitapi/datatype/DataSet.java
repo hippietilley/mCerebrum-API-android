@@ -172,4 +172,15 @@ public class DataSet implements Parcelable {
         } else
             return false;
     }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        for (Data dataPoint : data)
+            result = 31 * result + dataPoint.hashCode();
+        result = 31 * result + actualDataSize;
+        result = 31 * result + receivedDataSize;
+        result = 31 * result + status;
+        return result;
+    }
 }

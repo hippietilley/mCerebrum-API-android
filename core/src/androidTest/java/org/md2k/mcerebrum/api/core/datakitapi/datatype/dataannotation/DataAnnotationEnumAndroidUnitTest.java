@@ -36,39 +36,12 @@ public class DataAnnotationEnumAndroidUnitTest {
     @Test
     public void cloneTest() {
         DataAnnotationEnum dataAnnotationEnumClone = mDataAnnotationEnum.clone();
-        assertEquals(mDataAnnotationEnum.getTimestamp(), dataAnnotationEnumClone.getTimestamp());
-        assertArrayEquals(mDataAnnotationEnum.getSample(), dataAnnotationEnumClone.getSample());
-        assertNotSame(mDataAnnotationEnum, dataAnnotationEnumClone);
-    }
-
-    @Test
-    public void cloneComparableTest() {
-        DataAnnotationEnum dataAnnotationEnumClone = mDataAnnotationEnum.clone();
         assertThat(dataAnnotationEnumClone, is(equalTo(mDataAnnotationEnum)));
         assertNotSame(mDataAnnotationEnum, dataAnnotationEnumClone);
     }
 
     @Test
-    public void DataAnnotationEnum_ParcelableWriteRead() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mDataAnnotationEnum.writeToParcel(parcel, mDataAnnotationEnum.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataAnnotationEnum createdFromParcel = DataAnnotationEnum.CREATOR.createFromParcel(parcel);
-        DataAnnotationEnum[] createdFromParcelArray = DataAnnotationEnum.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataAnnotationEnum.getTimestamp(), createdFromParcel.getTimestamp());
-        assertArrayEquals(mDataAnnotationEnum.getSample(), createdFromParcel.getSample());
-    }
-
-    @Test
-    public void DataAnnotationEnum_ParcelableWriteReadComparable() {
+    public void dataAnnotationEnum_ParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataAnnotationEnum.writeToParcel(parcel, mDataAnnotationEnum.describeContents());
@@ -99,7 +72,7 @@ public class DataAnnotationEnumAndroidUnitTest {
         assertNotEquals(daeWithDifferentEndTimestamp.hashCode(), dataClone.hashCode());
 
         DataAnnotationEnum daeWithDifferentSample = new
-                DataAnnotationEnum(testStartTimestamp, testEndTimestamp, (byte)0101);
+                DataAnnotationEnum(testStartTimestamp, testEndTimestamp, (byte)101);
         assertNotEquals(daeWithDifferentSample.hashCode(), dataClone.hashCode());
     }
 }

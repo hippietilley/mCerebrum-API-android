@@ -26,8 +26,6 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class DataSourceCreatorAndroidUnitTest {
-    private static final double DELTA = TestingConstants.DELTA;
-
     private String[] dataSourceTypeArray = TestingConstants.DATA_SOURCE_TYPE_ARRAY;
     private DataType[] dataTypeArray = TestingConstants.DATA_TYPE_ARRAY;
     private String[] dataSourceIdArray = TestingConstants.DATASOURCE_ID_ARRAY;
@@ -129,42 +127,11 @@ public class DataSourceCreatorAndroidUnitTest {
     @Test
     public void platformMetaDataTest() {
         testDataSourceCreator = new DataSourceCreator.Builder().setPlatformMetadata(testPlatformMetaData).build();
-        assertEquals(testPlatformMetaData.getTitle(), testDataSourceCreator.getPlatformMetaData().getTitle());
-        assertEquals(testPlatformMetaData.getSummary(), testDataSourceCreator.getPlatformMetaData().getSummary());
-        assertEquals(testPlatformMetaData.getDescription(), testDataSourceCreator.getPlatformMetaData().getDescription());
-        assertEquals(testPlatformMetaData.getOperationSystem(), testDataSourceCreator.getPlatformMetaData().getOperationSystem());
-        assertEquals(testPlatformMetaData.getManufacturer(), testDataSourceCreator.getPlatformMetaData().getManufacturer());
-        assertEquals(testPlatformMetaData.getModel(), testDataSourceCreator.getPlatformMetaData().getModel());
-        assertEquals(testPlatformMetaData.getVersionFirmware(), testDataSourceCreator.getPlatformMetaData().getVersionFirmware());
-        assertEquals(testPlatformMetaData.getVersionHardware(), testDataSourceCreator.getPlatformMetaData().getVersionHardware());
-        assertEquals(testPlatformMetaData.getDeviceId(), testDataSourceCreator.getPlatformMetaData().getDeviceId());
-        assertEquals(testPlatformMetaData.getMetaData(TestingConstants.TEST_KEY),
-                testDataSourceCreator.getPlatformMetaData().getMetaData(TestingConstants.TEST_KEY));
-    }
-
-    @Test
-    public void platformMetaDataComparableTest() {
-        testDataSourceCreator = new DataSourceCreator.Builder().setPlatformMetadata(testPlatformMetaData).build();
         assertThat(testDataSourceCreator.getPlatformMetaData(), is(equalTo(testPlatformMetaData)));
     }
 
     @Test
     public void platformAppMetaDataTest() {
-        testDataSourceCreator = new DataSourceCreator.Builder().setPlatformAppMetadata(testPlatformAppMetaData).build();
-        assertEquals(testPlatformAppMetaData.getTitle(), testDataSourceCreator.getPlatformAppMetaData().getTitle());
-        assertEquals(testPlatformAppMetaData.getSummary(), testDataSourceCreator.getPlatformAppMetaData().getSummary());
-        assertEquals(testPlatformAppMetaData.getDescription(), testDataSourceCreator.getPlatformAppMetaData().getDescription());
-        assertEquals(testPlatformAppMetaData.getOperationSystem(), testDataSourceCreator.getPlatformAppMetaData().getOperationSystem());
-        assertEquals(testPlatformAppMetaData.getManufacturer(), testDataSourceCreator.getPlatformAppMetaData().getManufacturer());
-        assertEquals(testPlatformAppMetaData.getModel(), testDataSourceCreator.getPlatformAppMetaData().getModel());
-        assertEquals(testPlatformAppMetaData.getVersionFirmware(), testDataSourceCreator.getPlatformAppMetaData().getVersionFirmware());
-        assertEquals(testPlatformAppMetaData.getVersionHardware(), testDataSourceCreator.getPlatformAppMetaData().getVersionHardware());
-        assertEquals(testPlatformAppMetaData.getDeviceId(), testDataSourceCreator.getPlatformAppMetaData().getDeviceId());
-        assertEquals(testPlatformAppMetaData.getValue(TestingConstants.TEST_KEY), testDataSourceCreator.getPlatformAppMetaData().getValue(TestingConstants.TEST_KEY));
-    }
-
-    @Test
-    public void platformAppMetaDataComparableTest() {
         testDataSourceCreator = new DataSourceCreator.Builder().setPlatformAppMetadata(testPlatformAppMetaData).build();
         assertThat(testDataSourceCreator.getPlatformAppMetaData(), is(equalTo(testPlatformAppMetaData)));
     }
@@ -172,60 +139,18 @@ public class DataSourceCreatorAndroidUnitTest {
     @Test
     public void applicationMetaDataTest() {
         testDataSourceCreator = new DataSourceCreator.Builder().setApplicationMetaData(testAppMetaData).build();
-        assertEquals(testAppMetaData.getTitle(), testDataSourceCreator.getApplicationMetaData().getTitle());
-        assertEquals(testAppMetaData.getSummary(), testDataSourceCreator.getApplicationMetaData().getSummary());
-        assertEquals(testAppMetaData.getDescription(), testDataSourceCreator.getApplicationMetaData().getDescription());
-        assertEquals(testAppMetaData.getVersionName(), testDataSourceCreator.getApplicationMetaData().getVersionName());
-        assertEquals(testAppMetaData.getVersionNumber(), testDataSourceCreator.getApplicationMetaData().getVersionNumber());
-        assertEquals(testAppMetaData.getMetaData(TestingConstants.TEST_KEY), testDataSourceCreator.getApplicationMetaData().getMetaData(TestingConstants.TEST_KEY));
-    }
-
-    @Test
-    public void applicationMetaDataComparableTest() {
-        testDataSourceCreator = new DataSourceCreator.Builder().setApplicationMetaData(testAppMetaData).build();
         // testAppMetaData.versionName turns null at this point TODO: make a test that checks for object mutability
         assertThat(testDataSourceCreator.getApplicationMetaData(), is(equalTo(testAppMetaData)));
     }
 
-
     @Test
     public void platformAsPhoneTest() {
-        testDataSourceCreator = new DataSourceCreator.Builder().setPlatformAsPhone().build();
-        assertEquals(PLATFORM.TYPE.PHONE, testDataSourceCreator.getPlatformType());
-        assertNotNull(testDataSourceCreator.getPlatformId());
-        assertEquals(TestingConstants.TEST_TITLE, testDataSourceCreator.getPlatformMetaData().getTitle());
-        //assertEquals(TestingConstants.TEST_SUMMARY, testDataSourceCreator.getPlatformMetaData().getSummary()); This is also commented out in DataSourceCreator.setPlatformAsPhone()
-        assertEquals(TestingConstants.TEST_OPERATING_SYSTEM, testDataSourceCreator.getPlatformMetaData().getOperationSystem());
-        assertEquals(TestingConstants.TEST_MANUFACTURER, testDataSourceCreator.getPlatformMetaData().getManufacturer());
-        assertEquals(TestingConstants.TEST_MODEL, testDataSourceCreator.getPlatformMetaData().getModel());
-    }
-
-    @Test
-    public void platformAsPhoneTestComparable() {
         testDataSourceCreator = CommonObjectConstructors.createDataSourceCreatorWithPlatformAsPhone();
         assertThat(testDataSourceCreator, is(equalTo(CommonObjectConstructors.createDataSourceCreatorWithPlatformAsPhone())));
     }
 
     @Test
     public void dataDescriptorTest() {
-        testDataSourceCreator = new DataSourceCreator.Builder().setDataDescriptor(0, testDataDescriptor).build();
-        assertEquals(testDataDescriptor.getTitle(), testDataSourceCreator.getDataDescriptors().get(0).getTitle());
-        assertEquals(testDataDescriptor.getSummary(), testDataSourceCreator.getDataDescriptors().get(0).getSummary());
-        assertEquals(testDataDescriptor.getDescription(), testDataSourceCreator.getDataDescriptors().get(0).getDescription());
-        assertEquals(testDataDescriptor.getMinValue(),
-                testDataSourceCreator.getDataDescriptors().get(0).getMinValue(), DELTA);
-        assertEquals(testDataDescriptor.getMaxValue(),
-                testDataSourceCreator.getDataDescriptors().get(0).getMaxValue(), DELTA);
-        assertArrayEquals(testDataDescriptor.getPossibleValuesAsString(),
-                testDataSourceCreator.getDataDescriptors().get(0).getPossibleValuesAsString());
-        assertArrayEquals(testDataDescriptor.getPossibleValuesAsInt(),
-                testDataSourceCreator.getDataDescriptors().get(0).getPossibleValuesAsInt());
-        assertEquals(testDataDescriptor.getUnit(), testDataSourceCreator.getDataDescriptors().get(0).getUnit());
-        assertEquals(testDataDescriptor.getValue(TestingConstants.TEST_KEY), testDataSourceCreator.getDataDescriptors().get(0).getValue(TestingConstants.TEST_KEY));
-    }
-
-    @Test
-    public void dataDescriptorComparableTest() {
         testDataSourceCreator = new DataSourceCreator.Builder().setDataDescriptor(0, testDataDescriptor).build();
         for (DataDescriptor dataDescriptorToCheck : testDataSourceCreator.getDataDescriptors())
             assertThat(dataDescriptorToCheck, is(equalTo(testDataDescriptor)));
@@ -234,20 +159,11 @@ public class DataSourceCreatorAndroidUnitTest {
     @Test
     public void dataSourceMetaDataTest() {
         testDataSourceCreator = new DataSourceCreator.Builder().setDataSourceMetadata(testDataSourceMetaData).build();
-        assertEquals(testDataSourceMetaData.getTitle(), testDataSourceCreator.getDataSourceMetaData().getTitle());
-        assertEquals(testDataSourceMetaData.getSummary(), testDataSourceCreator.getDataSourceMetaData().getSummary());
-        assertEquals(testDataSourceMetaData.getDescription(), testDataSourceCreator.getDataSourceMetaData().getDescription());
-        assertEquals(testDataSourceMetaData.getMetaData(TestingConstants.TEST_KEY), testDataSourceCreator.getDataSourceMetaData().getMetaData(TestingConstants.TEST_KEY));
-    }
-
-    @Test
-    public void dataSourceMetaDataComparableTest() {
-        testDataSourceCreator = new DataSourceCreator.Builder().setDataSourceMetadata(testDataSourceMetaData).build();
         assertThat(testDataSourceCreator.getDataSourceMetaData(), is(equalTo(testDataSourceMetaData)));
     }
 
     @Test
-    public void dataSourceCreator_ParcelableWriteReadComparableTest() {
+    public void dataSourceCreator_ParcelableWriteReadTest() {
         testDataSourceCreator = CommonObjectConstructors.createDataSourceCreator();
 
         // Write data to parcel.

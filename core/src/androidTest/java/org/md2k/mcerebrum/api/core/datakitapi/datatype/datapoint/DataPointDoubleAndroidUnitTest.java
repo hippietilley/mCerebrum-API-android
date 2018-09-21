@@ -17,7 +17,7 @@ import static org.junit.Assert.assertNotSame;
 
 @SmallTest
 public class DataPointDoubleAndroidUnitTest {
-    public static final double DELTA = TestingConstants.DELTA;
+    private static final double DELTA = TestingConstants.DELTA;
     private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
 
     private final double testSample = 6.2831853071;
@@ -26,7 +26,6 @@ public class DataPointDoubleAndroidUnitTest {
     private final double[] testSampleArray = {3.14159265359, 1.61803398874989484, 2.71828, 6.2831853071};
     private DataPointDouble mDataPointDoubleArray;
 
-    // Create the object.
     @Before
     public void createDataPointDouble() {
         mDataPointDouble = new DataPointDouble(testTimestamp, testSample);
@@ -44,39 +43,12 @@ public class DataPointDoubleAndroidUnitTest {
     @Test
     public void dataPointDoubleCloneTest() {
         DataPointDouble dataPointClone = mDataPointDouble.clone();
-        assertEquals(mDataPointDouble.getTimestamp(), dataPointClone.getTimestamp());
-        assertArrayEquals(mDataPointDouble.getSample(), dataPointClone.getSample(), DELTA);
-        assertNotSame(mDataPointDouble, dataPointClone);
-    }
-
-    @Test
-    public void dataPointDoubleCloneComparableTest() {
-        DataPointDouble dataPointClone = mDataPointDouble.clone();
         assertThat(dataPointClone, is(equalTo(mDataPointDouble)));
         assertNotSame(mDataPointDouble, dataPointClone);
     }
 
     @Test
-    public void dataPointDouble_ParcelableWriteRead() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mDataPointDouble.writeToParcel(parcel, mDataPointDouble.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataPointDouble createdFromParcel = DataPointDouble.CREATOR.createFromParcel(parcel);
-        DataPointDouble[] createdFromParcelArray = DataPointDouble.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointDouble.getTimestamp(), createdFromParcel.getTimestamp());
-        assertArrayEquals(mDataPointDouble.getSample(), createdFromParcel.getSample(), DELTA);
-    }
-
-    @Test
-    public void dataPointDouble_ParcelableWriteReadComparable() {
+    public void dataPointDouble_ParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointDouble.writeToParcel(parcel, mDataPointDouble.describeContents());
@@ -94,26 +66,7 @@ public class DataPointDoubleAndroidUnitTest {
     }
 
     @Test
-    public void dataPointDoubleArray_ParcelableWriteRead() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mDataPointDoubleArray.writeToParcel(parcel, mDataPointDoubleArray.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataPointDouble createdFromParcel = DataPointDouble.CREATOR.createFromParcel(parcel);
-        DataPointDouble[] createdFromParcelArray = DataPointDouble.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointDoubleArray.getTimestamp(), createdFromParcel.getTimestamp());
-        assertArrayEquals(mDataPointDoubleArray.getSample(), createdFromParcel.getSample(), DELTA);
-    }
-
-    @Test
-    public void dataPointDoubleArray_ParcelableWriteReadComparable() {
+    public void dataPointDoubleArray_ParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointDoubleArray.writeToParcel(parcel, mDataPointDoubleArray.describeContents());
@@ -129,7 +82,6 @@ public class DataPointDoubleAndroidUnitTest {
         assertNotEquals(0, createdFromParcelArray.length);
         assertThat(createdFromParcel, is(equalTo(mDataPointDoubleArray)));
     }
-
 
     @Test
     public void dataPointDoubleHashcodeTest() {

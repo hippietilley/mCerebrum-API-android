@@ -43,39 +43,12 @@ public class DataPointByteAndroidUnitTest {
     @Test
     public void dataPointByteCloneTest() {
         DataPointByte dataPointClone = mDataPointByte.clone();
-        assertEquals(mDataPointByte.getTimestamp(), dataPointClone.getTimestamp());
-        assertArrayEquals(mDataPointByte.getSample(), dataPointClone.getSample());
-        assertNotSame(mDataPointByte, dataPointClone);
-    }
-
-    @Test
-    public void dataPointByteCloneComparableTest() {
-        DataPointByte dataPointClone = mDataPointByte.clone();
         assertThat(dataPointClone, is(equalTo(mDataPointByte)));
         assertNotSame(mDataPointByte, dataPointClone);
     }
 
     @Test
-    public void dataPointByte_ParcelableWriteRead() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mDataPointByte.writeToParcel(parcel, mDataPointByte.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataPointByte createdFromParcel = DataPointByte.CREATOR.createFromParcel(parcel);
-        DataPointByte[] createdFromParcelArray = DataPointByte.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointByte.getTimestamp(), createdFromParcel.getTimestamp());
-        assertArrayEquals(mDataPointByte.getSample(), createdFromParcel.getSample());
-    }
-
-    @Test
-    public void dataPointByte__ParcelableWriteReadComparable() {
+    public void dataPointByte__ParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointByte.writeToParcel(parcel, mDataPointByte.describeContents());
@@ -93,27 +66,7 @@ public class DataPointByteAndroidUnitTest {
     }
 
     @Test
-    public void dataPointByteArray_ParcelableWriteRead() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mDataPointByteArray.writeToParcel(parcel, mDataPointByteArray.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataPointByte createdFromParcel = DataPointByte.CREATOR.createFromParcel(parcel);
-        DataPointByte[] createdFromParcelArray = DataPointByte.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointByteArray.getTimestamp(), createdFromParcel.getTimestamp());
-        assertArrayEquals(mDataPointByteArray.getSample(), createdFromParcel.getSample());
-    }
-
-
-    @Test
-    public void dataPointByteArray_ParcelableWriteReadComparable() {
+    public void dataPointByteArray_ParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointByteArray.writeToParcel(parcel, mDataPointByteArray.describeContents());
@@ -130,7 +83,6 @@ public class DataPointByteAndroidUnitTest {
         assertThat(createdFromParcel, is(equalTo(mDataPointByteArray)));
     }
 
-
     @Test
     public void dataPointByteHashcodeTest() {
         DataPointByte dataClone = mDataPointByte.clone();
@@ -139,7 +91,7 @@ public class DataPointByteAndroidUnitTest {
         DataPointByte dpbWithDifferentTimestamp = new DataPointByte(testTimestamp + 10, testSample);
         assertNotEquals(dpbWithDifferentTimestamp.hashCode(), dataClone.hashCode());
 
-        DataPointByte dpbWithDifferentSample = new DataPointByte(testTimestamp, (byte)0101);
+        DataPointByte dpbWithDifferentSample = new DataPointByte(testTimestamp, (byte)101);
         assertNotEquals(dpbWithDifferentSample.hashCode(), dataClone.hashCode());
     }
 }
