@@ -4,13 +4,8 @@ import android.os.Parcel;
 import android.support.test.filters.SmallTest;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.experimental.theories.DataPoint;
 import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.Data;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataPointMocker;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataSet;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.dataannotation.DataAnnotationEnum;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointBoolean;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointByte;
@@ -21,15 +16,12 @@ import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointLong;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointObject;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointObjectMocker;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointString;
-import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-
 
 @SmallTest
 public class DataSetAndroidUnitTest {
@@ -41,8 +33,6 @@ public class DataSetAndroidUnitTest {
     private int[] statuses = TestingConstants.STATUS_INT_ARRAY;
 
     private long testTimestamp = 1268660460;
-    private long testStartTimestamp = 1268660060;
-    private long testEndTimestamp = 1268660460;
     private DataPointBoolean testDataPointBoolean = DataPointMocker.createDataPointBoolean();
     private DataPointByte testDataPointByte = DataPointMocker.createDataPointByte();
     private DataPointDouble testDataPointDouble = DataPointMocker.createDataPointDouble();

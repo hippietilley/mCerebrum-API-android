@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import org.md2k.mcerebrum.api.core.MCerebrumAPI;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class RegistrationAndroidUnitTest {

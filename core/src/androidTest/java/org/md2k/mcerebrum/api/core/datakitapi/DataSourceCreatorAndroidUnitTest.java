@@ -11,19 +11,14 @@ import org.md2k.mcerebrum.api.core.MCerebrumAPI;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.ApplicationMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataDescriptor;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceMetaData;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.PlatformMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataType;
-
-import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class DataSourceCreatorAndroidUnitTest {
     private String[] dataSourceTypeArray = TestingConstants.DATA_SOURCE_TYPE_ARRAY;

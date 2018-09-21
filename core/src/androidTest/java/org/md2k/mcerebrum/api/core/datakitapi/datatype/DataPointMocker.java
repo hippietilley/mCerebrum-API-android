@@ -8,7 +8,6 @@ import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointDouble
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointEnum;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointInt;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointLong;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointObject;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointString;
 
 public class DataPointMocker {
@@ -20,11 +19,8 @@ public class DataPointMocker {
     private static long testEndTimestamp = 1268660460;
     private static final long TEST_TIMESTAMP = TestingConstants.TEST_TIMESTAMP;
     private static final byte TEST_BYTE = 23;
-    private static final short TEST_SHORT = 4304;
     private static final int TEST_INT = 235890824;
     private static final long TEST_LONG = 890589984;
-    private static final char TEST_CHAR = 'x';
-    private static final float TEST_FLOAT = 850425458;
     private static final double TEST_DOUBLE = 758940257;
     private static final boolean  TEST_BOOLEAN = true;
 
@@ -35,8 +31,6 @@ public class DataPointMocker {
             -4.9 * Math.exp(-324), 4.9 * Math.exp(-324),
             1.7976931348623157 * Math.exp(308)};
     private static final boolean[] TEST_BOOLEAN_ARRAY = {true, false};
-    private static final Object[] TEST_ALL_TYPE_ARRAY = {TEST_BYTE, TEST_SHORT, TEST_INT, TEST_LONG,
-            TEST_CHAR, TEST_FLOAT, TEST_DOUBLE, TEST_BOOLEAN};
     private static final String[] TEST_STRING_ARRAY = {"I may remark that the curious transformations many formulae can undergo,",
             "the unsuspected and to a beginner apparently impossible identity of forms ",
             "exceedingly dissimilar at first sight, is I think one of the chief ",
