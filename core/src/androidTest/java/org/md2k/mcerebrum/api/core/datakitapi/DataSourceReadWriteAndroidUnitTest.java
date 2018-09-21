@@ -155,7 +155,7 @@ public class DataSourceReadWriteAndroidUnitTest {
     }
 
     @Test
-    public void dataSourceReadWrite_ParcelableWriteReadTest() {
+    public void dataSourceReadWriteParcelableWriteReadTest() {
         testDataSourceReadWrite = CommonObjectConstructors.createDataSourceReadWrite();
 
         // Write data to parcel.

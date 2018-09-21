@@ -49,7 +49,7 @@ public class DataPointLongAndroidUnitTest {
     }
 
     @Test
-    public void dataPointLong_ParcelableWriteReadTest() {
+    public void dataPointLongParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointLong.writeToParcel(parcel, mDataPointLong.describeContents());
@@ -67,7 +67,7 @@ public class DataPointLongAndroidUnitTest {
     }
 
     @Test
-    public void dataPointLongArray_ParcelableWriteReadTest() {
+    public void dataPointLongArrayParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointLongArray.writeToParcel(parcel, mDataPointLongArray.describeContents());

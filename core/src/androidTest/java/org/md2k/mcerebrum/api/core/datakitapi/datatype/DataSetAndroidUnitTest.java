@@ -91,7 +91,7 @@ public class DataSetAndroidUnitTest {
     }
 
     @Test
-    public void dataSetSamplingAll_ParcelableWriteReadTest() {
+    public void dataSetSamplingAllParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcelAll = Parcel.obtain();
         testDataSetSamplingAll.writeToParcel(parcelAll, testDataSetSamplingAll.describeContents());
@@ -111,7 +111,7 @@ public class DataSetAndroidUnitTest {
     }
 
     @Test
-    public void dataSetSamplingFirstN_ParcelableWriteReadTest() {
+    public void dataSetSamplingFirstNParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcelFirstN = Parcel.obtain();
         testDataSetSamplingFirstN.writeToParcel(parcelFirstN, testDataSetSamplingFirstN.describeContents());
@@ -131,7 +131,7 @@ public class DataSetAndroidUnitTest {
     }
 
     @Test
-    public void dataSetSamplingDistributedN_ParcelableWriteReadTest() {
+    public void dataSetSamplingDistributedNParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcelDistributedN = Parcel.obtain();
         testDataSetSamplingDistributedN.writeToParcel(parcelDistributedN,

@@ -49,7 +49,7 @@ public class DataPointBooleanAndroidUnitTest {
     }
 
     @Test
-    public void dataPointBoolean_ParcelableWriteReadTest() {
+    public void dataPointBooleanParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointBoolean.writeToParcel(parcel, mDataPointBoolean.describeContents());
@@ -67,7 +67,7 @@ public class DataPointBooleanAndroidUnitTest {
     }
 
     @Test
-    public void dataPointBooleanArray_ParcelableWriteReadTest() {
+    public void dataPointBooleanArrayParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointBooleanArray.writeToParcel(parcel, mDataPointBooleanArray.describeContents());

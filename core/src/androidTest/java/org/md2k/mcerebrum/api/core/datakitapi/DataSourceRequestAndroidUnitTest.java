@@ -33,7 +33,7 @@ public class DataSourceRequestAndroidUnitTest {
     }
 
     @Test
-    public void dataSourceRequest_ParcelableWriteReadTest() {
+    public void dataSourceRequestParcelableWriteReadTest() {
         // Write to parcel.
         Parcel parcel = Parcel.obtain();
         testDataSourceRequest.writeToParcel(parcel, testDataSourceRequest.describeContents());

@@ -72,7 +72,7 @@ public class DataPointObjectAndroidUnitTest {
     }
 
     @Test
-    public void dataPointObject_ParcelableWriteReadTest() {
+    public void dataPointObjectParcelableWriteReadTest() {
         for (DataPointObject dataPointObject : allTestDPO) {
             // Write data to parcel.
             Parcel parcel = Parcel.obtain();
@@ -93,7 +93,7 @@ public class DataPointObjectAndroidUnitTest {
     }
 
     @Test
-    public void dataPointObjectArray_ParcelableWriteReadTest() {
+    public void dataPointObjectArrayParcelableWriteReadTest() {
         for (DataPointObject dataPointObject : allTestDPOArrays) {
             // Write data to parcel.
             Parcel parcel = Parcel.obtain();

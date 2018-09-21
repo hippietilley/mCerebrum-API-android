@@ -163,7 +163,7 @@ public class DataSourceCreatorAndroidUnitTest {
     }
 
     @Test
-    public void dataSourceCreator_ParcelableWriteReadTest() {
+    public void dataSourceCreatorParcelableWriteReadTest() {
         testDataSourceCreator = CommonObjectConstructors.createDataSourceCreator();
 
         // Write data to parcel.

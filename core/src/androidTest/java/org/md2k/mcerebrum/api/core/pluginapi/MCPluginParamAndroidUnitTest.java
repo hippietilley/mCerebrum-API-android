@@ -34,7 +34,7 @@ public class MCPluginParamAndroidUnitTest {
     }
 
     @Test
-    public void mCPluginParam_ParcelableWriteReadComparable() {
+    public void mCPluginParamParcelableWriteReadComparable() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         testMCPluginParam.writeToParcel(parcel, testMCPluginParam.describeContents());

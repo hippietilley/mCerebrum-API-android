@@ -41,7 +41,7 @@ public class DataAnnotationEnumAndroidUnitTest {
     }
 
     @Test
-    public void dataAnnotationEnum_ParcelableWriteReadTest() {
+    public void dataAnnotationEnumParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataAnnotationEnum.writeToParcel(parcel, mDataAnnotationEnum.describeContents());

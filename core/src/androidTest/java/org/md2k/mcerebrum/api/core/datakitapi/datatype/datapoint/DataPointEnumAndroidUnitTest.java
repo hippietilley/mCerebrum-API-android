@@ -48,7 +48,7 @@ public class DataPointEnumAndroidUnitTest {
     }
 
     @Test
-    public void dataPointEnum_ParcelableWriteReadTest() {
+    public void dataPointEnumParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointEnum.writeToParcel(parcel, mDataPointEnum.describeContents());
@@ -66,7 +66,7 @@ public class DataPointEnumAndroidUnitTest {
     }
 
     @Test
-    public void dataPointEnumArray_ParcelableWriteReadTest() {
+    public void dataPointEnumArrayParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointEnumArray.writeToParcel(parcel, mDataPointEnumArray.describeContents());

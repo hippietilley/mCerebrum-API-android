@@ -52,7 +52,7 @@ public class PlatformMetaDataAndroidUnitTest {
     }
 
     @Test
-    public void platformMetaData_ParcelableWriteReadTest() {
+    public void platformMetaDataParcelableWriteReadTest() {
         testPlatformMetaData = CommonObjectConstructors.createPlatformMetaData();
 
         // Write to parcel.

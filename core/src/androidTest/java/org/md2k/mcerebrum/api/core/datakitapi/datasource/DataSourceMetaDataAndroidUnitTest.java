@@ -39,7 +39,7 @@ public class DataSourceMetaDataAndroidUnitTest {
     }
 
     @Test
-    public void dataSourceMetaData_ParcelableWriteReadComparableTest() {
+    public void dataSourceMetaDataParcelableWriteReadComparableTest() {
         testDataSourceMetaData = CommonObjectConstructors.createDataSourceMetaData();
 
         // Write to parcel

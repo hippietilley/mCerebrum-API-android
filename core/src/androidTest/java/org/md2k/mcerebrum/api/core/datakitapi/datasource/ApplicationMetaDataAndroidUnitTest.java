@@ -43,7 +43,7 @@ public class ApplicationMetaDataAndroidUnitTest {
     }
 
     @Test
-    public void applicationMetaData_ParcelableWriteReadTest() {
+    public void applicationMetaDataParcelableWriteReadTest() {
         testAppMetaData = CommonObjectConstructors.createApplicationMetaData();
 
         // Write to parcel.

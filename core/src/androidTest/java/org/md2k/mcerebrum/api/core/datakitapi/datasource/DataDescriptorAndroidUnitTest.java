@@ -52,7 +52,7 @@ public class DataDescriptorAndroidUnitTest {
     }
 
     @Test
-    public void dataDescriptor_ParcelableWriteReadTest() {
+    public void dataDescriptorParcelableWriteReadTest() {
         testDataDescriptor = CommonObjectConstructors.createDataDescriptor();
 
         // Write to parcel

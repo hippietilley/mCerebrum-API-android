@@ -38,7 +38,7 @@ public class DataAndroidUnitTest {
     }
 
     @Test
-    public void dataPoint_ParcelableWriteReadTest() {
+    public void dataPointParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mData.writeToParcel(parcel, mData.describeContents());

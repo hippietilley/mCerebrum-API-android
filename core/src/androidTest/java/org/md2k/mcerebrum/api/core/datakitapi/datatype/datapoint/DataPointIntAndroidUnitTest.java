@@ -48,7 +48,7 @@ public class DataPointIntAndroidUnitTest {
     }
 
     @Test
-    public void dataPointInt_ParcelableWriteReadTest() {
+    public void dataPointIntParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointInt.writeToParcel(parcel, mDataPointInt.describeContents());
@@ -66,7 +66,7 @@ public class DataPointIntAndroidUnitTest {
     }
 
     @Test
-    public void dataPointIntArray_ParcelableWriteReadTest() {
+    public void dataPointIntArrayParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointIntArray.writeToParcel(parcel, mDataPointIntArray.describeContents());
