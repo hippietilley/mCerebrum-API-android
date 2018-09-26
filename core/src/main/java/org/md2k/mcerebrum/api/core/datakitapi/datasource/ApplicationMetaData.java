@@ -50,18 +50,34 @@ public class ApplicationMetaData implements Parcelable {
 
     private HashMap<String, String> metaData;
 
+    /**
+     * Returns the title.
+     * @return The title.
+     */
     public String getTitle() {
         return metaData.get(TITLE);
     }
 
+    /**
+     * Returns the summary.
+     * @return The summary.
+     */
     public String getSummary() {
         return metaData.get(SUMMARY);
     }
 
+    /**
+     * Returns the description.
+     * @return The description.
+     */
     public String getDescription() {
         return metaData.get(DESCRIPTION);
     }
 
+    /**
+     * Returns the version name.
+     * @return The version name.
+     */
     public String getVersionName() {
         return metaData.get(VERSION_NAME);
     }
@@ -257,7 +273,8 @@ public class ApplicationMetaData implements Parcelable {
     }
 
     /**
-     * Embedded <code>CREATOR</code> class
+     * Embedded <code>CREATOR</code> class for generating instances of <code>ApplicationMetaData</code>
+     * from a <code>Parcel</code>.
      */
     public static final Creator<ApplicationMetaData> CREATOR = new Creator<ApplicationMetaData>() {
         /**
