@@ -32,6 +32,8 @@ import android.os.Parcelable;
 
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.Data;
 
+import java.util.Arrays;
+
 /**
  * This class creates <code>DataType</code> objects for samples that have integer data types in an array.
  */
@@ -127,4 +129,28 @@ public class DataPointInt extends Data implements Parcelable{
             return new DataPointInt[size];
         }
     };
+
+    @Override
+    public boolean equals(Object toCompare) {
+        if (super.equals(toCompare)) {
+            if (toCompare instanceof DataPointInt) {
+                for (int i = 0; i < this.getSample().length; i++) {
+                    if (this.getSample()[i] != ((DataPointInt) toCompare).getSample()[i]) {
+                        return false;
+                    }
+                }
+                return true;
+            } else
+                return false;
+        } else
+            return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + super.hashCode();
+        result = 31 * result + Arrays.hashCode(sample);
+        return result;
+    }
 }

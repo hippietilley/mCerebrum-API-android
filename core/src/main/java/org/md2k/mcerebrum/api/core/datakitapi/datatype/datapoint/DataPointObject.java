@@ -34,6 +34,8 @@ import com.google.gson.Gson;
 
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.Data;
 
+import java.util.Arrays;
+
 /**
  * This class creates <code>DataType</code> objects for samples that have string data types in an array.
  */
@@ -48,9 +50,10 @@ public class DataPointObject extends Data implements Parcelable {
         super(timestamp);
         Gson gson = new Gson();
         this.sample = new String[sample.length];
-        for(int i = 0 ;i<sample.length;i++)
+        for (int i = 0; i < sample.length; i++)
             this.sample[i] = gson.toJson(sample[i]);
     }
+
     public <R> DataPointObject(long timestamp, R sample) {
         super(timestamp);
         Gson gson = new Gson();
@@ -60,11 +63,11 @@ public class DataPointObject extends Data implements Parcelable {
 
     private DataPointObject(long timestamp, String[] ts) {
         super(timestamp);
-        this.sample=new String[ts.length];
+        this.sample = new String[ts.length];
         System.arraycopy(ts, 0, sample, 0, ts.length);
     }
 
-    public DataPointObject clone(){
+    public DataPointObject clone() {
         return new DataPointObject(getTimestamp(), sample);
     }
 
@@ -133,4 +136,28 @@ public class DataPointObject extends Data implements Parcelable {
             return new DataPointObject[size];
         }
     };
+
+    @Override
+    public boolean equals(Object toCompare) {
+        if (super.equals(toCompare)) {
+            if (toCompare instanceof DataPointObject) {
+                for (int i = 0; i < this.getSample().length; i++) {
+                    if (!(this.getSample()[i].equals(((DataPointObject) toCompare).getSample()[i]))) {
+                        return false;
+                    }
+                }
+                return true;
+            } else
+                return false;
+        } else
+            return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + super.hashCode();
+        result = 31 * result + Arrays.hashCode(sample);
+        return result;
+    }
 }

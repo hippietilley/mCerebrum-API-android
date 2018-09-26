@@ -5,7 +5,12 @@ import android.support.test.filters.SmallTest;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -13,7 +18,7 @@ import static org.junit.Assert.assertNotSame;
 
 @SmallTest
 public class DataPointBooleanAndroidUnitTest {
-    private final long testTimestamp = 1268660460;
+    private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
 
     private final boolean testSample = true;
     private DataPointBoolean mDataPointBoolean;
@@ -39,20 +44,12 @@ public class DataPointBooleanAndroidUnitTest {
     @Test
     public void dataPointBooleanCloneTest() {
         DataPointBoolean dataPointClone = mDataPointBoolean.clone();
-        assertEquals(mDataPointBoolean.getTimestamp(), dataPointClone.getTimestamp());
-        assertArrayEquals(mDataPointBoolean.getSample(), dataPointClone.getSample());
+        assertThat(dataPointClone, is(equalTo(mDataPointBoolean)));
         assertNotSame(mDataPointBoolean, dataPointClone);
     }
 
     @Test
-    public void dataPointBooleanCloneComparableTest() {
-        DataPointBoolean dataPointClone = mDataPointBoolean.clone();
-        assertEquals(mDataPointBoolean, dataPointClone);
-        assertNotSame(mDataPointBoolean, dataPointClone);
-    }
-
-    @Test
-    public void dataPointBoolean_ParcelableWriteRead() {
+    public void dataPointBooleanParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointBoolean.writeToParcel(parcel, mDataPointBoolean.describeContents());
@@ -66,30 +63,11 @@ public class DataPointBooleanAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointBoolean.getTimestamp(), createdFromParcel.getTimestamp());
-        assertArrayEquals(mDataPointBoolean.getSample(), createdFromParcel.getSample());
+        assertThat(createdFromParcel, is(equalTo(mDataPointBoolean)));
     }
 
     @Test
-    public void dataPointBoolean_ParcelableWriteReadComparable() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mDataPointBoolean.writeToParcel(parcel, mDataPointBoolean.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataPointBoolean createdFromParcel = DataPointBoolean.CREATOR.createFromParcel(parcel);
-        DataPointBoolean[] createdFromParcelArray = DataPointBoolean.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointBoolean, createdFromParcel);
-    }
-
-    @Test
-    public void dataPointBooleanArray_ParcelableWriteRead() {
+    public void dataPointBooleanArrayParcelableWriteReadTest() {
         // Write data to parcel.
         Parcel parcel = Parcel.obtain();
         mDataPointBooleanArray.writeToParcel(parcel, mDataPointBooleanArray.describeContents());
@@ -103,25 +81,27 @@ public class DataPointBooleanAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointBooleanArray.getTimestamp(), createdFromParcel.getTimestamp());
-        assertArrayEquals(mDataPointBooleanArray.getSample(), createdFromParcel.getSample());
+        assertThat(createdFromParcel, is(equalTo(mDataPointBooleanArray)));
     }
 
     @Test
-    public void dataPointBooleanArray_ParcelableWriteReadComparable() {
-        // Write data to parcel.
-        Parcel parcel = Parcel.obtain();
-        mDataPointBooleanArray.writeToParcel(parcel, mDataPointBooleanArray.describeContents());
+    public void equalsNullObjectTest() {
+        DataPointBoolean nullBoolean = null;
+        DataPointBoolean nullBoolean1 = null;
 
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
+        assertThat(nullBoolean, is(equalTo(nullBoolean1)));
+        assertThat(nullBoolean, is(not(equalTo(mDataPointBoolean))));
+    }
 
-        // Read the data.
-        DataPointBoolean createdFromParcel = DataPointBoolean.CREATOR.createFromParcel(parcel);
-        DataPointBoolean[] createdFromParcelArray = DataPointBoolean.CREATOR.newArray(1);
+    @Test
+    public void dataPointBooleanHashcodeTest() {
+        DataPointBoolean dataClone = mDataPointBoolean.clone();
+        assertEquals(mDataPointBoolean.hashCode(), dataClone.hashCode());
 
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(mDataPointBooleanArray, createdFromParcel);
+        DataPointBoolean dpbWithDifferentTimestamp = new DataPointBoolean(testTimestamp + 10, testSample);
+        assertNotEquals(dpbWithDifferentTimestamp.hashCode(), dataClone.hashCode());
+
+        DataPointBoolean dpbWithDifferentSample = new DataPointBoolean(testTimestamp, false);
+        assertNotEquals(dpbWithDifferentSample.hashCode(), dataClone.hashCode());
     }
 }

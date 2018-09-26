@@ -36,11 +36,17 @@ import java.util.HashMap;
  * Builder class for <code>DataSource</code> objects
  */
 public class PlatformMetaData implements Parcelable {
-    /** Title of the platform */
+    /**
+     * Title of the platform
+     */
     private static final String TITLE = "TITLE";
-    /** Summary of the platform */
+    /**
+     * Summary of the platform
+     */
     private static final String SUMMARY = "SUMMARY";
-    /** Description of the platform */
+    /**
+     * Description of the platform
+     */
     private static final String DESCRIPTION = "DESCRIPTION";
     private static final String OPERATING_SYSTEM = "OPERATING_SYSTEM";
     private static final String MANUFACTURER = "MANUFACTURER";
@@ -99,8 +105,9 @@ public class PlatformMetaData implements Parcelable {
     public static Builder builder() {
         return new Builder();
     }
-    public static Builder builder(PlatformMetaData platformMetaData){
-        if(platformMetaData==null)
+
+    public static Builder builder(PlatformMetaData platformMetaData) {
+        if (platformMetaData == null)
             return new Builder();
         else return new Builder(platformMetaData.metaData);
     }
@@ -111,18 +118,19 @@ public class PlatformMetaData implements Parcelable {
         public Builder() {
             metaData = new HashMap<>();
         }
+
         Builder(HashMap<String, String> metaData) {
             this.metaData = new HashMap<>();
             this.metaData.putAll(metaData);
         }
 
         public Builder setTitle(String title) {
-            metaData.put(TITLE,title);
+            metaData.put(TITLE, title);
             return this;
         }
 
         public Builder setSummary(String summary) {
-            metaData.put(SUMMARY,summary);
+            metaData.put(SUMMARY, summary);
             return this;
         }
 
@@ -132,32 +140,32 @@ public class PlatformMetaData implements Parcelable {
         }
 
         public Builder setOperationSystem(String operationSystem) {
-            metaData.put(OPERATING_SYSTEM,operationSystem);
+            metaData.put(OPERATING_SYSTEM, operationSystem);
             return this;
         }
 
         public Builder setManufacturer(String manufacturer) {
-            metaData.put(MANUFACTURER,manufacturer);
+            metaData.put(MANUFACTURER, manufacturer);
             return this;
         }
 
         public Builder setModel(String model) {
-            metaData.put(MODEL,model);
+            metaData.put(MODEL, model);
             return this;
         }
 
         public Builder setVersionFirmware(String versionFirmware) {
-            metaData.put(VERSION_FIRMWARE,versionFirmware);
+            metaData.put(VERSION_FIRMWARE, versionFirmware);
             return this;
         }
 
         public Builder setVersionHardware(String versionHardware) {
-            metaData.put(VERSION_HARDWARE,versionHardware);
+            metaData.put(VERSION_HARDWARE, versionHardware);
             return this;
         }
 
         public Builder setDeviceId(String deviceId) {
-            metaData.put(DEVICE_ID,deviceId);
+            metaData.put(DEVICE_ID, deviceId);
             return this;
         }
 
@@ -165,7 +173,8 @@ public class PlatformMetaData implements Parcelable {
             this.metaData.put(key, value);
             return this;
         }
-        public Builder setMetaData(HashMap<String, String> metaData){
+
+        public Builder setMetaData(HashMap<String, String> metaData) {
             for (HashMap.Entry<String, String> entry : metaData.entrySet())
                 this.metaData.put(entry.getKey(), entry.getValue());
             return this;
@@ -175,6 +184,7 @@ public class PlatformMetaData implements Parcelable {
             return new PlatformMetaData(this);
         }
     }
+
     private PlatformMetaData(Parcel in) {
         int size = in.readInt();
         if (size == -1) metaData = null;
@@ -197,6 +207,7 @@ public class PlatformMetaData implements Parcelable {
             return new PlatformMetaData[size];
         }
     };
+
     @Override
     public int describeContents() {
         return 0;
@@ -217,6 +228,30 @@ public class PlatformMetaData implements Parcelable {
 
     }
 
+    @Override
+    public boolean equals(Object toCompare) {
+        if (toCompare instanceof PlatformMetaData) {
+            return ((this.getTitle().equals(((PlatformMetaData) toCompare).getTitle())) &&
+                    ((this.getSummary() == null && ((PlatformMetaData) toCompare).getSummary() == null) ||
+                    (this.getSummary().equals(((PlatformMetaData) toCompare).getSummary()))) &&
+                    (this.getDescription().equals(((PlatformMetaData) toCompare).getDescription())) &&
+                    (this.getOperationSystem().equals(((PlatformMetaData) toCompare).getOperationSystem())) &&
+                    (this.getManufacturer().equals(((PlatformMetaData) toCompare).getManufacturer())) &&
+                    (this.getModel().equals(((PlatformMetaData) toCompare).getModel())) &&
+                    ((this.getVersionFirmware() == null && ((PlatformMetaData) toCompare).getVersionFirmware() == null) ||
+                    (this.getVersionFirmware().equals(((PlatformMetaData) toCompare).getVersionFirmware()))) &&
+                    ((this.getVersionHardware() == null && ((PlatformMetaData) toCompare).getVersionHardware() == null) ||
+                    (this.getVersionHardware().equals(((PlatformMetaData) toCompare).getVersionHardware()))) &&
+                    ((this.getDeviceId() == null && ((PlatformMetaData) toCompare).getDeviceId() == null) ||
+                    (this.getDeviceId().equals(((PlatformMetaData) toCompare).getDeviceId()))));
+        } else
+            return false;
+    }
 
-
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + metaData.hashCode();
+        return result;
+    }
 }

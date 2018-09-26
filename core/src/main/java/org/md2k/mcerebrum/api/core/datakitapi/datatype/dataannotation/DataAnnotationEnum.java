@@ -32,12 +32,16 @@ import android.os.Parcelable;
 
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.Data;
 
+import java.util.Arrays;
+
 /**
  * This class provides the methods that all <code>DataType</code> objects use.
  */
-public class DataAnnotationEnum extends Data implements Parcelable{
+public class DataAnnotationEnum extends Data implements Parcelable {
 
-    /** The timestamp for when the data was collected */
+    /**
+     * The timestamp for when the data was collected
+     */
     private long endTimestamp;
     private byte[] sample;
 
@@ -45,14 +49,15 @@ public class DataAnnotationEnum extends Data implements Parcelable{
      * Constructs a <code>DataType</code> object with a <code>dataTime</code>.
      *
      * @param startTimestamp The timestamp for when the data was collected.
-     * @param endTimestamp The timestamp for when the data was collected.
-     * @param sample sample.
+     * @param endTimestamp   The timestamp for when the data was collected.
+     * @param sample         sample.
      */
     public DataAnnotationEnum(long startTimestamp, long endTimestamp, byte sample) {
         super(startTimestamp);
         this.endTimestamp = endTimestamp;
         this.sample = new byte[]{sample};
     }
+
     private DataAnnotationEnum(long timestamp, long endTimestamp, byte[] sample) {
         super(timestamp);
         this.sample = new byte[sample.length];
@@ -90,7 +95,7 @@ public class DataAnnotationEnum extends Data implements Parcelable{
         }
     };
 
-    public DataAnnotationEnum clone(){
+    public DataAnnotationEnum clone() {
         return new DataAnnotationEnum(getTimestamp(), getEndTimestamp(), sample);
     }
 
@@ -102,4 +107,28 @@ public class DataAnnotationEnum extends Data implements Parcelable{
         return sample;
     }
 
+    @Override
+    public boolean equals(Object toCompare) {
+        if (super.equals(toCompare)) {
+            if (toCompare instanceof DataAnnotationEnum) {
+                for (int i = 0; i < this.getSample().length; i++) {
+                    if (this.getSample()[i] != ((DataAnnotationEnum) toCompare).getSample()[i]) {
+                        return false;
+                    }
+                }
+                return true;
+            } else
+                return false;
+        } else
+            return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + super.hashCode();
+        result = 31 * result + (int)(endTimestamp ^ (endTimestamp >>> 32));
+        result = 31 * result + Arrays.hashCode(sample);
+        return result;
+    }
 }

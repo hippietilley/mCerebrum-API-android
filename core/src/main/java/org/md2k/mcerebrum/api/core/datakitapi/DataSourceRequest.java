@@ -160,5 +160,25 @@ public class DataSourceRequest extends AbstractDataSource {
         }
     };
 
+    @Override
+    public boolean equals(Object toCompare) {
+        if ((toCompare instanceof DataSourceRequest))
+            return (this.getDataSourceType().equals(((DataSourceRequest) toCompare).getDataSourceType())) &&
+                    (this.getDataSourceId().equals(((DataSourceRequest) toCompare).getDataSourceId())) &&
+                    (this.getPlatformType().equals(((DataSourceRequest) toCompare).getPlatformType())) &&
+                    (this.getPlatformId().equals(((DataSourceRequest) toCompare).getPlatformId())) &&
+                    (this.getPlatformAppType().equals(((DataSourceRequest) toCompare).getPlatformAppType())) &&
+                    (this.getPlatformAppId().equals(((DataSourceRequest) toCompare).getPlatformAppId())) &&
+                    (this.getApplicationType().equals(((DataSourceRequest) toCompare).getApplicationType())) &&
+                    (this.getApplicationId() == null && ((DataSourceRequest) toCompare).getApplicationId() == null) ||
+                            (this.getApplicationId().equals(((DataSourceRequest) toCompare).getApplicationId()));
+        else
+            return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
 

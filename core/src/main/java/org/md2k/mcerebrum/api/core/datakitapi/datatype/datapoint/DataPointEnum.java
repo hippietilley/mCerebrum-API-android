@@ -32,6 +32,8 @@ import android.os.Parcelable;
 
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.Data;
 
+import java.util.Arrays;
+
 /**
  * This class creates <code>DataType</code> objects for samples that have a byte data type.
  */
@@ -128,4 +130,31 @@ public class DataPointEnum extends Data implements Parcelable {
             return new DataPointEnum[size];
         }
     };
+
+    @Override
+    public boolean equals(Object toCompare) {
+        if (super.equals(toCompare)) {
+            if (toCompare instanceof DataPointEnum) {
+                if (this.getTimestamp() != ((DataPointEnum) toCompare).getTimestamp())
+                    return false;
+
+                for (int i = 0; i < this.getSample().length; i++) {
+                    if (this.getSample()[i] != ((DataPointEnum) toCompare).getSample()[i]) {
+                        return false;
+                    }
+                }
+                return true;
+            } else
+                return false;
+        } else
+            return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + super.hashCode();
+        result = 31 * result + Arrays.hashCode(sample);
+        return result;
+    }
 }

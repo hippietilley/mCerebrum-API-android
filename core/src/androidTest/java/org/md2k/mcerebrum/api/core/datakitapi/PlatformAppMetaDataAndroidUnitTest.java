@@ -5,6 +5,9 @@ import android.support.test.filters.SmallTest;
 
 import org.junit.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
@@ -25,7 +28,7 @@ public class PlatformAppMetaDataAndroidUnitTest {
     private PlatformAppMetaData testPlatformAppMetaData;
 
     @Test
-    public void PlatformAppMetaDataBuilderTest() {
+    public void platformAppMetaDataBuilderTest() {
         testPlatformAppMetaData = new PlatformAppMetaData.Builder().setValue(testKey, testValue).build();
         assertEquals(testValue, testPlatformAppMetaData.getValue(testKey));
 
@@ -46,7 +49,7 @@ public class PlatformAppMetaDataAndroidUnitTest {
     }
 
     @Test
-    public void PlatformAppMetaData_ParcelableWriteReadTest() {
+    public void platformAppMetaDataParcelableWriteReadTest() {
         testPlatformAppMetaData = CommonObjectConstructors.createPlatformAppMetaData();
 
         // Write to parcel.
@@ -62,35 +65,13 @@ public class PlatformAppMetaDataAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(testTitle, createdFromParcel.getTitle());
-        assertEquals(testSummary, createdFromParcel.getSummary());
-        assertEquals(testDescription, createdFromParcel.getDescription());
-        assertEquals(testOperationSystem, createdFromParcel.getOperationSystem());
-        assertEquals(testManufacturer, createdFromParcel.getManufacturer());
-        assertEquals(testModel, createdFromParcel.getModel());
-        assertEquals(testVersionFirmware, createdFromParcel.getVersionFirmware());
-        assertEquals(testVersionHardware, createdFromParcel.getVersionHardware());
-        assertEquals(testDeviceId, createdFromParcel.getDeviceId());
-        assertEquals(testValue, createdFromParcel.getValue(testKey));
+        assertThat(createdFromParcel, is(equalTo(testPlatformAppMetaData)));
     }
 
     @Test
-    public void PlatformAppMetaData_ParcelableWriteReadComparableTest() {
+    public void platformAppMetaDataHashCodeTest() {
         testPlatformAppMetaData = CommonObjectConstructors.createPlatformAppMetaData();
-
-        // Write to parcel.
-        Parcel parcel = Parcel.obtain();
-        testPlatformAppMetaData.writeToParcel(parcel, testPlatformAppMetaData.describeContents());
-
-        // After writing, reset the parcel for reading.
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        PlatformAppMetaData createdFromParcel = PlatformAppMetaData.CREATOR.createFromParcel(parcel);
-        PlatformAppMetaData[] createdFromParcelArray = PlatformAppMetaData.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(testPlatformAppMetaData, createdFromParcel);
+        PlatformAppMetaData testPlatformAppMetaData2 = CommonObjectConstructors.createPlatformAppMetaData();
+        assertEquals(testPlatformAppMetaData.hashCode(), testPlatformAppMetaData2.hashCode());
     }
 }

@@ -101,4 +101,16 @@ public class Data implements Parcelable{
     public Data clone(){
         return new Data(timestamp);
     }
+
+    @Override
+    public boolean equals(Object toCompare) {
+            return (toCompare instanceof Data && this.getTimestamp() == ((Data) toCompare).getTimestamp());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + (int)(timestamp ^ (timestamp >>> 32));
+        return result;
+    }
 }

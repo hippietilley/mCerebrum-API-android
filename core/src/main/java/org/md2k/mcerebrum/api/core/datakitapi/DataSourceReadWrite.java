@@ -41,7 +41,7 @@ import java.util.ArrayList;
  * Creates <code>DataSource</code> objects containing information about the platform and application
  * the data was collected from.
  */
-public class DataSourceReadWrite extends DataSource implements Parcelable{
+public class DataSourceReadWrite extends DataSource implements Parcelable {
     DataSourceReadWrite() {
     }
 
@@ -70,12 +70,15 @@ public class DataSourceReadWrite extends DataSource implements Parcelable{
     public void setDsId(int dsId) {
         super.setDsId(dsId);
     }
+
     public void setCreationTime(long creationTime) {
         super.setCreationTime(creationTime);
     }
+
     public void setModifiedTime(long modifiedTime) {
         super.setModifiedTime(modifiedTime);
     }
+
     public void setStatus(int status) {
         super.setStatus(status);
     }
@@ -83,24 +86,31 @@ public class DataSourceReadWrite extends DataSource implements Parcelable{
     public void setDataSourceType(String dataSourceType) {
         super.setDataSourceType(dataSourceType);
     }
+
     public void setDataSourceId(String dataSourceId) {
         super.setDataSourceId(dataSourceId);
     }
+
     public void setPlatformType(String platformType) {
         super.setPlatformType(platformType);
     }
+
     public void setPlatformId(String platformId) {
         super.setPlatformId(platformId);
     }
+
     public void setPlatformAppType(String platformAppType) {
         super.setPlatformAppType(platformAppType);
     }
+
     public void setPlatformAppId(String platformAppId) {
         super.setPlatformAppId(platformAppId);
     }
+
     public void setApplicationType(String applicationType) {
         super.setApplicationType(applicationType);
     }
+
     public void setApplicationId(String applicationId) {
         super.setApplicationId(applicationId);
     }
@@ -108,18 +118,23 @@ public class DataSourceReadWrite extends DataSource implements Parcelable{
     public void setDataSourceMetadata(DataSourceMetaData dataSourceMetadata) {
         super.setDataSourceMetaData(dataSourceMetadata);
     }
+
     public void setPlatformMetadata(PlatformMetaData platformMetadata) {
         super.setPlatformMetaData(platformMetadata);
     }
+
     public void setPlatformAppMetadata(PlatformAppMetaData platformAppMetadata) {
         super.setPlatformAppMetaData(platformAppMetadata);
     }
+
     public void setApplicationMetadata(ApplicationMetaData applicationMetadata) {
         super.setApplicationMetaData(applicationMetadata);
     }
+
     public void setDataDescriptors(ArrayList<DataDescriptor> dataDescriptors) {
         super.setDataDescriptors(dataDescriptors);
     }
+
     public void setDataType(String dataType) {
         super.setDataType(dataType);
     }
@@ -127,6 +142,19 @@ public class DataSourceReadWrite extends DataSource implements Parcelable{
     @Override
     public int describeContents() {
         return 0;
+    }
+
+    @Override
+    public boolean equals(Object toCompare) {
+        if (toCompare instanceof DataSourceReadWrite) {
+            return super.equals(toCompare);
+        } else
+            return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }
 

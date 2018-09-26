@@ -280,4 +280,54 @@ public abstract class AbstractDataSource implements Parcelable {
         parcel.writeTypedList(dataDescriptors);
         parcel.writeString(dataType);
     }
+
+    @Override
+    public boolean equals(Object toCompare) {
+        if (toCompare instanceof AbstractDataSource) {
+            return ((this.dsId == ((AbstractDataSource) toCompare).dsId)) &&
+                    (this.creationTime == ((AbstractDataSource) toCompare).creationTime) &&
+                    (this.modifiedTime == ((AbstractDataSource) toCompare).modifiedTime) &&
+                    (this.status == ((AbstractDataSource) toCompare).status) &&
+                    (this.getDataSourceType().equals(((AbstractDataSource) toCompare).getDataSourceType())) &&
+                    (this.getDataSourceId().equals(((AbstractDataSource) toCompare).getDataSourceId())) &&
+                    (this.getPlatformType().equals(((AbstractDataSource) toCompare).getPlatformType())) &&
+                    (this.getPlatformId().equals(((AbstractDataSource) toCompare).getPlatformId())) &&
+                    (this.getPlatformAppType().equals(((AbstractDataSource) toCompare).getPlatformAppType())) &&
+                    (this.getPlatformAppId().equals(((AbstractDataSource) toCompare).getPlatformAppId())) &&
+                    (this.getApplicationType().equals(((AbstractDataSource) toCompare).getApplicationType())) &&
+                    ((this.getApplicationId() == null && ((AbstractDataSource) toCompare).getApplicationId() == null) ||
+                            (this.getApplicationId().equals(((AbstractDataSource) toCompare).getApplicationId()))) &&
+                    (this.getDataSourceMetaData().equals(((AbstractDataSource) toCompare).getDataSourceMetaData())) &&
+                    (this.getPlatformMetaData().equals(((AbstractDataSource) toCompare).getPlatformMetaData())) &&
+                    (this.getPlatformAppMetaData().equals(((AbstractDataSource) toCompare).getPlatformAppMetaData())) &&
+                    (this.getApplicationMetaData().equals(((AbstractDataSource) toCompare).getApplicationMetaData()));
+        } else
+            return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + dsId;
+        result = 31 * result + (int) (creationTime ^ (creationTime >>> 32));
+        result = 31 * result + (int) (modifiedTime ^ (modifiedTime >>> 32));
+        result = 31 * result + status;
+        result = 31 * result + dataSourceType.hashCode();
+        result = 31 * result + dataSourceId.hashCode();
+        result = 31 * result + platformType.hashCode();
+        result = 31 * result + platformId.hashCode();
+        result = 31 * result + platformAppType.hashCode();
+        result = 31 * result + platformAppId.hashCode();
+        result = 31 * result + applicationType.hashCode();
+        //result = 31 * result + applicationId.hashCode();
+        if (dataSourceMetaData != null)
+            result = 31 * result + dataSourceMetaData.hashCode();
+        if (platformMetaData != null)
+            result = 31 * result + platformMetaData.hashCode();
+        if (platformAppMetaData != null)
+            result = 31 * result + platformAppMetaData.hashCode();
+        if (applicationMetaData != null)
+            result = 31 * result + applicationMetaData.hashCode();
+        return result;
+    }
 }

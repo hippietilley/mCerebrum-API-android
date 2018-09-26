@@ -33,17 +33,41 @@ public class DataSourceSet {
 
     DataSourceSet(DataSource[] dataSources, int status) {
         this.dataSource = dataSources;
-        if(this.dataSource==null) this.dataSource=new DataSource[0];
+        if (this.dataSource == null) this.dataSource = new DataSource[0];
         this.status = status;
     }
 
     public DataSource[] getDataSources() {
-        if(this.dataSource==null) this.dataSource=new DataSource[0];
+        if (this.dataSource == null) this.dataSource = new DataSource[0];
         return dataSource;
     }
 
     public int getStatus() {
         return status;
+    }
+
+    @Override
+    public boolean equals(Object toCompare) {
+        if (toCompare instanceof DataSourceSet) {
+            if (this.getStatus() != ((DataSourceSet) toCompare).getStatus())
+                return false;
+            for (int i = 0; i < this.getDataSources().length; i++) {
+                if (!(this.getDataSources()[i].equals(((DataSourceSet) toCompare).getDataSources()[i])))
+                    return false;
+            }
+            return true;
+        } else
+            return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        for (DataSource ds : dataSource) {
+            result = 31 * result + ds.hashCode();
+        }
+        result = 31 * result + status;
+        return result;
     }
 }
 

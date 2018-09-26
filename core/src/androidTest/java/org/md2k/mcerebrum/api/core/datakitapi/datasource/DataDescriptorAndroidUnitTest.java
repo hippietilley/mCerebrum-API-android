@@ -1,11 +1,16 @@
-package org.md2k.mcerebrum.api.core.datakitapi;
+package org.md2k.mcerebrum.api.core.datakitapi.datasource;
 
 import android.os.Parcel;
 import android.support.test.filters.SmallTest;
 
 import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.CommonObjectConstructors;
+import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataDescriptor;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -13,7 +18,7 @@ import static org.junit.Assert.assertNull;
 
 @SmallTest
 public class DataDescriptorAndroidUnitTest {
-    static final double DELTA = TestingConstants.DELTA;
+    private static final double DELTA = TestingConstants.DELTA;
     private final String testTitle = TestingConstants.TEST_TITLE;
     private final String testSummary = TestingConstants.TEST_SUMMARY;
     private final String testDescription = TestingConstants.TEST_DESCRIPTION;
@@ -27,7 +32,7 @@ public class DataDescriptorAndroidUnitTest {
     private DataDescriptor testDataDescriptor;
 
     @Test
-    public void DataDescriptorBuilderTest() {
+    public void dataDescriptorBuilderTest() {
         testDataDescriptor = new DataDescriptor.Builder().setValue(testKey, testValue).build();
         assertEquals(testValue, testDataDescriptor.getValue(testKey));
 
@@ -47,7 +52,7 @@ public class DataDescriptorAndroidUnitTest {
     }
 
     @Test
-    public void DataDescriptor_ParcelableWriteReadTest() {
+    public void dataDescriptorParcelableWriteReadTest() {
         testDataDescriptor = CommonObjectConstructors.createDataDescriptor();
 
         // Write to parcel
@@ -63,34 +68,13 @@ public class DataDescriptorAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(testTitle, createdFromParcel.getTitle());
-        assertEquals(testSummary, createdFromParcel.getSummary());
-        assertEquals(testDescription, createdFromParcel.getDescription());
-        assertEquals(testMinValue, createdFromParcel.getMinValue(), DELTA);
-        assertEquals(testMaxValue, createdFromParcel.getMaxValue(), DELTA);
-        assertArrayEquals(testPossibleValuesAsString, createdFromParcel.getPossibleValuesAsString());
-        assertArrayEquals(testPossibleValuesAsInt, createdFromParcel.getPossibleValuesAsInt());
-        assertEquals(testUnit, createdFromParcel.getUnit());
-        assertEquals(testValue, createdFromParcel.getValue(testKey));
+        assertThat(createdFromParcel, is(equalTo(testDataDescriptor)));
     }
 
     @Test
-    public void DataDescriptor_ParcelableWriteReadComparableTest() {
+    public void setTestDataDescriptorHashCodeTest() {
         testDataDescriptor = CommonObjectConstructors.createDataDescriptor();
-
-        // Write to parcel
-        Parcel parcel = Parcel.obtain();
-        testDataDescriptor.writeToParcel(parcel, testDataDescriptor.describeContents());
-
-        // After writing, reset the parcel for reading
-        parcel.setDataPosition(0);
-
-        // Read the data.
-        DataDescriptor createdFromParcel = DataDescriptor.CREATOR.createFromParcel(parcel);
-        DataDescriptor[] createdFromParcelArray = DataDescriptor.CREATOR.newArray(1);
-
-        // Verify results.
-        assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(testDataDescriptor, createdFromParcel);
+        DataDescriptor testDataDescriptor2 = CommonObjectConstructors.createDataDescriptor();
+        assertEquals(testDataDescriptor.hashCode(), testDataDescriptor2.hashCode());
     }
 }

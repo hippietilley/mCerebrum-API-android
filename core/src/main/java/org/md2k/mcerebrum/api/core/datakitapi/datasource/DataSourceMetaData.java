@@ -30,8 +30,6 @@ package org.md2k.mcerebrum.api.core.datakitapi.datasource;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.md2k.mcerebrum.api.core.datakitapi.DataSourceCreator;
-
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -39,16 +37,24 @@ import java.util.concurrent.TimeUnit;
  * Builder class for <code>DataSource</code> objects
  */
 public class DataSourceMetaData implements Parcelable {
-    /** Title of the data source */
+    /**
+     * Title of the data source
+     */
     private static final String TITLE = "TITLE";
 
-    /** Summary of the data source */
+    /**
+     * Summary of the data source
+     */
     private static final String SUMMARY = "SUMMARY";
 
-    /** Description of what the data source is. */
+    /**
+     * Description of what the data source is.
+     */
     private static final String DESCRIPTION = "DESCRIPTION";
 
-    /** Description of what the data source is. */
+    /**
+     * Description of what the data source is.
+     */
     private static final String DATA_RATE = "DATA_RATE";
 
     private HashMap<String, String> metaData;
@@ -80,8 +86,9 @@ public class DataSourceMetaData implements Parcelable {
     public static Builder builder() {
         return new Builder();
     }
-    public static Builder builder(DataSourceMetaData dataSourceMetaData){
-        if(dataSourceMetaData==null)
+
+    public static Builder builder(DataSourceMetaData dataSourceMetaData) {
+        if (dataSourceMetaData == null)
             return new Builder();
         else return new Builder(dataSourceMetaData.metaData);
     }
@@ -93,6 +100,7 @@ public class DataSourceMetaData implements Parcelable {
         public Builder() {
             metaData = new HashMap<>();
         }
+
         Builder(HashMap<String, String> metaData) {
             this.metaData = new HashMap<>();
             this.metaData.putAll(metaData);
@@ -112,10 +120,12 @@ public class DataSourceMetaData implements Parcelable {
             this.metaData.put(DESCRIPTION, description);
             return this;
         }
-        public Builder setDataRateAsOnChange(){
+
+        public Builder setDataRateAsOnChange() {
             this.metaData.put(DATA_RATE, "ON_CHANGE");
             return this;
         }
+
         public Builder setDataRate(int sampleNo, TimeUnit timeUnit) {
             String dataRate;
             switch (timeUnit) {
@@ -132,13 +142,13 @@ public class DataSourceMetaData implements Parcelable {
                     dataRate = Double.toString((double) (sampleNo));
                     break;
                 case MILLISECONDS:
-                    dataRate = Double.toString((double) (sampleNo)*1000);
+                    dataRate = Double.toString((double) (sampleNo) * 1000);
                     break;
                 case MICROSECONDS:
-                    dataRate = Double.toString((double) (sampleNo)*1000*1000);
+                    dataRate = Double.toString((double) (sampleNo) * 1000 * 1000);
                     break;
                 case NANOSECONDS:
-                    dataRate = Double.toString((double) (sampleNo)*1000*1000*1000);
+                    dataRate = Double.toString((double) (sampleNo) * 1000 * 1000 * 1000);
                     break;
                 default:
                     dataRate = "UNKNOWN";
@@ -152,7 +162,8 @@ public class DataSourceMetaData implements Parcelable {
             this.metaData.put(key, value);
             return this;
         }
-        public Builder setMetaData(HashMap<String, String> metaData){
+
+        public Builder setMetaData(HashMap<String, String> metaData) {
             for (HashMap.Entry<String, String> entry : metaData.entrySet())
                 this.metaData.put(entry.getKey(), entry.getValue());
             return this;
@@ -162,6 +173,7 @@ public class DataSourceMetaData implements Parcelable {
             return new DataSourceMetaData(this);
         }
     }
+
     private DataSourceMetaData(Parcel in) {
         int size = in.readInt();
         if (size == -1) metaData = null;
@@ -184,6 +196,7 @@ public class DataSourceMetaData implements Parcelable {
             return new DataSourceMetaData[size];
         }
     };
+
     @Override
     public int describeContents() {
         return 0;
@@ -203,5 +216,21 @@ public class DataSourceMetaData implements Parcelable {
         }
     }
 
+    @Override
+    public boolean equals(Object toCompare) {
+        if (toCompare instanceof DataSourceMetaData) {
+            return ((this.getTitle().equals(((DataSourceMetaData) toCompare).getTitle())) &&
+                    (this.getSummary().equals(((DataSourceMetaData) toCompare).getSummary())) &&
+                    (this.getDescription().equals(((DataSourceMetaData) toCompare).getDescription())) &&
+                    (this.getMetaData(DATA_RATE).equals(((DataSourceMetaData) toCompare).getMetaData(DATA_RATE))));
+        } else
+            return false;
+    }
 
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + metaData.hashCode();
+        return result;
+    }
 }

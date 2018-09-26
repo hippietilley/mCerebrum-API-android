@@ -1,11 +1,16 @@
-package org.md2k.mcerebrum.api.core.datakitapi;
+package org.md2k.mcerebrum.api.core.datakitapi.datasource;
 
 import android.os.Parcel;
 import android.support.test.filters.SmallTest;
 
 import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.CommonObjectConstructors;
+import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.PlatformMetaData;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertNotEquals;
@@ -26,7 +31,7 @@ public class PlatformMetaDataAndroidUnitTest {
     private PlatformMetaData testPlatformMetaData;
 
     @Test
-    public void PlatformMetaDataBuilderTest() {
+    public void platformMetaDataBuilderTest() {
         testPlatformMetaData = new PlatformMetaData.Builder().setMetaData(testKey, testValue).build();
         assertEquals(testValue, testPlatformMetaData.getMetaData(testKey));
 
@@ -47,7 +52,7 @@ public class PlatformMetaDataAndroidUnitTest {
     }
 
     @Test
-    public void PlatformMetaData_ParcelableWriteReadTest() {
+    public void platformMetaDataParcelableWriteReadTest() {
         testPlatformMetaData = CommonObjectConstructors.createPlatformMetaData();
 
         // Write to parcel.
@@ -63,15 +68,13 @@ public class PlatformMetaDataAndroidUnitTest {
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
-        assertEquals(testTitle, createdFromParcel.getTitle());
-        assertEquals(testSummary, createdFromParcel.getSummary());
-        assertEquals(testDescription, createdFromParcel.getDescription());
-        assertEquals(testOperationSystem, createdFromParcel.getOperationSystem());
-        assertEquals(testManufacturer, createdFromParcel.getManufacturer());
-        assertEquals(testModel, createdFromParcel.getModel());
-        assertEquals(testVersionFirmware, createdFromParcel.getVersionFirmware());
-        assertEquals(testVersionHardware, createdFromParcel.getVersionHardware());
-        assertEquals(testDeviceId, createdFromParcel.getDeviceId());
-        assertEquals(testValue, createdFromParcel.getMetaData(testKey));
+        assertThat(createdFromParcel, is(equalTo(testPlatformMetaData)));
+    }
+
+    @Test
+    public void platformMetaDataHashCodeTest() {
+        testPlatformMetaData = CommonObjectConstructors.createPlatformMetaData();
+        PlatformMetaData testPlatformMetaData2 = CommonObjectConstructors.createPlatformMetaData();
+        assertEquals(testPlatformMetaData.hashCode(), testPlatformMetaData2.hashCode());
     }
 }

@@ -31,11 +31,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.HashMap;
+import java.util.Arrays;
 
 /**
  * Builder class for <code>DataSource</code> objects
  */
-public class DataDescriptor implements Parcelable{
+public class DataDescriptor implements Parcelable {
     private static final String TITLE = "TITLE";
     private static final String SUMMARY = "SUMMARY";
     private static final String DESCRIPTION = "DESCRIPTION";
@@ -87,31 +88,38 @@ public class DataDescriptor implements Parcelable{
     public String getDescription() {
         return descriptor.get(DESCRIPTION);
     }
-    public double getMinValue(){
+
+    public double getMinValue() {
         return minValue;
     }
-    public double getMaxValue(){
+
+    public double getMaxValue() {
         return maxValue;
     }
-    public String getUnit(){
+
+    public String getUnit() {
         return unit;
     }
-    public String[] getPossibleValuesAsString(){
+
+    public String[] getPossibleValuesAsString() {
         return possibleValuesAsString;
     }
-    public int[] getPossibleValuesAsInt(){
+
+    public int[] getPossibleValuesAsInt() {
         return possibleValuesAsInt;
     }
-    public String getValue(String key){
-        if(descriptor ==null) return null;
+
+    public String getValue(String key) {
+        if (descriptor == null) return null;
         return descriptor.get(key);
     }
+
     private DataDescriptor(Builder builder) {
         minValue = builder.minValue;
         maxValue = builder.maxValue;
         unit = builder.unit;
-        possibleValuesAsString =builder.possibleValuesAsString;
-        possibleValuesAsInt =builder.possibleValuesAsInt;
+        possibleValuesAsString = builder.possibleValuesAsString;
+        possibleValuesAsInt = builder.possibleValuesAsInt;
         descriptor = builder.descriptor;
     }
 
@@ -156,17 +164,17 @@ public class DataDescriptor implements Parcelable{
         }
 
         public Builder setTitle(String title) {
-            descriptor.put(TITLE,title);
+            descriptor.put(TITLE, title);
             return this;
         }
 
         public Builder setSummary(String summary) {
-            descriptor.put(SUMMARY,summary);
+            descriptor.put(SUMMARY, summary);
             return this;
         }
 
         public Builder setDescription(String description) {
-            descriptor.put(DESCRIPTION,description);
+            descriptor.put(DESCRIPTION, description);
             return this;
         }
 
@@ -179,12 +187,14 @@ public class DataDescriptor implements Parcelable{
             this.maxValue = maxValue;
             return this;
         }
+
         public Builder setPossibleValues(String[] possibleValues) {
-            this.possibleValuesAsString=possibleValues;
+            this.possibleValuesAsString = possibleValues;
             return this;
         }
+
         public Builder setPossibleValues(int[] possibleValues) {
-            this.possibleValuesAsInt=possibleValues;
+            this.possibleValuesAsInt = possibleValues;
             return this;
         }
 
@@ -197,8 +207,38 @@ public class DataDescriptor implements Parcelable{
             this.unit = unit;
             return this;
         }
+
         public DataDescriptor build() {
             return new DataDescriptor(this);
         }
+    }
+
+    @Override
+    public boolean equals(Object toCompare) {
+        if (toCompare instanceof DataDescriptor) {
+            return ((this.getTitle().equals(((DataDescriptor) toCompare).getTitle())) &&
+                    (this.getSummary().equals(((DataDescriptor) toCompare).getSummary())) &&
+                    (this.getDescription().equals(((DataDescriptor) toCompare).getDescription())) &&
+                    (this.getMinValue() == ((DataDescriptor) toCompare).getMinValue()) &&
+                    (this.getMaxValue() == ((DataDescriptor) toCompare).getMaxValue()) &&
+                    (this.getUnit().equals(((DataDescriptor) toCompare).getUnit())) &&
+                    (Arrays.equals(this.getPossibleValuesAsInt(), ((DataDescriptor) toCompare).getPossibleValuesAsInt())) &&
+                    (Arrays.equals(this.getPossibleValuesAsString(), ((DataDescriptor) toCompare).getPossibleValuesAsString())));
+        } else
+            return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        long minValueLong = Double.doubleToLongBits(minValue);
+        result = 31 * result + (int)(minValueLong ^ (minValueLong >>> 32));
+        long maxValueLong = Double .doubleToLongBits(maxValue);
+        result = 31 * result + (int)(maxValueLong ^ (maxValueLong >>> 32));
+        result = 31 * result + unit.hashCode();
+        result = 31 * result + Arrays.hashCode(possibleValuesAsString);
+        result = 31 * result + Arrays.hashCode(possibleValuesAsInt);
+        result = 31 * result + descriptor.hashCode();
+        return result;
     }
 }

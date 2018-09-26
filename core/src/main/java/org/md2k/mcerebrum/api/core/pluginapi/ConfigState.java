@@ -32,10 +32,12 @@ public enum ConfigState {
     PARTIALLY_CONFIGURED(1),
     CONFIGURED(0);
     private int id;
-    ConfigState(int id){
-        this.id=id;
+
+    ConfigState(int id) {
+        this.id = id;
     }
-    public int getValue(){
+
+    public int getValue() {
         return id;
     }
 }
