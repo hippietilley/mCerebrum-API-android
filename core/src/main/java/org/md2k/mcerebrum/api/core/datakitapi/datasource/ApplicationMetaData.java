@@ -149,7 +149,6 @@ public class ApplicationMetaData implements Parcelable {
         else return new Builder(applicationMetaData.metaData);
     }
 
-
     /**
      * Embedded class that defines the <code>Builder</code> for <code>ApplicationMetaData</code>.
      */
@@ -358,6 +357,7 @@ public class ApplicationMetaData implements Parcelable {
      * Calculates and returns a hash code for the calling object.
      * The hash code is calculated using the method denoted in "Effective Java" and described in this Medium
      * <a href="https://medium.com/codelog/overriding-hashcode-method-effective-java-notes-723c1fedf51c">post</a>.
+     *
      * @return The hash code of the calling object.
      */
     @Override

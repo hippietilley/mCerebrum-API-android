@@ -29,7 +29,6 @@ package org.md2k.mcerebrum.api.core.datakitapi.datasource;
 
 /**
  * This class defines constants for Data Source Metadata denoting the type and id.
- *
  */
 public final class DATASOURCE {
     private DATASOURCE() {
@@ -384,7 +383,6 @@ public final class DATASOURCE {
          */
         public static final String PUFFMARKER_SMOKING_EPISODE = "PUFFMARKER_SMOKING_EPISODE";
 
-
         /**
          * Request of a notification <p><code>"NOTIFICATION_REQUEST"</code></p>
          */
@@ -410,7 +408,6 @@ public final class DATASOURCE {
          */
         public static final String DATA_VARIANCE = "DATA_VARIANCE";
 
-
         /**
          * Type of day <p><code>"TYPE_OF_DAY"</code></p>
          */
@@ -426,7 +423,6 @@ public final class DATASOURCE {
          */
         public static final String INCENTIVE = "INCENTIVE";
 
-
         /**
          * Blood pressure <p><code>"BLOOD_PRESSURE"</code></p>
          */
@@ -436,7 +432,6 @@ public final class DATASOURCE {
          * Weight <p><code>"WEIGHT"</code></p>
          */
         public static final String WEIGHT = "WEIGHT";
-
 
         /**
          * Brushing pressure <p><code>"ORALB_PRESSURE"</code></p>
@@ -468,7 +463,6 @@ public final class DATASOURCE {
          */
         public static final String ORALB_BUSHING_TIME = "ORALB_BUSHING_TIME";
 
-
         /**
          * Activity type <p><code>"ACTIVITY_TYPE"</code></p>
          */
@@ -483,7 +477,6 @@ public final class DATASOURCE {
          * Sequence number <p><code>"SEQUENCE_NUMBER"</code></p>
          */
         public static final String SEQUENCE_NUMBER = "SEQUENCE_NUMBER";
-
 
         /**
          * Smoking sensor <p><code>"SMOKING"</code></p>
@@ -540,7 +533,6 @@ public final class DATASOURCE {
          */
         public static final String WORK_ANNOTATION = "WORK_ANNOTATION";
 
-
         /**
          * Is screen on <p><code>"CU_IS_SCREEN_ON"</code></p><p> For data integration from Cornell </p>
          */
@@ -561,12 +553,10 @@ public final class DATASOURCE {
          */
         public static final String CU_AUDIO_INFERENCE = "CU_AUDIO_INFERENCE";
 
-
         /**
          * App usage <p><code>"CU_APPUSAGE"</code></p><p> For data integration from Cornell </p>
          */
         public static final String CU_APPUSAGE = "CU_APPUSAGE";
-
 
         /**
          * SMS number <p><code>"CU_SMS_NUMBER"</code></p><p> For data integration from Cornell </p>
@@ -582,7 +572,6 @@ public final class DATASOURCE {
          * SMS length <p><code>"CU_SMS_LENGTH"</code></p><p> For data integration from Cornell </p>
          */
         public static final String CU_SMS_LENGTH = "CU_SMS_LENGTH";
-
 
         /**
          * Call number <p><code>"CU_CALL_NUMBER"</code></p><p> For data integration from Cornell </p>
@@ -600,14 +589,35 @@ public final class DATASOURCE {
         public static final String CU_CALL_DURATION = "CU_CALL_DURATION";
 
         /**
-         * Label <p><code>"LABEL</code></p><p> For data integration from Cornell </p>
+         * Label <p><code>"LABEL"</code></p><p> For data integration from Cornell </p>
          */
         public static String LABEL = "LABEL";
 
+        /**
+         * Magnetometer sensor <p><code>"MAGNETOMETER"</code></p>
+         */
         public static final String MAGNETOMETER = "MAGNETOMETER";
+
+        /**
+         * A quaternion is a measure of rotation.
+         * In this context it denotes the rotation of the magnetometer.
+         * <p><code>"QUATERNION"</code></p>
+         */
         public static final String QUATERNION = "QUATERNION";
+
+        /**
+         * Sensitivity of the magnetometer. <p><code>"MAGNETOMETER_SENSITIVITY"</code></p>
+         */
         public static final String MAGNETOMETER_SENSITIVITY = "MAGNETOMETER_SENSITIVITY";
+
+        /**
+         * Time spent brushing with the OralB toothbrush. <p><code>"ORALB_BRUSHING_TIME"</code></p>
+         */
         public static final String ORALB_BRUSHING_TIME = "ORALB_BRUSHING_TIME";
+
+        /**
+         * Accelerometer for the OralB toothbrush. <p><code>"ORALB_BRUSH_ACCELEROMETER"</code></p>
+         */
         public static final String ORALB_BRUSH_ACCELEROMETER = "ORALB_BRUSH_ACCELEROMETER";
     }
 

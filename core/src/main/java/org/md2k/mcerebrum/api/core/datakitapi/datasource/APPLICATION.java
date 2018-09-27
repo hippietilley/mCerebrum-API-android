@@ -32,9 +32,6 @@ package org.md2k.mcerebrum.api.core.datakitapi.datasource;
  * Types of applications are sense, analyze, and act. There are no ids as of yet.
  */
 public final class APPLICATION {
-    /**
-     *
-     */
     private APPLICATION() {
     }
 
