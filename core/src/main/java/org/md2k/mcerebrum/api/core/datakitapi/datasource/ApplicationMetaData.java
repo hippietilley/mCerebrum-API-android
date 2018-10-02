@@ -52,6 +52,7 @@ public class ApplicationMetaData implements Parcelable {
 
     /**
      * Returns the title.
+     *
      * @return The title.
      */
     public String getTitle() {
@@ -60,6 +61,7 @@ public class ApplicationMetaData implements Parcelable {
 
     /**
      * Returns the summary.
+     *
      * @return The summary.
      */
     public String getSummary() {
@@ -68,6 +70,7 @@ public class ApplicationMetaData implements Parcelable {
 
     /**
      * Returns the description.
+     *
      * @return The description.
      */
     public String getDescription() {
@@ -76,6 +79,7 @@ public class ApplicationMetaData implements Parcelable {
 
     /**
      * Returns the version name.
+     *
      * @return The version name.
      */
     public String getVersionName() {
@@ -85,6 +89,7 @@ public class ApplicationMetaData implements Parcelable {
     /**
      * Returns the version number of the application. If the key <code>"VERSION_NUMBER"</code> isn't
      * in the hash map a -1 is returned.
+     *
      * @return The version number of the application as an integer.
      */
     public int getVersionNumber() {
@@ -95,6 +100,7 @@ public class ApplicationMetaData implements Parcelable {
 
     /**
      * Returns the metadata field for the given key.
+     *
      * @param key Key of the the metadata to return. This key should be the name of the field in all
      *            capital letters, any spaces should be underscores.
      * @return The metadata field for the given key.
@@ -105,6 +111,7 @@ public class ApplicationMetaData implements Parcelable {
 
     /**
      * Iterates through the hash map to create an array of keys and then sorts the array.
+     *
      * @return The sorted array of keys in the hash map.
      */
     public String[] getKeys() {
@@ -121,6 +128,7 @@ public class ApplicationMetaData implements Parcelable {
 
     /**
      * Constructor
+     *
      * @param builder Builder object defining how to construct the <code>ApplicationMetaData</code>.
      */
     private ApplicationMetaData(Builder builder) {
@@ -130,6 +138,7 @@ public class ApplicationMetaData implements Parcelable {
 
     /**
      * Creates a new <code>Builder</code> object to define an <code>ApplicationMetaData</code> object.
+     *
      * @return A new <code>Builder</code>.
      */
     public static Builder builder() {
@@ -140,6 +149,7 @@ public class ApplicationMetaData implements Parcelable {
      * Creates a new <code>Builder</code> object from an existing <code>ApplicationMetaData</code> object.
      * If the <code>ApplicationMetaData</code> that is passed is null, then a new <code>Builder</code> is
      * returned.
+     *
      * @param applicationMetaData Object to model the <code>Builder</code> on.
      * @return A new <code>Builder</code> from the passed <code>ApplicationMetaData</code>.
      */
@@ -165,6 +175,7 @@ public class ApplicationMetaData implements Parcelable {
 
         /**
          * Constructor
+         *
          * @param metaData Hash map of metadata to add to the <code>Builder</code>.
          */
         Builder(HashMap<String, String> metaData) {
@@ -174,6 +185,7 @@ public class ApplicationMetaData implements Parcelable {
 
         /**
          * Sets the <code>TITLE</code> key of the hash map.
+         *
          * @param title Value to associate <code>TITLE</code> to.
          * @return The modified <code>Builder</code>.
          */
@@ -184,6 +196,7 @@ public class ApplicationMetaData implements Parcelable {
 
         /**
          * Sets the <code>SUMMARY</code> key of the hash map.
+         *
          * @param summary Value to associate <code>SUMMARY</code> to.
          * @return The modified <code>Builder</code>.
          */
@@ -194,6 +207,7 @@ public class ApplicationMetaData implements Parcelable {
 
         /**
          * Sets the <code>DESCRIPTION</code> key of the hash map.
+         *
          * @param description Value to associate <code>DESCRIPTION</code> to.
          * @return The modified <code>Builder</code>.
          */
@@ -204,6 +218,7 @@ public class ApplicationMetaData implements Parcelable {
 
         /**
          * Sets the <code>VERSION_NAME</code> key of the hash map.
+         *
          * @param versionName Value to associate <code>VERSION_NAME</code> to.
          * @return The modified <code>Builder</code>.
          */
@@ -215,6 +230,7 @@ public class ApplicationMetaData implements Parcelable {
         /**
          * Sets the <code>VERSION_NUMBER</code> key of the hash map. The version number is passed in
          * as an integer and converted to a string via <code>Integer.toString()</code>.
+         *
          * @param versionNumber Value to associate <code>VERSION_NUMBER</code> to.
          * @return The modified <code>Builder</code>.
          */
@@ -225,7 +241,8 @@ public class ApplicationMetaData implements Parcelable {
 
         /**
          * Puts a custom key and value into the hash map.
-         * @param key Key to add to the hash map.
+         *
+         * @param key   Key to add to the hash map.
          * @param value Value to add to the hash map.
          * @return The modified <code>Builder</code>.
          */
@@ -236,6 +253,7 @@ public class ApplicationMetaData implements Parcelable {
 
         /**
          * Takes an existing hash map and merges it into the <code>Builder</code>'s hash map.
+         *
          * @param metaData Hash map to add to the <code>Builder</code>.
          * @return The modified <code>Builder</code>.
          */
@@ -247,6 +265,7 @@ public class ApplicationMetaData implements Parcelable {
 
         /**
          * Passes the <code>Builder</code> to the <code>ApplicationMetaData</code> constructor.
+         *
          * @return The resulting <code>ApplicationMetaData</code> object.
          */
         public ApplicationMetaData build() {
@@ -258,6 +277,7 @@ public class ApplicationMetaData implements Parcelable {
     /**
      * Constructor
      * This constructor creates an <code>ApplicationMetaData</code> object from a <code>Parcel</code>.
+     *
      * @param in <code>Parcel</code> containing the <code>ApplicationMetaData</code>.
      */
     protected ApplicationMetaData(Parcel in) {
@@ -303,6 +323,7 @@ public class ApplicationMetaData implements Parcelable {
      * Describe the kinds of special objects contained in this Parcelable instance's marshaled representation.
      * For example, if the object will include a file descriptor in the output of
      * writeToParcel(Parcel, int), the return value of this method must include the CONTENTS_FILE_DESCRIPTOR bit.
+     *
      * @return 0.
      */
     @Override
@@ -312,8 +333,9 @@ public class ApplicationMetaData implements Parcelable {
 
     /**
      * Writes the calling <code>ApplicationMetaData</code> to the passed <code>Parcel</code>.
+     *
      * @param parcel <code>Parcel</code> to write to.
-     * @param i This should always be the value returned from <code>describeContents()</code>.
+     * @param i      This should always be the value returned from <code>describeContents()</code>.
      */
     @Override
     public void writeToParcel(Parcel parcel, int i) {
@@ -332,6 +354,7 @@ public class ApplicationMetaData implements Parcelable {
     /**
      * Compares the passed object to the calling object.
      * If the passed object is not an instance of this class, false is returned.
+     *
      * @param toCompare Object to compare.
      * @return True if the objects are equivalent and false if they are not.
      */
@@ -346,7 +369,7 @@ public class ApplicationMetaData implements Parcelable {
                 if (!((ApplicationMetaData) toCompare).metaData.get(toCompareKey).equalsIgnoreCase(this.metaData.get(toCompareKey)))
                     return false;
             }
-            return((this.getTitle().equals(((ApplicationMetaData) toCompare).getTitle())) &&
+            return ((this.getTitle().equals(((ApplicationMetaData) toCompare).getTitle())) &&
                     (this.getSummary().equals(((ApplicationMetaData) toCompare).getSummary())) &&
                     (this.getDescription().equals(((ApplicationMetaData) toCompare).getDescription())));
         } else
