@@ -47,9 +47,9 @@ public class Data implements Parcelable {
 
     /**
      * Constructor
-     * This constructor creates an <code>DataBoolean</code> object from a <code>Parcel</code>.
+     * This constructor creates an <code>Data</code> object from a <code>Parcel</code>.
      *
-     * @param in Parceled <code>DataBoolean</code> object.
+     * @param in Parceled <code>Data</code> object.
      */
     protected Data(Parcel in) {
         timestamp = in.readLong();
@@ -85,10 +85,10 @@ public class Data implements Parcelable {
     };
 
     /**
-     * Writes the <code>Data</code> to a parcel.
+     * Writes the calling <code>Data</code> to the passed <code>Parcel</code>.
      *
-     * @param dest  The parcel to which the application should be written.
-     * @param flags Additional flags about how the object should be written.
+     * @param dest  <code>Parcel</code> to write to.
+     * @param flags This should always be the value returned from <code>describeContents()</code>.
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {

@@ -1,18 +1,6 @@
-package org.md2k.mcerebrum.api.core.datakitapi.datatype;
-
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.dataannotation.DataAnnotationEnum;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointBoolean;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointByte;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointDouble;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointEnum;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointInt;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointLong;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointObject;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointString;
-
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,6 +24,36 @@ import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointString
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+package org.md2k.mcerebrum.api.core.datakitapi.datatype;
+
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.dataannotation.DataAnnotationEnum;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointBoolean;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointByte;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointDouble;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointEnum;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointInt;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointLong;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointObject;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointString;
+
+/**
+ * This class enumerates the types of <code>Data</code> objects that can exist
+ * and provides <code>hashCode</code>s for them.
+ * The possible types are:
+ * <ul>
+ * <li>DATAPOINT_BOOLEAN</li>
+ * <li>DATAPOINT_BYTE</li>
+ * <li>DATAPOINT_INT</li>
+ * <li>DATAPOINT_LONG</li>
+ * <li>DATAPOINT_DOUBLE</li>
+ * <li>DATAPOINT_STRING</li>
+ * <li>DATAPOINT_ENUM</li>
+ * <li>DATAPOINT_OBJECT</li>
+ * <li>DATAANNOTATION_ENUM</li>
+ * <li>UNKNOWN</li>
+ * </ul>
+ */
 public enum DataType {
     DATAPOINT_BOOLEAN(DataPointBoolean.class.hashCode()),
     DATAPOINT_BYTE(DataPointByte.class.hashCode()),
@@ -49,9 +67,23 @@ public enum DataType {
     UNKNOWN(-1);
 
     int hashCode;
-    DataType(int hashCode){
+
+    /**
+     * Constructor
+     *
+     * @param hashCode HashCode for the <code>DataType</code>. This should be the
+     *                 <code>hashCode</code> for the specific class of the <code>DataType</code>
+     *                 as enumerated above.
+     */
+    DataType(int hashCode) {
         this.hashCode = hashCode;
     }
+
+    /**
+     * Returns the <code>hashCode</code>.
+     *
+     * @return The <code>hashCode</code>.
+     */
     public int getHashCode() {
         return hashCode;
     }
