@@ -153,7 +153,6 @@ public abstract class AbstractDataSource implements Parcelable {
         this.modifiedTime = modifiedTime;
     }
 
-
     /**
      * Returns the status of the object.
      *
@@ -171,7 +170,6 @@ public abstract class AbstractDataSource implements Parcelable {
     protected void setStatus(int status) {
         this.status = status;
     }
-
 
     /**
      * Returns the data source type.
