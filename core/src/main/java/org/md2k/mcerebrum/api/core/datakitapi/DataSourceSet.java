@@ -27,25 +27,53 @@
 
 package org.md2k.mcerebrum.api.core.datakitapi;
 
+/**
+ * This class allows <code>DataSource</code>s to be grouped into sets.
+ */
 public class DataSourceSet {
     private DataSource[] dataSource;
     private int status;
 
+    /**
+     * Constructor
+     * This constructor takes an array of <code>DataSource</code>s and a status value.
+     *
+     * @param dataSources <code>DataSources</code> to add to the set.
+     * @param status      Status
+     */
     DataSourceSet(DataSource[] dataSources, int status) {
         this.dataSource = dataSources;
         if (this.dataSource == null) this.dataSource = new DataSource[0];
         this.status = status;
     }
 
+    /**
+     * Returns an array of <code>DataSource</code>s.
+     * If <code>dataSource</code> is null, then a new array is initialized.
+     *
+     * @return An array of <code>DataSource</code>s.
+     */
     public DataSource[] getDataSources() {
         if (this.dataSource == null) this.dataSource = new DataSource[0];
         return dataSource;
     }
 
+    /**
+     * Returns the status of the set.
+     *
+     * @return The status of the set.
+     */
     public int getStatus() {
         return status;
     }
 
+    /**
+     * Compares the passed object to the calling object.
+     * If the passed object is not an instance of this class, false is returned.
+     *
+     * @param toCompare Object to compare.
+     * @return True if the objects are equivalent and false if they are not.
+     */
     @Override
     public boolean equals(Object toCompare) {
         if (toCompare instanceof DataSourceSet) {
@@ -60,6 +88,13 @@ public class DataSourceSet {
             return false;
     }
 
+    /**
+     * Calculates and returns a hash code for the calling object.
+     * The hash code is calculated using the method denoted in "Effective Java" and described in this Medium
+     * <a href="https://medium.com/codelog/overriding-hashcode-method-effective-java-notes-723c1fedf51c">post</a>.
+     *
+     * @return The hash code of the calling object.
+     */
     @Override
     public int hashCode() {
         int result = 17;

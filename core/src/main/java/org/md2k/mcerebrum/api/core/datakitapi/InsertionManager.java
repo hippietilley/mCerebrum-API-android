@@ -1,24 +1,6 @@
-package org.md2k.mcerebrum.api.core.datakitapi;
-
-import android.os.Handler;
-import android.os.RemoteException;
-import android.util.SparseArray;
-
-import org.md2k.mcerebrum.api.core.datakitapi.callback.ConnectionCallback;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.Data;
-import org.md2k.mcerebrum.api.core.datakitapi.exception.MCerebrumException;
-import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,6 +24,28 @@ import java.util.concurrent.locks.ReentrantLock;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+package org.md2k.mcerebrum.api.core.datakitapi;
+
+import android.os.Handler;
+import android.os.RemoteException;
+import android.util.SparseArray;
+
+import org.md2k.mcerebrum.api.core.datakitapi.callback.ConnectionCallback;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.Data;
+import org.md2k.mcerebrum.api.core.datakitapi.exception.MCerebrumException;
+import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+/**
+ *
+ */
 class InsertionManager {
     private IDataKitRemoteService mService;
 
@@ -57,6 +61,12 @@ class InsertionManager {
     private ConnectionCallback connectionCallback;
     private Lock lock;
 
+    /**
+     * Constructor
+     *
+     * @param mService           Remote DataKit Service
+     * @param connectionCallback Callback for connections
+     */
     InsertionManager(IDataKitRemoteService mService, ConnectionCallback connectionCallback) {
         this.mService = mService;
         handler = new Handler();
@@ -67,6 +77,9 @@ class InsertionManager {
         lock = new ReentrantLock();
     }
 
+    /**
+     * Runnable that calls <code>sync()</code>.
+     */
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -75,6 +88,11 @@ class InsertionManager {
         }
     };
 
+    /**
+     * @param dsId
+     * @param data
+     * @return
+     */
     protected int insert(int dsId, Data[] data) {
         lock.lock();
         ArrayList<Long> a = bufferTime.get(dsId, new ArrayList<Long>());
@@ -103,6 +121,9 @@ class InsertionManager {
         return MCerebrumStatus.SUCCESS;
     }
 
+    /**
+     * Tries to pass data to <code>mService</code> via <code>insert()</code>.
+     */
     private void sync() {
         lock.lock();
         try {

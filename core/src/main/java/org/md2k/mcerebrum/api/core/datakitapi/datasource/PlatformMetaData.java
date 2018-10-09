@@ -34,7 +34,7 @@ import java.util.HashMap;
 
 /**
  * This class defines the <code>PlatformMetaData</code> object. This object provides a structure
- * for organizing the metadata related to the application that collects a data point. This class
+ * for organizing the metadata related to the platform that collects a data point. This class
  * implements <code>Parcelable</code> so that the <code>PlatformMetaData</code> objects can be
  * parceled with their data points. Metadata of note includes the application title, summary, description,
  * operating system, manufacturer, model, version firmware, version hardware, and device id.

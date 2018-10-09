@@ -182,7 +182,6 @@ public class DataDescriptor implements Parcelable {
         return possibleValuesAsInt;
     }
 
-
     /**
      * Returns the value of a custom key.
      *
