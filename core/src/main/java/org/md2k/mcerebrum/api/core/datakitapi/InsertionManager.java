@@ -44,7 +44,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- *
+ * Manages the insertion of data into the database.
  */
 class InsertionManager {
     private IDataKitRemoteService mService;
@@ -89,9 +89,11 @@ class InsertionManager {
     };
 
     /**
-     * @param dsId
-     * @param data
-     * @return
+     * Inserts data into the database.
+     *
+     * @param dsId <code>dsId</code> of the data.
+     * @param data Array of data to insert.
+     * @return The <code>MCerebrumStatus</code> of the operation.
      */
     protected int insert(int dsId, Data[] data) {
         lock.lock();

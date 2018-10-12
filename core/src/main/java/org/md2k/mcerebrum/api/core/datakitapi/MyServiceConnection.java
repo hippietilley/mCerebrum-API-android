@@ -73,8 +73,11 @@ class MyServiceConnection implements ServiceConnection {
     }
 
     /**
-     * @param name
-     * @param service
+     * Binds an <code>IBinder</code> to the <code>IDataKitRemoteService</code> and creates
+     * a new <code>InsertionManager</code> and <code>SubscriptionManager</code>.
+     *
+     * @param name    <code>ComponentName</code>.
+     * @param service <code>IBinder</code>.
      */
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
@@ -87,8 +90,10 @@ class MyServiceConnection implements ServiceConnection {
     }
 
     /**
-     * @param dataSourceAIDL
-     * @return
+     * Registers the given <code>DataSourceReadWrite</code> with <code>DataKit</code>.
+     *
+     * @param dataSourceAIDL <code>DataSourceReadWrite</code> to register.
+     * @return The <code>MCerebrumStatus</code> of the operation.
      */
     protected int register(DataSourceReadWrite dataSourceAIDL) {
         try {
@@ -106,6 +111,12 @@ class MyServiceConnection implements ServiceConnection {
         }
     }
 
+    /**
+     * Unregisters the given <code>DataSourceReadWrite</code> from <code>DataKit</code>.
+     *
+     * @param dataSourceAIDL <code>DataSourceReadWrite</code> to unregister.
+     * @return The <code>MCerebrumStatus</code> of the operation.
+     */
     protected int unregister(DataSourceReadWrite dataSourceAIDL) {
         try {
             if (dataSourceAIDL == null) return MCerebrumStatus.INVALID_PARAMETER;
@@ -116,6 +127,13 @@ class MyServiceConnection implements ServiceConnection {
         }
     }
 
+    /**
+     * Finds the <code>DataSource</code>s specified in the <code>DataSourceReadWrite</code>.
+     *
+     * @param dataSource  <code>DataSource</code> to find.
+     * @param dataSources Array of <code>DataSource</code>s found.
+     * @return The <code>MCerebrumStatus</code> of the operation.
+     */
     protected int find(DataSourceReadWrite dataSource, DataSourceReadWrite[] dataSources) {
         try {
             if (dataSource == null) return MCerebrumStatus.INVALID_PARAMETER;
@@ -125,6 +143,13 @@ class MyServiceConnection implements ServiceConnection {
         }
     }
 
+    /**
+     * Inserts the given data into the database.
+     *
+     * @param dataSource <code>DataSource</code> of the data.
+     * @param data       Array of data to insert.
+     * @return The <code>MCerebrumStatus</code> of the operation.
+     */
     protected int insert(DataSource dataSource, Data[] data) {
         if (dataSource == null) return MCerebrumStatus.INVALID_PARAMETER;
         if (dataSource.getDsId() < 0) return MCerebrumStatus.DATA_SOURCE_NOT_REGISTERED;
@@ -137,6 +162,15 @@ class MyServiceConnection implements ServiceConnection {
         return insertionManager.insert(dataSource.getDsId(), data);
     }
 
+    /**
+     * Queries the database and returns the number of entries between two timestamps.
+     *
+     * @param dataSourceAIDL <code>DataSourceReadWrite</code> to query data from.
+     * @param startTimestamp Starting timestamp for the window.
+     * @param endTimestamp   Ending timestamp for the window.
+     * @param dataSet        <code>DataSet</code>.
+     * @return The <code>MCerebrumStatus</code> of the operation.
+     */
     protected int queryCount(DataSourceReadWrite dataSourceAIDL, long startTimestamp, long endTimestamp, DataSet dataSet) {
         try {
             if (dataSourceAIDL == null) return MCerebrumStatus.INVALID_PARAMETER;
@@ -153,8 +187,8 @@ class MyServiceConnection implements ServiceConnection {
      * Queries the database for a <code>DataSet</code> of the "last n points".
      *
      * @param dataSourceReadWrite <code>DataSource</code> to query data from.
-     * @param lastNSample Number of data points to query for.
-     * @param dataSet
+     * @param lastNSample         Number of data points to query for.
+     * @param dataSet             <code>DataSet</code>.
      * @return The resulting <code>DataSet</code>.
      */
     protected int queryByNumber(DataSourceReadWrite dataSourceReadWrite, int lastNSample, DataSet dataSet) {
@@ -172,7 +206,7 @@ class MyServiceConnection implements ServiceConnection {
     /**
      * Queries the database for a <code>DataSet</code> of all data points between two timestamps.
      *
-     * @param dataSourceAIDL     <code>DataSource</code> to query data from.
+     * @param dataSourceAIDL <code>DataSource</code> to query data from.
      * @param startTimestamp Starting timestamp for the window.
      * @param endTimestamp   Ending timestamp for the window.
      * @return The <code>MCerebrumStatus</code> of the operation.
@@ -192,7 +226,7 @@ class MyServiceConnection implements ServiceConnection {
     /**
      * Queries the database for a summary of the data points between two timestamps.
      *
-     * @param dataSourceAIDL     <code>DataSource</code> to query data from.
+     * @param dataSourceAIDL <code>DataSource</code> to query data from.
      * @param startTimestamp Starting timestamp for the window.
      * @param endTimestamp   Ending timestamp for the window.
      * @return The <code>MCerebrumStatus</code> of the operation.
@@ -214,7 +248,7 @@ class MyServiceConnection implements ServiceConnection {
      * This provides a way to see what data is being sent to <code>DataKit</code>.
      *
      * @param dataSourceAIDL <code>DataSourceReadWrite</code> to subscribe to.
-     * @param callback   Callback for data.
+     * @param callback       Callback for data.
      * @return The <code>MCerebrumStatus</code> of the operation.
      */
     protected int subscribe(DataSourceReadWrite dataSourceAIDL, DataCallback callback) {
@@ -228,7 +262,7 @@ class MyServiceConnection implements ServiceConnection {
      * Unsubscribes the <code>DataCallback</code> from the specified <code>DataSource</code> input stream.
      *
      * @param dataSourceAIDL <code>DataSourceReadWrite</code> to unsubscribe.
-     * @param callback   Callback for the data.
+     * @param callback       Callback for the data.
      * @return The <code>MCerebrumStatus</code> of the operation.
      */
     protected int unsubscribe(DataSourceReadWrite dataSourceAIDL, DataCallback callback) {
