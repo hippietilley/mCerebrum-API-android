@@ -1,0 +1,11 @@
+org.md2k.mcerebrum.api.core
+org.md2k.mcerebrum.api.core.datakitapi
+org.md2k.mcerebrum.api.core.datakitapi.aidl
+org.md2k.mcerebrum.api.core.datakitapi.callback
+org.md2k.mcerebrum.api.core.datakitapi.datasource
+org.md2k.mcerebrum.api.core.datakitapi.datatype
+org.md2k.mcerebrum.api.core.datakitapi.datatype.dataannotation
+org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint
+org.md2k.mcerebrum.api.core.datakitapi.exception
+org.md2k.mcerebrum.api.core.datakitapi.status
+org.md2k.mcerebrum.api.core.pluginapi
