@@ -1,8 +1,6 @@
-package org.md2k.mcerebrum.api.core.datakitapi.status;
-
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,14 +24,20 @@ package org.md2k.mcerebrum.api.core.datakitapi.status;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+package org.md2k.mcerebrum.api.core.datakitapi.status;
+
+/**
+ * This class defines various status that can occur in the system.
+ */
 public class MCerebrumStatus {
     public static final int UNKNOWN_ERROR = 100;
     public static final int SUCCESS = 0;
-    public static final int MCEREBRUM_API_NOT_INITIALIZED=1;
-    public static final int MCEREBRUM_APP_NOT_INSTALLED=2;
-    public static final int CONNECTION_ERROR =3;
-    public static final int INVALID_PARAMETER=4;
-    public static final int INVALID_DATA_SOURCE=5;
+    public static final int MCEREBRUM_API_NOT_INITIALIZED = 1;
+    public static final int MCEREBRUM_APP_NOT_INSTALLED = 2;
+    public static final int CONNECTION_ERROR = 3;
+    public static final int INVALID_PARAMETER = 4;
+    public static final int INVALID_DATA_SOURCE = 5;
     public static final int MISSING_DATA_SOURCE_TYPE = 6;
     public static final int MISSING_DATA_TYPE = 7;
     public static final int DATA_SOURCE_NOT_REGISTERED = 8;
@@ -42,8 +46,14 @@ public class MCerebrumStatus {
     public static final int INVALID_TIMESTAMP = 11;
     public static final int DATA_SIZE_TOO_LARGE = 12;
 
+    /**
+     * Returns the meaning of the integer status value as a string.
+     *
+     * @param var0 Status value to translate.
+     * @return The meaning of the status as a string.
+     */
     public static String getStatusCodeString(int var0) {
-        switch(var0) {
+        switch (var0) {
             case UNKNOWN_ERROR:
                 return "UNKNOWN_ERROR";
             case SUCCESS:

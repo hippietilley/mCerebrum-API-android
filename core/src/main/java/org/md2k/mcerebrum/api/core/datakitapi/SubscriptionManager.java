@@ -1,19 +1,6 @@
-package org.md2k.mcerebrum.api.core.datakitapi;
-
-import android.os.RemoteException;
-import android.util.SparseArray;
-
-import org.md2k.mcerebrum.api.core.datakitapi.callback.ConnectionCallback;
-import org.md2k.mcerebrum.api.core.datakitapi.callback.DataCallback;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.Data;
-import org.md2k.mcerebrum.api.core.datakitapi.exception.MCerebrumException;
-import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
-
-import java.util.HashSet;
-
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,6 +24,20 @@ import java.util.HashSet;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+package org.md2k.mcerebrum.api.core.datakitapi;
+
+import android.os.RemoteException;
+import android.util.SparseArray;
+
+import org.md2k.mcerebrum.api.core.datakitapi.callback.ConnectionCallback;
+import org.md2k.mcerebrum.api.core.datakitapi.callback.DataCallback;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.Data;
+import org.md2k.mcerebrum.api.core.datakitapi.exception.MCerebrumException;
+import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
+
+import java.util.HashSet;
+
 class SubscriptionManager {
 
     private SparseArray<HashSet<DataCallback>> receiveCallbacks;
@@ -45,6 +46,12 @@ class SubscriptionManager {
     private IDataKitRemoteService mService;
     private ConnectionCallback connectionCallback;
 
+    /**
+     * Constructor
+     *
+     * @param mService           DataKit remote service.
+     * @param connectionCallback Callback for connections.
+     */
     SubscriptionManager(IDataKitRemoteService mService, ConnectionCallback connectionCallback) {
         this.mService = mService;
         this.receiveCallbacks = new SparseArray<>();
@@ -52,6 +59,12 @@ class SubscriptionManager {
         this.connectionCallback = connectionCallback;
     }
 
+    /**
+     * Adds the given <code>DataCallback</code> to <code>receiveCallbacks</code>.
+     *
+     * @param dsId         <code>dsId</code> of the <code>DataSource</code>.
+     * @param dataCallback Receiving callback.
+     */
     private void addToReceiveCallback(int dsId, DataCallback dataCallback) {
         HashSet<DataCallback> hs = receiveCallbacks.get(dsId, new HashSet<DataCallback>());
         if (!hs.contains(dataCallback))
@@ -59,6 +72,12 @@ class SubscriptionManager {
         receiveCallbacks.put(dsId, hs);
     }
 
+    /**
+     * Removes the given <code>DataCallback</code> to <code>receiveCallbacks</code>.
+     *
+     * @param dsId         <code>dsId</code> of the <code>DataSource</code>.
+     * @param dataCallback Receiving callback.
+     */
     private void removeFromReceiveCallback(int dsId, DataCallback dataCallback) {
         HashSet<DataCallback> hs = receiveCallbacks.get(dsId, null);
         if (hs == null) return;
@@ -66,12 +85,25 @@ class SubscriptionManager {
         if (hs.isEmpty()) receiveCallbacks.delete(dsId);
     }
 
+    /**
+     * Sends data received by the callback.
+     *
+     * @param dsId Data source the data came from.
+     * @param data Data that was received.
+     */
     private void sendReceiveCallback(int dsId, Data data) {
         HashSet<DataCallback> hs = receiveCallbacks.get(dsId, new HashSet<DataCallback>());
         for (DataCallback h : hs)
             h.onReceived(data);
     }
 
+    /**
+     * Subscribes the <code>DataCallback</code> to the <code>dsId</code>.
+     *
+     * @param dsId         <code>dsId</code> to subscribe to.
+     * @param dataCallback <code>DataCallback</code> to subscribe.
+     * @return The <code>MCerebrumStatus</code> of the operation.
+     */
     protected int subscribe(int dsId, DataCallback dataCallback) {
         try {
             boolean isEmpty = receiveCallbacks.get(dsId, new HashSet<DataCallback>()).isEmpty();
@@ -87,8 +119,19 @@ class SubscriptionManager {
         }
     }
 
+    /**
+     * Creates a new <code>IDataKitRemoteCallback</code>.
+     *
+     * @param ds_id <code>dsId</code>.
+     * @return The new <code>IDataKitRemoteCallback</code>.
+     */
     private IDataKitRemoteCallback createIDataKitRemoteCallback(final int ds_id) {
         return new IDataKitRemoteCallback.Stub() {
+            /**
+             * Calls <code>sendReceiveCallback()</code> when data is received.
+             *
+             * @param data Array of data received.
+             */
             @Override
             public void onReceived(Data[] data) {
                 for (Data aData : data) {
@@ -99,6 +142,13 @@ class SubscriptionManager {
 
     }
 
+    /**
+     * Unsubscribes the given <code>DataCallback</code> for the <code>dsId</code>.
+     *
+     * @param dsId         <code>dsId</code> to unsubscribe from.
+     * @param dataCallback <code>DataCallback</code> to unsubscribe.
+     * @return The <code>MCerebrumStatus</code> of the operation.
+     */
     protected int unsubscribe(int dsId, DataCallback dataCallback) {
         try {
             removeFromReceiveCallback(dsId, dataCallback);
@@ -115,14 +165,19 @@ class SubscriptionManager {
         }
     }
 
+    /**
+     * Unsubscribes all <code>remoteCallbacks</code>.
+     *
+     * @return The <code>MCerebrumStatus</code> of the operation.
+     */
     protected int unsubscribeAll() {
         int returnValue = MCerebrumStatus.SUCCESS;
         for (int i = 0; i < remoteCallbacks.size(); i++) {
             try {
                 int dsId = remoteCallbacks.keyAt(i);
                 int r = mService.unsubscribe(dsId, remoteCallbacks.valueAt(i));
-                if(returnValue== MCerebrumStatus.SUCCESS)
-                    returnValue=r;
+                if (returnValue == MCerebrumStatus.SUCCESS)
+                    returnValue = r;
             } catch (RemoteException e) {
                 returnValue = MCerebrumStatus.CONNECTION_ERROR;
             }

@@ -29,6 +29,9 @@ package org.md2k.mcerebrum.api.core.datakitapi.callback;
 
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.Data;
 
+/**
+ * Callback interface for receiving data.
+ */
 public interface DataCallback {
     /**
      * @param data The data type that was received.

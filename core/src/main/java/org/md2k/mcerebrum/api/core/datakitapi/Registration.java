@@ -34,15 +34,31 @@ public class Registration {
     private DataSource dataSource;
     private int status;
 
+    /**
+     * Constructor
+     *
+     * @param dataSource <code>DataSource</code>.
+     * @param status     <code>Status</code>.
+     */
     Registration(DataSource dataSource, int status) {
         this.dataSource = dataSource;
         this.status = status;
     }
 
+    /**
+     * Returns the status.
+     *
+     * @return The status.
+     */
     public int getStatus() {
         return status;
     }
 
+    /**
+     * Returns the <code>DataSource</code>.
+     *
+     * @return The <code>DataSource</code>.
+     */
     public DataSource getDataSource() {
         return dataSource;
     }

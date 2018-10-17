@@ -35,40 +35,50 @@ import org.md2k.mcerebrum.api.core.datakitapi.datatype.Data;
 import java.util.Arrays;
 
 /**
- * This class creates <code>DataType</code> objects for samples that have integer data types in an array.
+ * This class creates <code>DataPoint</code> objects for samples that have an integer data type.
  */
-public class DataPointInt extends Data implements Parcelable{
-
-    /**
-     * The data point collected from the data source.
-     */
+public class DataPointInt extends Data implements Parcelable {
     private int[] sample;
 
     /**
      * Constructor
+     * This constructor takes an array of integer values for the sample.
      *
      * @param timestamp The timestamp for when the data was collected.
-     * @param sample The data point sampled from the data source.
+     * @param sample    The data point sampled from the data source.
      */
     public DataPointInt(long timestamp, int[] sample) {
         super(timestamp);
         this.sample = new int[sample.length];
         System.arraycopy(sample, 0, this.sample, 0, sample.length);
     }
+
+    /**
+     * Constructor
+     * This constructor takes a single integer value for the sample.
+     *
+     * @param timestamp The timestamp for when the data was collected.
+     * @param sample    The data point sampled from the data source.
+     */
     public DataPointInt(long timestamp, int sample) {
         super(timestamp);
         this.sample = new int[1];
         this.sample[0] = sample;
     }
 
-    public DataPointInt clone(){
+    /**
+     * Creates a new <code>DataPointInt</code> object with the fields of the calling object.
+     *
+     * @return A new <code>DataPointInt</code>.
+     */
+    public DataPointInt clone() {
         return new DataPointInt(getTimestamp(), sample);
     }
 
     /**
-     * Constructs a <code>DataTypeByteArray</code> object from a <code>Parcel</code>.
+     * Constructs a <code>DataPointInt</code> object from a <code>Parcel</code>.
      *
-     * @param in Parceled <code>DataTypeByteArray</code> object.
+     * @param in Parceled <code>DataPointInt</code> object.
      */
     protected DataPointInt(Parcel in) {
         super(in);
@@ -76,10 +86,10 @@ public class DataPointInt extends Data implements Parcelable{
     }
 
     /**
-     * Writes the <code>DataTypeByteArray</code> to a parcel.
+     * Writes the calling <code>DataPointInt</code> to the passed <code>Parcel</code>.
      *
-     * @param dest  The parcel to which the application should be written.
-     * @param flags Additional flags about how the object should be written.
+     * @param dest  <code>Parcel</code> to write to.
+     * @param flags This should always be the value returned from <code>describeContents()</code>.
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -88,7 +98,13 @@ public class DataPointInt extends Data implements Parcelable{
     }
 
     /**
-     * @return Always returns 0.
+     * Always returns 0 because this parcel doesn't contain any special objects.
+     * From <a href = https://developer.android.com/reference/android/os/Parcelable>Google's Android documentation</a>:
+     * Describe the kinds of special objects contained in this Parcelable instance's marshaled representation.
+     * For example, if the object will include a file descriptor in the output of
+     * writeToParcel(Parcel, int), the return value of this method must include the CONTENTS_FILE_DESCRIPTOR bit.
+     *
+     * @return 0.
      */
     @Override
     public int describeContents() {
@@ -96,22 +112,25 @@ public class DataPointInt extends Data implements Parcelable{
     }
 
     /**
+     * Returns the value of the sample.
+     *
      * @return The the value of the sample.
      */
-    public int[] getSample(){
+    public int[] getSample() {
         return sample;
     }
 
     /**
-     * <code>Creator</code> for <code>DataTypeByteArray</code> objects.
+     * Embedded <code>CREATOR</code> class for generating instances of <code>DataPointInt</code>
+     * from a <code>Parcel</code>.
      */
     public static final Creator<DataPointInt> CREATOR = new Creator<DataPointInt>() {
 
         /**
-         * Creates a new <code>DataTypeByteArray</code> object from a <code>Parcel</code>.
+         * Creates an <code>DataPointInt</code> object from a <code>Parcel</code>.
          *
-         * @param in The parcel holding the data type.
-         * @return The constructed <code>DataTypeByteArray</code> object
+         * @param in <code>Parcel</code> containing the <code>DataPointInt</code>.
+         * @return The constructed <code>DataPointInt</code>.
          */
         @Override
         public DataPointInt createFromParcel(Parcel in) {
@@ -119,10 +138,10 @@ public class DataPointInt extends Data implements Parcelable{
         }
 
         /**
-         * Creates a new array of the specified size for <code>DataTypeByteArray</code> objects.
+         * Creates an array for <code>DataPointInt</code> of the given size.
          *
-         * @param size The size of the new <code>DataTypeByteArray</code> array.
-         * @return The <code>DataTypeByteArray</code> array.
+         * @param size Size of the array to create.
+         * @return Returns an array for <code>DataPointInt</code> objects.Th
          */
         @Override
         public DataPointInt[] newArray(int size) {
@@ -130,6 +149,13 @@ public class DataPointInt extends Data implements Parcelable{
         }
     };
 
+    /**
+     * Compares the passed object to the calling object.
+     * If the passed object is not an instance of this class, false is returned.
+     *
+     * @param toCompare Object to compare.
+     * @return True if the objects are equivalent and false if they are not.
+     */
     @Override
     public boolean equals(Object toCompare) {
         if (super.equals(toCompare)) {
@@ -146,6 +172,13 @@ public class DataPointInt extends Data implements Parcelable{
             return false;
     }
 
+    /**
+     * Calculates and returns a hash code for the calling object.
+     * The hash code is calculated using the method denoted in "Effective Java" and described in this Medium
+     * <a href="https://medium.com/codelog/overriding-hashcode-method-effective-java-notes-723c1fedf51c">post</a>.
+     *
+     * @return The hash code of the calling object.
+     */
     @Override
     public int hashCode() {
         int result = 17;

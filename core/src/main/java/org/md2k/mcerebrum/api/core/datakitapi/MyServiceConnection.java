@@ -1,22 +1,6 @@
-package org.md2k.mcerebrum.api.core.datakitapi;
-
-import android.content.ComponentName;
-import android.content.ServiceConnection;
-import android.os.IBinder;
-import android.os.RemoteException;
-import android.util.Log;
-
-import org.md2k.mcerebrum.api.core.datakitapi.callback.ConnectionCallback;
-import org.md2k.mcerebrum.api.core.datakitapi.callback.DataCallback;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.Data;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataSet;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataType;
-import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
-import org.md2k.mcerebrum.api.core.MCerebrumAPI;
-
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,6 +24,26 @@ import org.md2k.mcerebrum.api.core.MCerebrumAPI;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+package org.md2k.mcerebrum.api.core.datakitapi;
+
+import android.content.ComponentName;
+import android.content.ServiceConnection;
+import android.os.IBinder;
+import android.os.RemoteException;
+import android.util.Log;
+
+import org.md2k.mcerebrum.api.core.datakitapi.callback.ConnectionCallback;
+import org.md2k.mcerebrum.api.core.datakitapi.callback.DataCallback;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.Data;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataSet;
+import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataType;
+import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
+import org.md2k.mcerebrum.api.core.MCerebrumAPI;
+
+/**
+ * This class manages the service connections between mCerebrum and DataKit.
+ */
 class MyServiceConnection implements ServiceConnection {
     private boolean connected;
     private IDataKitRemoteService mService;
@@ -47,11 +51,20 @@ class MyServiceConnection implements ServiceConnection {
     private SubscriptionManager subscriptionManager;
     private ConnectionCallback connectionCallback;
 
+    /**
+     * Constructor
+     *
+     * @param connectionCallback Callback for connecting to <code>DataKit</code>.
+     */
     MyServiceConnection(ConnectionCallback connectionCallback) {
         this.connectionCallback = connectionCallback;
-
     }
 
+    /**
+     * Calls <code>connectionCallback.onDisconnected()</code> when the service is disconnected.
+     *
+     * @param name <code>ComponentName</code>.
+     */
     @Override
     public void onServiceDisconnected(ComponentName name) {
         Log.d("abc", "onServiceDisconnected");
@@ -59,6 +72,13 @@ class MyServiceConnection implements ServiceConnection {
         connectionCallback.onDisconnected();
     }
 
+    /**
+     * Binds an <code>IBinder</code> to the <code>IDataKitRemoteService</code> and creates
+     * a new <code>InsertionManager</code> and <code>SubscriptionManager</code>.
+     *
+     * @param name    <code>ComponentName</code>.
+     * @param service <code>IBinder</code>.
+     */
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
         Log.d("abc", "onServiceConnected");
@@ -69,6 +89,12 @@ class MyServiceConnection implements ServiceConnection {
         connectionCallback.onConnected();
     }
 
+    /**
+     * Registers the given <code>DataSourceReadWrite</code> with <code>DataKit</code>.
+     *
+     * @param dataSourceAIDL <code>DataSourceReadWrite</code> to register.
+     * @return The <code>MCerebrumStatus</code> of the operation.
+     */
     protected int register(DataSourceReadWrite dataSourceAIDL) {
         try {
             if (MCerebrumAPI.getContext() == null)
@@ -85,6 +111,12 @@ class MyServiceConnection implements ServiceConnection {
         }
     }
 
+    /**
+     * Unregisters the given <code>DataSourceReadWrite</code> from <code>DataKit</code>.
+     *
+     * @param dataSourceAIDL <code>DataSourceReadWrite</code> to unregister.
+     * @return The <code>MCerebrumStatus</code> of the operation.
+     */
     protected int unregister(DataSourceReadWrite dataSourceAIDL) {
         try {
             if (dataSourceAIDL == null) return MCerebrumStatus.INVALID_PARAMETER;
@@ -95,6 +127,13 @@ class MyServiceConnection implements ServiceConnection {
         }
     }
 
+    /**
+     * Finds the <code>DataSource</code>s specified in the <code>DataSourceReadWrite</code>.
+     *
+     * @param dataSource  <code>DataSource</code> to find.
+     * @param dataSources Array of <code>DataSource</code>s found.
+     * @return The <code>MCerebrumStatus</code> of the operation.
+     */
     protected int find(DataSourceReadWrite dataSource, DataSourceReadWrite[] dataSources) {
         try {
             if (dataSource == null) return MCerebrumStatus.INVALID_PARAMETER;
@@ -104,6 +143,13 @@ class MyServiceConnection implements ServiceConnection {
         }
     }
 
+    /**
+     * Inserts the given data into the database.
+     *
+     * @param dataSource <code>DataSource</code> of the data.
+     * @param data       Array of data to insert.
+     * @return The <code>MCerebrumStatus</code> of the operation.
+     */
     protected int insert(DataSource dataSource, Data[] data) {
         if (dataSource == null) return MCerebrumStatus.INVALID_PARAMETER;
         if (dataSource.getDsId() < 0) return MCerebrumStatus.DATA_SOURCE_NOT_REGISTERED;
@@ -116,6 +162,15 @@ class MyServiceConnection implements ServiceConnection {
         return insertionManager.insert(dataSource.getDsId(), data);
     }
 
+    /**
+     * Queries the database and returns the number of entries between two timestamps.
+     *
+     * @param dataSourceAIDL <code>DataSourceReadWrite</code> to query data from.
+     * @param startTimestamp Starting timestamp for the window.
+     * @param endTimestamp   Ending timestamp for the window.
+     * @param dataSet        <code>DataSet</code>.
+     * @return The <code>MCerebrumStatus</code> of the operation.
+     */
     protected int queryCount(DataSourceReadWrite dataSourceAIDL, long startTimestamp, long endTimestamp, DataSet dataSet) {
         try {
             if (dataSourceAIDL == null) return MCerebrumStatus.INVALID_PARAMETER;
@@ -128,6 +183,14 @@ class MyServiceConnection implements ServiceConnection {
         }
     }
 
+    /**
+     * Queries the database for a <code>DataSet</code> of the "last n points".
+     *
+     * @param dataSourceReadWrite <code>DataSource</code> to query data from.
+     * @param lastNSample         Number of data points to query for.
+     * @param dataSet             <code>DataSet</code>.
+     * @return The resulting <code>DataSet</code>.
+     */
     protected int queryByNumber(DataSourceReadWrite dataSourceReadWrite, int lastNSample, DataSet dataSet) {
         try {
             if (dataSourceReadWrite == null) return MCerebrumStatus.INVALID_PARAMETER;
@@ -140,6 +203,14 @@ class MyServiceConnection implements ServiceConnection {
         }
     }
 
+    /**
+     * Queries the database for a <code>DataSet</code> of all data points between two timestamps.
+     *
+     * @param dataSourceAIDL <code>DataSource</code> to query data from.
+     * @param startTimestamp Starting timestamp for the window.
+     * @param endTimestamp   Ending timestamp for the window.
+     * @return The <code>MCerebrumStatus</code> of the operation.
+     */
     protected int queryByTime(DataSourceReadWrite dataSourceAIDL, long startTimestamp, long endTimestamp, DataSet dataSet) {
         try {
             if (dataSourceAIDL == null) return MCerebrumStatus.INVALID_PARAMETER;
@@ -152,6 +223,14 @@ class MyServiceConnection implements ServiceConnection {
         }
     }
 
+    /**
+     * Queries the database for a summary of the data points between two timestamps.
+     *
+     * @param dataSourceAIDL <code>DataSource</code> to query data from.
+     * @param startTimestamp Starting timestamp for the window.
+     * @param endTimestamp   Ending timestamp for the window.
+     * @return The <code>MCerebrumStatus</code> of the operation.
+     */
     protected int querySummary(DataSourceReadWrite dataSourceAIDL, long startTimestamp, long endTimestamp, DataSet dataSet) {
         try {
             if (dataSourceAIDL == null) return MCerebrumStatus.INVALID_PARAMETER;
@@ -164,6 +243,14 @@ class MyServiceConnection implements ServiceConnection {
         }
     }
 
+    /**
+     * Subscribes the given <code>DataCallback</code> to the specified <code>DataSource</code> input stream.
+     * This provides a way to see what data is being sent to <code>DataKit</code>.
+     *
+     * @param dataSourceAIDL <code>DataSourceReadWrite</code> to subscribe to.
+     * @param callback       Callback for data.
+     * @return The <code>MCerebrumStatus</code> of the operation.
+     */
     protected int subscribe(DataSourceReadWrite dataSourceAIDL, DataCallback callback) {
         if (dataSourceAIDL == null) return MCerebrumStatus.INVALID_PARAMETER;
         if (dataSourceAIDL.getDsId() < 0) return MCerebrumStatus.INVALID_DATA_SOURCE;
@@ -171,6 +258,13 @@ class MyServiceConnection implements ServiceConnection {
         return subscriptionManager.subscribe(dataSourceAIDL.getDsId(), callback);
     }
 
+    /**
+     * Unsubscribes the <code>DataCallback</code> from the specified <code>DataSource</code> input stream.
+     *
+     * @param dataSourceAIDL <code>DataSourceReadWrite</code> to unsubscribe.
+     * @param callback       Callback for the data.
+     * @return The <code>MCerebrumStatus</code> of the operation.
+     */
     protected int unsubscribe(DataSourceReadWrite dataSourceAIDL, DataCallback callback) {
         if (dataSourceAIDL == null) return MCerebrumStatus.INVALID_PARAMETER;
         if (dataSourceAIDL.getDsId() < 0) return MCerebrumStatus.INVALID_DATA_SOURCE;
@@ -179,6 +273,11 @@ class MyServiceConnection implements ServiceConnection {
         return subscriptionManager.unsubscribe(dataSourceAIDL.getDsId(), callback);
     }
 
+    /**
+     * Returns whether <code>DataKit</code> is connected or not.
+     *
+     * @return Whether <code>DataKit</code> is connected or not.
+     */
     protected boolean isConnected() {
         return connected;
     }

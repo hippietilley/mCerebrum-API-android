@@ -27,16 +27,16 @@
 
 package org.md2k.mcerebrum.api.core.datakitapi.exception;
 
-
 import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
 
 /**
- * Generic <code>DataKitException</code>
+ * Generic <code>MCerebrumException</code>.
  */
 public class MCerebrumException extends Exception {
 
     /**
-     * Constructor with just a cause.
+     * Constructor
+     * This constructor takes in a cause.
      *
      * @param cause What caused the exception to be thrown.
      */
@@ -45,24 +45,33 @@ public class MCerebrumException extends Exception {
     }
 
     /**
-     * Constructor with message and cause
+     * Constructor
+     * This constructor takes in a cause and a message.
      *
      * @param message Message to display when the exception is triggered.
-     * @param cause What caused the exception to be thrown.
+     * @param cause   What caused the exception to be thrown.
      */
     public MCerebrumException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * Constructor with just a message.
+     * Constructor
+     * This constructor take in a message.
      *
      * @param message Message to display when the exception is triggered.
      */
     public MCerebrumException(String message) {
         super(message);
     }
-    public MCerebrumException(int status){
+
+    /**
+     * Constructor
+     * This constructor take in a status.
+     *
+     * @param status <code>MCerebrumStatus</code> that triggered the exception.
+     */
+    public MCerebrumException(int status) {
         super(MCerebrumStatus.getStatusCodeString(status));
     }
 }

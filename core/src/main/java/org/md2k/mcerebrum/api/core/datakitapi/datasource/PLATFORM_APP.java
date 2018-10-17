@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.api.core.datakitapi.datasource;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,8 +25,20 @@ package org.md2k.mcerebrum.api.core.datakitapi.datasource;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.api.core.datakitapi.datasource;
+
+/**
+ * This class defines constants for Platform Application Metadata denoting the type and id.
+ * The type denotes what type of sensor (AutoSense, Phone, Omron, EasySense,
+ * MotionSense, Beacon and their subtypes). The id denotes the sensor's location.
+ */
 public final class PLATFORM_APP {
-    private PLATFORM_APP(){}
+    private PLATFORM_APP() {
+    }
+
+    /**
+     * This embedded class defines the platform types.
+     */
     public static class TYPE {
         /**
          * Default is <code>"AUTOSENSE_CHEST"</code>.
@@ -73,10 +84,12 @@ public final class PLATFORM_APP {
          * Default is <code>"MOTION_SENSE"</code>.
          */
         public static final String MOTION_SENSE = "MOTION_SENSE";
+
         /**
          * Default is <code>"MOTION_SENSE_HRV"</code>.
          */
         public static final String MOTION_SENSE_HRV = "MOTION_SENSE_HRV";
+
         /**
          * Default is <code>"MOTION_SENSE_HRV_PLUS"</code>.
          */
@@ -87,20 +100,29 @@ public final class PLATFORM_APP {
          */
         public static final String ORALB_BRUSH = "ORALB_BRUSH";
 
-
         /**
-         * Default is <code>"BEASON"</code>.
+         * Default is <code>"BEACON"</code>.
          */
         public static final String BEACON = "BEACON";
     }
+
+    /**
+     * This embedded class defines the application ids.
+     */
     public static class ID {
-        /** Default is <code>"CHEST"</code>. */
+        /**
+         * Default is <code>"CHEST"</code>.
+         */
         public static final String CHEST = "CHEST";
 
-        /** Default is <code>"LEFT_WRIST"</code>. */
+        /**
+         * Default is <code>"LEFT_WRIST"</code>.
+         */
         public static final String LEFT_WRIST = "LEFT_WRIST";
 
-        /** Default is <code>"RIGHT_WRIST"</code>. */
+        /**
+         * Default is <code>"RIGHT_WRIST"</code>.
+         */
         public static final String RIGHT_WRIST = "RIGHT_WRIST";
 
     }
