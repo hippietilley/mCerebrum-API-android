@@ -342,4 +342,3 @@ public class DataSourceRequest extends AbstractDataSource {
         return super.hashCode();
     }
 }
-

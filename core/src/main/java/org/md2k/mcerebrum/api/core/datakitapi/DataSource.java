@@ -244,4 +244,3 @@ public abstract class DataSource extends AbstractDataSource implements Parcelabl
         return super.hashCode();
     }
 }
-

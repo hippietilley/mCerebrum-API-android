@@ -299,4 +299,3 @@ public class DataSourceReadWrite extends DataSource implements Parcelable {
         return super.hashCode();
     }
 }
-

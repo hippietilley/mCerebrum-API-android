@@ -427,4 +427,3 @@ public class DataSourceCreator extends DataSource implements Parcelable {
         return super.hashCode();
     }
 }
-
